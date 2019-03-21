@@ -1,0 +1,14 @@
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    
+}
+
+.homeimg{
+    background-image: url('../img/1.jpg');
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
