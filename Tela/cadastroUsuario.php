@@ -18,6 +18,7 @@ session_start();
                 </ul>
             </div>
         </nav>
+        <br>
         <div class="row">
             <div class="col s3"></div>
             <div class="col s6">
@@ -47,10 +48,6 @@ session_start();
                         <div class="input-field col s12">
                             <input class="input-field" type="text" name="telefone">
                             <label for="telefone">Telefone</label>
-                        </div>
-                       
-                        <div class="input-field col s12">
-
                         </div>
                     </div>
                     <div class="input-field col s6">
@@ -82,7 +79,11 @@ session_start();
                         <div class="input-field col s12">
 
                         </div>
-                    </div>  
+                    </div>
+                    <div class="input-field s12 center">
+                        <a href="./home.php" class="btn">Cancelar</a>
+                        <a href="../Controle/usuarioDAO.php?function=inserirUsuario" class="btn">Enviar</a>
+                    </div>
                 </form>
             </div>
             <div class="col s3"></div>
