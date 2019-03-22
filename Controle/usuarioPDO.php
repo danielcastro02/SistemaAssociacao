@@ -26,9 +26,9 @@ class usuarioPDO{
             $_SESSION['id'] = $linha['id'];
             $_SESSION['nome'] = $linha['nome'];
             $_SESSION['usuario'] = $linha['usuario'];
-            header('location: ../Tela/home.php');
+            header('Location: ../Tela/home.php');
         } else {
-            header("Location: ../index.php?msg=false");
+            header("Location: ../errrrrou.php");
         }
     }
 }
