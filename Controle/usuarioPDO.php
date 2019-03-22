@@ -15,7 +15,7 @@ class usuarioPDO{
     
     public function login(){
         $conexao = new conexao();
-        $senha = ($_POST['senha']);
+        $senha = md5($_POST['senha']);
         $con = $conexao->getConexao();
         $stmt = $con->prepare('SELECT * FROM usuario WHERE usuario LIKE :usuario AND senha LIKE :senha;');
         $stmt->bindValue(':usuario', $_POST['usuario']);
