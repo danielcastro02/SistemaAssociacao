@@ -1,10 +1,12 @@
 <?php
 
 class conexao {
-    public function getConexao(){
-        $con = new pdo("mysql:host=localhost;dbname=associacao", "root", "");
-        return $con;
+
+    public function getConexao() {
+        $conexao = new PDO("mysql:host=localhost;dbname=associacao","root","");
     }
+
 }
 
 ?>
+
