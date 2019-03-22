@@ -12,9 +12,10 @@ if (isset($_GET['function'])) {
 }
 
 class usuarioPDO{
+    
     public function login(){
         $conexao = new conexao();
-        $senha = md5($_POST['senha']);
+        $senha = ($_POST['senha']);
         $con = $conexao->getConexao();
         $stmt = $con->prepare('SELECT * FROM usuario WHERE usuario LIKE :usuario AND senha LIKE :senha;');
         $stmt->bindValue(':usuario', $_POST['usuario']);
