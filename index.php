@@ -12,7 +12,7 @@
         
         <nav class="nav-extended teal darken-1">
             <div class="nav-wrapper">
-                <a href="home.php" class="brand-logo">Sistema para Associação</a>
+                <a href="./Tela/home.php" class="brand-logo">Sistema para Associação</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="./index.php">Página de apresentação</a></li>
                     <li><a href="./Tela/login.php">Login</a></li>

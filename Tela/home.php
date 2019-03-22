@@ -14,7 +14,7 @@
             <div class="nav-wrapper">
                 <a href="home.php" class="brand-logo">Sistema para Associação</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="./Tela/login.php">Alterar Dados</a></li>
+                    <li><a href="./alterar.php">Alterar Dados</a></li>
                 </ul>
             </div>
         </nav>
