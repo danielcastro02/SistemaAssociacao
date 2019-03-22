@@ -49,6 +49,10 @@ session_start();
                             <input class="input-field" type="text" name="telefone">
                             <label for="telefone">Telefone</label>
                         </div>
+                         <div class="input-field col s12">
+                            <input class="input-field" type="text" name="senha01">
+                            <label for="senha01">Senha</label>
+                        </div>
                     </div>
                     <div class="input-field col s6">
                         
@@ -75,6 +79,10 @@ session_start();
                         <div class="input-field col s12">
                             <input class="input-field" type="text" name="email">
                             <label for="email">E-mail</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input class="input-field" type="text" name="senha02">
+                            <label for="senha02">Confirme a senha</label>
                         </div>
                         <div class="input-field col s12">
 
