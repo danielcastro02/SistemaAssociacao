@@ -1,8 +1,24 @@
-<?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Alterar Dados</title>
+        <?php
+        include_once '../Base/header.php';
+        ?>
+
+    </head>
+    
+    <body>
+        
+        <nav class="nav-extended teal darken-1">
+            <div class="nav-wrapper">
+                <a href="home.php" class="brand-logo">Sistema para Associação</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="./Tela/login.php">Alterar Dados</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+    </body>
 
