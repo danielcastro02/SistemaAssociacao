@@ -3,17 +3,32 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+if (!isset($_SESSION['id'])) {
+    //header('Location: ../Tela/login.php');
+}
 
 include_once "./conexao.php";
+
 $classe = new usuarioPDO();
+
 if (isset($_GET['function'])) {
     $metodo = $_GET["function"];
     eval("\$classe->\$metodo();");
 }
 
-class usuarioPDO{
-    
-    public function login(){
+class usuarioPDO {
+
+    public function inserirUsuario() {
+        $conexao = new conexao();
+        if ($_POST['senha01'] == $_POST['senha02']) {
+            echo "method insert user";
+// $senhaMD5 = md5($_POST['senha02']);
+        } else {
+            header("Location: ../Tela/cadastroUsuario.php?msg=senhasdiferentes");
+        }
+    }
+
+    public function login() {
         $conexao = new conexao();
         $senha = md5($_POST['senha']);
         $con = $conexao->getConexao();
@@ -31,6 +46,7 @@ class usuarioPDO{
             header("Location: ../errrrrou.php");
         }
     }
+
 }
 
 ?>
