@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (!isset($_SESSION['id'])) {
-    //header('Location: ../Tela/login.php');
+//header('Location: ../Tela/login.php');
 }
 
 include_once "./conexao.php";
@@ -12,19 +12,40 @@ include_once "./conexao.php";
 $classe = new usuarioPDO();
 
 if (isset($_GET['function'])) {
-    $metodo = $_GET["function"];
-    eval("\$classe->\$metodo();");
+    //$metodo = "main";
+    eval("\$classe->\$main();");
 }
 
 class usuarioPDO {
 
-    public function inserirUsuario() {
+    public function main() {
+        //if ($chave == '') {
+            $this->validaFormlario();
+       // }
+    }
+
+    public function validaFormlario() {
+        if ($_POST['senha01'] == $_POST['senha02']) {
+            if ($_POST['senha01'] != null and $_POST['senha02'] != null) {
+                echo "Senhas okay";
+            } else {
+                echo "senha invalida";
+                //header("Location: ../Tela/cadastroUsuario.php?msg=invalido");
+            }
+        } else {
+            echo "senhas não conferem";
+            //header("Location: ../Tela/cadastroUsuario.php?msg=senhasdiferentes");
+        }
+    }
+
+    public function inserirAluno() {
+        $this->inserirUsuario();
         $conexao = new conexao();
         if ($_POST['senha01'] == $_POST['senha02']) {
             echo "method insert user";
 // $senhaMD5 = md5($_POST['senha02']);
         } else {
-            header("Location: ../Tela/cadastroUsuario.php?msg=senhasdiferentes");
+            header("Location: ../Tela/cadastroUsuario.php?msg = senhasdiferentes");
         }
     }
 
