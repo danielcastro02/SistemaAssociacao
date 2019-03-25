@@ -21,6 +21,4 @@ session_start();
       <br>
       <a class="btn" href="./Tela/cadastroUsuario.php">Sou um administrador e vou registrar um aluno</a>
     </body>
-  </html>
-  
-sss
+</html>
