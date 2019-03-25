@@ -2,23 +2,48 @@
 session_start();
 ?>
 <!DOCTYPE html>
-  <html>
+<html>
     <head>
-      <?php include_once './Base/header.php'; ?>
+        <?php include_once './Base/header.php'; ?>
     </head>
     <body>
-      <nav class="nav-extended teal darken-1">
-            <div class="nav-wrapper">
-                <a href="home.php" class="brand-logo">Sistema para Associação</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="./index.php">Página de apresentação</a></li>
-                    <li><a href="./Tela/login.php">Login</a></li>
-                </ul>
+        <?php include_once './Base/navBar.php';?>
+        <h3 class="center yellow">Associação Transporte de Cacequi</h3>
+        <br>
+        <div class="row">
+            <div class="center">
+                <div class="col s1 red"></div>
+                <div class="col s3 blue">
+                    <div class="row">
+                        <h5>Missão</h5>
+                        <div class="row">is simply dummy text of the printing and typesetting industry.
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                            when an unknown printer took a galley of type and scrambled it to make a type
+                            specimen book.
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row col s4 red">
+                    <h5>Visão</h5>
+                    <div class="row">is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and scrambled it to make a type
+                        specimen book.
+                    </div>
+                </div>
+                <div class="row col s3 blue">
+                    <h5>Valores</h5>
+                    <div class="row">is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and scrambled it to make a type
+                        specimen book.
+                    </div>
+                </div>
+                <div class="col s1 red"></div>
             </div>
-        </nav>
-      <script type="text/javascript" src="js/materialize.js"></script>
-      <h3>Você está na tela inicial da dashboard... estoy logado como admin</h3>
-      <br>
-      <a class="btn" href="./Tela/cadastroUsuario.php">Sou um administrador e vou registrar um aluno</a>
+            <?php include_once './Base/footer.php'; ?>
     </body>
 </html>
+
