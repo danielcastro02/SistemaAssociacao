@@ -22,8 +22,6 @@ session_start();
                             specimen book.
                         </div>
                     </div>
-
-
                 </div>
                 <div class="row col s4 red">
                     <h5>Visão</h5>
@@ -44,6 +42,7 @@ session_start();
                 <div class="col s1 red"></div>
             </div>
             <?php include_once './Base/footer.php'; ?>
+      
     </body>
 </html>
 
