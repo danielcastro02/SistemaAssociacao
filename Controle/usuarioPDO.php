@@ -48,6 +48,7 @@ class usuarioPDO {
                 $_SESSION['bairro'] = $linha['bairro'];
                 $_SESSION['rua'] = $linha['rua'];
                 $_SESSION['numero'] = $linha['numero'];
+                $_SESSION['cep'] = $linha['cep'];
                 $_SESSION['cpf'] = $linha['cpf'];
                 $_SESSION['rg'] = $linha['rg'];
                 $_SESSION['telefone'] = $linha['telefone'];
