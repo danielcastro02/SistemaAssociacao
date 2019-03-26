@@ -23,7 +23,7 @@ if (!isset($_SESSION)) {
         </nav>
         <main id="main">
             <div class="row">
-                <div class="col s8 offset-s2 card center">
+                <div class="col s8 offset-s2 card center grey lighten-2">
                     <h5>Seus dados</h5>
                     <form class="col s12 input-field" action="../Controle/usuarioDAO.php?function=update" method="POST">
                         <div class="row">
@@ -58,32 +58,42 @@ if (!isset($_SESSION)) {
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
+                                <input type="text" class="input-field" name="cep">
+                                <label for="cep">CEP</label>
+                            </div>
+                            <div class="input-field col s6">
                                 <input type="text" class="input-field" name="cpf">
                                 <label for="cpf">CPF</label>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="input-field col s6">
                                 <input type="text" class="input-field" name="rg">
                                 <label for="rg">RG</label>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="input-field col s6">
                                 <input type="text" class="input-field" name="telefone">
                                 <label for="telefone">Telefone</label>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="input-field col s6">
                                 <input type="text" class="input-field" name="email">
                                 <label for="email">Email</label>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="input-field col s6">
                                 <input type="password" class="input-field" name="senha1">
                                 <label for="senha1">Senha</label>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="input-field col s6">
                                 <input type="password" class="input-field" name="senha2">
                                 <label for="senha2">Nova senha</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input type="password" class="input-field" name="senha2conf">
+                                <label for="senha2conf">Confirmar nova senha</label>
                             </div>
                         </div>
                         <div>
@@ -115,10 +125,6 @@ if (!isset($_SESSION)) {
             </div>
         </main>
 
-        <footer class="teal darken-1 center">
-            <div class="footer-copyright white-text">
-                © 2019 Developed by - Daniel Castro - Konrado Souza
-            </div>
-        </footer>
+        <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>
