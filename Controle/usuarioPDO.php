@@ -38,24 +38,52 @@ class usuarioPDO {
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($linha['pode_logar'] == 'false'){
+            if ($linha['pode_logar'] == 'false') {
                 header('Location: ../Tela/loginrecusado.php');
-            }else{
-            $_SESSION['id'] = $linha['id'];
-            $_SESSION['nome'] = $linha['nome'];
-            $_SESSION['usuario'] = $linha['usuario'];
-            $_SESSION['cidade'] = $linha['cidade'];
-            $_SESSION['bairro'] = $linha['bairro'];
-            $_SESSION['rua'] = $linha['rua'];
-            $_SESSION['numero'] = $linha['numero'];
-            $_SESSION['cpf'] = $linha['cpf'];
-            $_SESSION['rg'] = $linha['rg'];
-            $_SESSION['telefone'] = $linha['telefone'];
-            $_SESSION['email'] = $linha['email'];
-            header('Location: ../Tela/home.php');
+            } else {
+                $_SESSION['id'] = $linha['id'];
+                $_SESSION['nome'] = $linha['nome'];
+                $_SESSION['usuario'] = $linha['usuario'];
+                $_SESSION['cidade'] = $linha['cidade'];
+                $_SESSION['bairro'] = $linha['bairro'];
+                $_SESSION['rua'] = $linha['rua'];
+                $_SESSION['numero'] = $linha['numero'];
+                $_SESSION['cpf'] = $linha['cpf'];
+                $_SESSION['rg'] = $linha['rg'];
+                $_SESSION['telefone'] = $linha['telefone'];
+                $_SESSION['email'] = $linha['email'];
+                header('Location: ../Tela/home.php');
             }
         } else {
             header("Location: ../errrrrou.php");
+        }
+    }
+
+    public function update() {
+        $conexao = new conexao();
+        $con = $conexao->getConexao();
+
+        $senhaantiga = md5($_POST['oldsenha']);
+        $stmt = $con->prepare('SELECT senha FROM usuario WHERE id = :id');
+        $stmt->bindValue(':id', $_POST['id']);
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($linha['senha'] == $senhaantiga) {
+            $senha = md5($_POST['senha']);
+            $stmt = $con->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email WHERE id = :id;');
+            $stmt->bindValue(':nome', $_POST['nome']);
+            $stmt->bindValue(':usuario', $_POST['usuario']);
+            $stmt->bindValue(':cidade', $_POST['cidade']);
+            $stmt->bindValue(':bairro', $_POST['bairro']);
+            $stmt->bindValue(':rua', $_POST['rua']);
+            $stmt->bindValue(':numero', $_POST['numero']);
+            $stmt->bindValue(':cpf', $_POST['cpf']);
+            $stmt->bindValue(':rg', $_POST['rg']);
+            $stmt->bindValue(':telefone', $_POST['telefone']);
+            $stmt->bindValue(':email', $_POST['email']);
+            $stmt->bindValue(':id', $_SESSION['id']);
+            $stmt->exeute();
         }
     }
 
