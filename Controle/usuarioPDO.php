@@ -80,7 +80,16 @@ class usuarioPDO {
             $stmt->bindValue(':telefone', $_POST['telefone']);
             $stmt->bindValue(':email', $_POST['email']);
             $stmt->bindValue(':id', $_SESSION['id']);
-            $stmt->execute();
+            if($stmt->execute()){
+                $_SESSION['nome'] = $_POST['nome'];
+                $_SESSION['usuario'] = $_POST['usuario'];
+                $_SESSION['cpf'] = $_POST['cpf'];
+                $_SESSION['rg'] = $_POST['rg'];
+                $_SESSION['telefone'] = $_POST['telefone'];
+                $_SESSION['email'] = $_POST['email'];
+            }else{
+                header('Location: ../Tela/alterar.php?');
+            }
         }
     }
     
@@ -103,7 +112,7 @@ class usuarioPDO {
             $stmt->bindValue(':numero', $_POST['numero']);
             $stmt->bindValue(':cep', $_POST['cep']);
             $stmt->bindValue(':id', $_SESSION['id']);
-            $stmt->exeute();
+            $stmt->execute();
         }
     }
 

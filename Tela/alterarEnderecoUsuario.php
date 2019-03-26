@@ -29,32 +29,32 @@ if (!isset($_SESSION)) {
                     <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=updateEndereco" method="POST">
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cidade">
+                                <input type="text" class="input-field" name="cidade" value="<?php echo $_SESSION['cidade']; ?>">
                                 <label for="cidade">Cidade</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="bairro">
+                                <input type="text" class="input-field" name="bairro" value="<?php echo $_SESSION['bairro']; ?>">
                                 <label for="bairro">Bairro</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="rua">
+                                <input type="text" class="input-field" name="rua" value="<?php echo $_SESSION['rua']; ?>">
                                 <label for="rua">Rua</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="numero">
+                                <input type="text" class="input-field" name="numero" value="<?php echo $_SESSION['numero']; ?>">
                                 <label for="numero">Número</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cep">
+                                <input type="text" class="input-field" name="cep" value="<?php echo $_SESSION['cep']; ?>">
                                 <label for="cep">CEP</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha">
-                                <label for="senha">Senha</label>
+                                <input type="password" class="input-field" name="oldsenha">
+                                <label for="oldsenha">Senha</label>
                             </div>
                         </div>
                         <div class="row">

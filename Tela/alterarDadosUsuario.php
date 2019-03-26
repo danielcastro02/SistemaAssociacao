@@ -39,21 +39,21 @@ if (!isset($_SESSION)) {
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cpf">
+                                <input type="text" class="input-field" name="cpf" value="<?php echo $_SESSION['cpf']; ?>">
                                 <label for="cpf">CPF</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="rg">
+                                <input type="text" class="input-field" name="rg" value="<?php echo $_SESSION['rg']; ?>">
                                 <label for="rg">RG</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="telefone">
+                                <input type="text" class="input-field" name="telefone" value="<?php echo $_SESSION['telefone']; ?>">
                                 <label for="telefone">Telefone</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="email">
+                                <input type="text" class="input-field" name="email" value="<?php echo $_SESSION['email']; ?>">
                                 <label for="email">Email</label>
                             </div>
                         </div>
