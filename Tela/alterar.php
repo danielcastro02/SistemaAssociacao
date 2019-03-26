@@ -53,21 +53,25 @@ if (!isset($_SESSION)) {
                                 <label for="telefone">Telefone</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha1">
-                                <label for="senha1">Senha</label>
+                                <input type="text" class="input-field" name="email">
+                                <label for="email">Email</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
+                                <input type="password" class="input-field" name="senha1">
+                                <label for="senha1">Senha</label>
+                            </div>
+                            <div class="input-field col s6">
                                 <input type="password" class="input-field" name="senha2">
                                 <label for="senha2">Nova senha</label>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="input-field col s6">
                                 <input type="password" class="input-field" name="senha2conf">
                                 <label for="senha2conf">Confirmar nova senha</label>
                             </div>
-                        </div>
-                        <div>
                             <div class="input-field col s6">
                                 <input type="password" class="input-field" name="oldsenha">
                                 <label for="oldsenha">Senha antiga</label>

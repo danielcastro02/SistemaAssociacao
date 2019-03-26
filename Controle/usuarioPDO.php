@@ -71,8 +71,8 @@ class usuarioPDO {
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($linha['senha'] == $senhaantiga) {
-            $senha = md5($_POST['senha']);
-            $stmt = $con->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cep = :cep, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email WHERE id = :id;');
+            //$senha = md5($_POST['senha']);
+            $stmt = $con->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email WHERE id = :id;');
             $stmt->bindValue(':nome', $_POST['nome']);
             $stmt->bindValue(':usuario', $_POST['usuario']);
             $stmt->bindValue(':cpf', $_POST['cpf']);
@@ -80,7 +80,7 @@ class usuarioPDO {
             $stmt->bindValue(':telefone', $_POST['telefone']);
             $stmt->bindValue(':email', $_POST['email']);
             $stmt->bindValue(':id', $_SESSION['id']);
-            $stmt->exeute();
+            $stmt->execute();
         }
     }
     
@@ -95,7 +95,7 @@ class usuarioPDO {
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($linha['senha'] == $senhaantiga) {
-            $senha = md5($_POST['senha']);
+            //$senha = md5($_POST['senha']);
             $stmt = $con->prepare('UPDATE usuario SET cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cep = :cep WHERE id = :id;');
             $stmt->bindValue(':cidade', $_POST['cidade']);
             $stmt->bindValue(':bairro', $_POST['bairro']);
