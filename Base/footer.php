@@ -1,9 +1,5 @@
-<footer class="page-footer">
-          
-          <div class="footer-copyright">
-            <div class="container">
-            © 2014 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-          </div>
-        </footer>
+<footer class="teal darken-1 center">
+    <div class="footer-copyright white-text">
+        © 2019 Developed by - Daniel Castro - Konrado Souza - Lucas Lima
+    </div>
+</footer>
