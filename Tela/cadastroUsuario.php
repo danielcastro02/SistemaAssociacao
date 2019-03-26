@@ -16,7 +16,7 @@ session_start();
         <?php include_once '../Base/navBar.php'; ?>
         <br>
         <div class="row">
-            <div class="col s3 red"></div>
+            <div class="col s3"></div>
             <div class="col s6">
                 <center><h4>Cadastro de alunos</h4></center>
                 <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario" name="formulario-cadastro-aluno">
@@ -87,7 +87,7 @@ session_start();
                     </div>
                 </form>
             </div>
-            <div class="col s3 red"></div>
+            <div class="col s3"></div>
         </div>
     </div>
     <?php include_once '../Base/footer.php'; ?>
