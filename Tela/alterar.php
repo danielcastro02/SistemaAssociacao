@@ -18,6 +18,7 @@ if (!isset($_SESSION)) {
 
         <nav>
             <div class="nav-wrapper teal darken-1">
+                <a href="home.php" class="brand-logo">Sistema para Associação</a>
                 <a class="brand-logo center">Configurações</a>
             </div>
         </nav>
@@ -25,61 +26,31 @@ if (!isset($_SESSION)) {
             <div class="row">
                 <div class="col s8 offset-s2 card center grey lighten-2">
                     <h5>Seus dados</h5>
-                    <form class="col s12 input-field" action="../Controle/usuarioDAO.php?function=update" method="POST">
+                    <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=update" method="POST">
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="nome" value="<?php echo $_SESSION['nome'];?>">
+                                <input type="text" class="input-field" name="nome" value="<?php echo $_SESSION['nome']; ?>">
                                 <label for="nome">Nome</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="usuario"  value="<?php echo $_SESSION['usuario'];?>">
+                                <input type="text" class="input-field" name="usuario"  value="<?php echo $_SESSION['usuario']; ?>">
                                 <label for="usuario">Usuário</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cidade">
-                                <label for="cidade">Cidade</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input type="text" class="input-field" name="bairro">
-                                <label for="bairro">Bairro</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input type="text" class="input-field" name="rua">
-                                <label for="rua">Rua</label>
-                            </div>
-                            <div class="input-field col s6">
-                                <input type="text" class="input-field" name="numero">
-                                <label for="numero">Número</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cep">
-                                <label for="cep">CEP</label>
-                            </div>
-                            <div class="input-field col s6">
                                 <input type="text" class="input-field" name="cpf">
                                 <label for="cpf">CPF</label>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="input-field col s6">
                                 <input type="text" class="input-field" name="rg">
                                 <label for="rg">RG</label>
                             </div>
-                            <div class="input-field col s6">
-                                <input type="text" class="input-field" name="telefone">
-                                <label for="telefone">Telefone</label>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="email">
-                                <label for="email">Email</label>
+                                <input type="text" class="input-field" name="telefone">
+                                <label for="telefone">Telefone</label>
                             </div>
                             <div class="input-field col s6">
                                 <input type="password" class="input-field" name="senha1">
@@ -99,23 +70,23 @@ if (!isset($_SESSION)) {
                         <div>
                             <div class="input-field col s6">
                                 <input type="password" class="input-field" name="oldsenha">
-                                <label for="senha2">Senha antiga</label>
+                                <label for="oldsenha">Senha antiga</label>
                             </div>
                         </div>
                         <div class="row">
                             <button type="submit" class="btn teal darken-1" name="btlogin">Alterar</button>
-                            <a href="../index.php" class="btn teal darken-1">Cancelar</a>
+                            <a href="./home.php" class="btn teal darken-1">Cancelar</a>
                         </div>
                         <?php
-                        if(isset($_GET['msg'])){
-                            if($_GET['msg'] == false){
+                        if (isset($_GET['msg'])) {
+                            if ($_GET['msg'] == false) {
                                 ?>
                                 <div class="row">
                                     <span class="red-text">Erro</span>
                                 </div>
-                        
+
                                 <?php
-                            }else{
+                            } else {
                                 header('Location ../index.php');
                             }
                         }

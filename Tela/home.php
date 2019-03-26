@@ -21,5 +21,7 @@
             </div>
         </nav>
         
+        <?php include_once '../Base/footer.php'; ?>
+        
     </body>
 

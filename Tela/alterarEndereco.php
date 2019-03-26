@@ -18,6 +18,7 @@ if (!isset($_SESSION)) {
 
         <nav>
             <div class="nav-wrapper teal darken-1">
+                <a href="home.php" class="brand-logo">Sistema para Associação</a>
                 <a class="brand-logo center">Configurações</a>
             </div>
         </nav>
@@ -25,7 +26,7 @@ if (!isset($_SESSION)) {
             <div class="row">
                 <div class="col s8 offset-s2 card center grey lighten-2">
                     <h5>Seus dados</h5>
-                    <form class="col s12 input-field" action="../Controle/usuarioDAO.php?function=update" method="POST">
+                    <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=updateEndereco" method="POST">
                         <div class="row">
                             <div class="input-field col s6">
                                 <input type="text" class="input-field" name="cidade">
@@ -52,13 +53,13 @@ if (!isset($_SESSION)) {
                                 <label for="cep">CEP</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha1">
-                                <label for="senha1">Senha</label>
+                                <input type="password" class="input-field" name="senha">
+                                <label for="senha">Senha</label>
                             </div>
                         </div>
                         <div class="row">
                             <button type="submit" class="btn teal darken-1" name="btlogin">Alterar</button>
-                            <a href="../index.php" class="btn teal darken-1">Cancelar</a>
+                            <a href="./home.php" class="btn teal darken-1">Cancelar</a>
                         </div>
                         <?php
                         if(isset($_GET['msg'])){

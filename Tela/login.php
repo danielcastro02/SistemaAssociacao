@@ -41,17 +41,10 @@
                             }
                         }
                         ?>
-                        <div class="row">
-                            <a href="./Usuario/registro.php">Cadastre-se</a>
-                        </div>
                     </form>
                 </div>
             </div>
         </main>
-        <footer class="teal darken-1 center">
-            <div class="footer-copyright white-text">
-                © 2019 Developed by - Daniel Castro - Konrado Souza - Lucas Lima
-            </div>
-        </footer>
+        <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>
