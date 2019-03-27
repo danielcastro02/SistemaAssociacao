@@ -8,21 +8,29 @@
         ?>
 
     </head>
-    
-    <body>
-        
-        <nav class="nav-extended teal darken-1">
-            <div class="nav-wrapper">
-                <a href="home.php" class="brand-logo">Sistema para Associação</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="./alterarDadosUsuario.php">Alterar Dados</a></li>
-                    <li><a href="./alterarEnderecoUsuario.php">Alterar Endereço</a></li>
-                    <li><a href="../index.php">Logout</a></li>
-                </ul>
-            </div>
-        </nav>
-        
-        <?php include_once '../Base/footer.php'; ?>
-        
-    </body>
 
+    <body>
+
+        <?php include_once '../Base/navPadrao.php'; ?>
+
+        <div class="row">
+            <div class="col s12 m7">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="imagens/estrada.jpg">
+                    </div>
+                    <div class="card-content">
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">This is a link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php include_once '../Base/footer.php'; ?>
+
+    </body>
+</html>

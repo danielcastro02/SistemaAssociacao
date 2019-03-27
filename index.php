@@ -16,7 +16,7 @@ session_start();
                 </div>
             </div>
         </div>
-        
+
         <div class="parallax-container">
             <div class="parallax"><img src="imagens/campus2.jpg"></div>
         </div>
@@ -29,7 +29,7 @@ session_start();
                 </div>
             </div>
         </div>
-        
+
         <div class="parallax-container">
             <div class="parallax"><img src="imagens/campus2.jpg"></div>
         </div>
@@ -54,7 +54,7 @@ session_start();
         <div class="parallax-container">
             <div class="parallax"><img src="imagens/campus2.jpg"></div>
         </div>
-        
+
         <div class="section white">
             <div class="row">
                 <div class="row card col s10 push-s1 grey lighten-4">
