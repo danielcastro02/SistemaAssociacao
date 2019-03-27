@@ -2,9 +2,6 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!isset($_SESSION['id'])) {
-//header('Location: ../Tela/login.php');
-}
 
 include_once "./conexao.php";
 
@@ -16,16 +13,7 @@ if (isset($_GET["function"])) {
 }
 
 class usuarioPDO {
-    /*
-     * function usarioPDO() {
-      $confirmar = $this->validarFormlario();
-      if ($confirmar) {
-      $this->inserirAluno();
-      } else {
-      echo "Erro ao validar";
-      }
-      }
-     */
+   
 
     public function validarFormlario() {
         echo "<br>Esotu no validarFormulario() ";
