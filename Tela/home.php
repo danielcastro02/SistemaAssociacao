@@ -9,7 +9,7 @@
 
     </head>
 
-    <body>
+    <body class="homeimg">
 
         <?php include_once '../Base/navPadrao.php'; ?>
 

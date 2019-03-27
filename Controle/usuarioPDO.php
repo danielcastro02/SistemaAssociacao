@@ -31,8 +31,8 @@ class usuarioPDO {
     public function login() {
         $conexao = new conexao();
         $senha = md5($_POST['senha']);
-        $con = $conexao->getConexao();
-        $stmt = $con->prepare('SELECT * FROM usuario WHERE usuario LIKE :usuario AND senha LIKE :senha;');
+        $pdo = $conexao->getConexao();
+        $stmt = $pdo->prepare('SELECT * FROM usuario WHERE usuario LIKE :usuario AND senha LIKE :senha;');
         $stmt->bindValue(':usuario', $_POST['usuario']);
         $stmt->bindValue(':senha', $senha);
         $stmt->execute();
@@ -53,6 +53,16 @@ class usuarioPDO {
                 $_SESSION['rg'] = $linha['rg'];
                 $_SESSION['telefone'] = $linha['telefone'];
                 $_SESSION['email'] = $linha['email'];
+                $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
+                $stmt->bindValue(':id', $_SESSION['id']);
+                if ($stmt->execute()) {
+                    $l = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $_SESSION['id_responsavel'] = $l['id_responsavel'];
+                    $_SESSION['data_nasc'] = $l['data_nasc'];
+                    $_SESSION['curso'] = $l['curso'];
+                    $_SESSION['saldo'] = $l['saldo'];
+                    $_SESSION['previsao_conclusao'] = $l['previsao_conclusao'];
+                }
                 header('Location: ../Tela/home.php');
             }
         } else {
@@ -80,19 +90,19 @@ class usuarioPDO {
             $stmt->bindValue(':telefone', $_POST['telefone']);
             $stmt->bindValue(':email', $_POST['email']);
             $stmt->bindValue(':id', $_SESSION['id']);
-            if($stmt->execute()){
+            if ($stmt->execute()) {
                 $_SESSION['nome'] = $_POST['nome'];
                 $_SESSION['usuario'] = $_POST['usuario'];
                 $_SESSION['cpf'] = $_POST['cpf'];
                 $_SESSION['rg'] = $_POST['rg'];
                 $_SESSION['telefone'] = $_POST['telefone'];
                 $_SESSION['email'] = $_POST['email'];
-            }else{
+            } else {
                 header('Location: ../Tela/alterar.php?');
             }
         }
     }
-    
+
     public function updateEndereco() {
         $conexao = new conexao();
         $con = $conexao->getConexao();
@@ -114,6 +124,11 @@ class usuarioPDO {
             $stmt->bindValue(':id', $_SESSION['id']);
             $stmt->execute();
         }
+    }
+
+    public function logout() {
+        session_destroy();
+        header('Location: ../index.php');
     }
 
 }
