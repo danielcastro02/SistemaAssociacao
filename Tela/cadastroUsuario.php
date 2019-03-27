@@ -7,7 +7,7 @@ session_start();
     <head>
         <?php include_once '../Base/header.php'; ?>
     </head>
-    <body>
+    <body class="homeimg">
         <!--
         <nav>
             <div class="nav-wrapper">

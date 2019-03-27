@@ -6,10 +6,10 @@
         include_once '../Base/header.php';
         ?>
     </head>
-    <body class="homeimg">
+    <body class="homeimgt" style="background-color: graytext">
 
-        <nav class="nav-extended teal darken-1">
-            <div class="nav-wrapper">
+        <nav class="nav-extended ">
+            <div class="nav-wrapper corpadrao">
                 <a class="brand-logo center">Bem-vindo!</a>
             </div>
         </nav>
@@ -28,7 +28,7 @@
                             <label for="senha">Senha</label>
                         </div>
                         <div class="row">
-                            <button type="submit" class="btn teal darken-1" name="btlogin">Entrar</button>
+                            <button type="submit" class="btn hoverable corpadrao" name="btlogin">Entrar</button>
                         </div>
                         <?php
                         if (isset($_GET['msg'])) {

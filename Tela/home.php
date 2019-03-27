@@ -9,7 +9,7 @@
 
     </head>
     
-    <body>
+    <body class="homeimg">
         
         <nav class="nav-extended teal darken-1">
             <div class="nav-wrapper">
