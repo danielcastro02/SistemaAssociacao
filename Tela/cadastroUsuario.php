@@ -12,7 +12,7 @@ session_start();
     <head>
         <?php include_once '../Base/header.php'; ?>
     </head>
-    <body>
+    <body class="homeimg">
         <?php include_once '../Base/navBar.php'; ?>
         <br>
         <div class="row">
