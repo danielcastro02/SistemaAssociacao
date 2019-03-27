@@ -13,7 +13,9 @@ session_start();
         <?php include_once '../Base/header.php'; ?>
     </head>
     <body class="homeimg">
+
         <?php include_once '../Base/navBar.php'; ?>
+
         <br>
         <div class="row">
             <div class="col s3"></div>

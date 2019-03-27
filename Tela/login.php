@@ -8,14 +8,15 @@
     </head>
     <body class="homeimg">
 
-        <nav class="nav-extended teal darken-1">
-            <div class="nav-wrapper">
+        <nav class="nav-extended ">
+            <div class="nav-wrapper corpadrao">
                 <a class="brand-logo center">Bem-vindo!</a>
             </div>
         </nav>
 
         <main id="main">
             <div class="row">
+                <div style="height: 15vh;"></div>
                 <div class="col s4 offset-s4 card center">
                     <h5>Identifique-se com seu cadastro</h5>
                     <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=login" method="POST">
@@ -28,7 +29,7 @@
                             <label for="senha">Senha</label>
                         </div>
                         <div class="row">
-                            <button type="submit" class="btn teal darken-1" name="btlogin">Entrar</button>
+                            <button type="submit" class="btn hoverable corpadrao" name="btlogin">Entrar</button>
                         </div>
                         <?php
                         if (isset($_GET['msg'])) {
