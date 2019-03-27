@@ -1,30 +1,72 @@
 <?php
-
 if (!isset($_SESSION)) {
     session_start();
-}
-if (!isset($_SESSION['id'])) {
-    //header('Location: ../Tela/login.php');
 }
 
 include_once "./conexao.php";
 
 $classe = new usuarioPDO();
 
-if (isset($_GET['function'])) {
+if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
     eval("\$classe->\$metodo();");
 }
 
 class usuarioPDO {
+   
 
-    public function inserirUsuario() {
-        $conexao = new conexao();
-        if ($_POST['senha01'] == $_POST['senha02']) {
-            echo "method insert user";
-// $senhaMD5 = md5($_POST['senha02']);
+    public function validarFormlario() {
+        echo "<br>Esotu no validarFormulario() ";
+        if ($_POST['senha01'] === $_POST['senha02']) {
+            if ($_POST['senha01'] != null) {
+                echo "<br>Senhas okay";
+                return true;
+            } else {
+                echo "<br>senha invalida";
+                return false;
+            }
         } else {
-            header("Location: ../Tela/cadastroUsuario.php?msg=senhasdiferentes");
+            echo "<br>senhas não conferem";
+            return false;
+        }
+    }
+
+    public function inserirAluno() {
+        if ($this->validarFormlario()) {
+            $conexao = new conexao();
+            $pdo = $conexao->getConexao();
+            $senhaMD5 = md5($_POST['senha01']);
+            $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , :cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :telefone , :email , 'true' , 'false' );");
+            $sql->bindValue(':nome', $_POST['nome']);
+            $sql->bindValue(':usuario', $_POST['login']);
+            $sql->bindValue(':senha', $senhaMD5);
+            $sql->bindValue(':cidade', $_POST['cidade']);
+            $sql->bindValue(':bairro', $_POST['bairro']);
+            $sql->bindValue(':rua', $_POST['rua']);
+            $sql->bindValue(':numero', $_POST['numero']);
+            $sql->bindValue(':cep', $_POST['cep']);
+            $sql->bindValue(':cpf', $_POST['cpf']);
+            $sql->bindValue(':rg', $_POST['rg']);
+            $sql->bindValue(':telefone', $_POST['telefone']);
+            $sql->bindValue(':email', $_POST['email']);
+            ?>
+            <pre>
+                <?php
+                echo print_r($_POST);
+                echo "<br>Senha md5: $senhaMD5";
+                ?>
+            </pre>
+            <?php
+            if ($sql->execute()) {
+                echo "sucesso!";
+            } else {
+                echo "erro";
+                print_r($sql);
+            }
+        } else {
+            //não inserir
+            echo "Erro ao validar";
+            //header("Location: ../Tela/cadastroUsuario.php?msg=erro");
         }
     }
 
@@ -117,5 +159,4 @@ class usuarioPDO {
     }
 
 }
-
 ?>
