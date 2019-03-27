@@ -17,6 +17,7 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="./alterarDadosUsuario.php">Alterar Dados</a></li>
                     <li><a href="./alterarEnderecoUsuario.php">Alterar Endereço</a></li>
+                    <li><a href="../index.php">Logout</a></li>
                 </ul>
             </div>
         </nav>
