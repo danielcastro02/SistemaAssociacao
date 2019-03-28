@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Alterar Dados</title>
+        <title>Home Page</title>
         <?php
         include_once '../Base/header.php';
         ?>

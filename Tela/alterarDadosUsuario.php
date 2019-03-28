@@ -73,6 +73,17 @@ if (!isset($_SESSION)) {
                                 <label for="oldsenha">Senha antiga</label>
                             </div>
                         </div>
+                        <?php 
+                            if(isset($_GET['msg'])){
+                                if($_GET['msg'] == 'sucesso'){
+                                    ?>
+                        <div class="row center">
+                            <span>Dados alterados com sucesso</span>
+                        </div>
+                        <?php
+                                }
+                            }
+                        ?>
                         <div class="row">
                             <button type="submit" class="btn teal darken-1" name="btlogin">Alterar</button>
                             <a href="./home.php" class="btn teal darken-1">Cancelar</a>
@@ -86,8 +97,6 @@ if (!isset($_SESSION)) {
                                 </div>
 
                                 <?php
-                            } else {
-                                header('Location ../index.php');
                             }
                         }
                         ?>
