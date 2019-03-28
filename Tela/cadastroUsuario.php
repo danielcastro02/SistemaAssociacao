@@ -1,10 +1,8 @@
 <?php
 session_start();
-/*
- * if (!isset($_SESSION['id'])) {
-  header("Location: ../Tela/login.php");
-  }
- */
+if (!isset($_SESSION['id'])) {
+    header("Location: ../Tela/login.php");
+}
 ?>                  
 
 <!DOCTYPE html>
@@ -18,8 +16,7 @@ session_start();
 
         <br>
         <div class="row">
-            <div class="col s3"></div>
-            <div class="col s6">
+            <div class="col s6 card offset-s3">
                 <center><h4>Cadastro de alunos</h4></center>
                 <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirAluno" name="formulario-cadastro-aluno">
                     <div class="col s12">
@@ -68,11 +65,11 @@ session_start();
                             <label for="rg">RG</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="senha01">
+                            <input class="input-field" type="password" name="senha01">
                             <label for="senha01">Senha</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="senha02">
+                            <input class="input-field" type="password" name="senha02">
                             <label for="senha02">Confirme a senha</label>
                         </div>
                         <div class="input-field col s6">
@@ -81,20 +78,24 @@ session_start();
                         <?php
                         if (isset($_GET['msg'])) {
                             if ($_GET['msg'] == "senhasdiferentes") {
-//                                
-                                //<!--                                //<div class="row">
-                                //<span class="red-text">Senhas não conferem</span>
-                                //</div>-->
-                                // <?php
-                                $mensagem = $_GET['msg'];
-                                echo "$mensagem";
+                                ?>  
+                                <div class="row">
+                                    <span class="red-text">Senhas não conferem</span>
+                                </div>
+                            <?php } elseif ($_GET['msg'] == 'senhavazia') {
+                                ?>
+                                <div class="row">
+                                    <span class="red-text">Senha Vazia</span>
+                                </div>
+                                <?php
                             }
                         }
                         ?>
-
-                        <div class="col s12">
-                            <a href="./home.php" class="btn">Cancelar</a>
-                            <button type="submit" class="btn">Enviar</button>
+                        <div class="row">
+                            <div class="col s12">
+                                <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>
+                                <button type="submit" class="btn hoverable corpadrao">Enviar</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -102,9 +103,6 @@ session_start();
             <div class="col s3"></div>
         </div>
     </div>
-    <?php //include_once '../Base/footer.php'; ?>
+    <?php include_once '../Base/footer.php'; ?>
 </body>
 </html>
-
-
-
