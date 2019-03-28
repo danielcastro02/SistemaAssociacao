@@ -2,7 +2,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-?>\
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,12 +16,9 @@ if (!isset($_SESSION)) {
         <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="../js/materialize.min.js"></script>
 
-        <nav>
-            <div class="nav-wrapper teal darken-1">
-                <a href="home.php" class="brand-logo">Sistema para Associação</a>
-                <a class="brand-logo center">Configurações</a>
-            </div>
-        </nav>
+        <?php
+        include_once '../Base/navPadrao.php';
+        ?>
         <main id="main">
             <div class="row">
                 <div class="col s8 offset-s2 card center grey lighten-2">
@@ -85,8 +82,8 @@ if (!isset($_SESSION)) {
                             }
                         ?>
                         <div class="row">
-                            <button type="submit" class="btn teal darken-1" name="btlogin">Alterar</button>
-                            <a href="./home.php" class="btn teal darken-1">Cancelar</a>
+                            <button type="submit" class="btn corpadrao" name="btlogin">Alterar</button>
+                            <a href="./home.php" class="btn corpadrao">Cancelar</a>
                         </div>
                         <?php
                         if (isset($_GET['msg'])) {

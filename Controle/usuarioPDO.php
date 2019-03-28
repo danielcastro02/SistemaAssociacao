@@ -1,31 +1,56 @@
 <?php
-
 if (!isset($_SESSION)) {
     session_start();
-}
-if (!isset($_SESSION['id'])) {
-    //header('Location: ../Tela/login.php');
 }
 
 include_once "./conexao.php";
 
 $classe = new usuarioPDO();
 
-if (isset($_GET['function'])) {
+if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
     eval("\$classe->\$metodo();");
 }
 
 class usuarioPDO {
+   
 
-    public function inserirUsuario() {
-        $conexao = new conexao();
-        if ($_POST['senha01'] == $_POST['senha02']) {
-            echo "method insert user";
-// $senhaMD5 = md5($_POST['senha02']);
+    public function validarFormlario() {
+        if (!($_POST['senha01'] === $_POST['senha02'])) {
+            if ($_POST['senha01'] != null) {
+                header('location: ../Tela/cadastroUsuario.php?msg=senhavazia');
+            } else {
+                header('location: ../Tela/cadastroUsuario.php?msg=senhasdiferentes');
+            }
         } else {
-            header("Location: ../Tela/cadastroUsuario.php?msg=senhasdiferentes");
+            return true;
         }
+    }
+
+    public function inserirAluno() {
+        if ($this->validarFormlario()) {
+            $conexao = new conexao();
+            $pdo = $conexao->getConexao();
+            $senhaMD5 = md5($_POST['senha01']);
+            $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , :cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :telefone , :email , 'true' , 'false' );");
+            $sql->bindValue(':nome', $_POST['nome']);
+            $sql->bindValue(':usuario', $_POST['login']);
+            $sql->bindValue(':senha', $senhaMD5);
+            $sql->bindValue(':cidade', $_POST['cidade']);
+            $sql->bindValue(':bairro', $_POST['bairro']);
+            $sql->bindValue(':rua', $_POST['rua']);
+            $sql->bindValue(':numero', $_POST['numero']);
+            $sql->bindValue(':cep', $_POST['cep']);
+            $sql->bindValue(':cpf', $_POST['cpf']);
+            $sql->bindValue(':rg', $_POST['rg']);
+            $sql->bindValue(':telefone', $_POST['telefone']);
+            $sql->bindValue(':email', $_POST['email']);
+            if ($sql->execute()) {
+                header('location: ../Tela/cadastroUsuario.php?msg=sucesso');
+            } else {
+                header('location: ../Tela/cadastroUsuario.php?msg=bderro');
+            }
+        } 
     }
 
     public function login() {
@@ -53,6 +78,8 @@ class usuarioPDO {
                 $_SESSION['rg'] = $linha['rg'];
                 $_SESSION['telefone'] = $linha['telefone'];
                 $_SESSION['email'] = $linha['email'];
+                $_SESSION['administrador'] = $linha['administrador'];
+
                 $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
                 $stmt->bindValue(':id', $_SESSION['id']);
                 if ($stmt->execute()) {
@@ -148,7 +175,7 @@ class usuarioPDO {
         session_destroy();
         header('Location: ../index.php');
     }
+    
 
 }
-
 ?>

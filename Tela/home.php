@@ -1,4 +1,11 @@
-
+<?php
+if(!isset($_SESSION)){
+    session_start();
+}
+if(!isset($_SESSION['id'])){
+    header("location: ../Tela/login.php");
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,7 +15,6 @@
         ?>
 
     </head>
-
     <body class="homeimg">
 
         <?php include_once '../Base/navPadrao.php'; ?>
@@ -29,6 +35,7 @@
                 </div>
             </div>
         </div>
+
 
         <?php include_once '../Base/footer.php'; ?>
 

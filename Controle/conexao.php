@@ -3,8 +3,8 @@
 class conexao {
 
     public function getConexao() {
-        $conexao = new PDO("mysql:host=localhost;dbname=associacao","root","");
-        return $conexao;
+        $con = new PDO("mysql:host=localhost;dbname=associacao","root","");
+        return $con;
     }
 
 }

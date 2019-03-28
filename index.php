@@ -9,6 +9,7 @@ session_start();
     <body>
         <?php include_once './Base/navBar.php'; ?>
 
+
         <div class="section white">
             <div class="row">
                 <h1>Associação de transportes de Cacequi</h1>
@@ -69,5 +70,6 @@ session_start();
         <?php include_once './Base/footer.php'; ?>
 
     </body>
+
 </html>
 
