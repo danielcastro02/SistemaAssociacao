@@ -1,4 +1,5 @@
 <?php
+
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -13,7 +14,6 @@ if (isset($_GET["function"])) {
 }
 
 class usuarioPDO {
-   
 
     public function validarFormlario() {
         if (!($_POST['senha01'] === $_POST['senha02'])) {
@@ -50,7 +50,7 @@ class usuarioPDO {
             } else {
                 header('location: ../Tela/cadastroUsuario.php?msg=bderro');
             }
-        } 
+        }
     }
 
     public function login() {
@@ -124,16 +124,39 @@ class usuarioPDO {
             $stmt->bindValue(':telefone', $_POST['telefone']);
             $stmt->bindValue(':email', $_POST['email']);
             $stmt->bindValue(':id', $_SESSION['id']);
-            if ($stmt->execute()) {
-                $_SESSION['nome'] = $_POST['nome'];
-                $_SESSION['usuario'] = $_POST['usuario'];
-                $_SESSION['cpf'] = $_POST['cpf'];
-                $_SESSION['rg'] = $_POST['rg'];
-                $_SESSION['telefone'] = $_POST['telefone'];
-                $_SESSION['email'] = $_POST['email'];
-                header('Location: ../Tela/alterarDadosUsuario.php?msg=sucesso');
+            if (($_POST['senha2'] == "") && ($_POST['senha2conf'] == "")) {
+                if ($stmt->execute()) {
+                    if ($_POST['oldsenha'] == "") {
+                        header('Location: ../Tela/alterarDadosUsuario.php?msg=false');
+                    } else {
+                        $_SESSION['nome'] = $_POST['nome'];
+                        $_SESSION['usuario'] = $_POST['usuario'];
+                        $_SESSION['cpf'] = $_POST['cpf'];
+                        $_SESSION['rg'] = $_POST['rg'];
+                        $_SESSION['telefone'] = $_POST['telefone'];
+                        $_SESSION['email'] = $_POST['email'];
+                        header('Location: ../Tela/alterarDadosUsuario.php?msg=sucesso');
+                    }
+                } else {
+                    header('Location: ../Tela/alterarDadosUsuario.php?msg=bderro');
+                }
             } else {
-                header('Location: ../Tela/alterarDadosUsuario.php?msg=bderro');
+                if ($_POST['senha2'] == $_POST['senha2conf']) {
+                    if ($stmt->execute()) {
+                        $_SESSION['nome'] = $_POST['nome'];
+                        $_SESSION['usuario'] = $_POST['usuario'];
+                        $_SESSION['cpf'] = $_POST['cpf'];
+                        $_SESSION['rg'] = $_POST['rg'];
+                        $_SESSION['telefone'] = $_POST['telefone'];
+                        $_SESSION['email'] = $_POST['email'];
+                        $_SESSION['senha'] = $_POST['senha2'];
+                        header('Location: ../Tela/alterarDadosUsuario.php?msg=sucesso');
+                    } else {
+                        header('Location: ../Tela/alterarDadosUsuario.php?msg=bderro');
+                    }
+                } else {
+                    header('Location: ../Tela/alterarDadosUsuario.php?msg=false');
+                }
             }
         }
     }
@@ -158,24 +181,27 @@ class usuarioPDO {
             $stmt->bindValue(':cep', $_POST['cep']);
             $stmt->bindValue(':id', $_SESSION['id']);
             if ($stmt->execute()) {
-                $_SESSION['cidade'] = $_POST['cidade'];
-                $_SESSION['bairro'] = $_POST['bairro'];
-                $_SESSION['rua'] = $_POST['rua'];
-                $_SESSION['numero'] = $_POST['numero'];
-                $_SESSION['cep'] = $_POST['cep'];
-                header('Location: ../Tela/alterarEnderecoUsuario.php?msg=sucesso');
+                if ($_POST['senha'] == "" || $_POST['senha'] != $_SESSION['senha']) {
+                    header('Location: ../Tela/alterarEnderecoUsuario.php?msg=false');
+                } else {
+                    $_SESSION['cidade'] = $_POST['cidade'];
+                    $_SESSION['bairro'] = $_POST['bairro'];
+                    $_SESSION['rua'] = $_POST['rua'];
+                    $_SESSION['numero'] = $_POST['numero'];
+                    $_SESSION['cep'] = $_POST['cep'];
+                    header('Location: ../Tela/alterarEnderecoUsuario.php?msg=sucesso');
+                }
             } else {
                 header('Location: ./usuarioPDO.php?erroNoBanco.php');
             }
         }
-        
     }
 
     public function logout() {
         session_destroy();
         header('Location: ../index.php');
     }
-    
 
 }
+
 ?>

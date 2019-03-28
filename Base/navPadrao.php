@@ -15,7 +15,7 @@ if (realpath("./index.php")) {
             <ul id='dropdown1' class='dropdown-content'>
                 <li><a><b>Seu Perfil</b></a></li>
                     <li><a href="../Tela/alterarDadosUsuario.php">Alterar Dados</a></li>
-                    <li><a href="../Tela/alterarEnderecoUsuario.php">Alterar Endereco</a></li>
+                    <li><a href="../Tela/alterarEnderecoUsuario.php">Alterar Endereço</a></li>
                 </ul>
             <li><a href="<?php echo $pontos; ?>./Controle/usuarioPDO.php?function=logout">Sair</a></li>
         </ul>
