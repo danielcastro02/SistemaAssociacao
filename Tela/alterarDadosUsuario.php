@@ -56,24 +56,31 @@ if (!isset($_SESSION)) {
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha1">
-                                <label for="senha1">Senha</label>
-                            </div>
-                            <div class="input-field col s6">
                                 <input type="password" class="input-field" name="senha2">
                                 <label for="senha2">Nova senha</label>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="input-field col s6">
                                 <input type="password" class="input-field" name="senha2conf">
                                 <label for="senha2conf">Confirmar nova senha</label>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="input-field col s6">
                                 <input type="password" class="input-field" name="oldsenha">
                                 <label for="oldsenha">Senha antiga</label>
                             </div>
                         </div>
+                        <?php 
+                            if(isset($_GET['msg'])){
+                                if($_GET['msg'] == 'sucesso'){
+                                    ?>
+                        <div class="row center">
+                            <span>Dados alterados com sucesso</span>
+                        </div>
+                        <?php
+                                }
+                            }
+                        ?>
                         <div class="row">
                             <button type="submit" class="btn corpadrao" name="btlogin">Alterar</button>
                             <a href="./home.php" class="btn corpadrao">Cancelar</a>
@@ -87,8 +94,6 @@ if (!isset($_SESSION)) {
                                 </div>
 
                                 <?php
-                            } else {
-                                header('Location ../index.php');
                             }
                         }
                         ?>

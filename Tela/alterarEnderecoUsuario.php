@@ -50,10 +50,22 @@ if (!isset($_SESSION)) {
                                 <label for="cep">CEP</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="oldsenha">
-                                <label for="oldsenha">Senha</label>
+                                <input type="password" class="input-field" name="senha">
+                                <label for="senha">Senha</label>
                             </div>
                         </div>
+                        <?php 
+                            if(isset($_GET['msg'])){
+                                if($_GET['msg'] == 'sucesso'){
+                                    ?>
+                        <div class="row center">
+                            <span>Dados alterados com sucesso</span>
+                        </div>
+                        <?php
+                            
+                                }
+                            }
+                        ?>
                         <div class="row">
                             <button type="submit" class="btn corpadrao" name="btlogin">Alterar</button>
                             <a href="./home.php" class="btn corpadrao">Cancelar</a>
