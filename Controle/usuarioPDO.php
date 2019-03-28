@@ -16,18 +16,14 @@ class usuarioPDO {
    
 
     public function validarFormlario() {
-        echo "<br>Esotu no validarFormulario() ";
-        if ($_POST['senha01'] === $_POST['senha02']) {
+        if (!($_POST['senha01'] === $_POST['senha02'])) {
             if ($_POST['senha01'] != null) {
-                echo "<br>Senhas okay";
-                return true;
+                header('location: ../Tela/cadastroUsuario.php?msg=senhavazia');
             } else {
-                echo "<br>senha invalida";
-                return false;
+                header('location: ../Tela/cadastroUsuario.php?msg=senhasdiferentes');
             }
         } else {
-            echo "<br>senhas não conferem";
-            return false;
+            return true;
         }
     }
 
@@ -49,25 +45,12 @@ class usuarioPDO {
             $sql->bindValue(':rg', $_POST['rg']);
             $sql->bindValue(':telefone', $_POST['telefone']);
             $sql->bindValue(':email', $_POST['email']);
-            ?>
-            <pre>
-                <?php
-                echo print_r($_POST);
-                echo "<br>Senha md5: $senhaMD5";
-                ?>
-            </pre>
-            <?php
             if ($sql->execute()) {
-                echo "sucesso!";
+                header('location: ../Tela/cadastroUsuario.php?msg=sucesso');
             } else {
-                echo "erro";
-                print_r($sql);
+                header('location: ../Tela/cadastroUsuario.php?msg=bderro');
             }
-        } else {
-            //não inserir
-            echo "Erro ao validar";
-            //header("Location: ../Tela/cadastroUsuario.php?msg=erro");
-        }
+        } 
     }
 
     public function login() {
@@ -95,6 +78,7 @@ class usuarioPDO {
                 $_SESSION['rg'] = $linha['rg'];
                 $_SESSION['telefone'] = $linha['telefone'];
                 $_SESSION['email'] = $linha['email'];
+                $_SESSION['administrador'] = $linha['administrador'];
                 header('Location: ../Tela/home.php');
             }
         } else {
@@ -156,6 +140,12 @@ class usuarioPDO {
             $stmt->bindValue(':id', $_SESSION['id']);
             $stmt->execute();
         }
+    }
+    
+    
+    function logout(){
+        session_destroy();
+        header("location: ../index.php");
     }
 
 }
