@@ -107,7 +107,7 @@ class usuarioPDO {
     public function update() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
-        if($_POST['oldsenha']==""){
+        if ($_POST['oldsenha'] == "") {
             header('Location: ../Tela/alterarDadosUsuario.php?msg=senhavazia');
         }
         $senhaantiga = md5($_POST['oldsenha']);
@@ -177,33 +177,29 @@ class usuarioPDO {
         $stmt->bindValue(':id', $_SESSION['id']);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($linha['senha'] == $senhaantiga) {
-            //$senha = md5($_POST['senha']);
-            $stmt = $pdo->prepare('UPDATE usuario SET cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cep = :cep WHERE id = :id;');
-            $stmt->bindValue(':cidade', $_POST['cidade']);
-            $stmt->bindValue(':bairro', $_POST['bairro']);
-            $stmt->bindValue(':rua', $_POST['rua']);
-            $stmt->bindValue(':numero', $_POST['numero']);
-            $stmt->bindValue(':cep', $_POST['cep']);
-            $stmt->bindValue(':id', $_SESSION['id']);
-            if ($stmt->execute()) {
-                if ($_POST['senha'] == "" || $_POST['senha'] != $linha['senha']) {
-                    header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhaincorreta');
-                } else {
+        if ($_POST['senha'] == "") {
+            header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhavazia');
+        } else {
+            if ($linha['senha'] == $senhaantiga) {
+                $stmt = $pdo->prepare('UPDATE usuario SET cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cep = :cep WHERE id = :id;');
+                $stmt->bindValue(':cidade', $_POST['cidade']);
+                $stmt->bindValue(':bairro', $_POST['bairro']);
+                $stmt->bindValue(':rua', $_POST['rua']);
+                $stmt->bindValue(':numero', $_POST['numero']);
+                $stmt->bindValue(':cep', $_POST['cep']);
+                $stmt->bindValue(':id', $_SESSION['id']);
+                if ($stmt->execute()) {
                     $_SESSION['cidade'] = $_POST['cidade'];
                     $_SESSION['bairro'] = $_POST['bairro'];
                     $_SESSION['rua'] = $_POST['rua'];
                     $_SESSION['numero'] = $_POST['numero'];
                     $_SESSION['cep'] = $_POST['cep'];
                     header('Location: ../Tela/alterarEnderecoUsuario.php?msg=sucesso');
+                } else {
+                    header('Location: ./Tela/alterarEnderecoUsuario.php?msg=bderro');
                 }
             } else {
-                header('Location: ./usuarioPDO.php?erroNoBanco.php');
-            }
-        }else{
-            if($_POST['senha'] == ""){
-                header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhavazia');
+                header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhaerrada');
             }
         }
     }

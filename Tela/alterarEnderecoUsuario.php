@@ -62,15 +62,15 @@ if (!isset($_SESSION)) {
                                     <span>Dados alterados com sucesso</span>
                                 </div>
                                 <?php
-                            } else {
-                                if ($_GET['msg'] == 'senhavazia') {
-                                    ?>
-                                    <div class="row">
-                                        <span class="red-text">Digite sua senha antiga!</span>
-                                    </div>
-                                    <?php
-                                }
                             }
+                            if ($_GET['msg'] == 'senhavazia') {
+                                ?>
+                                <div class="row">
+                                    <span class="red-text">Digite sua senha antiga!</span>
+                                </div>
+                                <?php
+                            }
+                            
                         }
                         ?>
 
