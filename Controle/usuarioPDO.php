@@ -108,7 +108,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         if($_POST['oldsenha']==""){
-            header('location: ../Tela/alterarDadosUsuario.php?msg=senhavazia');
+            header('Location: ../Tela/alterarDadosUsuario.php?msg=senhavazia');
         }
         $senhaantiga = md5($_POST['oldsenha']);
         $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
@@ -188,8 +188,8 @@ class usuarioPDO {
             $stmt->bindValue(':cep', $_POST['cep']);
             $stmt->bindValue(':id', $_SESSION['id']);
             if ($stmt->execute()) {
-                if ($_POST['senha'] == "" || $_POST['senha'] != $_SESSION['senha']) {
-                    header('Location: ../Tela/alterarEnderecoUsuario.php?msg=false');
+                if ($_POST['senha'] == "" || $_POST['senha'] != $linha['senha']) {
+                    header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhaincorreta');
                 } else {
                     $_SESSION['cidade'] = $_POST['cidade'];
                     $_SESSION['bairro'] = $_POST['bairro'];
@@ -200,6 +200,10 @@ class usuarioPDO {
                 }
             } else {
                 header('Location: ./usuarioPDO.php?erroNoBanco.php');
+            }
+        }else{
+            if($_POST['senha'] == ""){
+                header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhavazia');
             }
         }
     }
