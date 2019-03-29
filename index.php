@@ -2,24 +2,75 @@
 session_start();
 ?>
 <!DOCTYPE html>
-  <html>
+<html>
     <head>
-      <?php include_once './Base/header.php'; ?>
+        <?php include_once './Base/header.php'; ?>
     </head>
     <body>
-      <nav class="nav-extended teal darken-1">
-            <div class="nav-wrapper">
-                <a href="home.php" class="brand-logo">Sistema para Associação</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="./index.php">Página de apresentação</a></li>
-                    <li><a href="./Tela/login.php">Login</a></li>
+        <?php include_once './Base/navBar.php'; ?>
+
+
+        <div class="section white">
+            <div class="row">
+                <h1>Associação de transportes de Cacequi</h1>
+            </div>
+        </div>
+
+        <div class="parallax-container" style="height: 200px;">
+            <div class="parallax"><img src="Img/estrada.jpg"></div>
+        </div>
+
+        <div class="section white">
+            <div class="row">
+                <h2>Missão</h2>
+                <p>Promover a educação profissional, científica e tecnológica por meio do ensino, pesquisa e extensão, com foco na formação de cidadãos críticos, autônomos e empreendedores, comprometidos com o desenvolvimento sustentável.</p>
+            </div>
+        </div>
+
+        <div class="parallax-container" style="height: 200px;">
+            <div class="parallax"><img src="Img/estrada.jpg"></div>
+        </div>
+
+        <div class="section white">
+            <div class="row">
+                <h2>Valores</h2>
+                <ul>
+                    <li>Ética</li>
+                    <li>Solidariedade: humanização, inclusão, igualdade na diversidade, cooperação.</li>
+                    <li>Sustentabilidade: responsabilidade social e ambiental.</li>
+                    <li>Desenvolvimento humano: criticidade, autonomia e empreendedorismo.</li>
+                    <li>Democracia: igualdade na diversidade, liberdade, justiça.</li>
+                    <li>Qualidade.</li>
+                    <li>Inovação: criatividade.</li>
                 </ul>
             </div>
-        </nav>
-      <script type="text/javascript" src="js/materialize.js"></script>
-      <h3>Você está na tela inicial da dashboard... estoy logado como admin</h3>
-      <br>
-      <a class="btn" href="./Tela/cadastroUsuario.php">Sou um administrador e vou registrar um aluno</a>
+        </div>
+
+        <div class="parallax-container" style="height: 200px;">
+            <div class="parallax"><img src="Img/estrada.jpg"></div>
+        </div>
+
+        <div class="section white">
+            <div class="row">
+                <h2>Visão</h2>
+                <p>Ser referência em educação profissional, científica e tecnológica como instituição promotora do desenvolvimento regional sustentável.</p>
+            </div>
+        </div>
+
+        <div class="parallax-container" style="height: 200px;">
+            <div class="parallax"><img src="Img/estrada.jpg"></div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('.parallax').parallax();
+            });
+        </script>
+
+        <?php include_once './Base/footer.php'; ?>
+
     </body>
-  </html>aaa
-  
+
+
+</html>
+

@@ -8,7 +8,12 @@ footer{
 }
 
 .homeimg{
-    background-image: url('../img/1.jpg');
+    background-image: url('../Img/bg2.jpg');
     background-size: 100% 100%;
     background-attachment: fixed;
+}
+
+.corpadrao{
+/*    background: linear-gradient(to bottom, #0277bd , #039be5);*/
+      background: linear-gradient(to bottom, #0277bd , #039be5);
 }
