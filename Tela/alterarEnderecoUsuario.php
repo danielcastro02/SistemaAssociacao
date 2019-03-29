@@ -54,36 +54,43 @@ if (!isset($_SESSION)) {
                                 <label for="senha">Senha</label>
                             </div>
                         </div>
-                        <?php 
-                            if(isset($_GET['msg'])){
-                                if($_GET['msg'] == 'sucesso'){
-                                    ?>
-                        <div class="row center">
-                            <span>Dados alterados com sucesso</span>
-                        </div>
                         <?php
-                            
-                                }
+                        if (isset($_GET['msg'])) {
+                            if ($_GET['msg'] == 'sucesso') {
+                                ?>
+                                <div class="row center">
+                                    <span>Dados alterados com sucesso</span>
+                                </div>
+                                <?php
                             }
-                        ?>
-                        <div class="row">
-                            <button type="submit" class="btn corpadrao" name="btlogin">Alterar</button>
-                            <a href="./home.php" class="btn corpadrao">Cancelar</a>
-                        </div>
-                        <?php
-                        if(isset($_GET['msg'])){
-                            if($_GET['msg'] == false){
+                            if ($_GET['msg'] == 'senhavazia') {
                                 ?>
                                 <div class="row">
-                                    <span class="red-text">Erro</span>
+                                    <span class="red-text">Digite sua senha antiga!</span>
                                 </div>
-                        
                                 <?php
-                            }else{
-                                header('Location ../index.php');
+                            }
+                            if ($_GET['msg'] == 'senhaerrada') {
+                                ?>
+                                <div class="row">
+                                    <span class="red-text">Senha incorreta!</span>
+                                </div>
+                                <?php
+                            }
+                            if ($_GET['msg'] == 'bderro') {
+                                ?>
+                                <div class="row">
+                                    <span class="red-text">Erro no banco!</span>
+                                </div>
+                                <?php
                             }
                         }
                         ?>
+
+                        <div class="row">
+                            <button type="submit" class="btn hoverable corpadrao" name="btlogin">Alterar</button>
+                            <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>
+                        </div>
                     </form>
                 </div>
             </div>

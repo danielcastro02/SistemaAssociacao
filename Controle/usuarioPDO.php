@@ -1,4 +1,5 @@
 <?php
+
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -13,7 +14,6 @@ if (isset($_GET["function"])) {
 }
 
 class usuarioPDO {
-   
 
     public function validarFormlario() {
         if (!($_POST['senha01'] === $_POST['senha02'])) {
@@ -50,7 +50,7 @@ class usuarioPDO {
             } else {
                 header('location: ../Tela/cadastroUsuario.php?msg=bderro');
             }
-        } 
+        }
     }
 
     public function login() {
@@ -106,34 +106,64 @@ class usuarioPDO {
 
     public function update() {
         $conexao = new conexao();
-        $con = $conexao->getConexao();
-
+        $pdo = $conexao->getConexao();
+        if ($_POST['oldsenha'] == "") {
+            header('Location: ../Tela/alterarDadosUsuario.php?msg=senhavazia');
+        }
         $senhaantiga = md5($_POST['oldsenha']);
-        $stmt = $con->prepare('SELECT senha FROM usuario WHERE id = :id');
+        $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
         $stmt->bindValue(':id', $_SESSION['id']);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($linha['senha'] == $senhaantiga) {
-            //$senha = md5($_POST['senha']);
-            $stmt = $con->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email WHERE id = :id;');
-            $stmt->bindValue(':nome', $_POST['nome']);
-            $stmt->bindValue(':usuario', $_POST['usuario']);
-            $stmt->bindValue(':cpf', $_POST['cpf']);
-            $stmt->bindValue(':rg', $_POST['rg']);
-            $stmt->bindValue(':telefone', $_POST['telefone']);
-            $stmt->bindValue(':email', $_POST['email']);
-            $stmt->bindValue(':id', $_SESSION['id']);
-            if ($stmt->execute()) {
-                $_SESSION['nome'] = $_POST['nome'];
-                $_SESSION['usuario'] = $_POST['usuario'];
-                $_SESSION['cpf'] = $_POST['cpf'];
-                $_SESSION['rg'] = $_POST['rg'];
-                $_SESSION['telefone'] = $_POST['telefone'];
-                $_SESSION['email'] = $_POST['email'];
-                header('Location: ../Tela/alterarDadosUsuario.php?msg=sucesso');
+            if (($_POST['senha2'] == "") && ($_POST['senha2conf'] == "")) {
+                $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email WHERE id = :id;');
+                $stmt->bindValue(':nome', $_POST['nome']);
+                $stmt->bindValue(':usuario', $_POST['usuario']);
+                $stmt->bindValue(':cpf', $_POST['cpf']);
+                $stmt->bindValue(':rg', $_POST['rg']);
+                $stmt->bindValue(':telefone', $_POST['telefone']);
+                $stmt->bindValue(':email', $_POST['email']);
+                $stmt->bindValue(':id', $_SESSION['id']);
+
+                if ($stmt->execute()) {
+                    $_SESSION['nome'] = $_POST['nome'];
+                    $_SESSION['usuario'] = $_POST['usuario'];
+                    $_SESSION['cpf'] = $_POST['cpf'];
+                    $_SESSION['rg'] = $_POST['rg'];
+                    $_SESSION['telefone'] = $_POST['telefone'];
+                    $_SESSION['email'] = $_POST['email'];
+                    header('Location: ../Tela/alterarDadosUsuario.php?msg=sucessoss');
+                } else {
+                    header('Location: ../Tela/alterarDadosUsuario.php?msg=bderross');
+                }
             } else {
-                header('Location: ../Tela/alterarDadosUsuario.php?msg=bderro');
+                if ($_POST['senha2'] == $_POST['senha2conf']) {
+                    $senhamd5 = md5($_POST['senha2']);
+                    $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email, senha = :senha WHERE id = :id;');
+                    $stmt->bindValue(':nome', $_POST['nome']);
+                    $stmt->bindValue(':usuario', $_POST['usuario']);
+                    $stmt->bindValue(':cpf', $_POST['cpf']);
+                    $stmt->bindValue(':rg', $_POST['rg']);
+                    $stmt->bindValue(':telefone', $_POST['telefone']);
+                    $stmt->bindValue(':email', $_POST['email']);
+                    $stmt->bindValue(':senha', $senhamd5);
+                    $stmt->bindValue(':id', $_SESSION['id']);
+                    if ($stmt->execute()) {
+                        $_SESSION['nome'] = $_POST['nome'];
+                        $_SESSION['usuario'] = $_POST['usuario'];
+                        $_SESSION['cpf'] = $_POST['cpf'];
+                        $_SESSION['rg'] = $_POST['rg'];
+                        $_SESSION['telefone'] = $_POST['telefone'];
+                        $_SESSION['email'] = $_POST['email'];
+                        header('Location: ../Tela/alterarDadosUsuario.php?msg=sucessocs');
+                    } else {
+                        header('Location: ../Tela/alterarDadosUsuario.php?msg=bderrocs');
+                    }
+                } else {
+                    header('Location: ../Tela/alterarDadosUsuario.php?msg=senhaerrada');
+                }
             }
         }
     }
@@ -147,35 +177,38 @@ class usuarioPDO {
         $stmt->bindValue(':id', $_SESSION['id']);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($linha['senha'] == $senhaantiga) {
-            //$senha = md5($_POST['senha']);
-            $stmt = $pdo->prepare('UPDATE usuario SET cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cep = :cep WHERE id = :id;');
-            $stmt->bindValue(':cidade', $_POST['cidade']);
-            $stmt->bindValue(':bairro', $_POST['bairro']);
-            $stmt->bindValue(':rua', $_POST['rua']);
-            $stmt->bindValue(':numero', $_POST['numero']);
-            $stmt->bindValue(':cep', $_POST['cep']);
-            $stmt->bindValue(':id', $_SESSION['id']);
-            if ($stmt->execute()) {
-                $_SESSION['cidade'] = $_POST['cidade'];
-                $_SESSION['bairro'] = $_POST['bairro'];
-                $_SESSION['rua'] = $_POST['rua'];
-                $_SESSION['numero'] = $_POST['numero'];
-                $_SESSION['cep'] = $_POST['cep'];
-                header('Location: ../Tela/alterarEnderecoUsuario.php?msg=sucesso');
+        if ($_POST['senha'] == "") {
+            header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhavazia');
+        } else {
+            if ($linha['senha'] == $senhaantiga) {
+                $stmt = $pdo->prepare('UPDATE usuario SET cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cep = :cep WHERE id = :id;');
+                $stmt->bindValue(':cidade', $_POST['cidade']);
+                $stmt->bindValue(':bairro', $_POST['bairro']);
+                $stmt->bindValue(':rua', $_POST['rua']);
+                $stmt->bindValue(':numero', $_POST['numero']);
+                $stmt->bindValue(':cep', $_POST['cep']);
+                $stmt->bindValue(':id', $_SESSION['id']);
+                if ($stmt->execute()) {
+                    $_SESSION['cidade'] = $_POST['cidade'];
+                    $_SESSION['bairro'] = $_POST['bairro'];
+                    $_SESSION['rua'] = $_POST['rua'];
+                    $_SESSION['numero'] = $_POST['numero'];
+                    $_SESSION['cep'] = $_POST['cep'];
+                    header('Location: ../Tela/alterarEnderecoUsuario.php?msg=sucesso');
+                } else {
+                    header('Location: ./Tela/alterarEnderecoUsuario.php?msg=bderro');
+                }
             } else {
-                header('Location: ./usuarioPDO.php?erroNoBanco.php');
+                header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhaerrada');
             }
         }
-        
     }
 
     public function logout() {
         session_destroy();
         header('Location: ../index.php');
     }
-    
 
 }
+
 ?>

@@ -30,6 +30,7 @@
                         </div>
                         <div class="row">
                             <button type="submit" class="btn hoverable corpadrao" name="btlogin">Entrar</button>
+                            <a href="../index.php" class="btn hoverable corpadrao">Voltar</a>
                         </div>
                         <?php
                         if (isset($_GET['msg'])) {
