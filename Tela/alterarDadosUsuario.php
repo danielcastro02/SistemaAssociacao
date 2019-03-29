@@ -21,7 +21,7 @@ if (!isset($_SESSION)) {
         ?>
         <main id="main">
             <div class="row">
-                <div class="col s8 offset-s2 card center grey lighten-2">
+                <div class="col s8 offset-s2 card center ">
                     <h5>Seus dados</h5>
                     <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=update" method="POST">
                         <div class="row">
@@ -54,7 +54,10 @@ if (!isset($_SESSION)) {
                                 <label for="email">Email</label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="esconde">
+                            <a class="btn corpadrao hoverable">Alterar Senha</a>
+                        </div>
+                        <div class="row" hidden="true" id="mostra">
                             <div class="input-field col s6">
                                 <input type="password" class="input-field" name="senha2">
                                 <label for="senha2">Nova senha</label>
@@ -72,12 +75,20 @@ if (!isset($_SESSION)) {
                         </div>
                         <?php 
                             if(isset($_GET['msg'])){
-                                if($_GET['msg'] == 'sucesso'){
+                                if($_GET['msg'] == 'sucesso'||$_GET['msg'] == 'sucessoss'){
                                     ?>
                         <div class="row center">
                             <span>Dados alterados com sucesso</span>
                         </div>
                         <?php
+                                }else{
+                                    if($_GET['msg'] == 'senhavazia'){
+                                        ?>
+                                            <div class="row">
+                                    <span class="red-text">Digite sua senha antiga!</span>
+                                </div>
+                                            <?php
+                                    }
                                 }
                             }
                         ?>
@@ -101,7 +112,15 @@ if (!isset($_SESSION)) {
                 </div>
             </div>
         </main>
-
+        <script>
+        $(document).ready(function(){
+            $("#esconde").click(function(){
+                $("#mostra").removeAttr('hidden');
+                $("#esconde").attr('hidden', 'true');
+            });
+        });
+        
+        </script>
         <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>
