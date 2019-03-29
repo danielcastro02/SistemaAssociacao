@@ -70,7 +70,20 @@ if (!isset($_SESSION)) {
                                 </div>
                                 <?php
                             }
-                            
+                            if ($_GET['msg'] == 'senhaerrada') {
+                                ?>
+                                <div class="row">
+                                    <span class="red-text">Senha incorreta!</span>
+                                </div>
+                                <?php
+                            }
+                            if ($_GET['msg'] == 'bderro') {
+                                ?>
+                                <div class="row">
+                                    <span class="red-text">Erro no banco!</span>
+                                </div>
+                                <?php
+                            }
                         }
                         ?>
 
