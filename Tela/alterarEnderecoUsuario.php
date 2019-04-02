@@ -17,7 +17,11 @@ if (!isset($_SESSION)) {
         <script type="text/javascript" src="../js/materialize.min.js"></script>
 
         <?php
-        include_once '../Base/navPadrao.php';
+        if ($_SESSION['administrador'] == 'true') {
+            include_once '../Base/navAdm.php';
+        } else {
+            include_once '../Base/navPadrao.php';
+        }
         ?>
         <main id="main">
             <div class="row">
