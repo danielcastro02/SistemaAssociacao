@@ -17,28 +17,41 @@ if (!isset($_SESSION['id'])) {
     </head>
     <body class="homeimg">
 
-        <?php 
-        if($_SESSION['administrador']== 'true'){
-        include_once '../Base/navAdministrativa.php';
+        <?php
+        if ($_SESSION['administrador'] == 'true') {
+            include_once '../Base/navAdministrativa.php';
+        } else {
+            include_once '../Base/navPadrao.php';
         }
-        else{
-        include_once '../Base/navPadrao.php';    
-        }
-?>
+        ?>
 
 
         <div class="row">
-            <div class="col s12 m7">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="imagens/estrada.jpg">
+            <div class="col s6">
+                <div class="row">
+                    <div class="card col s10 offset-s1">
+                        <div class="row">
+                            aaa
+                        </div>
                     </div>
-                    <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#">This is a link</a>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="row">
+                    <div class="card col s10 offset-s1">
+                        <div class="row">
+                            <div class="row"></div>
+                            <img src="../Img/user_icon.png" height="100px" width="100px">
+                            <div class="row"></div>
+                            <h5><?php echo $_SESSION['nome']; ?></h5>
+                            <span>RG: <?php echo $_SESSION['rg']; ?></span><br>
+                            <span>CPF: <?php echo $_SESSION['cpf']; ?></span><br>
+                            <span>CEP: <?php echo $_SESSION['cep']; ?></span><br>
+                            <span>Cidade: <?php echo $_SESSION['cidade']; ?></span><br>
+                            <span>Bairro: <?php echo $_SESSION['bairro']; ?></span><br>
+                            <span>Rua: <?php echo $_SESSION['rua']; ?></span><br>
+                            <span>Número: <?php echo $_SESSION['numero']; ?></span><br>
+                        </div>
                     </div>
                 </div>
             </div>

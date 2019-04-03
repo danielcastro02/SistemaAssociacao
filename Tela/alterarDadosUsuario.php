@@ -99,8 +99,8 @@ if (!isset($_SESSION)) {
                             }
                         ?>
                         <div class="row">
-                            <button type="submit" class="btn corpadrao" name="btlogin">Alterar</button>
                             <a href="./home.php" class="btn corpadrao">Cancelar</a>
+                            <button type="submit" class="btn corpadrao" name="btlogin">Alterar</button>
                         </div>
                         <?php
                         if (isset($_GET['msg'])) {
