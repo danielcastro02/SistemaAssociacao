@@ -93,8 +93,8 @@ if (!isset($_SESSION)) {
                         ?>
 
                         <div class="row">
-                            <button type="submit" class="btn hoverable corpadrao" name="btlogin">Alterar</button>
                             <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>
+                            <button type="submit" class="btn hoverable corpadrao" name="btlogin">Alterar</button>
                         </div>
                     </form>
                 </div>
