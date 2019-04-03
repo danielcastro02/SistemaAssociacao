@@ -24,6 +24,7 @@ if (!isset($_SESSION)) {
         include_once '../Base/navPadrao.php';    
         }
 ?>
+
         <main id="main">
             <div class="row">
                 <div class="col s8 offset-s2 card center ">
