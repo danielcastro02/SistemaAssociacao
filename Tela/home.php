@@ -42,6 +42,17 @@ if (!isset($_SESSION['id'])) {
                         <div class="row">
                             <div class="row"></div>
                             <img src="../Img/user_icon.png" height="100px" width="100px">
+                            <form action="./uploadImagens.php">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>Foto de Perfil</span>
+                                        <input type="file" name="pic">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>
+                            </form>
                             <div class="row"></div>
                             <h5><?php echo $_SESSION['nome']; ?></h5>
                             <span>RG: <?php echo $_SESSION['rg']; ?></span><br>
