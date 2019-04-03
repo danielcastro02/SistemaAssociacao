@@ -29,12 +29,18 @@ class usuarioPDO {
         }
     }
 
+    public function inserirDiretoria() {
+        
+    }
+
     public function inserirAluno() {
         if ($this->validarFormlario()) {
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
             $senhaMD5 = md5($_POST['senha01']);
-            $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , :cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :telefone , :email , 'true' , 'false' );");
+            $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , "
+                    . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :telefone , :email , "
+                    . ":podeLogar , 'false' );");
             $sql->bindValue(':nome', $_POST['nome']);
             $sql->bindValue(':usuario', $_POST['login']);
             $sql->bindValue(':senha', $senhaMD5);
@@ -47,11 +53,65 @@ class usuarioPDO {
             $sql->bindValue(':rg', $_POST['rg']);
             $sql->bindValue(':telefone', $_POST['telefone']);
             $sql->bindValue(':email', $_POST['email']);
-            if ($sql->execute()) {
-                header('location: ../Tela/cadastroUsuario.php?msg=sucesso');
+            if (isset($_SESSION['id'])) {
+                if ($_SESSION['administrador'] == 'true') {
+                    $sql->bindValue(':podeLogar', 'true');
+                } else {
+                    $sql->bindValue(':podeLogar', 'false');
+                }
             } else {
-                header('location: ../Tela/cadastroUsuario.php?msg=bderro');
+                $sql->bindValue(':podeLogar', 'false');
             }
+            if ($sql->execute()) {
+                echo "Sucesso ao cadastrar USUÁRIO";
+                if (isset($_POST['curso']) && $_POST['curso'] != null) {
+                    $sql = $pdo->prepare("select id from usuario where rg = :rg;");
+                    $sql->bindValue(':rg', $_POST['rg']);
+                    $sql->execute();
+                    if ($sql->rowCount() > 0) {
+                        $linha = $sql->fetch(PDO::FETCH_ASSOC);
+                        $id = $linha['id'];
+                        $sql = $pdo->prepare("insert into aluno values(:id,null,:nascimento,:curso,null,:conclusao);");
+                        $sql->bindValue(':id', $id);
+                        $sql->bindValue(':nascimento', $_POST['nascimento']);
+                        $sql->bindValue(':curso', $_POST['curso']);
+                        $sql->bindValue(':conclusao', $_POST['conclusao']);
+                        $sql->execute();
+                        //echo "Sucesso ao cadastrar ALUNO";
+                        if ($_SESSION['administrador'] == 'true') {
+                            header("Location: ../Tela/cadastroAluno.php");
+                        } else {
+                            header("Location: ../Tela/loginRecusado.php?msg=menorDeIdade");
+                        }
+                    }
+                }
+                if (isset($_POST['cargo']) and $_POST['cargo'] != null) {
+                    $sql = $pdo->prepare("select id from usuario where rg = :rg;");
+                    $sql->bindValue(':rg', $_POST['rg']);
+                    $sql->execute();
+                    if ($sql->rowCount() > 0) {
+                        $linha = $sql->fetch(PDO::FETCH_ASSOC);
+                        $id = $linha['id'];
+                        $sql = $pdo->prepare("insert into diretoria values(:id,:cargo);");
+                        $sql->bindValue(':id', $id);
+                        $sql->bindValue(':cargo', $_POST['cargo']);
+                        $sql->execute();
+                        //echo "Sucesso ao cadastrar DIRETORIA";
+                        if ($_SESSION['administrador'] == 'true') {
+                            header("Location: ../Tela/cadastroAluno.php");
+                        } else {
+                            header("Location: ../Tela/loginRecusado.php?msg=menorDeIdade");
+                        }
+                    }
+                }
+                if (true) {
+                    
+                }
+            } else {
+                header('location: ../Tela/erroDoSistema.php');
+            }
+        } else {
+            //header('location: ../Tela/cadastroUsuario.php?msg=erro');
         }
     }
 
@@ -99,7 +159,7 @@ class usuarioPDO {
                     $_SESSION['cargo'] = $s['cargo'];
                 }
                 header('Location: ../Tela/home.php');
-                //print_r($_SESSION);
+//print_r($_SESSION);
             }
         } else {
             header("Location: ../Tela/login.php?msg=false");
@@ -131,6 +191,7 @@ class usuarioPDO {
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($linha['senha'] == $senhaantiga) {
+
             if (($_POST['senha2'] == "") && ($_POST['senha2conf'] == "")) {
                 $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email WHERE id = :id;');
                 $stmt->bindValue(':nome', $_POST['nome']);
@@ -152,6 +213,7 @@ class usuarioPDO {
                 } else {
                     header('Location: ../Tela/alterarDadosUsuario.php?msg=bderross');
                 }
+
             } else {
                 if ($_POST['senha2'] == $_POST['senha2conf']) {
                     $senhamd5 = md5($_POST['senha2']);
@@ -191,6 +253,7 @@ class usuarioPDO {
         $stmt->bindValue(':id', $_SESSION['id']);
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+
         if ($_POST['senha'] == "") {
             header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhavazia');
         } else {
@@ -212,6 +275,7 @@ class usuarioPDO {
                 } else {
                     header('Location: ./Tela/alterarEnderecoUsuario.php?msg=bderro');
                 }
+
             } else {
                 header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhaerrada');
             }
