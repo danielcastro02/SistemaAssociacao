@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 03-Abr-2019 às 19:57
+-- Generation Time: 03-Abr-2019 às 20:25
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.2
 
@@ -21,6 +21,39 @@ SET time_zone = "+00:00";
 --
 -- Database: `associacao`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `aluno`
+--
+
+CREATE TABLE `aluno` (
+  `id_usuario` int(11) NOT NULL,
+  `id_responsavel` int(11) DEFAULT NULL,
+  `data_nasc` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `curso` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `saldo` decimal(10,2) DEFAULT NULL,
+  `previsao_conclusao` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `diretoria`
+--
+
+CREATE TABLE `diretoria` (
+  `id_usuario` int(11) NOT NULL,
+  `cargo` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `diretoria`
+--
+
+INSERT INTO `diretoria` (`id_usuario`, `cargo`) VALUES
+(4, 'Presidente');
 
 -- --------------------------------------------------------
 
@@ -61,6 +94,19 @@ INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`, `cidade`, `bairro`, `ru
 --
 
 --
+-- Indexes for table `aluno`
+--
+ALTER TABLE `aluno`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `id_responsavel` (`id_responsavel`);
+
+--
+-- Indexes for table `diretoria`
+--
+ALTER TABLE `diretoria`
+  ADD PRIMARY KEY (`id_usuario`);
+
+--
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
@@ -75,6 +121,23 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Limitadores para a tabela `aluno`
+--
+ALTER TABLE `aluno`
+  ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`),
+  ADD CONSTRAINT `aluno_ibfk_2` FOREIGN KEY (`id_responsavel`) REFERENCES `usuario` (`id`);
+
+--
+-- Limitadores para a tabela `diretoria`
+--
+ALTER TABLE `diretoria`
+  ADD CONSTRAINT `diretoria_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
