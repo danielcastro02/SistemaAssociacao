@@ -30,10 +30,11 @@
                         </div>
                         <div class="row">
                             <button type="submit" class="btn hoverable corpadrao" name="btlogin">Entrar</button>
+                            <a href="../index.php" class="btn hoverable corpadrao">Voltar</a>
                         </div>
                         <?php
                         if (isset($_GET['msg'])) {
-                            if ($_GET['msg'] == false) {
+                            if ($_GET['msg'] == 'false') {
                                 ?>
                                 <div class="row">
                                     <span class="red-text">Usuário ou senha inválidos!</span>

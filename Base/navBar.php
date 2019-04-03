@@ -2,7 +2,16 @@
     <div class="nav-wrapper">
         <a href="index.php" class="brand-logo">Associação de Cacequi</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="./Tela/login.php">Login</a></li>
+            <?php if(isset($_SESSION['id'])){?>
+                <li><a href="./Tela/home.php">Voltar ao Sistema</a></li>
+            <?php
+            }else{
+            ?>
+            <li><a href="./Tela/login.php">Entrar</a></li>
+            <li><a href="./Tela/cadastroUsuario.php">Associar-se</a></li>
+            <?php
+            }
+            ?>
         </ul>
     </div>
 </nav>
