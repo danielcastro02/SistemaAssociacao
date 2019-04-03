@@ -29,8 +29,8 @@
                             <label for="senha">Senha</label>
                         </div>
                         <div class="row">
-                            <button type="submit" class="btn hoverable corpadrao" name="btlogin">Entrar</button>
                             <a href="../index.php" class="btn hoverable corpadrao">Voltar</a>
+                            <button type="submit" class="btn hoverable corpadrao" name="btlogin">Entrar</button>
                         </div>
                         <?php
                         if (isset($_GET['msg'])) {
