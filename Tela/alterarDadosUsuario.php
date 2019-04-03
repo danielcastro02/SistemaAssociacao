@@ -16,13 +16,15 @@ if (!isset($_SESSION)) {
         <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="../js/materialize.js"></script>
 
-        <?php
-        if ($_SESSION['administrador'] == 'true') {
-            include_once '../Base/navAdm.php';
-        } else {
-            include_once '../Base/navPadrao.php';
+        <?php 
+        if($_SESSION['administrador']== 'true'){
+        include_once '../Base/navAdministrativa.php';
         }
-        ?>
+        else{
+        include_once '../Base/navPadrao.php';    
+        }
+?>
+
         <main id="main">
             <div class="row">
                 <div class="col s8 offset-s2 card center ">
