@@ -102,7 +102,7 @@ class usuarioPDO {
                 //print_r($_SESSION);
             }
         } else {
-            header("Location: ../Tela/login.php");
+            header("Location: ../Tela/login.php?msg=false");
         }
     }
 

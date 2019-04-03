@@ -14,28 +14,36 @@
 
         <nav class="nav-extended ">
             <div class="nav-wrapper corpadrao">
-                <a class="brand-logo center">Bem-vindo!</a>
+
+                <a class="brand-logo center">Oops!</a>
             </div>
         </nav>
 
         <main id="main">
             <div class="row">
-                <div style="height: 15vh;"></div>
-                <div class="col s6 offset-s3 card center">
+
+                <div style="height: 3vh;"></div>
+                <div class="col s8 offset-s2 card center">
                     <div class="row">
-                        <h5 class="red-text">Desculpe, você ainda não pode logar.</h5>
-                    </div>
-                    <div class="row">
-                        <img class="col s2 push-s5" src="../Img/sintoMuito.png">
-                    </div>
-                    <h5>Entre em contato com o presidente da associação: <br><?php echo $presidente['nome']; ?></h5>
-                    <span>Telefone: <?php echo $presidente['telefone']; ?></span><br>
-                    <span>E-mail: <?php echo $presidente['email']; ?></span><br>
-                    <span>Cidade: <?php echo $presidente['cidade']; ?></span><br>
-                    <span>Rua: <?php echo $presidente['rua']; ?></span><br>
-                    <span>Número: <?php echo $presidente['numero']; ?></span><br>
-                    <div class="row">
-                        <a href="./login.php" class="btn hoverable corpadrao">Voltar</a>
+                        <div class="col s10 offset-s1">
+                            <div class="row">
+                                <h5 class="red-text">Desculpe, você ainda não pode logar...</h5>
+                            </div>
+                            <div class="row">
+                                <span class="left-align col s12 ">Não se preocupe, basta entrar em contato com o presidente da associacao <?php echo $presidente['nome']; ?>
+                                    para validar seus documentos...<br>Entre em contato pelo Telefone: <?php echo $presidente['telefone']; ?>, pelo E-mail: <?php echo $presidente['email']; ?>.<br>Ou diretamente no endereço:
+                                    Rua, <?php echo $presidente['rua']; ?>, Bairo <?php echo $presidente['bairro']; ?>, Número  <?php echo $presidente['numero']; ?>, na cidade de <?php echo $presidente['cidade']; ?></span></div>
+                            <div class="row left-align">
+                                <h5 class="col s9">
+                                    Isto é para a segurança de todos os nossos associados!</h5>
+                                <img class="col s2" src="../Img/sintoMuito.png">
+                            </div>
+
+                            <div class="row">
+                                <a href="./login.php" class="btn hoverable corpadrao">Voltar</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
