@@ -8,6 +8,7 @@
             }else{
             ?>
             <li><a href="./Tela/login.php">Entrar</a></li>
+            <li><a href="./Tela/cadastroUsuario.php">Associar-se</a></li>
             <?php
             }
             ?>

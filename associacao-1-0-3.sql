@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 28-Mar-2019 às 01:14
+-- Generation Time: 03-Abr-2019 às 19:57
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.2
 
@@ -21,32 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `associacao`
 --
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `aluno`
---
-
-CREATE TABLE `aluno` (
-  `id_usuario` int(11) NOT NULL,
-  `id_responsavel` int(11) DEFAULT NULL,
-  `data_nasc` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `curso` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `saldo` decimal(10,2) DEFAULT NULL,
-  `previsao_conclusao` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `diretoria`
---
-
-CREATE TABLE `diretoria` (
-  `id_usuario` int(11) NOT NULL,
-  `cargo` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -77,26 +51,14 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`, `cidade`, `bairro`, `rua`, `numero`, `cep`, `cpf`, `rg`, `telefone`, `email`, `pode_logar`, `administrador`) VALUES
-(1, 'Teste', 'teste', '202cb962ac59075b964b07152d234b70', 'Teste', 'Teste', 'Teste', 'Teste', 'asd', 'asd', 'asd', 'asd', 'asd', 'true', 'true'),
-(2, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'),
-(3, 'Daniel Zanini de Castro', 'dcastro', '3c2031ac53dea3dacb733041d55e322d', 'Jaguari', 'Centro', 'Av. dr. severiano de almeida n 280', '5', '97760-000', '039.855.650', '56489894', '5599598414', 'zanini.castro@hotmail.com', 'true', 'false');
+(1, 'Testeasdfasasdfasdf', 'teste', '202cb962ac59075b964b07152d234b70', 'Teste', 'Teste', 'Teste', 'Teste', 'asd', 'asd', 'asd', 'asd', 'asd', 'true', 'true'),
+(2, 'a', 'a', '0cc175b9c0f1b6a831c399e269772661', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'),
+(3, 'Daniel Zanini de Castro', 'dcastro', '3c2031ac53dea3dacb733041d55e322d', 'Jaguari', 'Centro', 'Av. dr. severiano de almeida n 280', '5', '97760-000', '039.855.650', '56489894', '5599598414', 'zanini.castro@hotmail.com', 'false', 'true'),
+(4, 'Paulo Henrique Glanzel', 'pglanzel', 'df5a4f0ee48bae380944db490dec5ac2', 'Cacequi', 'Vila Candido', 'Marechal Hermes da Fonseca', '337', '97450-000', NULL, NULL, '55 98431 2589', 'pauloglanzel@hotmail.com', 'true', 'true');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `aluno`
---
-ALTER TABLE `aluno`
-  ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `id_responsavel` (`id_responsavel`);
-
---
--- Indexes for table `diretoria`
---
-ALTER TABLE `diretoria`
-  ADD PRIMARY KEY (`id_usuario`);
 
 --
 -- Indexes for table `usuario`
@@ -112,24 +74,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Constraints for dumped tables
---
-
---
--- Limitadores para a tabela `aluno`
---
-ALTER TABLE `aluno`
-  ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `aluno_ibfk_2` FOREIGN KEY (`id_responsavel`) REFERENCES `usuario` (`id`);
-
---
--- Limitadores para a tabela `diretoria`
---
-ALTER TABLE `diretoria`
-  ADD CONSTRAINT `diretoria_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

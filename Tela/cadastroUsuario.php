@@ -1,8 +1,5 @@
 <?php
 session_start();
-if (!isset($_SESSION['id'])) {
-    header("Location: ../Tela/login.php");
-}
 ?>                  
 
 <!DOCTYPE html>
@@ -12,31 +9,35 @@ if (!isset($_SESSION['id'])) {
     </head>
     <body class="homeimg">
 
-        <?php 
-        if($_SESSION['administrador']== 'true'){
-        include_once '../Base/navAdministrativa.php';
+        <?php
+        if(isset($_SESSION['id'])){
+        if ($_SESSION['administrador'] == 'true') {
+            include_once '../Base/navAdministrativa.php';
+        } else {
+            include_once '../Base/navBar.php';
         }
-        else{
-        header('location: ./acessoNegado.php');    
+        }else{
+            include_once '../Base/navBar.php';
         }
-?>
+        ?>
 
         <br>
         <div class="row">
             <div class="col s6 card offset-s3">
-                <?php 
-                if(isset($_GET['tipo'])){
-                    if($_GET['tipo']== 'responsavel'){?>
+<?php
+if (isset($_GET['tipo'])) {
+    if ($_GET['tipo'] == 'responsavel') {
+        ?>
                         <center><h4>Cadastro de Responsavel</h4></center>
-                    <?php
-                    }else{
+                        <?php
+                    } else {
+                        ?><center><h4>Cadastro de alunos</h4></center><?php
+                        }
+                    } else {
                         ?><center><h4>Cadastro de alunos</h4></center><?php
                     }
-                }else{
-                    ?><center><h4>Cadastro de alunos</h4></center><?php
-                }
-?>
-                
+                    ?>
+
                 <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirAluno" name="formulario-cadastro-aluno">
                     <div class="col s12">
                         <div class="input-field col s6">
@@ -121,6 +122,6 @@ if (!isset($_SESSION['id'])) {
             </div>
             <div class="col s3"></div>
         </div>
-    <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>
