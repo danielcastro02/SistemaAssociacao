@@ -34,7 +34,7 @@
                         </div>
                         <?php
                         if (isset($_GET['msg'])) {
-                            if ($_GET['msg'] == false) {
+                            if ($_GET['msg'] == 'false') {
                                 ?>
                                 <div class="row">
                                     <span class="red-text">Usuário ou senha inválidos!</span>

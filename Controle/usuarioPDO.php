@@ -3,9 +3,11 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-
-include_once "./conexao.php";
-
+if (realpath("./home.php")) {
+    include_once "../Controle/conexao.php";
+} else {
+    include_once "./conexao.php";
+}
 $classe = new usuarioPDO();
 
 if (isset($_GET["function"])) {
@@ -100,8 +102,20 @@ class usuarioPDO {
                 //print_r($_SESSION);
             }
         } else {
-            header("Location: ../Tela/login.php");
+            header("Location: ../Tela/login.php?msg=false");
         }
+    }
+
+    public function selectPresidente() {
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        $stmt = $pdo->prepare("SELECT id_usuario FROM diretoria WHERE cargo LIKE 'Presidente';");
+        $stmt->execute();
+        $linha = $stmt->fetch();
+        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE id = " . $linha['id_usuario']);
+        $stmt->execute();
+        $linha = $stmt->fetch();
+        return $linha;
     }
 
     public function update() {

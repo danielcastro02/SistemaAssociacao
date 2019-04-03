@@ -1,8 +1,8 @@
 <?php
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
-if(!isset($_SESSION['id'])){
+if (!isset($_SESSION['id'])) {
     header("location: ../Tela/login.php");
 }
 ?>
@@ -17,7 +17,15 @@ if(!isset($_SESSION['id'])){
     </head>
     <body class="homeimg">
 
-        <?php include_once '../Base/navPadrao.php'; ?>
+        <?php 
+        if($_SESSION['administrador']== 'true'){
+        include_once '../Base/navAdministrativa.php';
+        }
+        else{
+        include_once '../Base/navPadrao.php';    
+        }
+?>
+
 
         <div class="row">
             <div class="col s12 m7">
@@ -35,7 +43,6 @@ if(!isset($_SESSION['id'])){
                 </div>
             </div>
         </div>
-
 
         <?php include_once '../Base/footer.php'; ?>
 
