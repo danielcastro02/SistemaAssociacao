@@ -14,12 +14,14 @@
 
         <nav class="nav-extended ">
             <div class="nav-wrapper corpadrao">
+
                 <a class="brand-logo center">Oops!</a>
             </div>
         </nav>
 
         <main id="main">
             <div class="row">
+
                 <div style="height: 3vh;"></div>
                 <div class="col s8 offset-s2 card center">
                     <div class="row">
@@ -41,6 +43,7 @@
                                 <a href="./login.php" class="btn hoverable corpadrao">Voltar</a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
