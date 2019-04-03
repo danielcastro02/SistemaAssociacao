@@ -94,9 +94,13 @@ if (!isset($_SESSION)) {
                             <input class="input-field" type="password" name="senha02">
                             <label for="senha02">Confirme a senha</label>
                         </div>
-                        <div>
+<!--                        <div class="input-field col s6">
+                            <input class="input-field" type="text" name="cargo">
+                            <label for="cargo">Cargo</label>
+                        </div>-->
+<!--                        <div>
                             <h1>Dados do </h1>
-                        </div>
+                        </div>-->
                         <?php
                         if (isset($_GET['msg'])) {
                             if ($_GET['msg'] == "senhasdiferentes") {

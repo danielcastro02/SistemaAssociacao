@@ -1,4 +1,5 @@
 <?php
+
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -13,7 +14,6 @@ if (isset($_GET["function"])) {
 }
 
 class usuarioPDO {
-   
 
     public function validarFormlario() {
         if (!($_POST['senha01'] === $_POST['senha02'])) {
@@ -25,6 +25,10 @@ class usuarioPDO {
         } else {
             return true;
         }
+    }
+
+    public function inserirDiretoria() {
+        
     }
 
     public function inserirAluno() {
@@ -46,11 +50,57 @@ class usuarioPDO {
             $sql->bindValue(':telefone', $_POST['telefone']);
             $sql->bindValue(':email', $_POST['email']);
             if ($sql->execute()) {
-                header('location: ../Tela/cadastroUsuario.php?msg=sucesso');
-            } else {
-                header('location: ../Tela/cadastroUsuario.php?msg=bderro');
+                echo "Sucesso ao cadastrar USUÁRIO";
+                if (isset($_POST['curso'])&& $_POST['curso'] != null) {
+                    $sql = $pdo->prepare("select id from usuario where rg = :rg;");
+                    $sql->bindValue(':rg', $_POST['rg']);
+                    $sql->execute();
+                    if ($sql->rowCount() > 0) {
+                        $linha = $sql->fetch(PDO::FETCH_ASSOC);
+                        $id = $linha['id'];
+                        $sql = $pdo->prepare("insert into aluno values(:id,null,:nascimento,:curso,null,:conclusao);");
+                        $sql->bindValue(':id', $id);
+                        $sql->bindValue(':nascimento', $_POST['nascimento']);
+                        $sql->bindValue(':curso', $_POST['curso']);
+                        $sql->bindValue(':conclusao', $_POST['conclusao']);
+                        $sql->execute();
+                        //echo "Sucesso ao cadastrar ALUNO";
+                        if ($_SESSION['administrador'] == 'true') {
+                            header("Location: ../Tela/cadastroAluno.php");
+                        }else{
+                             header("Location: ../Tela/loginRecusado.php?msg=menorDeIdade");
+                        }
+                    }
+                }
+                if (isset($_POST['cargo']) and $_POST['cargo'] != null) {
+                    $sql = $pdo->prepare("select id from usuario where rg = :rg;");
+                    $sql->bindValue(':rg', $_POST['rg']);
+                    $sql->execute();
+                    if ($sql->rowCount() > 0) {
+                        $linha = $sql->fetch(PDO::FETCH_ASSOC);
+                        $id = $linha['id'];
+                        $sql = $pdo->prepare("insert into diretoria values(:id,:cargo);");
+                        $sql->bindValue(':id', $id);
+                        $sql->bindValue(':cargo', $_POST['cargo']);
+                        $sql->execute();
+                        //echo "Sucesso ao cadastrar DIRETORIA";
+                        if ($_SESSION['administrador'] == 'true') {
+                            header("Location: ../Tela/cadastroAluno.php");
+                        }else{
+                             header("Location: ../Tela/loginRecusado.php?msg=menorDeIdade");
+                        }
+                    }
+                }
+                if (true) {
+                    
+                }
+            }else{
+                header('location: ../Tela/erroDoSistema.php');
             }
-        } 
+            
+        } else {
+            //header('location: ../Tela/cadastroUsuario.php?msg=erro');
+        }
     }
 
     public function login() {
@@ -97,7 +147,7 @@ class usuarioPDO {
                     $_SESSION['cargo'] = $s['cargo'];
                 }
                 header('Location: ../Tela/home.php');
-                //print_r($_SESSION);
+//print_r($_SESSION);
             }
         } else {
             header("Location: ../Tela/login.php");
@@ -115,7 +165,7 @@ class usuarioPDO {
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($linha['senha'] == $senhaantiga) {
-            //$senha = md5($_POST['senha']);
+//$senha = md5($_POST['senha']);
             $stmt = $con->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email WHERE id = :id;');
             $stmt->bindValue(':nome', $_POST['nome']);
             $stmt->bindValue(':usuario', $_POST['usuario']);
@@ -149,7 +199,7 @@ class usuarioPDO {
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($linha['senha'] == $senhaantiga) {
-            //$senha = md5($_POST['senha']);
+//$senha = md5($_POST['senha']);
             $stmt = $pdo->prepare('UPDATE usuario SET cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cep = :cep WHERE id = :id;');
             $stmt->bindValue(':cidade', $_POST['cidade']);
             $stmt->bindValue(':bairro', $_POST['bairro']);
@@ -168,14 +218,13 @@ class usuarioPDO {
                 header('Location: ./usuarioPDO.php?erroNoBanco.php');
             }
         }
-        
     }
 
     public function logout() {
         session_destroy();
         header('Location: ../index.php');
     }
-    
 
 }
+
 ?>
