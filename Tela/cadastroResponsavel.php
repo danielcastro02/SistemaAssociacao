@@ -18,7 +18,7 @@ session_start();
                 <div class="center">
                     <h4>Cadastre o responsável</h4>
                 </div>
-                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirAluno" name="formulario-cadastro-aluno">
+                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario" name="formulario-cadastro-aluno">
                     <div class="col s12">
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="nome">

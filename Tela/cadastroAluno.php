@@ -28,7 +28,7 @@ if (!isset($_SESSION)) {
         <div class="row">
             <div class="col s6 card offset-s3">
                 <center><h4>Cadastre o aluno</h4></center>
-                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirAluno" name="formulario-cadastro-aluno">
+                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario" name="formulario-cadastro-aluno">
                     <div class="col s12"> 
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="nome">
@@ -94,13 +94,13 @@ if (!isset($_SESSION)) {
                             <input class="input-field" type="password" name="senha02">
                             <label for="senha02">Confirme a senha</label>
                         </div>
-<!--                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="cargo">
-                            <label for="cargo">Cargo</label>
-                        </div>-->
-<!--                        <div>
-                            <h1>Dados do </h1>
-                        </div>-->
+                        <!--                        <div class="input-field col s6">
+                                                    <input class="input-field" type="text" name="cargo">
+                                                    <label for="cargo">Cargo</label>
+                                                </div>-->
+                        <!--                        <div>
+                                                    <h1>Dados do </h1>
+                                                </div>-->
                         <?php
                         if (isset($_GET['msg'])) {
                             if ($_GET['msg'] == "senhasdiferentes") {
@@ -112,6 +112,11 @@ if (!isset($_SESSION)) {
                                 ?>
                                 <div class="row">
                                     <span class="red-text">Senha Vazia</span>
+                                </div>
+                            <?php } elseif ($_GET['msg'] == 'senhaPequena') {
+                                ?>  
+                                <div class="row">
+                                    <span class="red-text">S senha precisa ter pelo menos 6 caracteres</span>
                                 </div>
                                 <?php
                             }

@@ -18,7 +18,7 @@ if (isset($_GET["function"])) {
 class usuarioPDO {
 
     public function validarFormlario() {
-        if (isset($_POST['senha1']) && isset($_POST['senha1'])) {
+        if ((!empty($_POST['senha1'])) && (!empty($_POST['senha1']))) {
             if ($_POST['senha01'] === $_POST['senha02']) {
                 return true;
             } else {
@@ -33,7 +33,7 @@ class usuarioPDO {
         
     }
 
-    public function inserirAluno() {
+    public function inserirUsuario() {
         if ($this->validarFormlario()) {
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
