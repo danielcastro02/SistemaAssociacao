@@ -18,14 +18,14 @@ if (isset($_GET["function"])) {
 class usuarioPDO {
 
     public function validarFormlario() {
-        if (!($_POST['senha01'] === $_POST['senha02'])) {
-            if ($_POST['senha01'] != null) {
-                header('location: ../Tela/cadastroUsuario.php?msg=senhavazia');
+        if ((!empty($_POST['senha1'])) && (!empty($_POST['senha1']))) {
+            if ($_POST['senha01'] === $_POST['senha02']) {
+                return true;
             } else {
-                header('location: ../Tela/cadastroUsuario.php?msg=senhasdiferentes');
+                header('location: ../Tela/cadastroUsuario.php?msg=senhasDiferentes');
             }
         } else {
-            return true;
+            header('location: ../Tela/cadastroUsuario.php?msg=senhaVazia');
         }
     }
 
@@ -33,7 +33,7 @@ class usuarioPDO {
         
     }
 
-    public function inserirAluno() {
+    public function inserirUsuario() {
         if ($this->validarFormlario()) {
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
@@ -63,7 +63,7 @@ class usuarioPDO {
                 $sql->bindValue(':podeLogar', 'false');
             }
             if ($sql->execute()) {
-                echo "Sucesso ao cadastrar USUÁRIO";
+                //echo "Sucesso ao cadastrar USUÁRIO";
                 if (isset($_POST['curso']) && $_POST['curso'] != null) {
                     $sql = $pdo->prepare("select id from usuario where rg = :rg;");
                     $sql->bindValue(':rg', $_POST['rg']);
@@ -111,7 +111,7 @@ class usuarioPDO {
                 header('location: ../Tela/erroDoSistema.php');
             }
         } else {
-            //header('location: ../Tela/cadastroUsuario.php?msg=erro');
+            header('location: ../Tela/cadastroUsuario.php?msg=erro'); //erro no validar formulario
         }
     }
 
@@ -213,7 +213,6 @@ class usuarioPDO {
                 } else {
                     header('Location: ../Tela/alterarDadosUsuario.php?msg=bderross');
                 }
-
             } else {
                 if ($_POST['senha2'] == $_POST['senha2conf']) {
                     $senhamd5 = md5($_POST['senha2']);
@@ -275,7 +274,6 @@ class usuarioPDO {
                 } else {
                     header('Location: ./Tela/alterarEnderecoUsuario.php?msg=bderro');
                 }
-
             } else {
                 header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhaerrada');
             }

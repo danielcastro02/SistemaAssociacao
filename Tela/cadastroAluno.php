@@ -27,8 +27,8 @@ if (!isset($_SESSION)) {
         <br>
         <div class="row">
             <div class="col s6 card offset-s3">
-                <center><h4>Informe os dados do aluno</h4></center>
-                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirAluno" name="formulario-cadastro-aluno">
+                <center><h4>Cadastre o aluno</h4></center>
+                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario" name="formulario-cadastro-aluno">
                     <div class="col s12"> 
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="nome">
@@ -94,29 +94,14 @@ if (!isset($_SESSION)) {
                             <input class="input-field" type="password" name="senha02">
                             <label for="senha02">Confirme a senha</label>
                         </div>
-<!--                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="cargo">
-                            <label for="cargo">Cargo</label>
-                        </div>-->
-<!--                        <div>
-                            <h1>Dados do </h1>
-                        </div>-->
-                        <?php
-                        if (isset($_GET['msg'])) {
-                            if ($_GET['msg'] == "senhasdiferentes") {
-                                ?>  
-                                <div class="row">
-                                    <span class="red-text">Senhas não conferem</span>
-                                </div>
-                            <?php } elseif ($_GET['msg'] == 'senhavazia') {
-                                ?>
-                                <div class="row">
-                                    <span class="red-text">Senha Vazia</span>
-                                </div>
-                                <?php
-                            }
-                        }
-                        ?>
+                        <!--                        <div class="input-field col s6">
+                                                    <input class="input-field" type="text" name="cargo">
+                                                    <label for="cargo">Cargo</label>
+                                                </div>-->
+                        <!--                        <div>
+                                                    <h1>Dados do </h1>
+                                                </div>-->
+                        <?php include_once '../Base/msgSaida.php'; ?>
                         <div class="row">
                             <div class="col s12">
                                 <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>
