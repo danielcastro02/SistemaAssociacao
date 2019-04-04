@@ -17,14 +17,22 @@ if (realpath("./index.php")) {
                 <li><a href="../Tela/alterarDadosUsuario.php">Alterar Dados</a></li>
                 <li><a href="../Tela/alterarEnderecoUsuario.php">Alterar Endereço</a></li>
             </ul>
-            
-            <li><a class='dropdown-button' data-activates='dropdown2'>Administração</a></li>
+
+            <li><a class='dropdown-button' data-activates='dropdown2'>Cadastrar informações</a></li>
             <ul id='dropdown2' class='dropdown-content'>
-                <li><a><b>Cadastros</b></a></li>
-                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Cadastrar Aluno</a></li>
-                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Cadastrar Responsavel</a></li>
-                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Cadastrar Membro da diretoria</a></li>
-                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Cadastrar Administrador</a></li>
+                <li><a><b>Cadastrar informações</b></a></li>
+                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Aluno</a></li>
+                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Responsavel</a></li>
+                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Membro da diretoria</a></li>
+                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Administrador</a></li>
+            </ul>
+            <li><a class='dropdown-button' data-activates='dropdown3'>Alterar dados</a></li>
+            <ul id='dropdown3' class='dropdown-content'>
+                <li><a><b>Alterar dados</b></a></li>
+                <li><a href="#">Aluno</a></li>
+                <li><a href="#">Responsavel</a></li>
+                <li><a href="#">Diretoria</a></li>
+                <li><a href="#">Administrador</a></li>
             </ul>
             <li><a href="<?php echo $pontos; ?>./Controle/usuarioPDO.php?function=logout">Sair</a></li>
         </ul>
