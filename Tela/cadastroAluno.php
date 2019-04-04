@@ -27,7 +27,7 @@ if (!isset($_SESSION)) {
         <br>
         <div class="row">
             <div class="col s6 card offset-s3">
-                <center><h4>Informe os dados do aluno</h4></center>
+                <center><h4>Cadastre o aluno</h4></center>
                 <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirAluno" name="formulario-cadastro-aluno">
                     <div class="col s12"> 
                         <div class="input-field col s6">

@@ -11,32 +11,13 @@ session_start();
         <?php include_once '../Base/header.php'; ?>
     </head>
     <body class="homeimg">
-
-        <?php 
-//        if($_SESSION['administrador']== 'true'){
-//        include_once '../Base/navAdministrativa.php';
-//        }
-//        else{
-//        //header('location: ./acessoNegado.php');    
-//        }
-//?>
-
+        <?php include_once '../Base/navBar.php'; ?>
         <br>
         <div class="row">
             <div class="col s6 card offset-s3">
-                <?php 
-                if(isset($_GET['tipo'])){
-                    if($_GET['tipo']== 'responsavel'){?>
-                        <center><h4>Cadastro de Responsavel</h4></center>
-                    <?php
-                    }else{
-                        ?><center><h4>Cadastro de alunos</h4></center><?php
-                    }
-                }else{
-                    ?><center><h4>Cadastro de alunos</h4></center><?php
-                }
-?>
-                
+                <div class="center">
+                    <h4>Cadastre o responsável</h4>
+                </div>
                 <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirAluno" name="formulario-cadastro-aluno">
                     <div class="col s12">
                         <div class="input-field col s6">

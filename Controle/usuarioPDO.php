@@ -18,14 +18,14 @@ if (isset($_GET["function"])) {
 class usuarioPDO {
 
     public function validarFormlario() {
-        if (!($_POST['senha01'] === $_POST['senha02'])) {
-            if ($_POST['senha01'] != null) {
-                header('location: ../Tela/cadastroUsuario.php?msg=senhavazia');
+        if (isset($_POST['senha1']) && isset($_POST['senha1'])) {
+            if ($_POST['senha01'] === $_POST['senha02']) {
+                return true;
             } else {
-                header('location: ../Tela/cadastroUsuario.php?msg=senhasdiferentes');
+                header('location: ../Tela/cadastroUsuario.php?msg=senhasDiferentes');
             }
         } else {
-            return true;
+            header('location: ../Tela/cadastroUsuario.php?msg=senhaVazia');
         }
     }
 
@@ -213,7 +213,6 @@ class usuarioPDO {
                 } else {
                     header('Location: ../Tela/alterarDadosUsuario.php?msg=bderross');
                 }
-
             } else {
                 if ($_POST['senha2'] == $_POST['senha2conf']) {
                     $senhamd5 = md5($_POST['senha2']);
@@ -275,7 +274,6 @@ class usuarioPDO {
                 } else {
                     header('Location: ./Tela/alterarEnderecoUsuario.php?msg=bderro');
                 }
-
             } else {
                 header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhaerrada');
             }
