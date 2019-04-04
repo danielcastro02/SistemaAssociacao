@@ -63,7 +63,7 @@ class usuarioPDO {
                 $sql->bindValue(':podeLogar', 'false');
             }
             if ($sql->execute()) {
-                echo "Sucesso ao cadastrar USUÁRIO";
+                //echo "Sucesso ao cadastrar USUÁRIO";
                 if (isset($_POST['curso']) && $_POST['curso'] != null) {
                     $sql = $pdo->prepare("select id from usuario where rg = :rg;");
                     $sql->bindValue(':rg', $_POST['rg']);
@@ -111,7 +111,7 @@ class usuarioPDO {
                 header('location: ../Tela/erroDoSistema.php');
             }
         } else {
-            //header('location: ../Tela/cadastroUsuario.php?msg=erro');
+            header('location: ../Tela/cadastroUsuario.php?msg=erro'); //erro no validar formulario
         }
     }
 

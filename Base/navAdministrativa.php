@@ -21,7 +21,10 @@ if (realpath("./index.php")) {
             <li><a class='dropdown-button' data-activates='dropdown2'>Administração</a></li>
             <ul id='dropdown2' class='dropdown-content'>
                 <li><a><b>Cadastros</b></a></li>
+                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Cadastrar Aluno</a></li>
                 <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Cadastrar Responsavel</a></li>
+                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Cadastrar Membro da diretoria</a></li>
+                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Cadastrar Administrador</a></li>
             </ul>
             <li><a href="<?php echo $pontos; ?>./Controle/usuarioPDO.php?function=logout">Sair</a></li>
         </ul>

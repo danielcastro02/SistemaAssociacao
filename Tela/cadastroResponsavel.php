@@ -65,6 +65,10 @@ session_start();
                             <label for="rg">RG</label>
                         </div>
                         <div class="input-field col s6">
+                            <input disabled class="input-field disabled" type="text" name="cargo">
+                            <label for="cargo">Categoria responsável</label>
+                        </div>
+                        <div class="input-field col s6">
                             <input class="input-field" type="password" name="senha01">
                             <label for="senha01">Senha</label>
                         </div>
@@ -72,25 +76,7 @@ session_start();
                             <input class="input-field" type="password" name="senha02">
                             <label for="senha02">Confirme a senha</label>
                         </div>
-                        <div class="input-field col s6">
-
-                        </div>
-                        <?php 
-                        if (isset($_GET['msg'])) {
-                            if ($_GET['msg'] == "senhasdiferentes") {
-                                ?>  
-                                <div class="row">
-                                    <span class="red-text">Senhas não conferem</span>
-                                </div>
-                            <?php } elseif ($_GET['msg'] == 'senhavazia') {
-                                ?>
-                                <div class="row">
-                                    <span class="red-text">Senha Vazia</span>
-                                </div>
-                                <?php
-                            }
-                        }
-                        ?>
+                        <?php include_once '../Base/msgSaida.php'; ?>
                         <div class="row">
                             <div class="col s12">
                                 <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>
@@ -102,6 +88,6 @@ session_start();
             </div>
             <div class="col s3"></div>
         </div>
-    <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>

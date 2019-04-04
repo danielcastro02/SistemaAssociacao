@@ -101,27 +101,7 @@ if (!isset($_SESSION)) {
                         <!--                        <div>
                                                     <h1>Dados do </h1>
                                                 </div>-->
-                        <?php
-                        if (isset($_GET['msg'])) {
-                            if ($_GET['msg'] == "senhasdiferentes") {
-                                ?>  
-                                <div class="row">
-                                    <span class="red-text">Senhas não conferem</span>
-                                </div>
-                            <?php } elseif ($_GET['msg'] == 'senhavazia') {
-                                ?>
-                                <div class="row">
-                                    <span class="red-text">Senha Vazia</span>
-                                </div>
-                            <?php } elseif ($_GET['msg'] == 'senhaPequena') {
-                                ?>  
-                                <div class="row">
-                                    <span class="red-text">S senha precisa ter pelo menos 6 caracteres</span>
-                                </div>
-                                <?php
-                            }
-                        }
-                        ?>
+                        <?php include_once '../Base/msgSaida.php'; ?>
                         <div class="row">
                             <div class="col s12">
                                 <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>

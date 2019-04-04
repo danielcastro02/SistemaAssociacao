@@ -84,7 +84,7 @@ if (!isset($_SESSION)) {
                                 if($_GET['msg'] == 'sucesso'||$_GET['msg'] == 'sucessoss'){
                                     ?>
                         <div class="row center">
-                            <span>Dados alterados com sucesso</span>
+                            <span class="green-text">Dados alterados com sucesso</span>
                         </div>
                         <?php
                                 }else{
