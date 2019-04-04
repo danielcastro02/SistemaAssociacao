@@ -75,7 +75,7 @@ session_start();
                         <div class="input-field col s6">
 
                         </div>
-                        <?php
+                        <?php 
                         if (isset($_GET['msg'])) {
                             if ($_GET['msg'] == "senhasdiferentes") {
                                 ?>  
