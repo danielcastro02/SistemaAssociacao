@@ -18,8 +18,8 @@ if (isset($_GET["function"])) {
 class usuarioPDO {
 
     public function validarFormlario() {
-        if ((!empty($_POST['senha1'])) && (!empty($_POST['senha1']))) {
-            if ($_POST['senha01'] === $_POST['senha02']) {
+        if ($_POST['senha01'] != null and $_POST['senha02'] != null) {
+            if ($_POST['senha01'] == $_POST['senha02']) {
                 return true;
             } else {
                 header('location: ../Tela/cadastroUsuario.php?msg=senhasDiferentes');
@@ -71,7 +71,8 @@ class usuarioPDO {
                     if ($sql->rowCount() > 0) {
                         $linha = $sql->fetch(PDO::FETCH_ASSOC);
                         $id = $linha['id'];
-                        $sql = $pdo->prepare("insert into aluno values(:id,null,:nascimento,:curso,null,:conclusao);");
+                        $sql = $pdo->prepare("insert into aluno values(:id,null,:nascimento,:curso"
+                                . ",0,:conclusao);");
                         $sql->bindValue(':id', $id);
                         $sql->bindValue(':nascimento', $_POST['nascimento']);
                         $sql->bindValue(':curso', $_POST['curso']);
@@ -104,14 +105,16 @@ class usuarioPDO {
                         }
                     }
                 }
-                if (true) {
-                    
-                }
             } else {
                 header('location: ../Tela/erroDoSistema.php');
             }
         } else {
-            header('location: ../Tela/cadastroUsuario.php?msg=erro'); //erro no validar formulario
+            if (isset($_POST['curso'])) {
+                echo $_POST['curso'];
+                //header('location: ../Tela/cadastroAluno.php?msg=erro2');
+            } else {
+                header('location: ../Tela/cadastroAluno.php?msg=erro1');
+            }
         }
     }
 

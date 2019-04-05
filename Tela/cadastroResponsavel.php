@@ -57,6 +57,10 @@ session_start();
                             <label for="email">E-mail</label>
                         </div>
                         <div class="input-field col s6">
+                            <input disabled class="input-field" type="text" name="rg">
+                            <label for="rg">Data de nascimento dd/mm/aaaa</label>
+                        </div>
+                        <div class="input-field col s6">
                             <input class="input-field" type="text" name="cpf">
                             <label for="cpf">CPF</label>
                         </div>
@@ -64,10 +68,11 @@ session_start();
                             <input class="input-field" type="text" name="rg">
                             <label for="rg">RG</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input disabled class="input-field disabled" type="text" name="cargo">
-                            <label for="cargo">Categoria responsável</label>
-                        </div>
+
+                        <!--                        <div class="input-field col s6">
+                                                    <input disabled class="input-field disabled" type="text" name="cargo">
+                                                    <label for="cargo">Categoria responsável</label>
+                                                </div>-->
                         <div class="input-field col s6">
                             <input class="input-field" type="password" name="senha01">
                             <label for="senha01">Senha</label>
