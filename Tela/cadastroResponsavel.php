@@ -12,7 +12,7 @@ session_start();
     </head>
     <body class="homeimg">
         <?php include_once '../Base/navBar.php'; ?>
-        <br>
+        <br> 
         <div class="row">
             <div class="col s6 card offset-s3">
                 <div class="center">

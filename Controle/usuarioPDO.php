@@ -61,7 +61,7 @@ class usuarioPDO {
                 }
             } else {
                 $sql->bindValue(':podeLogar', 'false');
-            }
+            } 
             if ($sql->execute()) {
                 //echo "Sucesso ao cadastrar USUÁRIO";
                 if (isset($_POST['curso']) && $_POST['curso'] != null) {
