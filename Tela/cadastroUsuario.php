@@ -2,10 +2,10 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-
+echo "PÁGINA DESATIVADA -> VERIFICAR ARQUIVO cadastroAluno.php<br>PS: Não excluir essa página"
 //VERIFICAR LOGIN
 ?>                  
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
     <head>
         <?php include_once '../Base/header.php'; ?>
@@ -100,7 +100,7 @@ if (!isset($_SESSION)) {
                         <div class="input-field col s6">
 
                         </div>
-                        <?php
+                        <?php 
                         if (isset($_GET['msg'])) {
                             if ($_GET['msg'] == "senhasdiferentes") {
                                 ?>  
@@ -129,4 +129,4 @@ if (!isset($_SESSION)) {
         </div>
         <?php include_once '../Base/footer.php'; ?>
     </body>
-</html>
+</html>-->
