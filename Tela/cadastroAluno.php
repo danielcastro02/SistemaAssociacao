@@ -68,7 +68,7 @@ if (!isset($_SESSION)) {
                         </div>
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="curso">
-                            <label for="email">Curso</label>
+                            <label for="curso">Curso</label>
                         </div>
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="conclusao">

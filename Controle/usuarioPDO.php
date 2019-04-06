@@ -40,7 +40,7 @@ class usuarioPDO {
             $pdo = $conexao->getConexao();
             $senhaMD5 = md5($_POST['senha01']);
             $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , "
-                    . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :telefone , :email , "
+                    . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :nascimento, :telefone , :email , "
                     . ":podeLogar , 'false' );");
             $sql->bindValue(':nome', $_POST['nome']);
             $sql->bindValue(':usuario', $_POST['login']);
@@ -52,6 +52,7 @@ class usuarioPDO {
             $sql->bindValue(':cep', $_POST['cep']);
             $sql->bindValue(':cpf', $_POST['cpf']);
             $sql->bindValue(':rg', $_POST['rg']);
+            $sql->bindValue(':nascimento', $_POST['nascimento']);
             $sql->bindValue(':telefone', $_POST['telefone']);
             $sql->bindValue(':email', $_POST['email']);
             if (isset($_SESSION['id'])) {
@@ -62,7 +63,7 @@ class usuarioPDO {
                 }
             } else {
                 $sql->bindValue(':podeLogar', 'false');
-            } 
+            }
             if ($sql->execute()) {
                 //echo "Sucesso ao cadastrar USUÁRIO";
                 if (isset($_POST['curso']) && $_POST['curso'] != null) {
@@ -75,7 +76,7 @@ class usuarioPDO {
                         $sql = $pdo->prepare("insert into aluno values(:id,null,:nascimento,:curso"
                                 . ",0,:conclusao);");
                         $sql->bindValue(':id', $id);
-                        $sql->bindValue(':nascimento', $_POST['nascimento']);
+                        //$sql->bindValue(':nascimento', $_POST['nascimento']);  //atributo movido para a tabela usuario
                         $sql->bindValue(':curso', $_POST['curso']);
                         $sql->bindValue(':conclusao', $_POST['conclusao']);
                         $sql->execute();
@@ -124,8 +125,8 @@ class usuarioPDO {
         $senha = md5($_POST['senha']);
         $pdo = $conexao->getConexao();
         $stmt = $pdo->prepare('SELECT * FROM usuario WHERE usuario LIKE :usuario AND senha LIKE :senha;');
-        $stmt->bindValue(':usuario', $_POST['usuario']); 
-       $stmt->bindValue(':senha', $senha);
+        $stmt->bindValue(':usuario', $_POST['usuario']);
+        $stmt->bindValue(':senha', $senha);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             $linha = $stmt->fetch(PDO::FETCH_ASSOC);
