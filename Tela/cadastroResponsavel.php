@@ -57,7 +57,7 @@ session_start();
                             <label for="email">E-mail</label>
                         </div>
                         <div class="input-field col s6">
-                            <input disabled class="input-field" type="text" name="rg">
+                            <input class="input-field" type="text" name="rg">
                             <label for="rg">Data de nascimento dd/mm/aaaa</label>
                         </div>
                         <div class="input-field col s6">

@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
 }
 if (!isset($_SESSION['id'])) {
     header("location: ../Tela/login.php");
-} 
+}
 ?>
 <!DOCTYPE html>
 <html>

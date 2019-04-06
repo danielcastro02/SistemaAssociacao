@@ -1,7 +1,10 @@
 <?php
-session_start();
-?>                  
+if (!isset($_SESSION)) {
+    session_start();
+}
 
+//VERIFICAR LOGIN
+?>                  
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,24 +13,22 @@ session_start();
     <body class="homeimg">
 
         <?php
-        if(isset($_SESSION['id'])){
-        if ($_SESSION['administrador'] == 'true') {
-            include_once '../Base/navAdministrativa.php';
-        } else {
-            include_once '../Base/navBar.php';
-        }
-        }else{
-            include_once '../Base/navBar.php';
+        if (isset($_SESSION['id'])) {
+            if ($_SESSION['administrador'] == 'true') {
+                include_once '../Base/navAdministrativa.php';
+            } else {
+                include_once '../Base/navBar.php';
+            }
         }
         ?>
 
         <br>
         <div class="row">
             <div class="col s6 card offset-s3">
-<?php
-if (isset($_GET['tipo'])) {
-    if ($_GET['tipo'] == 'responsavel') {
-        ?>
+                <?php
+                if (isset($_GET['tipo'])) {
+                    if ($_GET['tipo'] == 'responsavel') {
+                        ?>
                         <center><h4>Cadastro de Responsavel</h4></center>
                         <?php
                     } else {
@@ -75,6 +76,10 @@ if (isset($_GET['tipo'])) {
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="email">
                             <label for="email">E-mail</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input class="input-field" type="text" name="rg">
+                            <label for="rg">Data de nascimento dd/mm/aaaa</label>
                         </div>
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="cpf">

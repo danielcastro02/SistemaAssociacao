@@ -8,6 +8,7 @@ if (realpath("./home.php")) {
 } else {
     include_once "./conexao.php";
 }
+
 $classe = new usuarioPDO();
 
 if (isset($_GET["function"])) {
@@ -80,9 +81,9 @@ class usuarioPDO {
                         $sql->execute();
                         //echo "Sucesso ao cadastrar ALUNO";
                         if ($_SESSION['administrador'] == 'true') {
-                            header("Location: ../Tela/cadastroAluno.php");
+                            header("Location: ../Tela/orientacao.php");
                         } else {
-                            header("Location: ../Tela/loginRecusado.php?msg=menorDeIdade");
+                            header("Location: ../Tela/orientacao.php?msg=menorDeIdade");
                         }
                     }
                 }
@@ -99,9 +100,9 @@ class usuarioPDO {
                         $sql->execute();
                         //echo "Sucesso ao cadastrar DIRETORIA";
                         if ($_SESSION['administrador'] == 'true') {
-                            header("Location: ../Tela/cadastroAluno.php");
+                            header("Location: ../Tela/orientacaao.php");
                         } else {
-                            header("Location: ../Tela/loginRecusado.php?msg=menorDeIdade");
+                            header("Location: ../Tela/orientacao.php?msg=menorDeIdade");
                         }
                     }
                 }
@@ -123,8 +124,8 @@ class usuarioPDO {
         $senha = md5($_POST['senha']);
         $pdo = $conexao->getConexao();
         $stmt = $pdo->prepare('SELECT * FROM usuario WHERE usuario LIKE :usuario AND senha LIKE :senha;');
-        $stmt->bindValue(':usuario', $_POST['usuario']);
-        $stmt->bindValue(':senha', $senha);
+        $stmt->bindValue(':usuario', $_POST['usuario']); 
+       $stmt->bindValue(':senha', $senha);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             $linha = $stmt->fetch(PDO::FETCH_ASSOC);
