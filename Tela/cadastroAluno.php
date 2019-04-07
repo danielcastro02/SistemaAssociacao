@@ -101,18 +101,21 @@ if (!isset($_SESSION)) {
                             <input class = "input-field" type = "password" name = "senha02">
                             <label for = "senha02">Confirme a senha</label>
                         </div>
-                        <!--<div class = "input-field col s6">
-                        <input class = "input-field" type = "text" name = "cargo">
-                        <label for = "cargo">Cargo</label>
-                        </div> -->
-                        <!--<div>
-                        <h1>Dados do </h1>
-                        </div> -->
                         <?php include_once '../Base/msgSaida.php';
                         ?>
                         <div class="row">
                             <div class="col s12">
-                                <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>
+                                <?php
+                                if (isset($_SESSION['id'])) {
+                                    ?>
+                                    <a href = "./home.php" class = "btn hoverable corpadrao">Cancelar</a>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <a href="../index.php" class="btn hoverable corpadrao">Cancelar</a>
+                                    <?php
+                                }
+                                ?>
                                 <button type="submit" class="btn hoverable corpadrao">Enviar</button>
                             </div>
                         </div>

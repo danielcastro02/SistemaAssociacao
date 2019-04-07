@@ -29,7 +29,7 @@ if (!isset($_SESSION['id'])) {
                 if ($_GET['msg'] == 'sucessoAluno') {
                     ?>
                     <div class="col s4 center">
-                        <h5>Aluno cadastrado com sucesso.</h5>
+                        <h5>Aluno(a) cadastrado(a) com sucesso.</h5>
                         <br>
                         <a class="btn hoverable corpadrao" href="../Tela/home.php">Tela inicial</a>
                         <a class="btn hoverable corpadrao" href="../Tela/cadastroAluno.php">Cadastrar +</a>
@@ -38,12 +38,22 @@ if (!isset($_SESSION['id'])) {
                 } else {
                     if ($_GET['msg'] == 'sucessoAlunoRequerimento') {
                         ?>
-                        aluno menor de idade cadastrado com sucesso - Deseja cadastrar um responsável?
+                        <div class="col s4 center">
+                            <h5>Seu cadastro foi concluido com sucesso!<br>
+                            Para acessar o portal aguarde a análise do adminstrador ou entre em contado com a Associação.
+                            </h5>
+                            <br>
+                            <a class="btn hoverable corpadrao" href="../index.php">Continuar</a>
+                        </div>
                         <?php
                     } else {
                         if ($_GET['msg'] == 'cadastrarResponsavel') {
                             ?>
-                            Form cadastro de responsáveel
+                            <div class="col s4 center">
+                                <h5>Alunos(as) menores de idade preisam de um responsável.</h5>
+                                <br>
+                                <a class="btn hoverable corpadrao" href="../Tela/cadastroResponsavel.php">Cadastrar responsável</a>
+                            </div>
                             <?php
                         }
                     }

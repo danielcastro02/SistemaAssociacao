@@ -75,7 +75,13 @@ class usuarioPDO {
         }
     }
 
-    public function enviarOrientacaoCadAluno() {
+    public function cancelarCadastroAluno(){
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        //continuar
+    }
+
+        public function enviarOrientacaoCadAluno() { //método de controle   
         if ($this->buscarIdade()>=18) { //Sucesso ao cadastrar ALUNO
             if (isset($_SESSION['id']) and $_SESSION['administrador'] == 'true') {
                 header("Location: ../Tela/orientacao.php?msg=sucessoAluno"); //admin - para maior de idade
@@ -83,6 +89,7 @@ class usuarioPDO {
                 header("Location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento"); // requerimento - aluno sem login
             }
         } else {
+            $_SESSION['temp']= $this->buscarIDporRG();
             header("Location: ../Tela/orientacao.php?msg=cadastrarResponsavel");
         }
     }

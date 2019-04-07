@@ -16,7 +16,7 @@ if (realpath("./index.php")) {
             } else {
                 ?>
                 <li><a href="<?php echo $pontos; ?>./Tela/login.php">Entrar</a></li>
-                <li><a href="<?php echo $pontos; ?>./Tela/cadastroUsuario.php">Associar-se</a></li>
+                <li><a href="<?php echo $pontos; ?>./Tela/contrato.php">Associar-se</a></li>
                 <?php
             }
             ?>
