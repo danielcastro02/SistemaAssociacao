@@ -21,6 +21,7 @@ if (isset($_GET["function"])) {
 class usuarioPDO {
 
     public function validarFormlario() {
+        //verificarCadastroExistente(); //por CPF e RG
         if ($_POST['senha01'] != null and $_POST['senha02'] != null) { //completar
             if ($_POST['senha01'] == $_POST['senha02']) {
                 return true;
@@ -67,14 +68,22 @@ class usuarioPDO {
             $sql->bindValue(':curso', $_POST['curso']);
             $sql->bindValue(':conclusao', $_POST['conclusao']);
             if ($sql->execute()) {
-                if ($this->validarMaioridade()) { //Sucesso ao cadastrar ALUNO
-                    header("Location: ../Tela/orientacao.php?msg=sucessoAluno");
-                } else {
-                    header("Location: ../Tela/orientacao.php?msg=sucessoMenorDeIdade");
-                }
+                $this->enviarOrientacaoCadAluno();
             } else {
-                header("Location: ../index.php?msg=erroInserirAluno");
+                header("Location: ../index.php?msg=erroInserirAluno");  //MODIFICAR HEADER
             }
+        }
+    }
+
+    public function enviarOrientacaoCadAluno() {
+        if ($this->validarMaioridade()) { //Sucesso ao cadastrar ALUNO
+            if (isset($_SESSION['id']) and $_SESSION['administrador'] == 'true') {
+                header("Location: ../Tela/orientacao.php?msg=sucessoAluno"); //admin - para maior de idade
+            } else {
+                header("Location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento"); // requerimento - aluno sem login
+            }
+        } else {
+            header("Location: ../Tela/orientacao.php?msg=cadastrarResponsavel");
         }
     }
 

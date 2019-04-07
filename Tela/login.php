@@ -1,3 +1,8 @@
+<?php
+    if (!$_SESSION) {
+        session_start();
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
