@@ -70,13 +70,13 @@ class usuarioPDO {
             if ($sql->execute()) {
                 $this->enviarOrientacaoCadAluno();
             } else {
-                header("Location: ../index.php?msg=erroInserirAluno");  //MODIFICAR HEADER
+                header("Location: ../index.php?msg=erroInserirAlunoMethod");  //MODIFICAR HEADER
             }
         }
     }
 
     public function enviarOrientacaoCadAluno() {
-        if ($this->validarMaioridade()) { //Sucesso ao cadastrar ALUNO
+        if ($this->buscarIdade()>=18) { //Sucesso ao cadastrar ALUNO
             if (isset($_SESSION['id']) and $_SESSION['administrador'] == 'true') {
                 header("Location: ../Tela/orientacao.php?msg=sucessoAluno"); //admin - para maior de idade
             } else {
@@ -175,20 +175,24 @@ class usuarioPDO {
         }
     }
 
-    public function validarMaioridade() { // método incompleto - verificar
-        date_default_timezone_set('America/Sao_Paulo');
-        $date = date('Y-m-d H:i');
-        $date = date('Y-m-d');
-        //echo $date . "<br>";
-        $data = $_POST['nascimento'];
-        list($dia, $mes, $ano) = explode('/', $data);
-        $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-        $nascimento = mktime(0, 0, 0, $mes, $dia, $ano);
-        $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
-        if ($idade >= 18) {
-            return TRUE;
+    public function testeData() { //método criado afim de testes
+    }
+
+    public function buscarIdade() { // método incompleto - verificar
+        $anoAtual = date('Y');
+        $mesAtual = date('m');
+        $diaAtual = date('d');
+        $nascimento = $_POST['nascimento'];
+        list($dia, $mes, $ano) = explode('-', $nascimento);
+        $idade = $anoAtual - $ano;
+        if ($mesAtual > $mes) {
+            return $idade;
         } else {
-            return FALSE;
+            if ($mesAtual == $mes and $diaAtual >= $dia) {
+                return $idade;
+            } else {
+                return --$idade;
+            }
         }
     }
 

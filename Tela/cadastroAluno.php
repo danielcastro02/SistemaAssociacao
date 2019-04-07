@@ -22,86 +22,94 @@ if (!isset($_SESSION)) {
     </head> 
     <body class="homeimg">
 
-        <?php include_once '../Base/navBar.php'; ?>
-
+        <?php
+        include_once '../Base/nav.php';
+        ?>
         <br>
-        <div class="row">
-            <div class="col s6 card offset-s3">
+        <div class = "row">
+            <div class = "col s6 card offset-s3">
                 <center><h4>Cadastre o aluno</h4></center>
-                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name="formulario-cadastro-aluno">
-                    <div class="col s12"> 
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="nome">
-                            <label for="nome">Nome</label>
+                <form class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
+                    <div class = "col s12">
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "nome">
+                            <label for = "nome">Nome</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="login">
-                            <label for="login">Login</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "login">
+                            <label for = "login">Login</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="cidade">
-                            <label for="cidade">Cidade</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "cidade">
+                            <label for = "cidade">Cidade</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="bairro">
-                            <label for="bairro">Bairro</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "bairro">
+                            <label for = "bairro">Bairro</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="rua">
-                            <label for="rua">Rua</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "rua">
+                            <label for = "rua">Rua</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="numero">
-                            <label for="numero">Número da casa</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "numero">
+                            <label for = "numero">Número da casa</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="cep">
-                            <label for="cep">CEP</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "cep">
+                            <label for = "cep">CEP</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="telefone">
-                            <label for="telefone">Telefone</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "telefone">
+                            <label for = "telefone">Telefone</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="email">
-                            <label for="email">E-mail</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "email">
+                            <label for = "email">E-mail</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="curso">
-                            <label for="curso">Curso</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "curso">
+                            <label for = "curso">Curso</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="conclusao">
-                            <label for="email">Ano de conclusão do curso</label>
+                        <div class = "input-field col s6">
+                            <div class = "left grey-text">
+                                Data de conclusão de curso
+                            </div>
+                            <input class = "input-field" type = "date" name = "conclusao">
+                            <label for = "conclusao"></label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="nascimento">
-                            <label for="email">Data de nascimento dd/mm/aaaa</label>
+                        <div class = "input-field col s6">
+                            <div class = "left grey-text">
+                                Data de nascimento
+                            </div>
+                            <input class = "input-field" type = "date" name = "nascimento">
+                            <label for = "nascimento"></label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="cpf">
-                            <label for="cpf">CPF</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "cpf">
+                            <label for = "cpf">CPF</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="rg">
-                            <label for="rg">RG</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "rg">
+                            <label for = "rg">RG</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="password" name="senha01">
-                            <label for="senha01">Senha</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "password" name = "senha01">
+                            <label for = "senha01">Senha</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="password" name="senha02">
-                            <label for="senha02">Confirme a senha</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "password" name = "senha02">
+                            <label for = "senha02">Confirme a senha</label>
                         </div>
-                        <!--                        <div class="input-field col s6">
-                                                    <input class="input-field" type="text" name="cargo">
-                                                    <label for="cargo">Cargo</label>
-                                                </div>-->
-                        <!--                        <div>
-                                                    <h1>Dados do </h1>
-                                                </div>-->
-                        <?php include_once '../Base/msgSaida.php'; ?>
+                        <!--<div class = "input-field col s6">
+                        <input class = "input-field" type = "text" name = "cargo">
+                        <label for = "cargo">Cargo</label>
+                        </div> -->
+                        <!--<div>
+                        <h1>Dados do </h1>
+                        </div> -->
+                        <?php include_once '../Base/msgSaida.php';
+                        ?>
                         <div class="row">
                             <div class="col s12">
                                 <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>

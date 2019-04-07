@@ -13,13 +13,7 @@ if (!isset($_SESSION['id'])) {
     </head> 
     <body class="homeimg">
         <?php
-        if ($_SESSION['adminstrador']=='true') {
-            include_once '../Base/navAdministrativa.php';
-        }else{
-            if ($_SESSION['adminstrador']=='false') {
-                include_once '../Base/navPadrao.php';
-            }
-        }
+        include_once '../Base/nav.php';
         if (isset($_GET['msg'])) {
             if ($_GET['msg'] == 'sucessoAluno') {
                 ?>
