@@ -13,6 +13,8 @@ $classe = new usuarioPDO();
 
 if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
+    $metod = $_GET["user"];
+    //echo "$metodo<br>$metod";
     eval("\$classe->\$metodo();");
 }
 
@@ -54,14 +56,25 @@ class usuarioPDO {
         }
     }
 
+    public function abrirConexao() {
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+    }
+
     public function inserirAluno() {
         if (isset($_POST['curso']) && $_POST['curso'] != null) {
+            $this->abrirConexao();
             $id = $this->buscarIDporRG();
             $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
             $sql->bindValue(':id', $id);
             $sql->bindValue(':curso', $_POST['curso']);
             $sql->bindValue(':conclusao', $_POST['conclusao']);
             if ($sql->execute()) {
+                if ($this->validarMaioridade()) {
+                    header("Location: ../Tela/orientacao.php?msg=sucessoAluno");
+                } else {
+                    header("Location: ../Tela/orientacao.php?msg=sucessoMenorDeIdade");
+                }
                 //echo "Sucesso ao cadastrar ALUNO";
                 if ($_SESSION['administrador'] == 'true') {
                     header("Location: ../Tela/orientacao.php?sucessoAluno");
@@ -75,6 +88,8 @@ class usuarioPDO {
     }
 
     public function buscarIDporRG() {
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("select id from usuario where rg = :rg;");
         $sql->bindValue(':rg', $_POST['rg']);
         $sql->execute();
@@ -83,11 +98,13 @@ class usuarioPDO {
             $id = $linha['id'];
             return $id;
         } else {
-            header("Location: ../index.php?erroBuscarPorRG");
+            header("Location: ../index.php?msg=erroBuscarPorRG");
         }
     }
 
     public function buscarIDporCPF() {
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("select id from usuario where cpf = :cpf;");
         $sql->bindValue(':cpf', $_POST['cpf']);
         $sql->execute();
@@ -96,7 +113,7 @@ class usuarioPDO {
             $id = $linha['id'];
             return $id;
         } else {
-            header("Location: ../index.php?erroBuscarPorCPF");
+            header("Location: ../index.php?msg=erroBuscarPorCPF");
         }
     }
 
@@ -139,15 +156,15 @@ class usuarioPDO {
                 $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
             if ($sql->execute()) {
-//echo "Sucesso ao cadastrar USUÁRIO";
-                if (isset($_GET['msg'])) {
-                    if ($_GET['msg'] == 'aluno') {
+                //echo "Sucesso ao cadastrar USUÁRIO";
+                if (isset($_GET['user'])) {
+                    if ($_GET['user'] == 'aluno') {
                         $this->inserirAluno();
                     }
-                    if ($_GET['msg'] == 'diretoria') {
+                    if ($_GET['user'] == 'diretoria') {
                         $this->inserirDiretoria();
                     }
-                    if ($_GET['responsavel']) {
+                    if ($_GET['user'] == 'responsavel') {
                         $this->inserirResponsavel();
                     }
                 }
@@ -155,20 +172,15 @@ class usuarioPDO {
                 header('location: ../Tela/erroInserirUsuario.php');
             }
         } else {
-            if (isset($_POST['curso'])) {
-                echo $_POST['curso'];
-//header('location: ../Tela/cadastroAluno.php?msg=erro2');
-            } else {
-                header('location: ../Tela/cadastroAluno.php?msg=erro1');
-            }
+            //nunca vai chegar aqui. O ValidarFormulario vai redirecionar antes erro.
         }
     }
 
-    public function validarMaioridade() { // método incompleto
+    public function validarMaioridade() { // método incompleto - verificar
         date_default_timezone_set('America/Sao_Paulo');
         $date = date('Y-m-d H:i');
         $date = date('Y-m-d');
-        echo $date . "<br>";
+        //echo $date . "<br>";
         $data = $_POST['nascimento'];
         list($dia, $mes, $ano) = explode('/', $data);
         $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
