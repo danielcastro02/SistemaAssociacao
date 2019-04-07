@@ -31,11 +31,85 @@ class usuarioPDO {
     }
 
     public function inserirDiretoria() {
+        if (isset($_POST['cargo']) and $_POST['cargo'] != null) {
+            $sql = $pdo->prepare("select id from usuario where rg = :rg;");
+            $sql->bindValue(':rg', $_POST['rg']);
+            $sql->execute();
+            if ($sql->rowCount() > 0) {
+                $linha = $sql->fetch(PDO::FETCH_ASSOC);
+                $id = $linha['id'];
+                $sql = $pdo->prepare("insert into diretoria values(:id,:cargo);");
+                $sql->bindValue(':id', $id);
+                $sql->bindValue(':cargo', $_POST['cargo']);
+                $sql->execute();
+//echo "Sucesso ao cadastrar DIRETORIA";
+                if ($_SESSION['administrador'] == 'true') {
+                    header("Location: ../Tela/orientacaao.php");
+                } else {
+                    header("Location: ../Tela/orientacao.php");
+                }
+            }
+        } else {
+            header("Location: ../index.php?msg=erroInserirDiretoria");
+        }
+    }
+
+    public function inserirAluno() {
+        if (isset($_POST['curso']) && $_POST['curso'] != null) {
+            $id = $this->buscarIDporRG();
+            $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
+            $sql->bindValue(':id', $id);
+            $sql->bindValue(':curso', $_POST['curso']);
+            $sql->bindValue(':conclusao', $_POST['conclusao']);
+            if ($sql->execute()) {
+                //echo "Sucesso ao cadastrar ALUNO";
+                if ($_SESSION['administrador'] == 'true') {
+                    header("Location: ../Tela/orientacao.php?sucessoAluno");
+                } else {
+                    header("Location: ../Tela/orientacao.php?msg=menorDeIdade");
+                }
+            } else {
+                header("Location: ../index.php?msg=erroInserirAluno");
+            }
+        }
+    }
+
+    public function buscarIDporRG() {
+        $sql = $pdo->prepare("select id from usuario where rg = :rg;");
+        $sql->bindValue(':rg', $_POST['rg']);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            $linha = $sql->fetch(PDO::FETCH_ASSOC);
+            $id = $linha['id'];
+            return $id;
+        } else {
+            header("Location: ../index.php?erroBuscarPorRG");
+        }
+    }
+
+    public function buscarIDporCPF() {
+        $sql = $pdo->prepare("select id from usuario where cpf = :cpf;");
+        $sql->bindValue(':cpf', $_POST['cpf']);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            $linha = $sql->fetch(PDO::FETCH_ASSOC);
+            $id = $linha['id'];
+            return $id;
+        } else {
+            header("Location: ../index.php?erroBuscarPorCPF");
+        }
+    }
+
+    public function buscarNomePorCPF() {
+        
+    }
+
+    public function inserirResponsavel() {
         
     }
 
     public function inserirUsuario() {
-        if ($this->validarFormlario()) {
+        if ($this->validarFormlario()) { //validar estáincompleto
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
             $senhaMD5 = md5($_POST['senha01']);
@@ -57,67 +131,33 @@ class usuarioPDO {
             $sql->bindValue(':email', $_POST['email']);
             if (isset($_SESSION['id'])) {
                 if ($_SESSION['administrador'] == 'true') {
-                    $sql->bindValue(':podeLogar', 'true');
+                    $sql->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
                 } else {
-                    $sql->bindValue(':podeLogar', 'false');
+                    $sql->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
                 }
             } else {
-                $sql->bindValue(':podeLogar', 'false');
+                $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
             if ($sql->execute()) {
-                //echo "Sucesso ao cadastrar USUÁRIO";
-                if (isset($_POST['curso']) && $_POST['curso'] != null) {
-                    $sql = $pdo->prepare("select id from usuario where rg = :rg;");
-                    $sql->bindValue(':rg', $_POST['rg']);
-                    $sql->execute();
-                    if ($sql->rowCount() > 0) {
-                        $linha = $sql->fetch(PDO::FETCH_ASSOC);
-                        $id = $linha['id'];
-                        $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
-                        $sql->bindValue(':id', $id);
-                        //$sql->bindValue(':nascimento', $_POST['nascimento']);  //atributo movido para a tabela usuario
-                        $sql->bindValue(':curso', $_POST['curso']);
-                        $sql->bindValue(':conclusao', $_POST['conclusao']);
-                        $sql->execute();
-                        //echo "Sucesso ao cadastrar ALUNO";
-                        if ($_SESSION['administrador'] == 'true') {
-                            header("Location: ../Tela/orientacao.php?sucessoAluno");
-                        } else {
-                            header("Location: ../Tela/orientacao.php?msg=menorDeIdade");
-                        }
+//echo "Sucesso ao cadastrar USUÁRIO";
+                if (isset($_GET['msg'])) {
+                    if ($_GET['msg'] == 'aluno') {
+                        $this->inserirAluno();
                     }
-                }
-                if (isset($_POST['cargo']) and $_POST['cargo'] != null) {
-                    $sql = $pdo->prepare("select id from usuario where rg = :rg;");
-                    $sql->bindValue(':rg', $_POST['rg']);
-                    $sql->execute();
-                    if ($sql->rowCount() > 0) {
-                        $linha = $sql->fetch(PDO::FETCH_ASSOC);
-                        $id = $linha['id'];
-                        $sql = $pdo->prepare("insert into diretoria values(:id,:cargo);");
-                        $sql->bindValue(':id', $id);
-                        $sql->bindValue(':cargo', $_POST['cargo']);
-                        $sql->execute();
-
-                        // validarMaioridade();
-                        print $idade;
-                        //deixar vazia
-                        //split = explode;
-                        //echo "Sucesso ao cadastrar DIRETORIA";
-                        if ($_SESSION['administrador'] == 'true') {
-                            header("Location: ../Tela/orientacaao.php");
-                        } else {
-                            header("Location: ../Tela/orientacao.php");
-                        }
+                    if ($_GET['msg'] == 'diretoria') {
+                        $this->inserirDiretoria();
+                    }
+                    if ($_GET['responsavel']) {
+                        $this->inserirResponsavel();
                     }
                 }
             } else {
-                header('location: ../Tela/erroDoSistema.php');
+                header('location: ../Tela/erroInserirUsuario.php');
             }
         } else {
             if (isset($_POST['curso'])) {
                 echo $_POST['curso'];
-                //header('location: ../Tela/cadastroAluno.php?msg=erro2');
+//header('location: ../Tela/cadastroAluno.php?msg=erro2');
             } else {
                 header('location: ../Tela/cadastroAluno.php?msg=erro1');
             }
@@ -129,13 +169,15 @@ class usuarioPDO {
         $date = date('Y-m-d H:i');
         $date = date('Y-m-d');
         echo $date . "<br>";
-        $data = '02/09/1998';
+        $data = $_POST['nascimento'];
         list($dia, $mes, $ano) = explode('/', $data);
         $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
         $nascimento = mktime(0, 0, 0, $mes, $dia, $ano);
         $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
-        if (true) {
-            return true;
+        if ($idade >= 18) {
+            return TRUE;
+        } else {
+            return FALSE;
         }
     }
 
