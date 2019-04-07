@@ -73,8 +73,7 @@ class usuarioPDO {
                     if ($sql->rowCount() > 0) {
                         $linha = $sql->fetch(PDO::FETCH_ASSOC);
                         $id = $linha['id'];
-                        $sql = $pdo->prepare("insert into aluno values(:id,null,:nascimento,:curso"
-                                . ",0,:conclusao);");
+                        $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
                         $sql->bindValue(':id', $id);
                         //$sql->bindValue(':nascimento', $_POST['nascimento']);  //atributo movido para a tabela usuario
                         $sql->bindValue(':curso', $_POST['curso']);
@@ -82,7 +81,7 @@ class usuarioPDO {
                         $sql->execute();
                         //echo "Sucesso ao cadastrar ALUNO";
                         if ($_SESSION['administrador'] == 'true') {
-                            header("Location: ../Tela/orientacao.php");
+                            header("Location: ../Tela/orientacao.php?sucessoAluno");
                         } else {
                             header("Location: ../Tela/orientacao.php?msg=menorDeIdade");
                         }
@@ -99,11 +98,16 @@ class usuarioPDO {
                         $sql->bindValue(':id', $id);
                         $sql->bindValue(':cargo', $_POST['cargo']);
                         $sql->execute();
+
+                        // validarMaioridade();
+                        print $idade;
+                        //deixar vazia
+                        //split = explode;
                         //echo "Sucesso ao cadastrar DIRETORIA";
                         if ($_SESSION['administrador'] == 'true') {
                             header("Location: ../Tela/orientacaao.php");
                         } else {
-                            header("Location: ../Tela/orientacao.php?msg=menorDeIdade");
+                            header("Location: ../Tela/orientacao.php");
                         }
                     }
                 }
@@ -117,6 +121,21 @@ class usuarioPDO {
             } else {
                 header('location: ../Tela/cadastroAluno.php?msg=erro1');
             }
+        }
+    }
+
+    public function validarMaioridade() { // método incompleto
+        date_default_timezone_set('America/Sao_Paulo');
+        $date = date('Y-m-d H:i');
+        $date = date('Y-m-d');
+        echo $date . "<br>";
+        $data = '02/09/1998';
+        list($dia, $mes, $ano) = explode('/', $data);
+        $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+        $nascimento = mktime(0, 0, 0, $mes, $dia, $ano);
+        $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
+        if (true) {
+            return true;
         }
     }
 
