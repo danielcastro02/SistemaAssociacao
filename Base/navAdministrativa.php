@@ -22,7 +22,7 @@ if (realpath("./index.php")) {
             <ul id='dropdown2' class='dropdown-content'>
                 <li><a><b>Cadastrar informações</b></a></li>
                 <li><a href="../Tela/cadastroAluno.php">Aluno</a></li>
-                <li><a href="../Tela/cadastroResponsavel.php">Responsavel</a></li>
+                <li><a href="../Tela/cadastroResponsavel.php">Usuário</a></li>
                 <li><a href="#">Membro da diretoria</a></li>
                 <li><a href="#">Administrador</a></li>
             </ul>

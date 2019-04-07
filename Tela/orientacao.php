@@ -14,28 +14,43 @@ if (!isset($_SESSION['id'])) {
     <body class="homeimg">
         <?php
         include_once '../Base/nav.php';
-        if (isset($_GET['msg'])) {
-            if ($_GET['msg'] == 'sucessoAluno') {
-                ?>
-                aluno cadastrado com sucesso - Maior de idade
-                <?php
-            } else {
-                if ($_GET['msg'] == 'sucessoAlunoRequerimento') {
+        ?>
+        <div id="div-principal" class="row">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="col s4">
+
+            </div>
+            <?php
+            if (isset($_GET['msg'])) {
+                if ($_GET['msg'] == 'sucessoAluno') {
                     ?>
-                    aluno menor de idade cadastrado com sucesso - Deseja cadastrar um responsável?
+                    <div class="col s4 center">
+                        <h5>Aluno cadastrado com sucesso.</h5>
+                        <br>
+                        <a class="btn hoverable corpadrao" href="../Tela/home.php">Tela inicial</a>
+                        <a class="btn hoverable corpadrao" href="../Tela/cadastroAluno.php">Cadastrar +</a>
+                    </div>
                     <?php
                 } else {
-                    if ($_GET['msg'] == 'cadastrarResponsavel') {
+                    if ($_GET['msg'] == 'sucessoAlunoRequerimento') {
                         ?>
-                        Form cadastro de responsáveel
+                        aluno menor de idade cadastrado com sucesso - Deseja cadastrar um responsável?
                         <?php
+                    } else {
+                        if ($_GET['msg'] == 'cadastrarResponsavel') {
+                            ?>
+                            Form cadastro de responsáveel
+                            <?php
+                        }
                     }
                 }
             }
-        } else {
-            header("Location: ../index.php");
-        }
-        ?>
+            ?>
+        </div>
 
     </body>
 </html>
