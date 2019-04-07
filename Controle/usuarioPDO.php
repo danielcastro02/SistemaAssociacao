@@ -13,7 +13,7 @@ $classe = new usuarioPDO();
 
 if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
-    $metod = $_GET["user"];
+    //$metod = $_GET["user"];
     //echo "$metodo<br>$metod";
     eval("\$classe->\$metodo();");
 }
@@ -21,7 +21,7 @@ if (isset($_GET["function"])) {
 class usuarioPDO {
 
     public function validarFormlario() {
-        if ($_POST['senha01'] != null and $_POST['senha02'] != null) {
+        if ($_POST['senha01'] != null and $_POST['senha02'] != null) { //completar
             if ($_POST['senha01'] == $_POST['senha02']) {
                 return true;
             } else {
@@ -34,6 +34,7 @@ class usuarioPDO {
 
     public function inserirDiretoria() {
         if (isset($_POST['cargo']) and $_POST['cargo'] != null) {
+            $this->abrirConexao();
             $sql = $pdo->prepare("select id from usuario where rg = :rg;");
             $sql->bindValue(':rg', $_POST['rg']);
             $sql->execute();
@@ -56,30 +57,20 @@ class usuarioPDO {
         }
     }
 
-    public function abrirConexao() {
-        $conexao = new conexao();
-        $pdo = $conexao->getConexao();
-    }
-
     public function inserirAluno() {
         if (isset($_POST['curso']) && $_POST['curso'] != null) {
-            $this->abrirConexao();
+            $conexao = new conexao();
+            $pdo = $conexao->getConexao();
             $id = $this->buscarIDporRG();
             $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
             $sql->bindValue(':id', $id);
             $sql->bindValue(':curso', $_POST['curso']);
             $sql->bindValue(':conclusao', $_POST['conclusao']);
             if ($sql->execute()) {
-                if ($this->validarMaioridade()) {
+                if ($this->validarMaioridade()) { //Sucesso ao cadastrar ALUNO
                     header("Location: ../Tela/orientacao.php?msg=sucessoAluno");
                 } else {
                     header("Location: ../Tela/orientacao.php?msg=sucessoMenorDeIdade");
-                }
-                //echo "Sucesso ao cadastrar ALUNO";
-                if ($_SESSION['administrador'] == 'true') {
-                    header("Location: ../Tela/orientacao.php?sucessoAluno");
-                } else {
-                    header("Location: ../Tela/orientacao.php?msg=menorDeIdade");
                 }
             } else {
                 header("Location: ../index.php?msg=erroInserirAluno");
@@ -155,8 +146,7 @@ class usuarioPDO {
             } else {
                 $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
-            if ($sql->execute()) {
-                //echo "Sucesso ao cadastrar USUÁRIO";
+            if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
                 if (isset($_GET['user'])) {
                     if ($_GET['user'] == 'aluno') {
                         $this->inserirAluno();
