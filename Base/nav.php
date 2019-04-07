@@ -1,8 +1,7 @@
 <?php
-
 if (isset($_SESSION['administrador'])) {
     if ($_SESSION['administrador'] == 'true') {
-        include_once '../Base/navAdministrativa.php';
+        include_once '../Base/navAdministrativa.php"';
     } else {
         if ($_SESSION['administrador'] == 'false') {
             include_once '../Base/navPadrao.php';
