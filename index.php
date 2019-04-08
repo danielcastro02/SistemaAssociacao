@@ -20,8 +20,6 @@ session_start();
             include_once './Base/navBar.php';
         }
         ?>
-
-
         <div class="section white">
             <div class="row">
                 <h1>Associação de transportes de Cacequi</h1>

@@ -1,8 +1,5 @@
 <?php
 session_start();
-//if (!isset($_SESSION['id'])) {
-//    header("Location: ../Tela/login.php");
-//}
 ?>                  
 
 <!DOCTYPE html>
@@ -18,7 +15,7 @@ session_start();
                 <div class="center">
                     <h4>Cadastre o responsável</h4>
                 </div>
-                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario" name="formulario-cadastro-aluno">
+                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario&user=responsavel" name="formulario-cadastro-responsavel">
                     <div class="col s12">
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="nome">
@@ -56,9 +53,12 @@ session_start();
                             <input class="input-field" type="text" name="email">
                             <label for="email">E-mail</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input class="input-field" type="text" name="nascimento">
-                            <label for="nascimento">Data de nascimento dd/mm/aaaa</label>
+                        <div class = "input-field col s6">
+                            <div class = "left grey-text">
+                                Data de nascimento
+                            </div>
+                            <input class = "input-field" type = "date" name = "nascimento">
+                            <label for = "nascimento"></label>
                         </div>
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="cpf">
@@ -68,11 +68,6 @@ session_start();
                             <input class="input-field" type="text" name="rg">
                             <label for="rg">RG</label>
                         </div>
-
-                        <!--                        <div class="input-field col s6">
-                                                    <input disabled class="input-field disabled" type="text" name="cargo">
-                                                    <label for="cargo">Categoria responsável</label>
-                                                </div>-->
                         <div class="input-field col s6">
                             <input class="input-field" type="password" name="senha01">
                             <label for="senha01">Senha</label>

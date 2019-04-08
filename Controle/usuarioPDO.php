@@ -8,20 +8,20 @@ if (realpath("./home.php")) {
 } else {
     include_once "./conexao.php";
 }
-
+// fazer a verificação utilizando o realpath para get do cadastroResponsavel -- nota: utilizar temp
 $classe = new usuarioPDO();
 
 if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
-    //$metod = $_GET["user"];
-    //echo "$metodo<br>$metod";
+//$metod = $_GET["user"];
+//echo "$metodo<br>$metod";
     eval("\$classe->\$metodo();");
 }
 
 class usuarioPDO {
 
     public function validarFormlario() {
-        //verificarCadastroExistente(); //por CPF e RG
+//verificarCadastroExistente(); //por CPF e RG
         if ($_POST['senha01'] != null and $_POST['senha02'] != null) { //completar
             if ($_POST['senha01'] == $_POST['senha02']) {
                 return true;
@@ -59,6 +59,7 @@ class usuarioPDO {
     }
 
     public function inserirAluno() {
+        echo "inserir aluno";
         if (isset($_POST['curso']) && $_POST['curso'] != null) {
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
@@ -75,26 +76,28 @@ class usuarioPDO {
         }
     }
 
-    public function cancelarCadastroAluno(){
+    public function cancelarCadastroAluno() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
-        //continuar
+//continuar
     }
 
-        public function enviarOrientacaoCadAluno() { //método de controle   
-        if ($this->buscarIdade()>=18) { //Sucesso ao cadastrar ALUNO
+    public function enviarOrientacaoCadAluno() { //método de controle
+        //$idade = $this->buscarIdade();
+        if ($this->buscarIdade() >= 18) { //Sucesso ao cadastrar ALUNO
             if (isset($_SESSION['id']) and $_SESSION['administrador'] == 'true') {
                 header("Location: ../Tela/orientacao.php?msg=sucessoAluno"); //admin - para maior de idade
             } else {
                 header("Location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento"); // requerimento - aluno sem login
             }
         } else {
-            $_SESSION['temp']= $this->buscarIDporRG();
+            $_SESSION['temp'] = $this->buscarIDporRG();
             header("Location: ../Tela/orientacao.php?msg=cadastrarResponsavel");
         }
     }
 
     public function buscarIDporRG() {
+        echo "Buscar id por rg";
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("select id from usuario where rg = :rg;");
@@ -178,7 +181,7 @@ class usuarioPDO {
                 header('location: ../Tela/erroInserirUsuario.php');
             }
         } else {
-            //nunca vai chegar aqui. O ValidarFormulario vai redirecionar antes erro.
+//nunca vai chegar aqui. O ValidarFormulario vai redirecionar antes erro.
         }
     }
 
@@ -190,7 +193,7 @@ class usuarioPDO {
         $mesAtual = date('m');
         $diaAtual = date('d');
         $nascimento = $_POST['nascimento'];
-        list($dia, $mes, $ano) = explode('-', $nascimento);
+        list($ano, $mes, $dia) = explode('-', $nascimento);
         $idade = $anoAtual - $ano;
         if ($mesAtual > $mes) {
             return $idade;
@@ -198,7 +201,8 @@ class usuarioPDO {
             if ($mesAtual == $mes and $diaAtual >= $dia) {
                 return $idade;
             } else {
-                return --$idade;
+                $idade--;
+                return $idade;
             }
         }
     }
