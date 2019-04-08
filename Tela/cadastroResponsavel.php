@@ -76,7 +76,9 @@ session_start();
                             <input class="input-field" type="password" name="senha02">
                             <label for="senha02">Confirme a senha</label>
                         </div>
-                        <?php include_once '../Base/msgSaida.php'; ?>
+                        <?php include_once '../Base/msgSaida.php';
+                        //não esquecer de verificar a msg de menor de idade para responsável
+                        ?>
                         <div class="row">
                             <div class="col s12">
                                 <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>

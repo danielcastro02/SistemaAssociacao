@@ -135,6 +135,19 @@ class usuarioPDO {
         
     }
 
+    public function veririfcarTempResponsavel() {
+        if (isset($_SESSION['temp'])) {
+            $idade = $this->buscarIdade();
+            if ($idade >= 18) {
+                $sql->bindValue(':nascimento', $_POST['nascimento']);
+            } else {
+                header("Location: ../Tela/cadastroResponsavel.php?msg=responsavelMenorDeIdade");
+            }
+        } else {
+            $sql->bindValue(':nascimento', $_POST['nascimento']);
+        }
+    }
+
     public function inserirUsuario() {
         if ($this->validarFormlario()) { //validar estáincompleto
             $conexao = new conexao();
@@ -153,7 +166,7 @@ class usuarioPDO {
             $sql->bindValue(':cep', $_POST['cep']);
             $sql->bindValue(':cpf', $_POST['cpf']);
             $sql->bindValue(':rg', $_POST['rg']);
-            $sql->bindValue(':nascimento', $_POST['nascimento']);
+            $this->veririfcarTempResponsavel();
             $sql->bindValue(':telefone', $_POST['telefone']);
             $sql->bindValue(':email', $_POST['email']);
             if (isset($_SESSION['id'])) {
