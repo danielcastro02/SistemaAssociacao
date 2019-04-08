@@ -59,6 +59,7 @@ if (!isset($_SESSION['id'])) {
                             </div>
 
                         </div>
+
                         <div class="col s6">
                             <br>
                             <br>
@@ -69,6 +70,7 @@ if (!isset($_SESSION['id'])) {
                                 Abril: -R$200,00 BTN (pagar)<br>
                                 Março: R$200,00 pago<br>
                             </div>
+
                         </div>
                     </div>
 

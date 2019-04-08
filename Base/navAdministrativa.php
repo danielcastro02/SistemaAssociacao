@@ -14,7 +14,7 @@ if (realpath("./index.php")) {
             <li><a class='dropdown-button' data-activates='dropdown1'><?php echo $_SESSION['nome']; ?></a></li>
             <ul id='dropdown1' class='dropdown-content'>
                 <li><a><b>Seu Perfil</b></a></li>
-                <li><a href="../Tela/alterarDadosUsuario.php">Alterar Dados</a></li>
+                <li><a href="../Tela/alterarDadosUsuario.php">Alterar Dados Pessoais</a></li>
                 <li><a href="../Tela/alterarEnderecoUsuario.php">Alterar Endereço</a></li>
             </ul>
 
