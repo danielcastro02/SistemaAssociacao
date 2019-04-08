@@ -35,7 +35,7 @@
                                     Rua, <?php echo $presidente['rua']; ?>, Bairo <?php echo $presidente['bairro']; ?>, Número  <?php echo $presidente['numero']; ?>, na cidade de <?php echo $presidente['cidade']; ?></span></div>
                             <div class="row left-align">
                                 <h5 class="col s9">
-                                    Isto é para a segurança de todos os nossos associados!</h5>
+                                    Isso é para a segurança de todos os nossos associados!</h5>
                                 <img class="col s2" src="../Img/sintoMuito.png">
                             </div>
 

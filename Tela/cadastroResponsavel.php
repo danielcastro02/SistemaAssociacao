@@ -1,8 +1,5 @@
 <?php
 session_start();
-//if (!isset($_SESSION['id'])) {
-//    header("Location: ../Tela/login.php");
-//}
 ?>                  
 
 <!DOCTYPE html>
@@ -12,13 +9,13 @@ session_start();
     </head>
     <body class="homeimg">
         <?php include_once '../Base/navBar.php'; ?>
-        <br>
+        <br> 
         <div class="row">
             <div class="col s6 card offset-s3">
                 <div class="center">
                     <h4>Cadastre o responsável</h4>
                 </div>
-                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario" name="formulario-cadastro-aluno">
+                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario&user=responsavel" name="formulario-cadastro-responsavel">
                     <div class="col s12">
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="nome">
@@ -56,6 +53,13 @@ session_start();
                             <input class="input-field" type="text" name="email">
                             <label for="email">E-mail</label>
                         </div>
+                        <div class = "input-field col s6">
+                            <div class = "left grey-text">
+                                Data de nascimento
+                            </div>
+                            <input class = "input-field" type = "date" name = "nascimento">
+                            <label for = "nascimento"></label>
+                        </div>
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="cpf">
                             <label for="cpf">CPF</label>
@@ -65,10 +69,6 @@ session_start();
                             <label for="rg">RG</label>
                         </div>
                         <div class="input-field col s6">
-                            <input disabled class="input-field disabled" type="text" name="cargo">
-                            <label for="cargo">Categoria responsável</label>
-                        </div>
-                        <div class="input-field col s6">
                             <input class="input-field" type="password" name="senha01">
                             <label for="senha01">Senha</label>
                         </div>
@@ -76,7 +76,9 @@ session_start();
                             <input class="input-field" type="password" name="senha02">
                             <label for="senha02">Confirme a senha</label>
                         </div>
-                        <?php include_once '../Base/msgSaida.php'; ?>
+                        <?php include_once '../Base/msgSaida.php';
+                        //não esquecer de verificar a msg de menor de idade para responsável
+                        ?>
                         <div class="row">
                             <div class="col s12">
                                 <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>

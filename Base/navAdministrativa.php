@@ -14,17 +14,17 @@ if (realpath("./index.php")) {
             <li><a class='dropdown-button' data-activates='dropdown1'><?php echo $_SESSION['nome']; ?></a></li>
             <ul id='dropdown1' class='dropdown-content'>
                 <li><a><b>Seu Perfil</b></a></li>
-                <li><a href="../Tela/alterarDadosUsuario.php">Alterar Dados</a></li>
+                <li><a href="../Tela/alterarDadosUsuario.php">Alterar Dados Pessoais</a></li>
                 <li><a href="../Tela/alterarEnderecoUsuario.php">Alterar Endereço</a></li>
             </ul>
 
             <li><a class='dropdown-button' data-activates='dropdown2'>Cadastrar informações</a></li>
             <ul id='dropdown2' class='dropdown-content'>
                 <li><a><b>Cadastrar informações</b></a></li>
-                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Aluno</a></li>
-                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Responsavel</a></li>
-                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Membro da diretoria</a></li>
-                <li><a href="../Tela/cadastroUsuario.php?tipo=responsavel">Administrador</a></li>
+                <li><a href="../Tela/cadastroAluno.php">Aluno</a></li>
+                <li><a href="#">Usuário</a></li>
+                <li><a href="#">Membro da diretoria</a></li>
+                <li><a href="#">Administrador</a></li>
             </ul>
             <li><a class='dropdown-button' data-activates='dropdown3'>Alterar dados</a></li>
             <ul id='dropdown3' class='dropdown-content'>
