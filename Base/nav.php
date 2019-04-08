@@ -10,4 +10,3 @@ if (isset($_SESSION['administrador'])) {
 } else {
     include_once '../Base/navBar.php';
 }
-?>
