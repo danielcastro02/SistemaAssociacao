@@ -1,8 +1,5 @@
 <?php
 session_start();
-//if (!isset($_SESSION['id'])) {
-//    header("Location: ../Tela/login.php");
-//}
 ?>                  
 
 <!DOCTYPE html>
@@ -11,33 +8,14 @@ session_start();
         <?php include_once '../Base/header.php'; ?>
     </head>
     <body class="homeimg">
-
-        <?php 
-//        if($_SESSION['administrador']== 'true'){
-//        include_once '../Base/navAdministrativa.php';
-//        }
-//        else{
-//        //header('location: ./acessoNegado.php');    
-//        }
-//?>
-
-        <br>
+        <?php include_once '../Base/navBar.php'; ?>
+        <br> 
         <div class="row">
             <div class="col s6 card offset-s3">
-                <?php 
-                if(isset($_GET['tipo'])){
-                    if($_GET['tipo']== 'responsavel'){?>
-                        <center><h4>Cadastro de Responsavel</h4></center>
-                    <?php
-                    }else{
-                        ?><center><h4>Cadastro de alunos</h4></center><?php
-                    }
-                }else{
-                    ?><center><h4>Cadastro de alunos</h4></center><?php
-                }
-?>
-                
-                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirAluno" name="formulario-cadastro-aluno">
+                <div class="center">
+                    <h4>Cadastre o responsável</h4>
+                </div>
+                <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario&user=responsavel" name="formulario-cadastro-responsavel">
                     <div class="col s12">
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="nome">
@@ -75,6 +53,13 @@ session_start();
                             <input class="input-field" type="text" name="email">
                             <label for="email">E-mail</label>
                         </div>
+                        <div class = "input-field col s6">
+                            <div class = "left grey-text">
+                                Data de nascimento
+                            </div>
+                            <input class = "input-field" type = "date" name = "nascimento">
+                            <label for = "nascimento"></label>
+                        </div>
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="cpf">
                             <label for="cpf">CPF</label>
@@ -91,24 +76,8 @@ session_start();
                             <input class="input-field" type="password" name="senha02">
                             <label for="senha02">Confirme a senha</label>
                         </div>
-                        <div class="input-field col s6">
-
-                        </div>
-                        <?php
-                        if (isset($_GET['msg'])) {
-                            if ($_GET['msg'] == "senhasdiferentes") {
-                                ?>  
-                                <div class="row">
-                                    <span class="red-text">Senhas não conferem</span>
-                                </div>
-                            <?php } elseif ($_GET['msg'] == 'senhavazia') {
-                                ?>
-                                <div class="row">
-                                    <span class="red-text">Senha Vazia</span>
-                                </div>
-                                <?php
-                            }
-                        }
+                        <?php include_once '../Base/msgSaida.php';
+                        //não esquecer de verificar a msg de menor de idade para responsável
                         ?>
                         <div class="row">
                             <div class="col s12">
@@ -121,6 +90,6 @@ session_start();
             </div>
             <div class="col s3"></div>
         </div>
-    <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>
