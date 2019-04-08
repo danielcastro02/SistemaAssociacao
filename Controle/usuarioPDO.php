@@ -17,6 +17,68 @@ if (isset($_GET["function"])) {
 }
 
 class usuarioPDO {
+    
+    public function login() {
+        $conexao = new conexao();
+        $senha = md5($_POST['senha']);
+        $pdo = $conexao->getConexao();
+        $stmt = $pdo->prepare('SELECT * FROM usuario WHERE usuario LIKE :usuario AND senha LIKE :senha;');
+        $stmt->bindValue(':usuario', $_POST['usuario']);
+        $stmt->bindValue(':senha', $senha);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($linha['pode_logar'] == 'false') {
+                header('Location: ../Tela/loginrecusado.php');
+            } else {
+                $_SESSION['id'] = $linha['id'];
+                $_SESSION['nome'] = $linha['nome'];
+                $_SESSION['usuario'] = $linha['usuario'];
+                $_SESSION['cidade'] = $linha['cidade'];
+                $_SESSION['bairro'] = $linha['bairro'];
+                $_SESSION['rua'] = $linha['rua'];
+                $_SESSION['numero'] = $linha['numero'];
+                $_SESSION['cep'] = $linha['cep'];
+                $_SESSION['cpf'] = $linha['cpf'];
+                $_SESSION['rg'] = $linha['rg'];
+                $_SESSION['telefone'] = $linha['telefone'];
+                $_SESSION['email'] = $linha['email'];
+                $_SESSION['data_nasc'] = $linha['data_nasc'];
+                $_SESSION['administrador'] = $linha['administrador'];
+
+                $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
+                $stmt->bindValue(':id', $_SESSION['id']);
+                if ($stmt->execute()) {
+                    $l = $stmt->fetch(PDO::FETCH_ASSOC);
+                    if ($this->buscarIdade($_SESSION['data_nasc']) < 18 && $l['id_responsavel'] == 'null') {
+                        $rgtemp = $_SESSION['rg'];
+                        session_destroy();
+                        session_start();
+                        $_SESSION['temp'] = $this->buscarIDporRG($rgtemp);
+                        header('location: ../Tela/orientacao.php?msg=cadastrarResponsavel');
+                    } else {
+                        $_SESSION['id_responsavel'] = $l['id_responsavel'];
+                        $_SESSION['data_nasc'] = $l['data_nasc'];
+                        $_SESSION['curso'] = $l['curso'];
+                        $_SESSION['saldo'] = $l['saldo'];
+                        $_SESSION['previsao_conclusao'] = $l['previsao_conclusao'];
+                    }
+                    $stmt = $pdo->prepare('SELECT cargo FROM diretoria WHERE id_usuario = :id;');
+                    $stmt->bindValue(':id', $_SESSION['id']);
+                    if ($stmt->execute()) {
+                        $s = $stmt->fetch(PDO::FETCH_ASSOC);
+                        $_SESSION['cargo'] = $s['cargo'];
+                    }
+                    header('Location: ../Tela/home.php');
+//print_r($_SESSION);
+                } else {
+                    header("Location: ../Tela/login.php?msg=false");
+                }
+            }
+        }
+    }
+    
+    
 
     public function validarFormlario() {
 //verificarCadastroExistente(); //por CPF e RG
@@ -60,7 +122,7 @@ class usuarioPDO {
         if (isset($_POST['curso']) && $_POST['curso'] != null) {
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
-            $id = $this->buscarIDporRG();
+            $id = $this->buscarIDporRG($_POST['rg']);
             $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
             $sql->bindValue(':id', $id);
             $sql->bindValue(':curso', $_POST['curso']);
@@ -80,25 +142,24 @@ class usuarioPDO {
     }
 
     public function enviarOrientacaoCadAluno() { //método de controle
-        //$idade = $this->buscarIdade();
-        if ($this->buscarIdade() >= 18) { //Sucesso ao cadastrar ALUNO
+//$idade = $this->buscarIdade();
+        if ($this->buscarIdade($_POST['nascimento']) >= 18) { //Sucesso ao cadastrar ALUNO
             if (isset($_SESSION['id']) and $_SESSION['administrador'] == 'true') {
                 header("Location: ../Tela/orientacao.php?msg=sucessoAluno"); //admin - para maior de idade
             } else {
                 header("Location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento"); // requerimento - aluno sem login
             }
         } else {
-            $_SESSION['temp'] = $this->buscarIDporRG();
+            $_SESSION['temp'] = $this->buscarIDporRG($_POST['rg']);
             header("Location: ../Tela/orientacao.php?msg=cadastrarResponsavel");
         }
     }
 
-    public function buscarIDporRG() {
-        echo "Buscar id por rg";
+    public function buscarIDporRG($rg) {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("select id from usuario where rg = :rg;");
-        $sql->bindValue(':rg', $_POST['rg']);
+        $sql->bindValue(':rg', $rg);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             $linha = $sql->fetch(PDO::FETCH_ASSOC);
@@ -129,19 +190,31 @@ class usuarioPDO {
     }
 
     public function inserirResponsavel() {
-        
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $id_respon = $this->buscarIDporRG($_POST['rg']);
+        $stmt = $pdo->prepare("update aluno set id_responsavel = :idresponsavel where id_usuario = :iduser ; ");
+        $stmt->bindValue(':idresponsavel', $id_respon);
+        $stmt->bindValue(':iduser', $_SESSION['temp']);
+        if($stmt->execute()){
+            header('location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento');
+        }else{
+            
+        }
     }
 
-    public function veririfcarTempResponsavel() {
+    public function veririfcarTempResponsavel($sql) {
         if (isset($_SESSION['temp'])) {
-            $idade = $this->buscarIdade();
+            $idade = $this->buscarIdade($_POST['nascimento']);
             if ($idade >= 18) {
                 $sql->bindValue(':nascimento', $_POST['nascimento']);
+                return $sql;
             } else {
                 header("Location: ../Tela/cadastroResponsavel.php?msg=responsavelMenorDeIdade");
             }
         } else {
             $sql->bindValue(':nascimento', $_POST['nascimento']);
+            return $sql;
         }
     }
 
@@ -163,19 +236,19 @@ class usuarioPDO {
             $sql->bindValue(':cep', $_POST['cep']);
             $sql->bindValue(':cpf', $_POST['cpf']);
             $sql->bindValue(':rg', $_POST['rg']);
-            $this->veririfcarTempResponsavel();
-            $sql->bindValue(':telefone', $_POST['telefone']);
-            $sql->bindValue(':email', $_POST['email']);
+            $sql2 = $this->veririfcarTempResponsavel($sql);
+            $sql2->bindValue(':telefone', $_POST['telefone']);
+            $sql2->bindValue(':email', $_POST['email']);
             if (isset($_SESSION['id'])) {
                 if ($_SESSION['administrador'] == 'true') {
-                    $sql->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
+                    $sql2->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
                 } else {
-                    $sql->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
+                    $sql2->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
                 }
             } else {
-                $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
+                $sql2->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
-            if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
+            if ($sql2->execute()) { //Sucesso ao cadastrar USUÁRIO
                 if (isset($_GET['user']) or isset($_SESSION['temp'])) {
                     if ($_GET['user'] == 'aluno') {
                         $this->inserirAluno();
@@ -198,11 +271,11 @@ class usuarioPDO {
     public function testeData() { //método criado afim de testes
     }
 
-    public function buscarIdade() { // método incompleto - verificar
+    public function buscarIdade($data_nasc) { // método incompleto - verificar
         $anoAtual = date('Y');
         $mesAtual = date('m');
         $diaAtual = date('d');
-        $nascimento = $_POST['nascimento'];
+        $nascimento = $data_nasc;
         list($ano, $mes, $dia) = explode('-', $nascimento);
         $idade = $anoAtual - $ano;
         if ($mesAtual > $mes) {
@@ -214,57 +287,6 @@ class usuarioPDO {
                 $idade--;
                 return $idade;
             }
-        }
-    }
-
-    public function login() {
-        $conexao = new conexao();
-        $senha = md5($_POST['senha']);
-        $pdo = $conexao->getConexao();
-        $stmt = $pdo->prepare('SELECT * FROM usuario WHERE usuario LIKE :usuario AND senha LIKE :senha;');
-        $stmt->bindValue(':usuario', $_POST['usuario']);
-        $stmt->bindValue(':senha', $senha);
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
-            $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($linha['pode_logar'] == 'false') {
-                header('Location: ../Tela/loginrecusado.php');
-            } else {
-                $_SESSION['id'] = $linha['id'];
-                $_SESSION['nome'] = $linha['nome'];
-                $_SESSION['usuario'] = $linha['usuario'];
-                $_SESSION['cidade'] = $linha['cidade'];
-                $_SESSION['bairro'] = $linha['bairro'];
-                $_SESSION['rua'] = $linha['rua'];
-                $_SESSION['numero'] = $linha['numero'];
-                $_SESSION['cep'] = $linha['cep'];
-                $_SESSION['cpf'] = $linha['cpf'];
-                $_SESSION['rg'] = $linha['rg'];
-                $_SESSION['telefone'] = $linha['telefone'];
-                $_SESSION['email'] = $linha['email'];
-                $_SESSION['administrador'] = $linha['administrador'];
-
-                $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
-                $stmt->bindValue(':id', $_SESSION['id']);
-                if ($stmt->execute()) {
-                    $l = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $_SESSION['id_responsavel'] = $l['id_responsavel'];
-                    $_SESSION['data_nasc'] = $l['data_nasc'];
-                    $_SESSION['curso'] = $l['curso'];
-                    $_SESSION['saldo'] = $l['saldo'];
-                    $_SESSION['previsao_conclusao'] = $l['previsao_conclusao'];
-                }
-                $stmt = $pdo->prepare('SELECT cargo FROM diretoria WHERE id_usuario = :id;');
-                $stmt->bindValue(':id', $_SESSION['id']);
-                if ($stmt->execute()) {
-                    $s = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $_SESSION['cargo'] = $s['cargo'];
-                }
-                header('Location: ../Tela/home.php');
-//print_r($_SESSION);
-            }
-        } else {
-            header("Location: ../Tela/login.php?msg=false");
         }
     }
 
@@ -388,5 +410,3 @@ class usuarioPDO {
     }
 
 }
-
-?>
