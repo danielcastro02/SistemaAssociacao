@@ -25,7 +25,9 @@ SET time_zone = "+00:00";
 --
 -- Estrutura da tabela `aluno`
 --
-
+drop table aluno;
+drop table diretoria;
+drop table usuario;
 CREATE TABLE IF NOT EXISTS `aluno` (
   `id_usuario` int(11) NOT NULL,
   `id_responsavel` int(11) DEFAULT NULL,
@@ -90,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`, `cidade`, `bairro`, `rua`, `numero`, `cep`, `cpf`, `rg`, `data_nasc`, `telefone`, `email`, `pode_logar`, `administrador`) VALUES
-(1, 'Teste', 'teste', '202cb962ac59075b964b07152d234b70', 'Teste', 'Teste', 'Teste', 'Teste', 'asd', 'asd', 'asd', '', 'asd', 'asd', 'true', 'true'),
+(1, 'Paulo Glanzel', 'pglanzel', '202cb962ac59075b964b07152d234b70', 'Cacequi', 'Vila Candido', 'Marechal Hermes da Fonseca', '337', '97450-00', '','','00/00/0000', '55 98431-2589', 'pauloglanzel@hotmail.com', 'true', 'true'),
 (2, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', '', 'a', 'a', 'false', 'a'),
 (4, 'Daniel Zanini de Castro', 'dcastro', '3c2031ac53dea3dacb733041d55e322d', 'Jaguari', 'Centro', 'Av. dr. severiano de almeida n 280', '280', '97760-000', '039.855.650', '56489894', '2008-01-01', '5599598414', 'zanini.castro@hotmail.com', 'false', 'false'),
 (7, 'Jose daltro', 'jda', '698dc19d489c4e4db73e28a713eab07b', 'Jaguari', 'Centro', 'Av. dr. severiano de almeida n 280', '280', '97760-000', '59876303', '0946787', '1985-01-31', '5599598414', 'teste@gmail.com', 'false', 'false');
