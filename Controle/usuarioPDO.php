@@ -122,7 +122,7 @@ class usuarioPDO {
         }
     }
     
-     public function inserirResponsavel() {
+    public function inserirResponsavel() {
         $con = new conexao();
         $pdo = $con->getConexao();
         $id_respon = $this->buscarIDporRG($_POST['rg']);
