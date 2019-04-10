@@ -6,7 +6,7 @@ class usuario {
     private $nome;
     private $usuario;
     private $cidade;
-    private $bairo;
+    private $Bairro;
     private $rua;
     private $numero;
     private $cep;
@@ -108,8 +108,8 @@ class usuario {
         return $this->cidade;
     }
 
-    function getBairo() {
-        return $this->bairo;
+    function getBairro() {
+        return $this->Bairro;
     }
 
     function getRua() {
@@ -188,8 +188,8 @@ class usuario {
         $this->cidade = $cidade;
     }
 
-    function setBairo($bairo) {
-        $this->bairo = $bairo;
+    function setBairro($Bairro) {
+        $this->Bairro = $Bairro;
     }
 
     function setRua($rua) {
