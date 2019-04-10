@@ -3,10 +3,12 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-if (realpath("./home.php")) {
+if (!realpath("./index.php")) {
     include_once "../Controle/conexao.php";
+    include_once '../Modelo/usuario.php';
 } else {
-    include_once "./conexao.php";
+    include_once "./Controle/conexao.php";
+    include_once './Modelo/usuario.php';
 }
 // fazer a verificação utilizando o realpath para get do cadastroResponsavel -- nota: utilizar temp
 $classe = new usuarioPDO();
@@ -18,6 +20,7 @@ if (isset($_GET["function"])) {
 
 class usuarioPDO {
     public function inserirUsuario() {
+        
         if ($this->validarFormlario()) { //validar estáincompleto
             $conexao = new conexao();
             $pdo = $conexao->getConexao();

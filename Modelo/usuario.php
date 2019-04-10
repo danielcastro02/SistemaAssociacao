@@ -32,47 +32,49 @@ class usuario {
                     $this->$atributo = $valor;
                 }
             }
-            $anoAtual = date('Y');
-            $mesAtual = date('m');
-            $diaAtual = date('d');
-            list($ano, $mes, $dia) = explode('-', $this->data_nasc);
-            $idade = $anoAtual - $ano;
-            if ($mesAtual > $mes) {
-                $this->idade= $idade;
-            } else {
-                if ($mesAtual == $mes and $diaAtual >= $dia) {
-                    $this->idade= $idade;
+            if (isset($this->data_nasc)) {
+                $anoAtual = date('Y');
+                $mesAtual = date('m');
+                $diaAtual = date('d');
+                list($ano, $mes, $dia) = explode('-', $this->data_nasc);
+                $idade = $anoAtual - $ano;
+                if ($mesAtual > $mes) {
+                    $this->idade = $idade;
                 } else {
-                    $idade--;
-                    $this->idade= $idade;
+                    if ($mesAtual == $mes and $diaAtual >= $dia) {
+                        $this->idade = $idade;
+                    } else {
+                        $idade--;
+                        $this->idade = $idade;
+                    }
                 }
             }
         }
     }
+
     function getIdade() {
         return $this->idade;
     }
 
-    function setIdade($idade) {
-        $this->idade = $idade;
+    function setIdade() {
         $anoAtual = date('Y');
-            $mesAtual = date('m');
-            $diaAtual = date('d');
-            list($ano, $mes, $dia) = explode('-', $this->data_nasc);
-            $idade = $anoAtual - $ano;
-            if ($mesAtual > $mes) {
-                $this->idade= $idade;
+        $mesAtual = date('m');
+        $diaAtual = date('d');
+        list($ano, $mes, $dia) = explode('-', $this->data_nasc);
+        $idade = $anoAtual - $ano;
+        if ($mesAtual > $mes) {
+            $this->idade = $idade;
+        } else {
+            if ($mesAtual == $mes and $diaAtual >= $dia) {
+                $this->idade = $idade;
             } else {
-                if ($mesAtual == $mes and $diaAtual >= $dia) {
-                    $this->idade= $idade;
-                } else {
-                    $idade--;
-                    $this->idade= $idade;
-                }
+                $idade--;
+                $this->idade = $idade;
             }
+        }
     }
 
-        function getId() {
+    function getId() {
         return $this->id;
     }
 
@@ -194,6 +196,7 @@ class usuario {
 
     function setData_nasc($data_nasc) {
         $this->data_nasc = $data_nasc;
+        $this->setIdade();
     }
 
     function setTelefone($telefone) {
