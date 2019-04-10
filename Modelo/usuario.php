@@ -17,14 +17,9 @@ class usuario {
     private $email;
     private $pode_logar;
     private $administrador;
-    private $cargo;
-    private $id_responsavel;
-    private $curso;
-    private $saldo;
-    private $previsao_conclusao;
-    private $idade;
     private $senha1;
     private $senha2;
+    private $idade;
 
     public function __construct() {
         if (func_num_args() != 0) {
@@ -34,60 +29,31 @@ class usuario {
                     $this->$atributo = $valor;
                 }
             }
-            if (isset($this->data_nasc)) {
-                $anoAtual = date('Y');
-                $mesAtual = date('m');
-                $diaAtual = date('d');
-                list($ano, $mes, $dia) = explode('-', $this->data_nasc);
-                $idade = $anoAtual - $ano;
-                if ($mesAtual > $mes) {
+        }
+        if (isset($this->data_nasc)) {
+            $anoAtual = date('Y');
+            $mesAtual = date('m');
+            $diaAtual = date('d');
+            $nascimento = $data_nasc;
+            list($ano, $mes, $dia) = explode('-', $this->data_nasc);
+            $idade = $anoAtual - $ano;
+            if ($mesAtual > $mes) {
+                $this->idade = $idade;
+            } else {
+                if ($mesAtual == $mes and $diaAtual >= $dia) {
                     $this->idade = $idade;
                 } else {
-                    if ($mesAtual == $mes and $diaAtual >= $dia) {
-                        $this->idade = $idade;
-                    } else {
-                        $idade--;
-                        $this->idade = $idade;
-                    }
+                    $idade--;
+                    $this->idade = $idade;
                 }
             }
         }
     }
 
-    function getSenha1() {
-        return $this->senha1;
-    }
-
-    function getSenha2() {
-        return $this->senha2;
-    }
-
-    function setSenha1($senha1) {
-        $this->senha1 = $senha1;
-    }
-
-    function setSenha2($senha2) {
-        $this->senha2 = $senha2;
-    }
-
-    function getIdade() {
-        return $this->idade;
-    }
-
-    function setIdade() {
-        $anoAtual = date('Y');
-        $mesAtual = date('m');
-        $diaAtual = date('d');
-        list($ano, $mes, $dia) = explode('-', $this->data_nasc);
-        $idade = $anoAtual - $ano;
-        if ($mesAtual > $mes) {
-            $this->idade = $idade;
-        } else {
-            if ($mesAtual == $mes and $diaAtual >= $dia) {
-                $this->idade = $idade;
-            } else {
-                $idade--;
-                $this->idade = $idade;
+    function atualizar($vetor) {
+        foreach ($vetor as $atributo => $valor) {
+            if (isset($valor)) {
+                $this->$atributo = $valor;
             }
         }
     }
@@ -152,24 +118,16 @@ class usuario {
         return $this->administrador;
     }
 
-    function getCargo() {
-        return $this->cargo;
+    function getSenha1() {
+        return $this->senha1;
     }
 
-    function getId_responsavel() {
-        return $this->id_responsavel;
+    function getSenha2() {
+        return $this->senha2;
     }
 
-    function getCurso() {
-        return $this->curso;
-    }
-
-    function getSaldo() {
-        return $this->saldo;
-    }
-
-    function getPrevisao_conclusao() {
-        return $this->previsao_conclusao;
+    function getIdade() {
+        return $this->idade;
     }
 
     function setId($id) {
@@ -214,7 +172,6 @@ class usuario {
 
     function setData_nasc($data_nasc) {
         $this->data_nasc = $data_nasc;
-        $this->setIdade();
     }
 
     function setTelefone($telefone) {
@@ -233,24 +190,33 @@ class usuario {
         $this->administrador = $administrador;
     }
 
-    function setCargo($cargo) {
-        $this->cargo = $cargo;
+    function setSenha1($senha1) {
+        $this->senha1 = $senha1;
     }
 
-    function setId_responsavel($id_responsavel) {
-        $this->id_responsavel = $id_responsavel;
+    function setSenha2($senha2) {
+        $this->senha2 = $senha2;
     }
 
-    function setCurso($curso) {
-        $this->curso = $curso;
-    }
-
-    function setSaldo($saldo) {
-        $this->saldo = $saldo;
-    }
-
-    function setPrevisao_conclusao($previsao_conclusao) {
-        $this->previsao_conclusao = $previsao_conclusao;
+    function setIdade() {
+        if (isset($this->data_nasc)) {
+            $anoAtual = date('Y');
+            $mesAtual = date('m');
+            $diaAtual = date('d');
+            $nascimento = $data_nasc;
+            list($ano, $mes, $dia) = explode('-', $this->data_nasc);
+            $idade = $anoAtual - $ano;
+            if ($mesAtual > $mes) {
+                $this->idade = $idade;
+            } else {
+                if ($mesAtual == $mes and $diaAtual >= $dia) {
+                    $this->idade = $idade;
+                } else {
+                    $idade--;
+                    $this->idade = $idade;
+                }
+            }
+        }
     }
 
 }

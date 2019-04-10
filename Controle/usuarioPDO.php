@@ -6,9 +6,13 @@ if (!isset($_SESSION)) {
 if (!realpath("./index.php")) {
     include_once "../Controle/conexao.php";
     include_once '../Modelo/usuario.php';
+    include_once '../Modelo/aluno.php';
+    include_once '../Modelo/diretoria.php';
 } else {
     include_once "./Controle/conexao.php";
     include_once './Modelo/usuario.php';
+    include_once './Modelo/aluno.php';
+    include_once './Modelo/diretoria.php';
 }
 // fazer a verificação utilizando o realpath para get do cadastroResponsavel -- nota: utilizar temp
 $classe = new usuarioPDO();
@@ -21,28 +25,31 @@ if (isset($_GET["function"])) {
 class usuarioPDO {
     public function inserirUsuario() {
         $us = new usuario($_POST);
-        if ($this->validarFormlario()) { //validar estáincompleto
+        $al = new aluno($_POST);
+        $dr = new diretoria($_POST);
+        if ($this->validarFormlario($us)) { //validar estáincompleto
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
-            $senhaMD5 = md5($_POST['senha01']);
+            $senhaMD5 = md5($us->getSenha1());
             $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , "
                     . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :nascimento, :telefone , :email , "
                     . ":podeLogar , 'false' );");
-            $sql->bindValue(':nome', $_POST['nome']);
-            $sql->bindValue(':usuario', $_POST['login']);
+            $sql->bindValue(':nome', $us->getNome());
+            $sql->bindValue(':usuario', $us->getUsuario());
             $sql->bindValue(':senha', $senhaMD5);
-            $sql->bindValue(':cidade', $_POST['cidade']);
-            $sql->bindValue(':bairro', $_POST['bairro']);
-            $sql->bindValue(':rua', $_POST['rua']);
-            $sql->bindValue(':numero', $_POST['numero']);
-            $sql->bindValue(':cep', $_POST['cep']);
-            $sql->bindValue(':cpf', $_POST['cpf']);
-            $sql->bindValue(':rg', $_POST['rg']);
-            $sql2 = $this->veririfcarTempResponsavel($sql);
-            $sql2->bindValue(':telefone', $_POST['telefone']);
-            $sql2->bindValue(':email', $_POST['email']);
-            if (isset($_SESSION['id'])) {
-                if ($_SESSION['administrador'] == 'true') {
+            $sql->bindValue(':cidade', $us->getCidade());
+            $sql->bindValue(':bairro', $us->getBairro());
+            $sql->bindValue(':rua', $us->getRua());
+            $sql->bindValue(':numero', $us->getNumero());
+            $sql->bindValue(':cep', $us->getCep());
+            $sql->bindValue(':cpf', $us->getCpf());
+            $sql->bindValue(':rg', $us->getRg());
+            $sql2 = $this->veririfcarTempResponsavel($sql, $us);
+            $sql2->bindValue(':telefone', $us->getTelefone());
+            $sql2->bindValue(':email', $us->getEmail());
+            if (isset($_SESSION['usuario'])) {
+                $logado = new usuario(unserialize($_SESSION['usuario']));
+                if ($logado->getAdministrador() == 'true') {
                     $sql2->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
                 } else {
                     $sql2->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
@@ -51,14 +58,14 @@ class usuarioPDO {
                 $sql2->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
             if ($sql2->execute()) { //Sucesso ao cadastrar USUÁRIO
-                if (isset($_GET['user']) or isset($_SESSION['temp'])) {
+                if (isset($_GET['user'])) {
                     if ($_GET['user'] == 'aluno') {
-                        $this->inserirAluno();
+                        $this->inserirAluno($al);
                     }
                     if ($_GET['user'] == 'diretoria') {
                         $this->inserirDiretoria();
                     }
-                    if (isset($_SESSION['temp'])&& $_GET['user']=='responsavel') {
+                    if (isset($_SESSION['temp']) && $_GET['user'] == 'responsavel') {
                         $this->inserirResponsavel();
                     }
                 }
@@ -69,7 +76,7 @@ class usuarioPDO {
 //nunca vai chegar aqui. O ValidarFormulario vai redirecionar antes erro.
         }
     }
-    
+
     public function inserirDiretoria() {
         if (isset($_POST['cargo']) and $_POST['cargo'] != null) {
             $this->abrirConexao();
@@ -94,26 +101,24 @@ class usuarioPDO {
         }
     }
 
-    public function inserirAluno() {
-        if (isset($_POST['curso']) && $_POST['curso'] != null) {
-            $conexao = new conexao();
-            $pdo = $conexao->getConexao();
-            $id = $this->buscarIDporRG($_POST['rg']);
-            $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
-            $sql->bindValue(':id', $id);
-            $sql->bindValue(':curso', $_POST['curso']);
-            $sql->bindValue(':conclusao', $_POST['conclusao']);
-            if ($sql->execute()) {
-                $this->enviarOrientacaoCadAluno();
-            } else {
-                header("Location: ../index.php?msg=erroInserirAlunoMethod");  //MODIFICAR HEADER
-            }
+    public function inserirAluno(aluno $us) {
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        $id = $this->buscarIDporRG($us->getRg());
+        $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
+        $sql->bindValue(':id', $id);
+        $sql->bindValue(':curso', $us->getCurso());
+        $sql->bindValue(':conclusao', $us->getPrevisao_conclusao());
+        if ($sql->execute()) {
+            $this->enviarOrientacaoCadAluno($us);
+        } else {
+            header("Location: ../index.php?msg=erroInserirAlunoMethod");  //MODIFICAR HEADER
         }
     }
 
-    public function enviarOrientacaoCadAluno() { //método de controle
+    public function enviarOrientacaoCadAluno(usuario $us) { //método de controle
         //$idade = $this->buscarIdade();
-        if ($this->buscarIdade($_POST['nascimento']) >= 18) { //Sucesso ao cadastrar ALUNO
+        if ($us->getIdade() >= 18) { //Sucesso ao cadastrar ALUNO
             if (isset($_SESSION['id']) and $_SESSION['administrador'] == 'true') {
                 header("Location: ../Tela/orientacao.php?msg=sucessoAluno"); //admin - para maior de idade
             } else {
@@ -124,7 +129,7 @@ class usuarioPDO {
             header("location: ../Tela/orientacao.php?msg=cadastrarResponsavel");
         }
     }
-    
+
     public function inserirResponsavel() {
         $con = new conexao();
         $pdo = $con->getConexao();
@@ -132,17 +137,16 @@ class usuarioPDO {
         $stmt = $pdo->prepare("update aluno set id_responsavel = :idresponsavel where id_usuario = :iduser ; ");
         $stmt->bindValue(':idresponsavel', $id_respon);
         $stmt->bindValue(':iduser', $_SESSION['temp']);
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             header('location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento');
-        }else{
+        } else {
             
         }
     }
 
-    public function veririfcarTempResponsavel($sql) {
+    public function veririfcarTempResponsavel($sql, usuario $us) {
         if (isset($_SESSION['temp'])) {
-            $idade = $this->buscarIdade($_POST['nascimento']);
-            if ($idade >= 18) {
+            if ($us->getIdade() >= 18) {
                 $sql->bindValue(':nascimento', $_POST['nascimento']);
                 return $sql;
             } else {
@@ -154,10 +158,10 @@ class usuarioPDO {
         }
     }
 
-    public function validarFormlario() {
+    public function validarFormlario(usuario $us) {
 //verificarCadastroExistente(); //por CPF e RG
-        if ($_POST['senha01'] != null and $_POST['senha02'] != null) { //completar
-            if ($_POST['senha01'] == $_POST['senha02']) {
+        if ($us->getSenha1() != null and $us->getSenha2() != null) { //completar
+            if ($us->getSenha1() == $us->getSenha2()) {
                 return true;
             } else {
                 header('location: ../Tela/cadastroUsuario.php?msg=senhasDiferentes');
@@ -305,7 +309,7 @@ class usuarioPDO {
             }
         }
     }
-    
+
     public function updateEndereco() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
@@ -342,7 +346,7 @@ class usuarioPDO {
             }
         }
     }
-    
+
     public function login() {
         $conexao = new conexao();
         $senha = md5($_POST['senha']);
@@ -353,29 +357,17 @@ class usuarioPDO {
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($linha['pode_logar'] == 'false') {
+            $us = new usuario($linha);
+            if ($us->getPode_logar() == 'false') {
                 header('Location: ../Tela/loginrecusado.php');
             } else {
-                $_SESSION['id'] = $linha['id'];
-                $_SESSION['nome'] = $linha['nome'];
-                $_SESSION['usuario'] = $linha['usuario'];
-                $_SESSION['cidade'] = $linha['cidade'];
-                $_SESSION['bairro'] = $linha['bairro'];
-                $_SESSION['rua'] = $linha['rua'];
-                $_SESSION['numero'] = $linha['numero'];
-                $_SESSION['cep'] = $linha['cep'];
-                $_SESSION['cpf'] = $linha['cpf'];
-                $_SESSION['rg'] = $linha['rg'];
-                $_SESSION['telefone'] = $linha['telefone'];
-                $_SESSION['email'] = $linha['email'];
-                $_SESSION['data_nasc'] = $linha['data_nasc'];
-                $_SESSION['administrador'] = $linha['administrador'];
+                $_SESSION['usuario'] = serialize($us);
 
                 $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
                 $stmt->bindValue(':id', $_SESSION['id']);
                 if ($stmt->execute()) {
                     $l = $stmt->fetch(PDO::FETCH_ASSOC);
-                    if ($this->buscarIdade($_SESSION['data_nasc']) < 18 && $l['id_responsavel'] == 'null') {
+                    if ($us->getIdade() < 18 && $l['id_responsavel'] == 'null') {
                         $rgtemp = $_SESSION['rg'];
                         session_destroy();
                         session_start();
@@ -402,7 +394,7 @@ class usuarioPDO {
             }
         }
     }
-    
+
     public function logout() {
         session_destroy();
         header('Location: ../index.php');

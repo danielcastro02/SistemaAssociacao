@@ -2,8 +2,8 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!isset($_SESSION['id'])) {
-    header("location: ../Tela/login.php");
+if (!isset($_SESSION['usuario'])) {
+    header('Location: ./login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -18,11 +18,10 @@ if (!isset($_SESSION['id'])) {
     <body class="homeimg">
 
         <?php
-        if ($_SESSION['administrador'] == 'true') {
-            include_once '../Base/navAdministrativa.php';
-        } else {
-            include_once '../Base/navPadrao.php';
-        }
+        include_once '../Base/nav.php';
+        include_once '../Modelo/usuario.php';
+        $logado = new usuario();
+        $logado = unserialize($_SESSION['usuairo']);
         ?>
 
 
@@ -48,14 +47,14 @@ if (!isset($_SESSION['id'])) {
                                 <br>
                                 <img src="../Img/user_icon.png" height="100px" width="100px">
                                 <div class="row"></div>
-                                <h5><?php echo $_SESSION['nome']; ?></h5>
-                                <span>RG: <?php echo $_SESSION['rg']; ?></span><br>
-                                <span>CPF: <?php echo $_SESSION['cpf']; ?></span><br>
-                                <span>CEP: <?php echo $_SESSION['cep']; ?></span><br>
-                                <span>Cidade: <?php echo $_SESSION['cidade']; ?></span><br>
-                                <span>Bairro: <?php echo $_SESSION['bairro']; ?></span><br>
-                                <span>Rua: <?php echo $_SESSION['rua']; ?></span><br>
-                                <span>Número: <?php echo $_SESSION['numero']; ?></span><br>
+                                <h5><?php echo $logado->getNome(); ?></h5>
+                                <span>RG: <?php echo $logado->getRg(); ?></span><br>
+                                <span>CPF: <?php echo $logado->getCpf(); ?></span><br>
+                                <span>CEP: <?php echo $logado->getCep(); ?></span><br>
+                                <span>Cidade: <?php echo $logado->getCidade(); ?></span><br>
+                                <span>Bairro: <?php echo $logado->getBairro(); ?></span><br>
+                                <span>Rua: <?php echo $logado->getRua(); ?></span><br>
+                                <span>Número: <?php echo $logado->getNumero(); ?></span><br>
                             </div>
 
                         </div>
