@@ -23,6 +23,7 @@ if (isset($_GET["function"])) {
 }
 
 class usuarioPDO {
+
     public function inserirUsuario() {
         $us = new usuario($_POST);
         $al = new aluno($_POST);
@@ -38,7 +39,7 @@ class usuarioPDO {
             $sql->bindValue(':usuario', $us->getUsuario());
             $sql->bindValue(':senha', $senhaMD5);
             $sql->bindValue(':cidade', $us->getCidade());
-            $sql->bindValue(':bairro', $us->getBairo());
+            $sql->bindValue(':bairro', $us->getBairro());
             $sql->bindValue(':rua', $us->getRua());
             $sql->bindValue(':numero', $us->getNumero());
             $sql->bindValue(':cep', $us->getCep());
@@ -63,10 +64,10 @@ class usuarioPDO {
                         $this->inserirAluno($al);
                     }
                     if ($_GET['user'] == 'diretoria') {
-                        $this->inserirDiretoria();
+                        $this->inserirDiretoria($dr);
                     }
                     if (isset($_SESSION['temp']) && $_GET['user'] == 'responsavel') {
-                        $this->inserirResponsavel();
+                        $this->inserirResponsavel($us);
                     }
                 }
             } else {
@@ -77,8 +78,8 @@ class usuarioPDO {
         }
     }
 
-    public function inserirDiretoria() {
-        if (isset($_POST['cargo']) and $_POST['cargo'] != null) {
+    public function inserirDiretoria(diretoria $dr) {
+        if (!is_null($dr->getCargo())) {
             $this->abrirConexao();
             $sql = $pdo->prepare("select id from usuario where rg = :rg;");
             $sql->bindValue(':rg', $_POST['rg']);
@@ -130,13 +131,14 @@ class usuarioPDO {
         }
     }
 
-    public function inserirResponsavel() {
+    public function inserirResponsavel(usuario $us) {
         $con = new conexao();
         $pdo = $con->getConexao();
-        $id_respon = $this->buscarIDporRG($_POST['rg']);
+        $id_respon = $this->buscarIDporRG($us->getRg());
         $stmt = $pdo->prepare("update aluno set id_responsavel = :idresponsavel where id_usuario = :iduser ; ");
         $stmt->bindValue(':idresponsavel', $id_respon);
         $stmt->bindValue(':iduser', $_SESSION['temp']);
+        unset($_SESSION['temp']);
         if ($stmt->execute()) {
             header('location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento');
         } else {
@@ -192,11 +194,11 @@ class usuarioPDO {
         }
     }
 
-    public function buscarIDporCPF() {
+    public function buscarIDporCPF(usuario $us) {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("select id from usuario where cpf = :cpf;");
-        $sql->bindValue(':cpf', $_POST['cpf']);
+        $sql->bindValue(':cpf', $us->getCpf());
         $sql->execute();
         if ($sql->rowCount() > 0) {
             $linha = $sql->fetch(PDO::FETCH_ASSOC);
@@ -205,13 +207,6 @@ class usuarioPDO {
         } else {
             header("Location: ../index.php?msg=erroBuscarPorCPF");
         }
-    }
-
-    public function buscarNomePorCPF() {
-        
-    }
-
-    public function testeData() { //método criado afim de testes
     }
 
     public function buscarIdade($data_nasc) { // método incompleto - verificar
@@ -242,63 +237,64 @@ class usuarioPDO {
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE id = " . $linha['id_usuario']);
         $stmt->execute();
         $linha = $stmt->fetch();
-        return $linha;
+        $presidente = new usuario($linha);
+        return $presidente;
+    }
+
+    public function getLogado() {
+        $logado = new usuario();
+        $logado = unserialize($_SESSION['usuario']);
+        return $logado;
     }
 
     public function update() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
+        $logado = new usuario();
+        $logado = $this->getLogado();
         if ($_POST['oldsenha'] == "") {
             header('Location: ../Tela/alterarDadosUsuario.php?msg=senhavazia');
         }
         $senhaantiga = md5($_POST['oldsenha']);
         $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
-        $stmt->bindValue(':id', $_SESSION['id']);
+        $stmt->bindValue(':id', $logado->getId());
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($linha['senha'] == $senhaantiga) {
-
-            if (($_POST['senha2'] == "") && ($_POST['senha2conf'] == "")) {
+            $us = new usuario($_POST);
+            if (($us->getSenha2() == "") && ($us->getSenha1() == "")) {
                 $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email WHERE id = :id;');
-                $stmt->bindValue(':nome', $_POST['nome']);
-                $stmt->bindValue(':usuario', $_POST['usuario']);
-                $stmt->bindValue(':cpf', $_POST['cpf']);
-                $stmt->bindValue(':rg', $_POST['rg']);
-                $stmt->bindValue(':telefone', $_POST['telefone']);
-                $stmt->bindValue(':email', $_POST['email']);
-                $stmt->bindValue(':id', $_SESSION['id']);
+                $stmt->bindValue(':nome', $us->getNome());
+                $stmt->bindValue(':usuario', $us->getUsuario());
+                $stmt->bindValue(':cpf', $us->getCpf());
+                $stmt->bindValue(':rg', $us->getRg());
+                $stmt->bindValue(':telefone', $us->getTelefone());
+                $stmt->bindValue(':email', $us->getEmail());
+                $stmt->bindValue(':id', $us->getId());
 
                 if ($stmt->execute()) {
-                    $_SESSION['nome'] = $_POST['nome'];
-                    $_SESSION['usuario'] = $_POST['usuario'];
-                    $_SESSION['cpf'] = $_POST['cpf'];
-                    $_SESSION['rg'] = $_POST['rg'];
-                    $_SESSION['telefone'] = $_POST['telefone'];
-                    $_SESSION['email'] = $_POST['email'];
+                    $logado->atualizar($_POST);
+                    $_SESSION['usuario'] = serialize($logado);
                     header('Location: ../Tela/alterarDadosUsuario.php?msg=sucessoss');
                 } else {
                     header('Location: ../Tela/alterarDadosUsuario.php?msg=bderross');
                 }
             } else {
-                if ($_POST['senha2'] == $_POST['senha2conf']) {
-                    $senhamd5 = md5($_POST['senha2']);
+                if ($us->getSenha2() == $us->getSenha1()) {
+                    $senhamd5 = md5($us->getSenha2());
                     $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email, senha = :senha WHERE id = :id;');
-                    $stmt->bindValue(':nome', $_POST['nome']);
-                    $stmt->bindValue(':usuario', $_POST['usuario']);
-                    $stmt->bindValue(':cpf', $_POST['cpf']);
-                    $stmt->bindValue(':rg', $_POST['rg']);
-                    $stmt->bindValue(':telefone', $_POST['telefone']);
-                    $stmt->bindValue(':email', $_POST['email']);
+                    $stmt->bindValue(':nome', $us->getNome());
+                    $stmt->bindValue(':usuario', $us->getUsuario());
+                    $stmt->bindValue(':cpf', $us->getCpf());
+                    $stmt->bindValue(':rg', $us->getRg());
+                    $stmt->bindValue(':telefone', $us->getTelefone());
+                    $stmt->bindValue(':email', $us->getEmail());
                     $stmt->bindValue(':senha', $senhamd5);
-                    $stmt->bindValue(':id', $_SESSION['id']);
+                    $stmt->bindValue(':id', $us->getId());
                     if ($stmt->execute()) {
-                        $_SESSION['nome'] = $_POST['nome'];
-                        $_SESSION['usuario'] = $_POST['usuario'];
-                        $_SESSION['cpf'] = $_POST['cpf'];
-                        $_SESSION['rg'] = $_POST['rg'];
-                        $_SESSION['telefone'] = $_POST['telefone'];
-                        $_SESSION['email'] = $_POST['email'];
+                        $logado->atualizar($_POST);
+                        $_SESSION['usuario'] = serialize($logado);
                         header('Location: ../Tela/alterarDadosUsuario.php?msg=sucessocs');
                     } else {
                         header('Location: ../Tela/alterarDadosUsuario.php?msg=bderrocs');
@@ -313,14 +309,16 @@ class usuarioPDO {
     public function updateEndereco() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
-
-        $senhaantiga = md5($_POST['senha']);
+        $logado = new usuario();
+        $logado = $this->getLogado();
+        $us = new usuario($_POST);
+        $senhaantiga = md5($us->getSenha1());
         $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
-        $stmt->bindValue(':id', $_SESSION['id']);
+        $stmt->bindValue(':id', $logado->getId());
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($_POST['senha'] == "") {
+        
+        if ($us->getSenha1() == "") {
             header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhavazia');
         } else {
             if ($linha['senha'] == $senhaantiga) {
@@ -332,11 +330,8 @@ class usuarioPDO {
                 $stmt->bindValue(':cep', $_POST['cep']);
                 $stmt->bindValue(':id', $_SESSION['id']);
                 if ($stmt->execute()) {
-                    $_SESSION['cidade'] = $_POST['cidade'];
-                    $_SESSION['bairro'] = $_POST['bairro'];
-                    $_SESSION['rua'] = $_POST['rua'];
-                    $_SESSION['numero'] = $_POST['numero'];
-                    $_SESSION['cep'] = $_POST['cep'];
+                    $logado->atualizar($_POST);
+                    $_SESSION['usuario'] = serialize($logado);
                     header('Location: ../Tela/alterarEnderecoUsuario.php?msg=sucesso');
                 } else {
                     header('Location: ./Tela/alterarEnderecoUsuario.php?msg=bderro');
@@ -364,27 +359,24 @@ class usuarioPDO {
                 $_SESSION['usuario'] = serialize($us);
 
                 $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
-                $stmt->bindValue(':id', $_SESSION['id']);
+                $stmt->bindValue(':id', $us->getId());
                 if ($stmt->execute()) {
                     $l = $stmt->fetch(PDO::FETCH_ASSOC);
                     if ($us->getIdade() < 18 && $l['id_responsavel'] == 'null') {
-                        $rgtemp = $_SESSION['rg'];
+                        $rgtemp = $us->getRg();
                         session_destroy();
                         session_start();
                         $_SESSION['temp'] = $this->buscarIDporRG($rgtemp);
                         header('location: ../Tela/orientacao.php?msg=cadastrarResponsavel');
                     } else {
-                        $_SESSION['id_responsavel'] = $l['id_responsavel'];
-                        $_SESSION['data_nasc'] = $l['data_nasc'];
-                        $_SESSION['curso'] = $l['curso'];
-                        $_SESSION['saldo'] = $l['saldo'];
-                        $_SESSION['previsao_conclusao'] = $l['previsao_conclusao'];
+                        $al = new aluno($l);
+                        $_SESSION['aluno'] = serialize($al);
                     }
                     $stmt = $pdo->prepare('SELECT cargo FROM diretoria WHERE id_usuario = :id;');
-                    $stmt->bindValue(':id', $_SESSION['id']);
+                    $stmt->bindValue(':id', $us->getId());
                     if ($stmt->execute()) {
                         $s = $stmt->fetch(PDO::FETCH_ASSOC);
-                        $_SESSION['cargo'] = $s['cargo'];
+                        $_SESSION['diretoria'] = serialize(new diretoria($s));
                     }
                     header('Location: ../Tela/home.php');
 //print_r($_SESSION);

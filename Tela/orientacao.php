@@ -45,7 +45,7 @@ if (!isset($_SESSION)) {
                             <div class="row">
                                 <span class="left-align col s12 ">Não se preocupe, basta entrar em contato com o presidente da associacao <?php echo $presidente['nome']; ?>
                                     para validar seus documentos...<br>Entre em contato pelo Telefone: <?php echo $presidente['telefone']; ?>, pelo E-mail: <?php echo $presidente['email']; ?>.<br>Ou diretamente no endereço:
-                                    Rua, <?php echo $presidente['rua']; ?>, Bairo <?php echo $presidente['bairro']; ?>, Número  <?php echo $presidente['numero']; ?>, na cidade de <?php echo $presidente['cidade']; ?></span></div>
+                                    Rua, <?php echo $presidente['rua']; ?>, Bairro <?php echo $presidente['bairro']; ?>, Número  <?php echo $presidente['numero']; ?>, na cidade de <?php echo $presidente['cidade']; ?></span></div>
                             <div class="row left-align">
                                 <h5 class="col s9">
                                     Isso é para a segurança de todos os nossos associados!</h5>
