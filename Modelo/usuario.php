@@ -55,6 +55,21 @@ class usuario {
 
     function setIdade($idade) {
         $this->idade = $idade;
+        $anoAtual = date('Y');
+            $mesAtual = date('m');
+            $diaAtual = date('d');
+            list($ano, $mes, $dia) = explode('-', $this->data_nasc);
+            $idade = $anoAtual - $ano;
+            if ($mesAtual > $mes) {
+                $this->idade= $idade;
+            } else {
+                if ($mesAtual == $mes and $diaAtual >= $dia) {
+                    $this->idade= $idade;
+                } else {
+                    $idade--;
+                    $this->idade= $idade;
+                }
+            }
     }
 
         function getId() {
