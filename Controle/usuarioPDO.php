@@ -13,7 +13,7 @@ $classe = new usuarioPDO();
 
 if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
-    eval("\$classe->\$metodo();");
+    $classe->$metodo();
 }
 
 class usuarioPDO {
