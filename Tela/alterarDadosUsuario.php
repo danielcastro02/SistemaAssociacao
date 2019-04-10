@@ -2,6 +2,9 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+if (!isset($_SESSION['usuario'])) {
+    header('Location: ./login.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,18 +15,13 @@ if (!isset($_SESSION)) {
         ?>
     </head>
     <body class="homeimg">
-        <!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="../js/materialize.js"></script>
 
-        <?php 
-        if($_SESSION['administrador']== 'true'){
-        include_once '../Base/navAdministrativa.php';
-        }
-        else{
-        include_once '../Base/navPadrao.php';    
-        }
-?>
+        <?php
+        include_once '../Base/nav.php';
+        include_once '../Modelo/usuario.php';
+        $logado = new usuario();
+        $logado = unserialize($_SESSION['usuairo']);
+        ?>
 
         <main id="main">
             <div class="row">
@@ -32,31 +30,31 @@ if (!isset($_SESSION)) {
                     <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=update" method="POST">
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="nome" value="<?php echo $_SESSION['nome']; ?>">
+                                <input type="text" class="input-field" name="nome" value="<?php echo $logado->getNome(); ?>">
                                 <label for="nome">Nome</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="usuario"  value="<?php echo $_SESSION['usuario']; ?>">
+                                <input type="text" class="input-field" name="usuario"  value="<?php echo $logado->getUsuario(); ?>">
                                 <label for="usuario">Usuário</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cpf" value="<?php echo $_SESSION['cpf']; ?>">
+                                <input type="text" class="input-field" name="cpf" value="<?php echo $logado->getCpf(); ?>">
                                 <label for="cpf">CPF</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="rg" value="<?php echo $_SESSION['rg']; ?>">
+                                <input type="text" class="input-field" name="rg" value="<?php echo $logado->getRg(); ?>">
                                 <label for="rg">RG</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="telefone" value="<?php echo $_SESSION['telefone']; ?>">
+                                <input type="text" class="input-field" name="telefone" value="<?php echo $logado->getTelefone(); ?>">
                                 <label for="telefone">Telefone</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="email" value="<?php echo $_SESSION['email']; ?>">
+                                <input type="text" class="input-field" name="email" value="<?php echo $logado->getEmail(); ?>">
                                 <label for="email">Email</label>
                             </div>
                         </div>
@@ -65,11 +63,11 @@ if (!isset($_SESSION)) {
                         </div>
                         <div class="row" hidden="true" id="mostra">
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha2">
+                                <input type="password" class="input-field" name="senha1">
                                 <label for="senha2">Nova senha</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha2conf">
+                                <input type="password" class="input-field" name="senha2">
                                 <label for="senha2conf">Confirmar nova senha</label>
                             </div>
                         </div>
@@ -79,24 +77,24 @@ if (!isset($_SESSION)) {
                                 <label for="oldsenha">Senha antiga</label>
                             </div>
                         </div>
-                        <?php 
-                            if(isset($_GET['msg'])){
-                                if($_GET['msg'] == 'sucesso'||$_GET['msg'] == 'sucessoss'){
-                                    ?>
-                        <div class="row center">
-                            <span class="green-text">Dados alterados com sucesso</span>
-                        </div>
                         <?php
-                                }else{
-                                    if($_GET['msg'] == 'senhavazia'){
-                                        ?>
-                                            <div class="row">
-                                    <span class="red-text">Digite sua senha antiga!</span>
+                        if (isset($_GET['msg'])) {
+                            if ($_GET['msg'] == 'sucesso' || $_GET['msg'] == 'sucessoss') {
+                                ?>
+                                <div class="row center">
+                                    <span class="green-text">Dados alterados com sucesso</span>
                                 </div>
-                                            <?php
-                                    }
+                                <?php
+                            } else {
+                                if ($_GET['msg'] == 'senhavazia') {
+                                    ?>
+                                    <div class="row">
+                                        <span class="red-text">Digite sua senha antiga!</span>
+                                    </div>
+                                    <?php
                                 }
                             }
+                        }
                         ?>
                         <div class="row">
                             <a href="./home.php" class="btn corpadrao">Cancelar</a>
@@ -119,13 +117,13 @@ if (!isset($_SESSION)) {
             </div>
         </main>
         <script>
-        $(document).ready(function(){
-            $("#esconde").click(function(){
-                $("#mostra").removeAttr('hidden');
-                $("#esconde").attr('hidden', 'true');
+            $(document).ready(function () {
+                $("#esconde").click(function () {
+                    $("#mostra").removeAttr('hidden');
+                    $("#esconde").attr('hidden', 'true');
+                });
             });
-        });
-        
+            
         </script>
         <?php include_once '../Base/footer.php'; ?>
     </body>

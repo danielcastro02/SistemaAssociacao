@@ -11,7 +11,13 @@ if (realpath("./index.php")) {
         <a href="<?php echo $pontos; ?>./Tela/home.php" class="brand-logo">Sistema para Associação</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <!-- Dropdown Trigger -->
-            <li><a class='dropdown-button' data-activates='dropdown1'><?php echo $_SESSION['nome']; ?></a></li>
+            <li><a class='dropdown-button' data-activates='dropdown1'>
+                <?php 
+                $usuario = new usuario();
+                $usuario = unserialize($_SESSION['usuario']);
+                echo $usuario->getNome();
+                ?>
+                </a></li>
             <ul id='dropdown1' class='dropdown-content'>
                 <li><a><b>Seu Perfil</b></a></li>
                 <li><a href="../Tela/alterarDadosUsuario.php">Alterar Dados Pessoais</a></li>

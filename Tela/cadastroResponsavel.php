@@ -22,8 +22,8 @@ session_start();
                             <label for="nome">Nome</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="login">
-                            <label for="login">Login</label>
+                            <input class="input-field" type="text" name="usuario">
+                            <label for="usuario">Login</label>
                         </div>
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="cidade">
@@ -57,8 +57,8 @@ session_start();
                             <div class = "left grey-text">
                                 Data de nascimento
                             </div>
-                            <input class = "input-field" type = "date" name = "nascimento">
-                            <label for = "nascimento"></label>
+                            <input class = "input-field" type = "date" name = "data_nasc">
+                            <label for = "data_nasc"></label>
                         </div>
                         <div class="input-field col s6">
                             <input class="input-field" type="text" name="cpf">
@@ -69,12 +69,12 @@ session_start();
                             <label for="rg">RG</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="password" name="senha01">
-                            <label for="senha01">Senha</label>
+                            <input class="input-field" type="password" name="senha1">
+                            <label for="senha1">Senha</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="password" name="senha02">
-                            <label for="senha02">Confirme a senha</label>
+                            <input class="input-field" type="password" name="senha2">
+                            <label for="senha2">Confirme a senha</label>
                         </div>
                         <?php include_once '../Base/msgSaida.php';
                         //não esquecer de verificar a msg de menor de idade para responsável
