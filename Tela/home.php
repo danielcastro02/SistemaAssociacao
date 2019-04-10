@@ -52,7 +52,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <span>CPF: <?php echo $logado->getCpf(); ?></span><br>
                                 <span>CEP: <?php echo $logado->getCep(); ?></span><br>
                                 <span>Cidade: <?php echo $logado->getCidade(); ?></span><br>
-                                <span>Bairro: <?php echo $logado->getBairo(); ?></span><br>
+                                <span>Bairro: <?php echo $logado->getBairro(); ?></span><br>
                                 <span>Rua: <?php echo $logado->getRua(); ?></span><br>
                                 <span>Número: <?php echo $logado->getNumero(); ?></span><br>
                             </div>

@@ -7,6 +7,8 @@
 
         include_once '../Controle/usuarioPDO.php';
         $usuarioPDO = new usuarioPDO();
+        include_once '../Moldelo/usuario.php';
+        $presidente = new usuario();
         $presidente = $usuarioPDO->selectPresidente();
         ?>
     </head>
@@ -30,9 +32,9 @@
                                 <h5 class="red-text">Desculpe, você ainda não pode logar...</h5>
                             </div>
                             <div class="row">
-                                <span class="left-align col s12 ">Não se preocupe, basta entrar em contato com o presidente da associacao <?php echo $presidente['nome']; ?>
-                                    para validar seus documentos...<br>Entre em contato pelo Telefone: <?php echo $presidente['telefone']; ?>, pelo E-mail: <?php echo $presidente['email']; ?>.<br>Ou diretamente no endereço:
-                                    Rua, <?php echo $presidente['rua']; ?>, Bairo <?php echo $presidente['bairro']; ?>, Número  <?php echo $presidente['numero']; ?>, na cidade de <?php echo $presidente['cidade']; ?></span></div>
+                                <span class="left-align col s12 ">Não se preocupe, basta entrar em contato com o presidente da associacao <?php echo $presidente->getNome(); ?>
+                                    para validar seus documentos...<br>Entre em contato pelo Telefone: <?php echo $presidente->getTelefone(); ?>, pelo E-mail: <?php echo $presidente->getEmail(); ?>.<br>Ou diretamente no endereço:
+                                    Rua, <?php echo $presidente->getRua(); ?>, Bairro <?php echo $presidente->getBairro(); ?>, Número  <?php echo $presidente->getNumero(); ?>, na cidade de <?php echo $presidente->getCidade(); ?></span></div>
                             <div class="row left-align">
                                 <h5 class="col s9">
                                     Isso é para a segurança de todos os nossos associados!</h5>

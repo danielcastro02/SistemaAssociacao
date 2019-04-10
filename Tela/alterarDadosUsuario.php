@@ -63,11 +63,11 @@ if (!isset($_SESSION['usuario'])) {
                         </div>
                         <div class="row" hidden="true" id="mostra">
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha2">
+                                <input type="password" class="input-field" name="senha1">
                                 <label for="senha2">Nova senha</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha2conf">
+                                <input type="password" class="input-field" name="senha2">
                                 <label for="senha2conf">Confirmar nova senha</label>
                             </div>
                         </div>

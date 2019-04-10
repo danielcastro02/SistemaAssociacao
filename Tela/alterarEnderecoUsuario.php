@@ -34,7 +34,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <label for="cidade">Cidade</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="bairro" value="<?php echo $logado->getBairo(); ?>">
+                                <input type="text" class="input-field" name="bairro" value="<?php echo $logado->getBairro(); ?>">
                                 <label for="bairro">Bairro</label>
                             </div>
                         </div>

@@ -38,7 +38,7 @@ class usuarioPDO {
             $sql->bindValue(':usuario', $us->getUsuario());
             $sql->bindValue(':senha', $senhaMD5);
             $sql->bindValue(':cidade', $us->getCidade());
-            $sql->bindValue(':bairro', $us->getBairo());
+            $sql->bindValue(':bairro', $us->getBairro());
             $sql->bindValue(':rua', $us->getRua());
             $sql->bindValue(':numero', $us->getNumero());
             $sql->bindValue(':cep', $us->getCep());
