@@ -2,6 +2,9 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+if (!isset($_SESSION['usuario'])) {
+    header('Location: ./login.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,14 +15,14 @@ if (!isset($_SESSION)) {
         ?>
     </head>
     <body class="homeimg">
-        <?php 
-        if($_SESSION['administrador']== 'true'){
-        include_once '../Base/navAdministrativa.php';
-        }
-        else{
-        include_once '../Base/navPadrao.php';    
-        }
-?>
+
+        <?php
+        include_once '../Base/nav.php';
+        include_once '../Modelo/usuario.php';
+        $logado = new usuario();
+        $logado = unserialize($_SESSION['usuairo']);
+        ?>
+
         <main id="main">
             <div class="row">
                 <div class="col s8 offset-s2 card center grey lighten-2">
@@ -27,27 +30,27 @@ if (!isset($_SESSION)) {
                     <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=updateEndereco" method="POST">
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cidade" value="<?php echo $_SESSION['cidade']; ?>">
+                                <input type="text" class="input-field" name="cidade" value="<?php echo $logado->getCidade(); ?>">
                                 <label for="cidade">Cidade</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="bairro" value="<?php echo $_SESSION['bairro']; ?>">
+                                <input type="text" class="input-field" name="bairro" value="<?php echo $logado->getBairo(); ?>">
                                 <label for="bairro">Bairro</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="rua" value="<?php echo $_SESSION['rua']; ?>">
+                                <input type="text" class="input-field" name="rua" value="<?php echo $logado->getRua(); ?>">
                                 <label for="rua">Rua</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="numero" value="<?php echo $_SESSION['numero']; ?>">
+                                <input type="text" class="input-field" name="numero" value="<?php echo $logado->getNumero(); ?>">
                                 <label for="numero">Número</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cep" value="<?php echo $_SESSION['cep']; ?>">
+                                <input type="text" class="input-field" name="cep" value="<?php echo $logado->getCep(); ?>">
                                 <label for="cep">CEP</label>
                             </div>
                             <div class="input-field col s6">
