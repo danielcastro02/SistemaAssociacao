@@ -47,9 +47,11 @@ if (!isset($_SESSION)) {
                                 Para acessar o portal aguarde a análise do adminstrador ou entre em contado com a Associação.
                             </h5>
                             <div class="row">
+
                                 <span class="left-align col s12 ">Não se preocupe, basta entrar em contato com o presidente da associacao <?php echo $presidente->getNome(); ?>
                                     para validar seus documentos...<br>Entre em contato pelo Telefone: <?php echo $presidente->getTelefone(); ?>, pelo E-mail: <?php echo $presidente->getEmail(); ?>.<br>Ou diretamente no endereço:
                                     Rua, <?php echo $presidente->getRua(); ?>, Bairro <?php echo $presidente->getBairro(); ?>, Número  <?php echo $presidente->getNumero(); ?>, na cidade de <?php echo $presidente->getCidade(); ?></span></div>
+
                             <div class="row left-align">
                                 <h5 class="col s9">
                                     Isso é para a segurança de todos os nossos associados!</h5>
