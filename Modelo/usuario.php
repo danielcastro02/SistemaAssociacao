@@ -6,7 +6,7 @@ class usuario {
     private $nome;
     private $usuario;
     private $cidade;
-    private $bairo;
+    private $Bairro;
     private $rua;
     private $numero;
     private $cep;
@@ -23,6 +23,8 @@ class usuario {
     private $saldo;
     private $previsao_conclusao;
     private $idade;
+    private $senha1;
+    private $senha2;
 
     public function __construct() {
         if (func_num_args() != 0) {
@@ -50,6 +52,22 @@ class usuario {
                 }
             }
         }
+    }
+
+    function getSenha1() {
+        return $this->senha1;
+    }
+
+    function getSenha2() {
+        return $this->senha2;
+    }
+
+    function setSenha1($senha1) {
+        $this->senha1 = $senha1;
+    }
+
+    function setSenha2($senha2) {
+        $this->senha2 = $senha2;
     }
 
     function getIdade() {
@@ -90,8 +108,8 @@ class usuario {
         return $this->cidade;
     }
 
-    function getBairo() {
-        return $this->bairo;
+    function getBairro() {
+        return $this->Bairro;
     }
 
     function getRua() {
@@ -170,8 +188,8 @@ class usuario {
         $this->cidade = $cidade;
     }
 
-    function setBairo($bairo) {
-        $this->bairo = $bairo;
+    function setBairro($Bairro) {
+        $this->Bairro = $Bairro;
     }
 
     function setRua($rua) {

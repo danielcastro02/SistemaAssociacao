@@ -13,6 +13,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+//NÃO VERIRIFCAR SE ESTÁ LOGADO, PQ EXISTE O REQUERIMENTO DE ASSOCIAÇÃO
 ?>                  
 
 <!DOCTYPE html>
@@ -36,8 +37,8 @@ if (!isset($_SESSION)) {
                             <label for = "nome">Nome</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "login">
-                            <label for = "login">Login</label>
+                            <input class = "input-field" type = "text" name = "usuario">
+                            <label for = "usuario">Login</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "cidade">
@@ -82,9 +83,10 @@ if (!isset($_SESSION)) {
                             <div class = "left grey-text">
                                 Data de nascimento
                             </div>
-                            <input class = "input-field" type = "date" name = "nascimento">
-                            <label for = "nascimento"></label>
+                            <input class = "input-field" type = "date" name = "data_nasc">
+                            <label for = "data_nasc"></label>
                         </div>
+
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "cpf">
                             <label for = "cpf">CPF</label>
@@ -94,19 +96,23 @@ if (!isset($_SESSION)) {
                             <label for = "rg">RG</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "password" name = "senha01">
-                            <label for = "senha01">Senha</label>
+                            <input class = "input-field" type = "password" name = "senha1">
+                            <label for = "senha1">Senha</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "password" name = "senha02">
-                            <label for = "senha02">Confirme a senha</label>
+                            <input class = "input-field" type = "password" name = "senha2">
+                            <label for = "senha2">Confirme a senha</label>
                         </div>
-                        <?php include_once '../Base/msgSaida.php';
-                        ?>
+
+                        <?php include_once '../Base/msgSaida.php'; ?>
+
                         <div class="row">
                             <div class="col s12">
                                 <?php
-                                if (isset($_SESSION['id'])) {
+                                include_once '../Modelo/usuario.php';
+                                $usuario = new usuario();
+                                $usuario = unserialize($_SESSION['usuario']);
+                                if (isset($_SESSION['usuario'])) {
                                     ?>
                                     <a href = "./home.php" class = "btn hoverable corpadrao">Cancelar</a>
                                     <?php
@@ -126,7 +132,7 @@ if (!isset($_SESSION)) {
         </div>
         <script>
             $(document).ready(function
-                    );
+            );
         </script>
         <?php include_once '../Base/footer.php'; ?>
     </body>

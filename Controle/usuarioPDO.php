@@ -20,7 +20,7 @@ if (isset($_GET["function"])) {
 
 class usuarioPDO {
     public function inserirUsuario() {
-        
+        $us = new usuario($_POST);
         if ($this->validarFormlario()) { //validar estáincompleto
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
