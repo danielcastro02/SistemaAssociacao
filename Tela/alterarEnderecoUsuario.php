@@ -54,7 +54,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <label for="cep">CEP</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha">
+                                <input type="password" class="input-field" name="senha1">
                                 <label for="senha">Senha</label>
                             </div>
                         </div>
