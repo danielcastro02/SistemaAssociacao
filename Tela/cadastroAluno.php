@@ -110,9 +110,10 @@ if (!isset($_SESSION)) {
                             <div class="col s12">
                                 <?php
                                 include_once '../Modelo/usuario.php';
-                                $usuario = new usuario();
+                                
                                 if (isset($_SESSION['usuario'])) {
-                                    $usuario = unserialize($_SESSION['usuario']);
+                                    $usuario = new usuario(unserialize($_SESSION['usuario']));
+                                    
                                     ?>
                                     <a href = "./home.php" class = "btn hoverable corpadrao">Cancelar</a>
                                     <?php
