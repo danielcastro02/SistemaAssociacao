@@ -18,7 +18,11 @@ if (realpath("./index.php")) {
                     echo $usuario->getNome();
                     ?></a></li>
             <ul id='dropdown1' class='dropdown-content'>
-                <li><a><b>Seu Perfil</b></a></li>
+                <li><a><b>
+                    <?php
+                    echo $usuario->getNome();
+                    ?>
+                        </b></a></li>
                 <li><a href="../Tela/alterarDadosUsuario.php">Alterar Dados Pessoais</a></li>
                 <li><a href="../Tela/alterarEnderecoUsuario.php">Alterar Endereço</a></li>
             </ul>
@@ -28,7 +32,9 @@ if (realpath("./index.php")) {
 </nav>
 
 <script>
+
     $('.dropdown-trigger').dropdown({
     hover: true
     });
+
 </script>

@@ -53,7 +53,9 @@ if (realpath("./index.php")) {
 </nav>
 
 <script>
-    $('.dropdown-trigger').dropdown({
-        hover: true
-    });
+
+     $('.dropdown-trigger').dropdown({
+         hover:true
+     });
+
 </script>
