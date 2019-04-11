@@ -6,7 +6,7 @@ class usuario {
     private $nome;
     private $usuario;
     private $cidade;
-    private $Bairro;
+    private $bairro;
     private $rua;
     private $numero;
     private $cep;
@@ -30,12 +30,12 @@ class usuario {
                 }
             }
         }
-        if (isset($this->data_nasc)) {
+        if (!is_null($this->data_nasc)) {
             $anoAtual = date('Y');
             $mesAtual = date('m');
             $diaAtual = date('d');
-            $nascimento = $data_nasc;
-            list($ano, $mes, $dia) = explode('-', $this->data_nasc);
+            $nascimento = $this->data_nasc;
+            list($ano, $mes, $dia) = explode('-', $nascimento);
             $idade = $anoAtual - $ano;
             if ($mesAtual > $mes) {
                 $this->idade = $idade;
@@ -75,7 +75,7 @@ class usuario {
     }
 
     function getBairro() {
-        return $this->Bairro;
+        return $this->bairro;
     }
 
     function getRua() {
@@ -146,8 +146,8 @@ class usuario {
         $this->cidade = $cidade;
     }
 
-    function setBairro($Bairro) {
-        $this->Bairro = $Bairro;
+    function setBairro($bairro) {
+        $this->bairro = $bairro;
     }
 
     function setRua($rua) {

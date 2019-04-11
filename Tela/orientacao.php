@@ -11,8 +11,9 @@ if (!isset($_SESSION)) {
     <body class="homeimg">
         <?php
         include_once '../Base/nav.php';
+        include_once '../Controle/usuarioPDO.php';
         $usuarioPDO = new usuarioPDO();
-        include_once '../Moldelo/usuario.php';
+        include_once '../Modelo/usuario.php';
         $presidente = new usuario();
         $presidente = $usuarioPDO->selectPresidente();
         ?>
