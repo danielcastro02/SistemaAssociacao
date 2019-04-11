@@ -25,7 +25,7 @@ if (!isset($_SESSION['usuario'])) {
 
         <main id="main">
             <div class="row">
-                <div class="col s8 offset-s2 card center grey lighten-2">
+                <div class="col s8 offset-s2 card center">
                     <h5>Seus dados</h5>
                     <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=updateEndereco" method="POST">
                         <div class="row">
@@ -54,7 +54,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <label for="cep">CEP</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha1">
+                                <input type="password" class="input-field" name="senha1" required="true">
                                 <label for="senha">Senha</label>
                             </div>
                         </div>

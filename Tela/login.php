@@ -21,11 +21,11 @@
                     <h5>Identifique-se com seu cadastro</h5>
                     <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=login" method="POST">
                         <div class="input-field col s12">
-                            <input type="text" class="input-field" name="usuario">
+                            <input type="text" class="input-field" name="usuario" required="true">
                             <label for="usuario">Usuário</label>
                         </div>
                         <div class="input-field col s12">
-                            <input type="password" class="input-field" name="senha">
+                            <input type="password" class="input-field" name="senha" required="true">
                             <label for="senha">Senha</label>
                         </div>
                         <div class="row">
