@@ -33,7 +33,7 @@ CREATE TABLE `aluno` (
   `id_responsavel` int(11) DEFAULT NULL,
   `curso` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `saldo` decimal(10,2) DEFAULT NULL,
-  `previsao_coclusao` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL
+  `previsao_conclusao` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
