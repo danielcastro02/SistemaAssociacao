@@ -83,7 +83,7 @@ if (!isset($_SESSION)) {
                             <div class = "left grey-text">
                                 Data de nascimento
                             </div>
-                            <input class = "input-field" type = "date" name = "data_nasc">
+                            <input class = "datepicker" type = "text" name = "data_nasc">
                             <label for = "data_nasc"></label>
                         </div>
 
@@ -110,10 +110,9 @@ if (!isset($_SESSION)) {
                             <div class="col s12">
                                 <?php
                                 include_once '../Modelo/usuario.php';
-                                
+
                                 if (isset($_SESSION['usuario'])) {
                                     $usuario = new usuario(unserialize($_SESSION['usuario']));
-                                    
                                     ?>
                                     <a href = "./home.php" class = "btn hoverable corpadrao">Cancelar</a>
                                     <?php
@@ -132,8 +131,17 @@ if (!isset($_SESSION)) {
             <div class="col s3"></div>
         </div>
         <script>
-            $(document).ready(function
-            );
+            $(document).ready(function () {
+                $('.datepicker').pickadate({
+                    selectMonths: true, // Creates a dropdown to control month
+                    selectYears: 15, // Creates a dropdown of 15 years to control year,
+                    today: 'Today',
+                    clear: 'Clear',
+                    close: 'Ok',
+                    closeOnSelect: false // Close upon selecting a date,
+                            container: undefined, // ex. 'body' will append picker to body
+                });
+            });
         </script>
         <?php include_once '../Base/footer.php'; ?>
     </body>
