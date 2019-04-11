@@ -76,7 +76,7 @@ if (!isset($_SESSION)) {
                             <div class = "left grey-text">
                                 Data de conclusão de curso
                             </div>
-                            <input class = "input-field" type = "date" name = "conclusao">
+                            <input class = "input-field" type = "date" name = "previsao_conclusao">
                             <label for = "conclusao"></label>
                         </div>
                         <div class = "input-field col s6">
@@ -110,9 +110,10 @@ if (!isset($_SESSION)) {
                             <div class="col s12">
                                 <?php
                                 include_once '../Modelo/usuario.php';
-                                $usuario = new usuario();
-                                $usuario = unserialize($_SESSION['usuario']);
+                                
                                 if (isset($_SESSION['usuario'])) {
+                                    $usuario = new usuario(unserialize($_SESSION['usuario']));
+                                    
                                     ?>
                                     <a href = "./home.php" class = "btn hoverable corpadrao">Cancelar</a>
                                     <?php

@@ -7,7 +7,7 @@
 
         include_once '../Controle/usuarioPDO.php';
         $usuarioPDO = new usuarioPDO();
-        include_once '../Moldelo/usuario.php';
+        include_once '../Modelo/usuario.php';
         $presidente = new usuario();
         $presidente = $usuarioPDO->selectPresidente();
         ?>

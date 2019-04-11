@@ -20,7 +20,7 @@ if (!isset($_SESSION['usuario'])) {
         include_once '../Base/nav.php';
         include_once '../Modelo/usuario.php';
         $logado = new usuario();
-        $logado = unserialize($_SESSION['usuairo']);
+        $logado = unserialize($_SESSION['usuario']);
         ?>
 
         <main id="main">
