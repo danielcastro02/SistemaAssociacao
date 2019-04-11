@@ -11,7 +11,7 @@ if (realpath("./index.php")) {
         <a href="<?php echo $pontos; ?>./Tela/home.php" class="brand-logo">Sistema para Associação</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <!-- Dropdown Trigger -->
-            <li><a class='dropdown-button' data-activates='dropdown1'>
+            <li><a class='dropdown-trigger' data-target='dropdown1'>
                     <?php
                     $usuario = new usuario();
                     $usuario = unserialize($_SESSION['usuario']);
@@ -28,7 +28,7 @@ if (realpath("./index.php")) {
 </nav>
 
 <script>
-    $('.dropdown-button').dropdown({
+    $('.dropdown-trigger').dropdown({
     hover: true
     });
 </script>

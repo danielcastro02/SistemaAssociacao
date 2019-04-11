@@ -77,7 +77,7 @@ if (!isset($_SESSION)) {
                                 Data de conclusão de curso
                             </div>
                             <input class = "input-field" type = "date" name = "previsao_conclusao">
-                            <label for = "conclusao"></label>
+                            <label for = "previsao_conclusao"></label>
                         </div>
                         <div class = "input-field col s6">
                             <div class = "left grey-text">
