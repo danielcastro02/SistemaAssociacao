@@ -76,7 +76,7 @@ if (!isset($_SESSION)) {
                             <div class = "left grey-text">
                                 Data de conclusão de curso
                             </div>
-                            <input class = "input-field" type = "date" name = "previsao_conclusao">
+                            <input class = "datepicker" type = "text" name = "previsao_conclusao">
                             <label for = "conclusao"></label>
                         </div>
                         <div class = "input-field col s6">
@@ -92,7 +92,7 @@ if (!isset($_SESSION)) {
                             <label for = "cpf">CPF</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "rg">
+                            <input class = "input-field" type = "text" name = "rg" required="true">
                             <label for = "rg">RG</label>
                         </div>
                         <div class = "input-field col s6">
@@ -100,7 +100,7 @@ if (!isset($_SESSION)) {
                             <label for = "senha1">Senha</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "password" name = "senha2">
+                            <input class = "input-field" type = "password" name = "senha2" required="true">
                             <label for = "senha2">Confirme a senha</label>
                         </div>
 
@@ -132,15 +132,7 @@ if (!isset($_SESSION)) {
         </div>
         <script>
             $(document).ready(function () {
-                $('.datepicker').pickadate({
-                    selectMonths: true, // Creates a dropdown to control month
-                    selectYears: 15, // Creates a dropdown of 15 years to control year,
-                    today: 'Today',
-                    clear: 'Clear',
-                    close: 'Ok',
-                    closeOnSelect: false // Close upon selecting a date,
-                            container: undefined, // ex. 'body' will append picker to body
-                });
+                $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
             });
         </script>
         <?php include_once '../Base/footer.php'; ?>

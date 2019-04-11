@@ -384,11 +384,12 @@ class usuarioPDO {
                         $_SESSION['diretoria'] = serialize(new diretoria($s));
                     }
                     header('Location: ../Tela/home.php');
-//print_r($_SESSION);
                 } else {
                     header("Location: ../Tela/login.php?msg=false");
                 }
             }
+        } else {
+            header("Location: ../Tela/login.php?msg=false");
         }
     }
 

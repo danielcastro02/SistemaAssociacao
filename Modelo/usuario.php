@@ -35,7 +35,7 @@ class usuario {
             $mesAtual = date('m');
             $diaAtual = date('d');
             $nascimento = $this->data_nasc;
-            list($ano, $mes, $dia) = explode('-', $nascimento);
+            list($dia, $mes, $ano) = explode('-', $nascimento);
             $idade = $anoAtual - $ano;
             if ($mesAtual > $mes) {
                 $this->idade = $idade;
@@ -56,6 +56,7 @@ class usuario {
                 $this->$atributo = $valor;
             }
         }
+        $this->setIdade();
     }
 
     function getId() {
@@ -204,7 +205,7 @@ class usuario {
             $mesAtual = date('m');
             $diaAtual = date('d');
             $nascimento = $data_nasc;
-            list($ano, $mes, $dia) = explode('-', $this->data_nasc);
+            list($dia, $mes, $ano) = explode('-', $this->data_nasc);
             $idade = $anoAtual - $ano;
             if ($mesAtual > $mes) {
                 $this->idade = $idade;
