@@ -389,6 +389,8 @@ class usuarioPDO {
                     header("Location: ../Tela/login.php?msg=false");
                 }
             }
+        } else {
+            header("Location: ../Tela/login.php?msg=false");
         }
     }
 
