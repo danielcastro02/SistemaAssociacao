@@ -63,17 +63,17 @@ if (!isset($_SESSION['usuario'])) {
                         </div>
                         <div class="row" hidden="true" id="mostra">
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha1">
+                                <input type="password" class="input-field msenha" name="senha1">
                                 <label for="senha2">Nova senha</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="senha2">
+                                <input type="password" class="input-field msenha" name="senha2">
                                 <label for="senha2conf">Confirmar nova senha</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="password" class="input-field" name="oldsenha">
+                                <input type="password" class="input-field" name="oldsenha" required="true">
                                 <label for="oldsenha">Senha antiga</label>
                             </div>
                         </div>
@@ -121,6 +121,7 @@ if (!isset($_SESSION['usuario'])) {
                 $("#esconde").click(function () {
                     $("#mostra").removeAttr('hidden');
                     $("#esconde").attr('hidden', 'true');
+                    $(".msenha").attr('required', 'true');
                 });
             });
             

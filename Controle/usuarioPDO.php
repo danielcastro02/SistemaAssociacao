@@ -310,6 +310,42 @@ class usuarioPDO {
         }
     }
 
+    public function updateAluno() {
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        $logado = new usuario();
+        $aluno = new aluno();
+        $aluno = unserialize($_SESSION['aluno']);
+        $logado = $this->getLogado();
+        $al = new aluno($_POST);
+        $al->setId_usuario($logado->getId());
+        $senhaantiga = md5($al->getSenha1());
+        $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
+        $stmt->bindValue(':id', $logado->getId());
+        $stmt->execute();
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($al->getSenha1() == "") {
+            header('Location: ../Tela/alterarAluno.php?msg=senhavazia');
+        } else {
+            if ($linha['senha'] == $senhaantiga) {
+                $stmt = $pdo->prepare('UPDATE aluno SET curso = :curso, previsao_conclusao = :previsao_conclusao WHERE id_usuario = :id;');
+                $stmt->bindValue(':curso', $aluno->getCurso());
+                $stmt->bindValue(':previsao_conclusao', $aluno->getPrevisao_conclusao());
+                $stmt->bindValue(':id', $al->getId_usuario());
+                if ($stmt->execute()) {
+                    $logado->atualizar($_POST);
+                    $_SESSION['usuario'] = serialize($logado);
+                    header('Location: ../Tela/alterarAluno.php?msg=sucesso');
+                } else {
+                    header('Location: ./Tela/alterarAluno.php?msg=bderro');
+                }
+            } else {
+                header('Location: ../Tela/alterarAluno.php?msg=senhaerrada');
+            }
+        }
+    }
+
     public function updateEndereco() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();

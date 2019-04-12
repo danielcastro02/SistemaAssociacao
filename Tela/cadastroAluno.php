@@ -33,62 +33,64 @@ if (!isset($_SESSION)) {
                 <form class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
                     <div class = "col s12">
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "nome">
+                            <input class = "input-field" type = "text" name = "nome" required="true">
                             <label for = "nome">Nome</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "usuario">
+                            <input class = "input-field" type = "text" name = "usuario" required="true">
                             <label for = "usuario">Login</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "cidade">
+                            <input class = "input-field" type = "text" name = "cidade" required="true">
                             <label for = "cidade">Cidade</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "bairro">
+                            <input class = "input-field" type = "text" name = "bairro" required="true">
                             <label for = "bairro">Bairro</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "rua">
+                            <input class = "input-field" type = "text" name = "rua" required="true">
                             <label for = "rua">Rua</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "numero">
+                            <input class = "input-field" type = "text" name = "numero" required="true">
                             <label for = "numero">Número da casa</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "cep">
+                            <input class = "input-field" type = "text" name = "cep" required="true">
                             <label for = "cep">CEP</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "telefone">
+                            <input class = "input-field" type = "text" name = "telefone" required="true"> 
                             <label for = "telefone">Telefone</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "email">
+                            <input class = "input-field" type = "text" name = "email" required="true">
                             <label for = "email">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "curso">
+                            <input class = "input-field" type = "text" name = "curso" required="true">
                             <label for = "curso">Curso</label>
                         </div>
                         <div class = "input-field col s6">
                             <div class = "left grey-text">
                                 Data de conclusão de curso
                             </div>
-                            <input class = "datepicker" type = "text" name = "previsao_conclusao">
-                            <label for = "conclusao"></label>
+
+                            <input class = "input-field" type = "date" name = "previsao_conclusao" required="true">
+
+                            <label for = "previsao_conclusao"></label>
                         </div>
                         <div class = "input-field col s6">
                             <div class = "left grey-text">
                                 Data de nascimento
                             </div>
-                            <input class = "datepicker" type = "text" name = "data_nasc">
+                            <input class = "datepicker" type = "text" name = "data_nasc" required="true">
                             <label for = "data_nasc"></label>
                         </div>
 
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "cpf">
+                            <input class = "input-field" type = "text" name = "cpf" required="true">
                             <label for = "cpf">CPF</label>
                         </div>
                         <div class = "input-field col s6">
@@ -96,7 +98,7 @@ if (!isset($_SESSION)) {
                             <label for = "rg">RG</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "password" name = "senha1">
+                            <input class = "input-field" type = "password" name = "senha1" required="true">
                             <label for = "senha1">Senha</label>
                         </div>
                         <div class = "input-field col s6">
@@ -132,7 +134,15 @@ if (!isset($_SESSION)) {
         </div>
         <script>
             $(document).ready(function () {
-                $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
+                $('.datepicker').pickadate({
+                    selectMonths: true, // Creates a dropdown to control month
+                    selectYears: 15, // Creates a dropdown of 15 years to control year,
+                    today: 'Today',
+                    clear: 'Clear',
+                    close: 'Ok',
+                    closeOnSelect: false // Close upon selecting a date,
+                            container: undefined, // ex. 'body' will append picker to body
+                });
             });
         </script>
         <?php include_once '../Base/footer.php'; ?>
