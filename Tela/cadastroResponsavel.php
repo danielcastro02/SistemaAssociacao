@@ -93,6 +93,6 @@ session_start();
             </div>
             <div class="col s3"></div>
         </div>
-<?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>

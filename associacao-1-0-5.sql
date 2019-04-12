@@ -40,7 +40,7 @@ CREATE TABLE `aluno` (
 -- Extraindo dados da tabela `aluno`
 --
 
-INSERT INTO `aluno` (`id_usuario`, `id_responsavel`, `curso`, `saldo`, `previsao_coclusao`) VALUES
+INSERT INTO `aluno` (`id_usuario`, `id_responsavel`, `curso`, `saldo`, `previsao_conclusao`) VALUES
 (17, NULL, 'ADS', '0.00', '20-12-2019');
 
 -- --------------------------------------------------------
