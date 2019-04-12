@@ -18,65 +18,63 @@ session_start();
                 <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario&user=responsavel" name="formulario-cadastro-responsavel">
                     <div class="col s12">
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="nome" required="true">
+                            <input required="true"  class="input-field" type="text" name="nome">
                             <label for="nome">Nome</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="usuario" required="true">
+                            <input required="true"  class="input-field" type="text" name="usuario">
                             <label for="usuario">Login</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="cidade" required="true">
+                            <input required="true"  class="input-field" type="text" name="cidade">
                             <label for="cidade">Cidade</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="bairro" required="true">
+                            <input required="true"  class="input-field" type="text" name="bairro">
                             <label for="bairro">Bairro</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="rua" required="true">
+                            <input required="true"  class="input-field" type="text" name="rua">
                             <label for="rua">Rua</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="numero" required="true">
+                            <input required="true"  class="input-field" type="text" name="numero">
                             <label for="numero">Número da casa</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="cep" required="true">
+                            <input required="true"  class="input-field" type="text" name="cep">
                             <label for="cep">CEP</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="telefone" required="true">
+                            <input required="true"  class="input-field" type="text" name="telefone">
                             <label for="telefone">Telefone</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="email" required="true">
+                            <input required="true"  class="input-field" type="text" name="email">
                             <label for="email">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
-                            <div class = "left grey-text">
-                                Data de nascimento
-                            </div>
-                            <input class = "input-field" type = "date" name = "data_nasc" required="true">
-                            <label for = "data_nasc"></label>
+                            <input required="true"  class = "input-field datepicker" type = "text" name = "data_nasc">
+                            <label for = "data_nasc">Data de Nascimento</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="cpf" required="true">
+                            <input required="true"  class="input-field" type="text" name="cpf">
                             <label for="cpf">CPF</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="text" name="rg" required="true">
+                            <input required="true"  class="input-field" type="text" name="rg">
                             <label for="rg">RG</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="password" name="senha1" required="true">
+                            <input required="true"  class="input-field" type="password" name="senha1">
                             <label for="senha1">Senha</label>
                         </div>
                         <div class="input-field col s6">
-                            <input class="input-field" type="password" name="senha2" required="true">
+                            <input required="true"  class="input-field" type="password" name="senha2">
                             <label for="senha2">Confirme a senha</label>
                         </div>
-                        <?php include_once '../Base/msgSaida.php';
+                        <?php
+                        include_once '../Base/msgSaida.php';
                         //não esquecer de verificar a msg de menor de idade para responsável
                         ?>
                         <div class="row">
@@ -87,9 +85,14 @@ session_start();
                         </div>
                     </div>
                 </form>
+                <script>
+                    $(document).ready(function () {
+                        $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
+                    });
+                </script>
             </div>
             <div class="col s3"></div>
         </div>
-        <?php include_once '../Base/footer.php'; ?>
+<?php include_once '../Base/footer.php'; ?>
     </body>
 </html>
