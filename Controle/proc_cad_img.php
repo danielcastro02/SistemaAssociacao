@@ -8,6 +8,7 @@ if (!isset($_SESSION['usuario'])) {
 }
 include_once '../Modelo/usuario.php';
 $user = new usuario();
+$us = unserialize($_SESSION['usuario']);
 include_once './conexao.php';
 
 $SendCadImg = filter_input(INPUT_POST, 'SendCadImg', FILTER_SANITIZE_STRING);
@@ -19,13 +20,13 @@ if ($SendCadImg) {
     //Inserir no BD
     $conexao = new conexao();
     $pdo = $conexao->getConexao();
-    $sql = $pdo->prepare("INSERT INTO imagens (default, id_usuario, nome, imagem) VALUES(default, :id_usuario, :nome, :imagem)");
-    $sql->bindParam(':id_usuario', $user->getId());
-    $sql->bindParam(':nome', $nome);
-    $sql->bindParam(':imagem', $nome_imagem);
+    $stmt = $pdo->prepare("INSERT INTO imagens (id, id_usuario, nome, imagem) VALUES(default, :id_usuario, :nome, :imagem)");
+    $stmt->bindValue(':id_usuario', $us->getId());
+    $stmt->bindValue(':nome', $nome);
+    $stmt->bindValue(':imagem', $nome_imagem);
 
     //Verificar se os dados foram inseridos com sucesso
-    if ($sql->execute()) {
+    if ($stmt->execute()) {
         //Recuperar último ID inserido no banco de dados
         //$ultimo_id = $pdo->lastInsertId();
         $ultimo_id = 1;
