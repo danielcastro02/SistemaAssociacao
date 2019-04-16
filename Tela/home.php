@@ -46,7 +46,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <br>
                                 <br>
                                 <img src="../Img/user_icon.png" height="100px" width="100px">
-                                <form action="../Controle/proc_cad_img.php" method="post">
+                                <form action="../Controle/proc_cad_img.php" method="post" enctype="multipart/form-data">
                                     <label>Nome: </label>
                                     <input type="text" name="nome" placeholder="Digitar o nome: "><br><br>
 
