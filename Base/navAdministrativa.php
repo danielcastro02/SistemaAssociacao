@@ -39,6 +39,15 @@ if (realpath("./index.php")) {
                 <li><a href="#">Membro da diretoria</a></li>
                 <li><a href="#">Administrador</a></li>
             </ul>
+            <!----------------------------------------------------------------------------------------------->
+            <li><a class='dropdown-trigger' data-target='dropdown4'>Listar informações</a></li>
+            <ul id='dropdown4' class='dropdown-content'>
+                <li><a><b>Listar</b></a></li>
+                <li><a href="../Tela/listarUsuario.php">Usuários</a></li>
+<!--                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>-->
+            </ul>
             <li><a class='dropdown-trigger' data-target='dropdown3'>Alterar dados</a></li>
             <ul id='dropdown3' class='dropdown-content'>
                 <li><a><b>Alterar dados</b></a></li>

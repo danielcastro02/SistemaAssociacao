@@ -231,7 +231,50 @@ class usuarioPDO {
         }
     }
 
-    public function selectPresidente() {
+    public function litarUsuarios() {
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        $sql = $pdo->prepare("SELECT * FROM usuario;");
+        $sql->execute();
+        return $sql;
+    }
+    public function pesquisarUsuarios() { //CONCLUIR
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        $sql = $pdo->prepare("SELECT * FROM usuario;");
+        $sql->execute();
+        return $sql;
+    }
+
+    public function tornarUsuarioInativo(){
+        $id = $_GET['id'];
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        $sql = $pdo->prepare("UPDATE usuario SET pode_logar = 'false' where id = :id ;");
+        $sql->bindValue(':id', $id);
+        if($sql->execute()){
+            //return $sql;
+            header("Location: ../Tela/listarUsuario.php");
+        }else{
+            header("Location: ../Tela/listarUsuario.php");
+        }
+    }
+    
+    public function tornarUsuarioAtivo(){
+        $id = $_GET['id'];
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        $sql = $pdo->prepare("UPDATE usuario SET pode_logar = 'true' where id = :id ;");
+        $sql->bindValue(':id', $id);
+        if($sql->execute()){
+            //return $sql;
+            header("Location: ../Tela/listarUsuario.php");
+        }else{
+            header("Location: ../Tela/listarUsuario.php");
+        }
+    }
+
+        public function selectPresidente() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $stmt = $pdo->prepare("SELECT id_usuario FROM diretoria WHERE cargo LIKE 'Presidente';");
