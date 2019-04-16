@@ -16,6 +16,7 @@ if (!isset($_SESSION)) {
         include_once '../Modelo/usuario.php';
         $presidente = new usuario();
         $presidente = $usuarioPDO->selectPresidente();
+        
         ?>
         <div id="div-principal" class="row">
             <br>
@@ -42,6 +43,7 @@ if (!isset($_SESSION)) {
                         include_once '../Controle/usuarioPDO.php';
                         $usuarioPDO = new usuarioPDO();
                         $presidente = $usuarioPDO->selectPresidente();
+                        
                         ?>
                         <div class="col s4 center">
                             <h5>Seu cadastro foi concluido com sucesso!<br>

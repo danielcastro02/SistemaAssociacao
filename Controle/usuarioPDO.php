@@ -240,8 +240,8 @@ class usuarioPDO {
         $stmt = $pdo->prepare("SELECT * FROM usuario WHERE id = " . $linha['id_usuario']);
         $stmt->execute();
         $linha = $stmt->fetch();
-        $presidente = new usuario($linha);
-        return $presidente;
+        //$presidente = new usuario($linha);
+        return $linha;
     }
 
     public function getLogado() {
