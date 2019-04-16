@@ -46,6 +46,33 @@ if (!isset($_SESSION['usuario'])) {
                                 <br>
                                 <br>
                                 <img src="../Img/user_icon.png" height="100px" width="100px">
+                                <form action="../Controle/proc_cad_img.php" method="post" enctype="multipart/form-data">
+                                    <label>Nome: </label>
+                                    <input type="text" name="nome" placeholder="Digitar o nome: "><br><br>
+
+                                    <label>Imagem: </label>
+                                    <input type="file" name="imagem"><br><br>
+
+                                    <input name="SendCadImg" type="submit" value="Cadastrar">
+                                    <!--<div>
+                                        <label>Nome: </label>
+                                        <input type="text" class="input-field" name="nome">
+                                    </div>
+                                    <div class="file-field input-field">
+                                        <div class="btn">
+                                            <span>File</span>
+                                            <input type="file" name="imagem"><br><br>
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn corpadrao" name="SendCadImg">Adicionar</button>
+                                        </div>
+                                    </div>
+                                    -->
+                                </form>
+
                                 <div class="row"></div>
                                 <h5><?php echo $logado->getNome(); ?></h5>
                                 <span>RG: <?php echo $logado->getRg(); ?></span><br>
