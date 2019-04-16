@@ -22,7 +22,7 @@ class usuario {
     private $idade;
 
     public function __construct() {
-        if (func_num_args() != 0) {
+        if (func_num_args() == 1) {
             $atributos = func_get_args()[0];
             foreach ($atributos as $atributo => $valor) {
                 if (isset($valor)) {
