@@ -59,6 +59,10 @@ class usuarioPDO {
                 $sql2->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
             if ($sql2->execute()) { //Sucesso ao cadastrar USUÁRIO
+                $sql = $pdo->prepare("isnert into foto_perfil (:id , :caminho);");
+                $sql->bindValue(':id', $this->buscarIDporRG($us->getRg()));
+                $sql->bindValue(':camiho', '../Img/user_icon.png');
+                $sql->execute();
                 if (isset($_GET['user'])) {
                     if ($_GET['user'] == 'aluno') {
                         $this->inserirAluno($al, $us);
@@ -398,6 +402,12 @@ class usuarioPDO {
                 header('Location: ../Tela/loginrecusado.php');
             } else {
                 $_SESSION['usuario'] = serialize($us);
+                $stmt = $pdo->prepare("select * from foto_perfil where id_usuario = :id");
+                $stmt->bindValue(':id', $us->getId());
+                $stmt->execute();
+                $linha = $stmt->fetch();
+                $_SESSION['fotoPerfil'] = $linha['caminho'];
+                
 
                 $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
                 $stmt->bindValue(':id', $us->getId());
@@ -426,6 +436,49 @@ class usuarioPDO {
             }
         } else {
             header("Location: ../Tela/login.php?msg=false");
+        }
+    }
+
+    public function alteraFoto() {
+        $us = new usuario();
+        $us = unserialize($_SESSION['usuario']);
+        $SendCadImg = filter_input(INPUT_POST, 'SendCadImg', FILTER_SANITIZE_STRING);
+        if ($SendCadImg) {
+            //Receber os dados do formulário
+            $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+            $nome_imagem = md5($us->getId());
+            //var_dump($_FILES['imagem']);
+            //Inserir no BD
+            $ext = explode('.', $_FILES['imagem']['name']);
+            $extensao = "." . $ext[1];
+            $conexao = new conexao();
+            $pdo = $conexao->getConexao();
+            $stmt = $pdo->prepare("update foto_perfil set caminho = :imagem where id_usuario = :id");
+            $stmt->bindValue(':id', $us->getId());
+            $stmt->bindValue(':imagem', '../Img' . $nome_imagem . $extensao);
+
+            //Verificar se os dados foram inseridos com sucesso
+            if ($stmt->execute()) {
+                //Recuperar último ID inserido no banco de dados
+                //$ultimo_id = $pdo->lastInsertId();
+                $ultimo_id = $us->getId();
+
+                //Diretório onde o arquivo vai ser salvo
+                $diretorio = '../Img/' . md5($ultimo_id) . $extensao;
+
+                //Criar a pasta de foto
+                //mkdir($diretorio, 0755);
+
+                if (move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio)) {
+                    header('Location: ../Tela/home.php');
+                } else {
+                    header('Location: ../Tela/.php');
+                }
+            } else {
+                //header('Location: ../Tela/alterarCurso.php');
+            }
+        } else {
+            //header('Location: ../Tela/alterarEnderecoUsuario.php');
         }
     }
 
