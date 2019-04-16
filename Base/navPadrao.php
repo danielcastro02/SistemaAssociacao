@@ -25,6 +25,13 @@ if (realpath("./index.php")) {
                         </b></a></li>
                 <li><a href="../Tela/alterarDadosUsuario.php">Alterar Dados Pessoais</a></li>
                 <li><a href="../Tela/alterarEnderecoUsuario.php">Alterar Endereço</a></li>
+                <?php 
+                    if(isset($_SESSION['aluno'])){
+                        ?>
+                <li><a href="../Tela/alterarCurso.php">Alterar Curso</a></li>
+                <?php
+                    }
+                ?>
             </ul>
             <li><a href="<?php echo $pontos; ?>./Controle/usuarioPDO.php?function=logout">Sair</a></li>
         </ul>
