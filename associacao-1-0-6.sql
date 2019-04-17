@@ -2,10 +2,10 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 11-Abr-2019 às 14:15
--- Versão do servidor: 10.1.36-MariaDB
--- versão do PHP: 7.2.10
+-- Host: localhost:3306
+-- Generation Time: 17-Abr-2019 às 06:15
+-- Versão do servidor: 5.6.41-84.1
+-- versão do PHP: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `associacao`
+-- Database: `nobads80_associacao`
 --
 
 -- --------------------------------------------------------
@@ -95,7 +95,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`, `cidade`, `bairro`, `rua`, `numero`, `cep`, `cpf`, `rg`, `data_nasc`, `telefone`, `email`, `pode_logar`, `administrador`) VALUES
-(1, 'Paulo Glanzel', 'p', '202cb962ac59075b964b07152d234b70', 'Cacequi', 'Vila Candido', 'Marechal Hermes da Fonseca', '337', '97450-00', '', '', '0000-00-00', '55 98431-2589', 'pauloglanzel@hotmail.com', 'true', 'true'),
+(1, 'Paulo Glanzel', 'pglanzel', '202cb962ac59075b964b07152d234b70', 'Cacequi', 'Vila Candido', 'Marechal Hermes da Fonseca', '337', '97450-00', '', '', '0000-00-00', '55 98431-2589', 'pauloglanzel@hotmail.com', 'true', 'true'),
 (9, 'Daniel Zanini de Castro', 'dcastro', '202cb962ac59075b964b07152d234b70', 'Jaguari', 'Centro', 'Dr. Severiano de Almeida', '280', '97760-000', '039.855.650-40', '5123700465', '10-03-2000', '55 99959-8414', 'zanini.castro@hotmail.com', 'true', 'true'),
 (17, 'Konrado Lorenzon de Souza', 'konradols', '5b2cc5cd7b54390a9525d24fba623bc9', 'Cacequi', 'Centro', 'Bento GonÃ§alves', '307', '97450000', '029.477.090-98', '4116813546', '19-01-1999', '55991192589', 'konradols@hotmail.com', 'false', 'false');
 

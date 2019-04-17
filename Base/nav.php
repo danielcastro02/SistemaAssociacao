@@ -5,7 +5,7 @@ if (isset($_SESSION['usuario'])) {
     $usuario = new usuario();
     $usuario = unserialize($_SESSION['usuario']);
     if ($usuario->getAdministrador() == 'true') {
-        include_once '../Base/navAdministrativa.php"';
+        include_once '../Base/navAdministrativa.php';
     } else {
             include_once '../Base/navPadrao.php';
     }
