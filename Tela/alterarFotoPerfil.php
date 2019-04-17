@@ -15,16 +15,9 @@ if (!isset($_SESSION['usuario'])) {
         ?>
     </head>
     <body class="homeimg">
-
         <?php
         include_once '../Base/nav.php';
-        include_once '../Modelo/aluno.php';
-        $logado = new aluno();
-        $logado = unserialize($_SESSION['aluno']);
-        $user = new usuario();
-        $user = unserialize($_SESSION['usuario']);
         ?>
-
         <main id="main">
             <div class="col s12">
                 <div class="row">
