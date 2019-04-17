@@ -6,12 +6,12 @@
 -- Generation Time: 17-Abr-2019 às 16:36
 -- Versão do servidor: 10.1.36-MariaDB
 -- versão do PHP: 7.2.10
-drop table acesso_negado;
-drop table aluno;
-drop table contato;
-drop table diretoria;
-drop table foto_perfil;
-drop table usuario;
+drop table if exists acesso_negado;
+drop table if exists aluno;
+drop table if exists contato;
+drop table if exists diretoria;
+drop table if exists foto_perfil;
+drop table if exists usuario;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
