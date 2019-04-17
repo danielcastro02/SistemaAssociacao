@@ -1,3 +1,18 @@
+<?php 
+if(!isset($_SESSION)){
+    session_start();
+}
+include_once '../Modelo/usuario.php';
+if(isset($_SESSION['usuario'])){
+    $logado = new usuario();
+    $logado = unserialize($_SESSION['usuario']);
+    if($logado->getAdministrador()=='false'){
+        header('location: ./acessoNegado.php');
+    }
+}else{
+    header('location: ./login.php');
+}
+?>
 <!DOCTYPE html>
 <html>
     <header>
@@ -5,18 +20,17 @@
         include_once '../Base/header.php';
         ?>
     </header>
-    <body>
+    <body class="homeimg">
 
 
 
         <?php
         include_once '../Base/nav.php';
         ?>
-        <div class="row">
+        <div class="row ">
             <!--<div class="col s2"></div>-->
-            <div class="col s8 offset-l2">
-                <br>
-                <br>
+            <br>
+            <div class="col s8 offset-s2 card">
                 <h5 class="center">Lista de usuários cadastrados</h5>
 
                 <div class="row center">
@@ -39,12 +53,14 @@
                     </form>
                 </div>
 
-                <table>
+                <table class="striped">
                     <tr>
                         <td>Nome</td>
                         <td>Usuário</td>
                         <td>CPF</td>
                         <td>Telefone</td>
+                        <td>Status</td>
+                        <td></td>
                     </tr>
                     <?php
                     include_once '../Controle/usuarioPDO.php';
@@ -95,5 +111,6 @@
                 $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
             });
         </script>
+        <?php include_once '../Base/footer.php';?>
     </body>
 </html>

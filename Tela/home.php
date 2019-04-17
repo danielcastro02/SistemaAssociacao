@@ -47,9 +47,9 @@ if (!isset($_SESSION['usuario'])) {
                                 <br>
                                 <a href="./alterarFotoPerfil.php">
                                     <div style='background: url("<?php echo $_SESSION['fotoPerfil']; ?>");
-                                            background-size: 100px,100px;
-                                            height: 100px;
-                                            width: 100px;
+                                            background-size: 150px,150px;
+                                            height: 150px;
+                                            width: 150px;
                                             border-radius: 50%;
                                             margin-left: auto;
                                             margin-right: auto;

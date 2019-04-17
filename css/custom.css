@@ -8,12 +8,12 @@ footer{
 }
 
 .linkfoto{
-    background: linear-gradient(transparent, black);
+    background: linear-gradient(transparent, transparent, black);
     background-size: 50px;
     opacity: 0;
-    height: 100px;
+    height: 150px;
     border-radius: 50%;
-    padding-top: 50%;
+    padding-top: 65%;
     transition: ease-in 0.2s;
 }
 

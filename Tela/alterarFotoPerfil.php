@@ -35,7 +35,7 @@ if (!isset($_SESSION['usuario'])) {
                         <div class="row">
                             <div class="col s6 offset-s3 center">
                                 <div class="row">
-                                    <form action="../Controle/proc_cad_img.php" method="post" enctype="multipart/form-data">
+                                    <form action="../Controle/usuarioPDO.php?function=alteraFoto" method="post" enctype="multipart/form-data">
                                         <div class="file-field input-field">
                                             <button class="btn corpadrao">
                                                 <div>Selecionar Foto</div>
@@ -46,7 +46,7 @@ if (!isset($_SESSION['usuario'])) {
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <button type="submit" class="btn corpadrao col s4 offset-s4" name="SendCadImg">Confirmar</button>
+                                            <button type="submit" class="btn corpadrao col s4 offset-s4" name="SendCadImg" value="true">Confirmar</button>
                                         </div>
                                     </form>
                                 </div>
