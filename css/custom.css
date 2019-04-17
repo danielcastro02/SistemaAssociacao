@@ -4,9 +4,17 @@ footer{
     width: 100%;
     padding-top: 5px;
     padding-bottom: 3px;
-    
-}
 
+}
+.fotoPerfil{
+    
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+}
 .linkfoto{
     background: linear-gradient(transparent, transparent, black);
     background-size: 50px;
@@ -28,6 +36,6 @@ footer{
 }
 
 .corpadrao{
-/*    background: linear-gradient(to bottom, #0277bd , #039be5);*/
-      background: linear-gradient(to bottom, #0277bd , #039be5);
+    /*    background: linear-gradient(to bottom, #0277bd , #039be5);*/
+    background: linear-gradient(to bottom, #0277bd , #039be5);
 }
