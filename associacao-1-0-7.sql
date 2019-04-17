@@ -2,10 +2,16 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: 17-Abr-2019 às 06:15
--- Versão do servidor: 5.6.41-84.1
--- versão do PHP: 7.2.7
+-- Host: 127.0.0.1
+-- Generation Time: 17-Abr-2019 às 16:36
+-- Versão do servidor: 10.1.36-MariaDB
+-- versão do PHP: 7.2.10
+drop table acesso_negado;
+drop table aluno;
+drop table contato;
+drop table diretoria;
+drop table foto_perfil;
+drop table usuario;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,8 +25,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `nobads80_associacao`
+-- Database: `associacao`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `acesso_negado`
+--
+
+CREATE TABLE `acesso_negado` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(80) DEFAULT NULL,
+  `cpf` varchar(15) DEFAULT NULL,
+  `email` varchar(80) DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -46,6 +66,21 @@ INSERT INTO `aluno` (`id_usuario`, `id_responsavel`, `curso`, `saldo`, `previsao
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `contato`
+--
+
+CREATE TABLE `contato` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(80) DEFAULT NULL,
+  `cpf` varchar(15) DEFAULT NULL,
+  `email` varchar(80) DEFAULT NULL,
+  `motivo` varchar(50) DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `diretoria`
 --
 
@@ -53,6 +88,13 @@ CREATE TABLE `diretoria` (
   `id_usuario` int(11) NOT NULL,
   `cargo` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `diretoria`
+--
+
+INSERT INTO `diretoria` (`id_usuario`, `cargo`) VALUES
+(1, 'Presidente');
 
 -- --------------------------------------------------------
 
@@ -70,6 +112,10 @@ CREATE TABLE `foto_perfil` (
 --
 -- Estrutura da tabela `usuario`
 --
+
+insert into foto_perfil values (1, '../Img/user_icon.jpg');
+insert into foto_perfil values (9, '../Img/user_icon.jpg');
+insert into foto_perfil values (17, '../Img/user_icon.jpg');
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
@@ -104,11 +150,23 @@ INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`, `cidade`, `bairro`, `ru
 --
 
 --
+-- Indexes for table `acesso_negado`
+--
+ALTER TABLE `acesso_negado`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `aluno`
 --
 ALTER TABLE `aluno`
   ADD PRIMARY KEY (`id_usuario`),
   ADD KEY `id_responsavel` (`id_responsavel`);
+
+--
+-- Indexes for table `contato`
+--
+ALTER TABLE `contato`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `diretoria`
@@ -131,6 +189,18 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `acesso_negado`
+--
+ALTER TABLE `acesso_negado`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `contato`
+--
+ALTER TABLE `contato`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `usuario`
