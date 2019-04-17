@@ -454,7 +454,8 @@ class usuarioPDO {
 
                 $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
                 $stmt->bindValue(':id', $us->getId());
-                if ($stmt->execute()) {
+                $stmt->execute();
+                if ($stmt->rowCount()>0) {
                     $l = $stmt->fetch(PDO::FETCH_ASSOC);
                     if ($us->getIdade() < 18 && $l['id_responsavel'] == 'null') {
                         $rgtemp = $us->getRg();
@@ -468,7 +469,8 @@ class usuarioPDO {
                     }
                     $stmt = $pdo->prepare('SELECT cargo FROM diretoria WHERE id_usuario = :id;');
                     $stmt->bindValue(':id', $us->getId());
-                    if ($stmt->execute()) {
+                    $stmt->execute();
+                    if ($stmt->rowCount()>0) {
                         $s = $stmt->fetch(PDO::FETCH_ASSOC);
                         $_SESSION['diretoria'] = serialize(new diretoria($s));
                     }
