@@ -498,10 +498,11 @@ class usuarioPDO {
             $pdo = $conexao->getConexao();
             $stmt = $pdo->prepare("update foto_perfil set caminho = :imagem where id_usuario = :id");
             $stmt->bindValue(':id', $us->getId());
-            $stmt->bindValue(':imagem', '../Img' . $nome_imagem . $extensao);
+            $stmt->bindValue(':imagem', '../Img/' . $nome_imagem . $extensao);
 
             //Verificar se os dados foram inseridos com sucesso
             if ($stmt->execute()) {
+                $_SESSION['fotoPerfil'] = '../Img/' . $nome_imagem . $extensao;
                 //Recuperar último ID inserido no banco de dados
                 //$ultimo_id = $pdo->lastInsertId();
                 $ultimo_id = $us->getId();
@@ -515,13 +516,13 @@ class usuarioPDO {
                 if (move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio)) {
                     header('Location: ../Tela/home.php');
                 } else {
-                    header('Location: ../Tela/.php');
+                    header('Location: ../Tela/login.php');
                 }
             } else {
-                //header('Location: ../Tela/alterarCurso.php');
+                header('Location: ../Tela/alterarCurso.php');
             }
         } else {
-            //header('Location: ../Tela/alterarEnderecoUsuario.php');
+            header('Location: ../Tela/alterarEnderecoUsuario.php');
         }
     }
 
