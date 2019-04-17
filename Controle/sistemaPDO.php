@@ -24,7 +24,7 @@ class sistemaPDO {
         $contato = new contato($_POST);
         $con = new conexao();
         $pdo = $con->getConexao();
-        $stmt = $pdo->prepare("insert into acesso_negado values(default, :nome , :cpf , :email , :descricao;");
+        $stmt = $pdo->prepare("insert into acesso_negado values(default, :nome , :cpf , :email , :descricao);");
         $stmt->bindValue('nome', $contato->getNome());
         $stmt->bindValue(':cpf', $contato->getCpf());
         $stmt->bindValue(':email', $contato->getEmail());
