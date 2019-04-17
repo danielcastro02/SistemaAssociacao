@@ -242,6 +242,7 @@ class usuarioPDO {
         $sql->execute();
         return $sql;
     }
+
     public function pesquisarUsuarios() { //CONCLUIR
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
@@ -250,35 +251,35 @@ class usuarioPDO {
         return $sql;
     }
 
-    public function tornarUsuarioInativo(){
+    public function tornarUsuarioInativo() {
         $id = $_GET['id'];
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("UPDATE usuario SET pode_logar = 'false' where id = :id ;");
         $sql->bindValue(':id', $id);
-        if($sql->execute()){
+        if ($sql->execute()) {
             //return $sql;
             header("Location: ../Tela/listarUsuario.php");
-        }else{
+        } else {
             header("Location: ../Tela/listarUsuario.php");
         }
     }
-    
-    public function tornarUsuarioAtivo(){
+
+    public function tornarUsuarioAtivo() {
         $id = $_GET['id'];
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("UPDATE usuario SET pode_logar = 'true' where id = :id ;");
         $sql->bindValue(':id', $id);
-        if($sql->execute()){
+        if ($sql->execute()) {
             //return $sql;
             header("Location: ../Tela/listarUsuario.php");
-        }else{
+        } else {
             header("Location: ../Tela/listarUsuario.php");
         }
     }
 
-        public function selectPresidente() {
+    public function selectPresidente() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $stmt = $pdo->prepare("SELECT id_usuario FROM diretoria WHERE cargo LIKE 'Presidente';");
@@ -450,12 +451,12 @@ class usuarioPDO {
                 $stmt->execute();
                 $linha = $stmt->fetch();
                 $_SESSION['fotoPerfil'] = $linha['caminho'];
-                
+
 
                 $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
                 $stmt->bindValue(':id', $us->getId());
                 $stmt->execute();
-                if ($stmt->rowCount()>0) {
+                if ($stmt->rowCount() > 0) {
                     $l = $stmt->fetch(PDO::FETCH_ASSOC);
                     if ($us->getIdade() < 18 && $l['id_responsavel'] == 'null') {
                         $rgtemp = $us->getRg();
@@ -470,15 +471,13 @@ class usuarioPDO {
                     $stmt = $pdo->prepare('SELECT cargo FROM diretoria WHERE id_usuario = :id;');
                     $stmt->bindValue(':id', $us->getId());
                     $stmt->execute();
-                    if ($stmt->rowCount()>0) {
+                    if ($stmt->rowCount() > 0) {
                         $s = $stmt->fetch(PDO::FETCH_ASSOC);
                         $_SESSION['diretoria'] = serialize(new diretoria($s));
                     }
-                    header('Location: ../Tela/home.php');
-                } else {
-                    header("Location: ../Tela/login.php?msg=false");
-                }
+                } 
             }
+            header('Location: ../Tela/home.php');
         } else {
             header("Location: ../Tela/login.php?msg=false");
         }
