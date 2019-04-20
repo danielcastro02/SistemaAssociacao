@@ -25,7 +25,7 @@ if (isset($_GET["function"])) {
 class usuarioPDO {
 
     public function inserirUsuario() {
-        $us = new usuario($_POST);
+        $us = new usuario($_POST); 
         $al = new aluno($_POST);
         $dr = new diretoria($_POST);
         if ($this->validarFormlario($us)) { //validar estáincompleto
@@ -58,7 +58,7 @@ class usuarioPDO {
             } else {
                 $sql2->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
-            if ($sql2->execute()) { //Sucesso ao cadastrar USUÁRIO
+            if ($sql2->execute()) { //Sucesso ao cadastrar USU�?RIO
                 $sql = $pdo->prepare("isnert into foto_perfil (:id , :caminho);");
                 $sql->bindValue(':id', $this->buscarIDporRG($us->getRg()));
                 $sql->bindValue(':camiho', '../Img/user_icon.png');
