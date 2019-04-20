@@ -18,10 +18,22 @@ if (!isset($_SESSION['usuario'])) {
     <body class="homeimg">
 
         <?php
+        $u = unserialize($_SESSION['usuario']);
+        var_dump($u);
+        ?>
+
+        <?php
         include_once '../Base/nav.php';
         include_once '../Modelo/usuario.php';
-        $logado = new usuario();
-        $logado = unserialize($_SESSION['usuario']);
+        if (isset($_SESSION['usuario'])) {
+            $logado = new usuario();
+            $logado = unserialize($_SESSION['usuario']);
+            if ($logado->getAdministrador() == 'false') {
+                header('location: ./acessoNegado.php');
+            }
+        } else {
+            header('location: ./login.php');
+        }
         ?>
 
 

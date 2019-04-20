@@ -59,7 +59,7 @@ class usuarioPDO {
                 $sql2->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
             if ($sql2->execute()) { //Sucesso ao cadastrar USUÁRIO
-                $sql = $pdo->prepare("isnert into foto_perfil (:id , :caminho);");
+                $sql = $pdo->prepare("insert into foto_perfil (:id , :caminho);");
                 $sql->bindValue(':id', $this->buscarIDporRG($us->getRg()));
                 $sql->bindValue(':camiho', '../Img/user_icon.png');
                 $sql->execute();
