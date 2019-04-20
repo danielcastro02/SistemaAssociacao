@@ -97,7 +97,7 @@ if(isset($_SESSION['usuario'])){
 //                        -----------------------------------------------------------
 
                            echo "<td>";
-                           ?><a class="btn corpadrao" href="./verMais.php">Ver mais</a><?php
+                           ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $resultado['id'];?>">Ver mais</a><?php
                         echo "</td>";
                         echo "</tr>";
                     }
