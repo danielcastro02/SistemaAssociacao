@@ -39,3 +39,7 @@ footer{
     /*    background: linear-gradient(to bottom, #0277bd , #039be5);*/
     background: linear-gradient(to bottom, #0277bd , #039be5);
 }
+
+.alerta_vermelho{
+    color: red;
+}

@@ -21,8 +21,121 @@ if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
     $classe->$metodo();
 }
-
+ 
 class usuarioPDO {
+
+
+    public function pesquisarUsuariosPorNome($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        if ($pesquisa != null) {
+            $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like '%$pesquisa%';");
+        } else {
+            $sql = $PDO->prepare("SELECT * FROM usuario;");
+        }
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql; 
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosPorCPF($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE cpf like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosPorRG($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE rg like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosInativos($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE pode_logar = 'false' and nome like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosAdministradores($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE administrador = 'true' and nome like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosAtivos($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE pode_logar = 'true' and nome like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosAluno($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN aluno a ON u.id=a.id_usuario WHERE nome like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+    
+    public function pesquisarUsuariosPorCurso($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN aluno a ON u.id=a.id_usuario WHERE curso like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosDaDiretoria($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN diretoria d ON u.id=d.id_usuario WHERE cargo like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
 
     public function inserirUsuario() {
         $us = new usuario($_POST);
@@ -58,8 +171,9 @@ class usuarioPDO {
             } else {
                 $sql2->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
-            if ($sql2->execute()) { //Sucesso ao cadastrar USUÁRIO
-                $sql = $pdo->prepare("isnert into foto_perfil (:id , :caminho);");
+            if ($sql2->execute()) { //Sucesso ao cadastrar USU�?RIO
+//                $sql = $pdo->prepare("isnert into foto_perfil (:id , :caminho);");//estava assim o insert
+                $sql = $pdo->prepare("insert into foto_perfil (:id , :caminho);");
                 $sql->bindValue(':id', $this->buscarIDporRG($us->getRg()));
                 $sql->bindValue(':camiho', '../Img/user_icon.png');
                 $sql->execute();
@@ -236,14 +350,6 @@ class usuarioPDO {
     }
 
     public function litarUsuarios() {
-        $conexao = new conexao();
-        $pdo = $conexao->getConexao();
-        $sql = $pdo->prepare("SELECT * FROM usuario;");
-        $sql->execute();
-        return $sql;
-    }
-
-    public function pesquisarUsuarios() { //CONCLUIR
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("SELECT * FROM usuario;");
@@ -475,7 +581,7 @@ class usuarioPDO {
                         $s = $stmt->fetch(PDO::FETCH_ASSOC);
                         $_SESSION['diretoria'] = serialize(new diretoria($s));
                     }
-                } 
+                }
             }
             header('Location: ../Tela/home.php');
         } else {
