@@ -14,7 +14,7 @@ if (!realpath("./index.php")) {
     include_once './Modelo/aluno.php';
     include_once './Modelo/diretoria.php';
 }
-// fazer a verificação utilizando o realpath para get do cadastroResponsavel -- nota: utilizar temp
+// fazer a verificaÃ§Ã£o utilizando o realpath para get do cadastroResponsavel -- nota: utilizar temp
 $classe = new usuarioPDO();
 
 if (isset($_GET["function"])) {
@@ -138,10 +138,10 @@ class usuarioPDO {
     }
 
     public function inserirUsuario() {
-        $us = new usuario($_POST);
+        $us = new usuario($_POST); 
         $al = new aluno($_POST);
         $dr = new diretoria($_POST);
-        if ($this->validarFormlario($us)) { //validar estáincompleto
+        if ($this->validarFormlario($us)) { //validar estÃ¡incompleto
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
             $senhaMD5 = md5($us->getSenha1());
@@ -166,14 +166,15 @@ class usuarioPDO {
                 if ($logado->getAdministrador() == 'true') {
                     $sql2->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
                 } else {
-                    $sql2->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
+                    $sql2->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsÃ¡vel
                 }
             } else {
-                $sql2->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
+                $sql2->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando ResponsÃ¡vel
             }
-            if ($sql2->execute()) { //Sucesso ao cadastrar USU�?RIO
-//                $sql = $pdo->prepare("isnert into foto_perfil (:id , :caminho);");//estava assim o insert
+            if ($sql2->execute()) { //Sucesso ao cadastrar USUÃ?RIO
+
                 $sql = $pdo->prepare("insert into foto_perfil (:id , :caminho);");
+
                 $sql->bindValue(':id', $this->buscarIDporRG($us->getRg()));
                 $sql->bindValue(':camiho', '../Img/user_icon.png');
                 $sql->execute();
@@ -235,7 +236,7 @@ class usuarioPDO {
         }
     }
 
-    public function enviarOrientacaoCadAluno(usuario $us) { //método de controle
+    public function enviarOrientacaoCadAluno(usuario $us) { //mÃ©todo de controle
         if ($us->getIdade() >= 18) { //Sucesso ao cadastrar ALUNO
             if (isset($_SESSION['usuario'])) {
                 $logado = new usuario();
@@ -330,7 +331,7 @@ class usuarioPDO {
         }
     }
 
-    public function buscarIdade($data_nasc) { // método incompleto - verificar
+    public function buscarIdade($data_nasc) { // mÃ©todo incompleto - verificar
         $anoAtual = date('Y');
         $mesAtual = date('m');
         $diaAtual = date('d');
@@ -594,7 +595,7 @@ class usuarioPDO {
         $us = unserialize($_SESSION['usuario']);
         $SendCadImg = filter_input(INPUT_POST, 'SendCadImg', FILTER_SANITIZE_STRING);
         if ($SendCadImg) {
-            //Receber os dados do formulário
+            //Receber os dados do formulÃ¡rio
             $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
             $nome_imagem = md5($us->getId());
             //var_dump($_FILES['imagem']);
@@ -610,11 +611,11 @@ class usuarioPDO {
             //Verificar se os dados foram inseridos com sucesso
             if ($stmt->execute()) {
                 $_SESSION['fotoPerfil'] = '../Img/' . $nome_imagem . $extensao;
-                //Recuperar último ID inserido no banco de dados
+                //Recuperar Ãºltimo ID inserido no banco de dados
                 //$ultimo_id = $pdo->lastInsertId();
                 $ultimo_id = $us->getId();
 
-                //Diretório onde o arquivo vai ser salvo
+                //DiretÃ³rio onde o arquivo vai ser salvo
                 $diretorio = '../Img/' . md5($ultimo_id) . $extensao;
 
                 //Criar a pasta de foto
