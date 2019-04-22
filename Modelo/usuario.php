@@ -15,11 +15,13 @@ class usuario {
     private $data_nasc;
     private $telefone;
     private $email;
+    private $fotoPerfil;
     private $pode_logar;
     private $administrador;
     private $senha1;
     private $senha2;
     private $idade;
+    
 
     public function __construct() {
         if (func_num_args() == 1) {
@@ -112,7 +114,15 @@ class usuario {
     function getEmail() {
         return $this->email;
     }
+    
+    function getFotoPerfil() {
+        return $this->fotoPerfil;
+    }
 
+    function setFotoPerfil($fotoPerfil) {
+        $this->fotoPerfil = $fotoPerfil;
+    }
+    
     function getPode_logar() {
         return $this->pode_logar;
     }

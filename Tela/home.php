@@ -46,7 +46,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <br>
                                 <br>
                                 <a href="./alterarFotoPerfil.php">
-                                    <div  class="fotoPerfil" style='background-image: url("<?php echo $_SESSION['fotoPerfil']; ?>");
+                                    <div  class="fotoPerfil" style='background-image: url("<?php echo $logado->getFotoPerfil(); ?>");
                                                                     background-size: cover;
                                                                     background-position: center;
                                                                     background-repeat: no-repeat;'>
