@@ -3,15 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 17-Abr-2019 às 16:36
+-- Generation Time: 23-Abr-2019 às 01:58
 -- Versão do servidor: 10.1.36-MariaDB
 -- versão do PHP: 7.2.10
-drop table if exists acesso_negado;
-drop table if exists aluno;
-drop table if exists contato;
-drop table if exists diretoria;
-drop table if exists foto_perfil;
-drop table if exists usuario;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -99,23 +93,8 @@ INSERT INTO `diretoria` (`id_usuario`, `cargo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `foto_perfil`
---
-
-CREATE TABLE `foto_perfil` (
-  `id_usuario` int(11) NOT NULL,
-  `caminho` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `usuario`
 --
-
-insert into foto_perfil values (1, '../Img/user_icon.jpg');
-insert into foto_perfil values (9, '../Img/user_icon.jpg');
-insert into foto_perfil values (17, '../Img/user_icon.jpg');
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
@@ -132,6 +111,7 @@ CREATE TABLE `usuario` (
   `data_nasc` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `telefone` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fotoPerfil` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `pode_logar` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `administrador` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -140,10 +120,10 @@ CREATE TABLE `usuario` (
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`, `cidade`, `bairro`, `rua`, `numero`, `cep`, `cpf`, `rg`, `data_nasc`, `telefone`, `email`, `pode_logar`, `administrador`) VALUES
-(1, 'Paulo Glanzel', 'pglanzel', '202cb962ac59075b964b07152d234b70', 'Cacequi', 'Vila Candido', 'Marechal Hermes da Fonseca', '337', '97450-00', '', '', '0000-00-00', '55 98431-2589', 'pauloglanzel@hotmail.com', 'true', 'true'),
-(9, 'Daniel Zanini de Castro', 'dcastro', '202cb962ac59075b964b07152d234b70', 'Jaguari', 'Centro', 'Dr. Severiano de Almeida', '280', '97760-000', '039.855.650-40', '5123700465', '10-03-2000', '55 99959-8414', 'zanini.castro@hotmail.com', 'true', 'true'),
-(17, 'Konrado Lorenzon de Souza', 'konradols', '5b2cc5cd7b54390a9525d24fba623bc9', 'Cacequi', 'Centro', 'Bento GonÃ§alves', '307', '97450000', '029.477.090-98', '4116813546', '19-01-1999', '55991192589', 'konradols@hotmail.com', 'false', 'false');
+INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`, `cidade`, `bairro`, `rua`, `numero`, `cep`, `cpf`, `rg`, `data_nasc`, `telefone`, `email`, `fotoPerfil`, `pode_logar`, `administrador`) VALUES
+(1, 'Paulo Glanzel', 'pglanzel', '202cb962ac59075b964b07152d234b70', 'Cacequi', 'Vila Candido', 'Marechal Hermes da Fonseca', '337', '97450-00', '', '', '0000-00-00', '55 98431-2589', 'pauloglanzel@hotmail.com', '../Img/user_icon.png', 'true', 'true'),
+(9, 'Daniel Zanini de Castro', 'dcastro', '202cb962ac59075b964b07152d234b70', 'Jaguari', 'Centro', 'Dr. Severiano de Almeida', '280', '97760-000', '039.855.650-40', '5123700465', '10-03-2000', '55 99959-8414', 'zanini.castro@hotmail.com', '../Img/45c48cce2e2d7fbdea1afc51c7c6ad26.jpg', 'true', 'true'),
+(17, 'Konrado Lorenzon de Souza', 'konradols', '5b2cc5cd7b54390a9525d24fba623bc9', 'Cacequi', 'Centro', 'Bento GonÃ§alves', '307', '97450000', '029.477.090-98', '4116813546', '19-01-1999', '55991192589', 'konradols@hotmail.com', '../Img/user_icon.png', 'true', 'false');
 
 --
 -- Indexes for dumped tables
@@ -172,12 +152,6 @@ ALTER TABLE `contato`
 -- Indexes for table `diretoria`
 --
 ALTER TABLE `diretoria`
-  ADD PRIMARY KEY (`id_usuario`);
-
---
--- Indexes for table `foto_perfil`
---
-ALTER TABLE `foto_perfil`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
@@ -224,12 +198,6 @@ ALTER TABLE `aluno`
 --
 ALTER TABLE `diretoria`
   ADD CONSTRAINT `diretoria_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
-
---
--- Limitadores para a tabela `foto_perfil`
---
-ALTER TABLE `foto_perfil`
-  ADD CONSTRAINT `foto_perfil_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
