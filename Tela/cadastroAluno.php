@@ -12,6 +12,7 @@
 //split = explode
 if (!isset($_SESSION)) {
     session_start();
+    unset($_SESSION['temp']);
 }
 //NÃO VERIRIFCAR SE ESTÁ LOGADO, PQ EXISTE O REQUERIMENTO DE ASSOCIAÇÃO
 ?>                  

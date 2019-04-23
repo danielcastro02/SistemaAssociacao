@@ -52,14 +52,14 @@ class usuarioPDO {
             if (isset($_SESSION['usuario'])) {
                 $logado = new usuario(unserialize($_SESSION['usuario']));
                 if ($logado->getAdministrador() == 'true') {
-                    $sql2->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
+                    $sql->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
                 } else {
-                    $sql2->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
+                    $sql->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
                 }
             } else {
-                $sql2->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
+                $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
-            if ($sql2->execute()) { //Sucesso ao cadastrar USUÁRIO
+            if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
                 if (isset($_GET['user'])) {
                     if ($_GET['user'] == 'aluno') {
                         $this->inserirAluno($al, $us);
@@ -142,9 +142,10 @@ class usuarioPDO {
         $stmt = $pdo->prepare("update aluno set id_responsavel = :idresponsavel where id_usuario = :iduser ; ");
         $stmt->bindValue(':idresponsavel', $id_respon);
         $stmt->bindValue(':iduser', $_SESSION['temp']);
+        $id_aluno = $_SESSION['temp'];
         unset($_SESSION['temp']);
         if ($stmt->execute()) {
-            header('location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento');
+            $this->enviarOrientacaoCadAluno($this->selectUsuarioPorId($id_aluno));
         } else {
             
         }

@@ -14,6 +14,15 @@ session_start();
             <div class="col s6 card offset-s3">
                 <div class="center">
                     <h4>Cadastre o responsável</h4>
+                    <?php
+                    if(isset($_GET['msg'])){
+                        if($_GET['msg']== 'responsavelMenorDeIdade'){
+                            ?>
+                    <h5 class="red-text">O Responsável tem que ser maior de Idade!</h5>
+                                <?php
+                        }
+                    }
+                    ?>
                 </div>
                 <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario&user=responsavel" name="formulario-cadastro-responsavel">
                     <div class="col s12">
