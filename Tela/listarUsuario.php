@@ -179,13 +179,15 @@ if (isset($_SESSION['usuario'])) {
                                }
 //                        -----------------------------------------------------------
 
-                               echo "<td>";
-                               ?><a class="btn corpadrao" href="#">Ver mais</a><?php
-                            echo "</td>";
-                            echo "</tr>";
+
+                           echo "<td>";
+                           ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $resultado['id'];?>">Ver mais</a><?php
+                        echo "</td>";
+                        echo "</tr>" 
                         }
                     } else {
                         echo "<tr><td><h6>Nenhum resultado econtrado</h6></td></tr>";
+
                     }
                     ?>
                 </table>

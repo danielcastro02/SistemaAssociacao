@@ -146,7 +146,7 @@ class usuarioPDO {
             $pdo = $conexao->getConexao();
             $senhaMD5 = md5($us->getSenha1());
             $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , "
-                    . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :nascimento, :telefone , :email , "
+                    . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :nascimento, :telefone , :email , :fotoPerfil , "
                     . ":podeLogar , 'false' );");
             $sql->bindValue(':nome', $us->getNome());
             $sql->bindValue(':usuario', $us->getUsuario());
@@ -158,26 +158,23 @@ class usuarioPDO {
             $sql->bindValue(':cep', $us->getCep());
             $sql->bindValue(':cpf', $us->getCpf());
             $sql->bindValue(':rg', $us->getRg());
-            $sql2 = $this->veririfcarTempResponsavel($sql, $us);
-            $sql2->bindValue(':telefone', $us->getTelefone());
-            $sql2->bindValue(':email', $us->getEmail());
+            $sql = $this->veririfcarTempResponsavel($sql, $us);
+            $sql->bindValue(':telefone', $us->getTelefone());
+            $sql->bindValue(':email', $us->getEmail());
+            $sql->bindValue(':fotoPerfil', '../Img/user_icon.png');
             if (isset($_SESSION['usuario'])) {
                 $logado = new usuario(unserialize($_SESSION['usuario']));
                 if ($logado->getAdministrador() == 'true') {
-                    $sql2->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
+                    $sql->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
                 } else {
-                    $sql2->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsÃ¡vel
+
+                    $sql->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
                 }
             } else {
-                $sql2->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando ResponsÃ¡vel
+                $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
-            if ($sql2->execute()) { //Sucesso ao cadastrar USUÃ?RIO
+            if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
 
-                $sql = $pdo->prepare("insert into foto_perfil (:id , :caminho);");
-
-                $sql->bindValue(':id', $this->buscarIDporRG($us->getRg()));
-                $sql->bindValue(':camiho', '../Img/user_icon.png');
-                $sql->execute();
                 if (isset($_GET['user'])) {
                     if ($_GET['user'] == 'aluno') {
                         $this->inserirAluno($al, $us);
@@ -260,12 +257,27 @@ class usuarioPDO {
         $stmt = $pdo->prepare("update aluno set id_responsavel = :idresponsavel where id_usuario = :iduser ; ");
         $stmt->bindValue(':idresponsavel', $id_respon);
         $stmt->bindValue(':iduser', $_SESSION['temp']);
+        $id_aluno = $_SESSION['temp'];
         unset($_SESSION['temp']);
         if ($stmt->execute()) {
-            header('location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento');
+            $this->enviarOrientacaoCadAluno($this->selectUsuarioPorId($id_aluno));
         } else {
             
         }
+    }
+    
+    public function buscarFilhos($id){
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("select * from aluno where id_responsavel = :id;");
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        if($stmt->rowCount()>0){
+            return $stmt;
+        } else {
+            return false;
+        }
+        
     }
 
     public function veririfcarTempResponsavel($sql, usuario $us) {
@@ -553,13 +565,6 @@ class usuarioPDO {
                 header('Location: ../Tela/loginrecusado.php');
             } else {
                 $_SESSION['usuario'] = serialize($us);
-                $stmt = $pdo->prepare("select * from foto_perfil where id_usuario = :id");
-                $stmt->bindValue(':id', $us->getId());
-                $stmt->execute();
-                $linha = $stmt->fetch();
-                $_SESSION['fotoPerfil'] = $linha['caminho'];
-
-
                 $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
                 $stmt->bindValue(':id', $us->getId());
                 $stmt->execute();
@@ -589,7 +594,56 @@ class usuarioPDO {
             header("Location: ../Tela/login.php?msg=false");
         }
     }
-
+    
+    public function selectUsuarioPorId($id){
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("select * from usuario where id = :id;");
+        $stmt->bindValue(':id', $id);
+        if($stmt->execute()){
+            if($stmt->rowCount()>0){
+            $linha = $stmt->fetch();
+            return $usuario = new usuario($linha);
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    public function selectAlunoPorId($id){
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("select * from aluno where id_usuario = :id;");
+        $stmt->bindValue(':id', $id);
+        if($stmt->execute()){
+            if($stmt->rowCount()>0){
+            $linha = $stmt->fetch();
+            return $aluno = new aluno($linha);
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    public function selectDiretoriaPorId($id){
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("select * from diretoria where id_usuario = :id;");
+        $stmt->bindValue(':id', $id);
+        if($stmt->execute()){
+            if($stmt->rowCount()>0){
+            $linha = $stmt->fetch();
+            return $diretoria = new diretoria($linha);
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    
     public function alteraFoto() {
         $us = new usuario();
         $us = unserialize($_SESSION['usuario']);
@@ -598,28 +652,28 @@ class usuarioPDO {
             //Receber os dados do formulÃ¡rio
             $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
             $nome_imagem = md5($us->getId());
-            //var_dump($_FILES['imagem']);
             //Inserir no BD
             $ext = explode('.', $_FILES['imagem']['name']);
             $extensao = "." . $ext[1];
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
-            $stmt = $pdo->prepare("update foto_perfil set caminho = :imagem where id_usuario = :id");
+            $stmt = $pdo->prepare("update usuario set fotoPerfil = :imagem where id = :id");
             $stmt->bindValue(':id', $us->getId());
             $stmt->bindValue(':imagem', '../Img/' . $nome_imagem . $extensao);
 
             //Verificar se os dados foram inseridos com sucesso
             if ($stmt->execute()) {
-                $_SESSION['fotoPerfil'] = '../Img/' . $nome_imagem . $extensao;
-                //Recuperar Ãºltimo ID inserido no banco de dados
+
+                $us->setFotoPerfil('../Img/' . $nome_imagem . $extensao);
+                $_SESSION['usuario'] = serialize($us);
+                //Recuperar último ID inserido no banco de dados
+
                 //$ultimo_id = $pdo->lastInsertId();
                 $ultimo_id = $us->getId();
 
                 //DiretÃ³rio onde o arquivo vai ser salvo
                 $diretorio = '../Img/' . md5($ultimo_id) . $extensao;
 
-                //Criar a pasta de foto
-                //mkdir($diretorio, 0755);
 
                 if (move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio)) {
                     header('Location: ../Tela/home.php');

@@ -26,15 +26,7 @@ if (!isset($_SESSION['usuario'])) {
 
 
         <div class="row">
-            <!--            <div class="col s6">
-                            <div class="row">
-                                <div class="card col s10 offset-s1">
-                                    <div class="row">
-                                        aaa
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
+
             <div class="col s12">
                 <div class="row">
                     <br>
@@ -46,12 +38,12 @@ if (!isset($_SESSION['usuario'])) {
                                 <br>
                                 <br>
                                 <a href="./alterarFotoPerfil.php">
-                                    <div  class="fotoPerfil" style='background-image: url("<?php echo $_SESSION['fotoPerfil']; ?>");
-                                                                    background-size: cover;
-                                                                    background-position: center;
-                                                                    background-repeat: no-repeat;'>
-                                    <div class="linkfoto white-text">Alterar Foto</div>            
-                                </div>
+                                    <div  class="fotoPerfil" style='background-image: url("<?php echo $logado->getFotoPerfil(); ?>");
+                                          background-size: cover;
+                                          background-position: center;
+                                          background-repeat: no-repeat;'>
+                                        <div class="linkfoto white-text">Alterar Foto</div>            
+                                    </div>
                                 </a>
                                 <div class="row"></div>
                                 <h5><?php echo $logado->getNome(); ?></h5>

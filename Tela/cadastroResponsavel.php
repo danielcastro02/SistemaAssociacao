@@ -8,12 +8,21 @@ session_start();
         <?php include_once '../Base/header.php'; ?>
     </head>
     <body class="homeimg">
-        <?php include_once '../Base/navBar.php'; ?>
+        <?php include_once '../Base/nav.php'; ?>
         <br> 
         <div class="row">
             <div class="col s6 card offset-s3">
                 <div class="center">
                     <h4>Cadastre o responsável</h4>
+                    <?php
+                    if(isset($_GET['msg'])){
+                        if($_GET['msg']== 'responsavelMenorDeIdade'){
+                            ?>
+                    <h5 class="red-text">O Responsável tem que ser maior de Idade!</h5>
+                                <?php
+                        }
+                    }
+                    ?>
                 </div>
                 <form class="center"  method="post" action="../Controle/usuarioPDO.php?function=inserirUsuario&user=responsavel" name="formulario-cadastro-responsavel">
                     <div class="col s12">
