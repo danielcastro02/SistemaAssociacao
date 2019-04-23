@@ -14,21 +14,134 @@ if (!realpath("./index.php")) {
     include_once './Modelo/aluno.php';
     include_once './Modelo/diretoria.php';
 }
-// fazer a verificação utilizando o realpath para get do cadastroResponsavel -- nota: utilizar temp
+// fazer a verificaÃ§Ã£o utilizando o realpath para get do cadastroResponsavel -- nota: utilizar temp
 $classe = new usuarioPDO();
 
 if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
     $classe->$metodo();
 }
-
+ 
 class usuarioPDO {
 
+
+    public function pesquisarUsuariosPorNome($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        if ($pesquisa != null) {
+            $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like '%$pesquisa%';");
+        } else {
+            $sql = $PDO->prepare("SELECT * FROM usuario;");
+        }
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql; 
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosPorCPF($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE cpf like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosPorRG($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE rg like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosInativos($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE pode_logar = 'false' and nome like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosAdministradores($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE administrador = 'true' and nome like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosAtivos($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE pode_logar = 'true' and nome like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosAluno($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN aluno a ON u.id=a.id_usuario WHERE nome like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+    
+    public function pesquisarUsuariosPorCurso($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN aluno a ON u.id=a.id_usuario WHERE curso like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
+    public function pesquisarUsuariosDaDiretoria($pesquisa) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN diretoria d ON u.id=d.id_usuario WHERE cargo like '%$pesquisa%';");
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            return "nenhum_resultado";
+        }
+    }
+
     public function inserirUsuario() {
-        $us = new usuario($_POST);
+        $us = new usuario($_POST); 
         $al = new aluno($_POST);
         $dr = new diretoria($_POST);
-        if ($this->validarFormlario($us)) { //validar estáincompleto
+        if ($this->validarFormlario($us)) { //validar estÃ¡incompleto
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
             $senhaMD5 = md5($us->getSenha1());
@@ -54,12 +167,14 @@ class usuarioPDO {
                 if ($logado->getAdministrador() == 'true') {
                     $sql->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
                 } else {
+
                     $sql->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
                 }
             } else {
                 $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
             if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
+
                 if (isset($_GET['user'])) {
                     if ($_GET['user'] == 'aluno') {
                         $this->inserirAluno($al, $us);
@@ -118,7 +233,7 @@ class usuarioPDO {
         }
     }
 
-    public function enviarOrientacaoCadAluno(usuario $us) { //método de controle
+    public function enviarOrientacaoCadAluno(usuario $us) { //mÃ©todo de controle
         if ($us->getIdade() >= 18) { //Sucesso ao cadastrar ALUNO
             if (isset($_SESSION['usuario'])) {
                 $logado = new usuario();
@@ -228,7 +343,7 @@ class usuarioPDO {
         }
     }
 
-    public function buscarIdade($data_nasc) { // método incompleto - verificar
+    public function buscarIdade($data_nasc) { // mÃ©todo incompleto - verificar
         $anoAtual = date('Y');
         $mesAtual = date('m');
         $diaAtual = date('d');
@@ -248,14 +363,6 @@ class usuarioPDO {
     }
 
     public function litarUsuarios() {
-        $conexao = new conexao();
-        $pdo = $conexao->getConexao();
-        $sql = $pdo->prepare("SELECT * FROM usuario;");
-        $sql->execute();
-        return $sql;
-    }
-
-    public function pesquisarUsuarios() { //CONCLUIR
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("SELECT * FROM usuario;");
@@ -480,7 +587,7 @@ class usuarioPDO {
                         $s = $stmt->fetch(PDO::FETCH_ASSOC);
                         $_SESSION['diretoria'] = serialize(new diretoria($s));
                     }
-                } 
+                }
             }
             header('Location: ../Tela/home.php');
         } else {
@@ -542,7 +649,7 @@ class usuarioPDO {
         $us = unserialize($_SESSION['usuario']);
         $SendCadImg = filter_input(INPUT_POST, 'SendCadImg', FILTER_SANITIZE_STRING);
         if ($SendCadImg) {
-            //Receber os dados do formulário
+            //Receber os dados do formulÃ¡rio
             $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
             $nome_imagem = md5($us->getId());
             //Inserir no BD
@@ -556,13 +663,15 @@ class usuarioPDO {
 
             //Verificar se os dados foram inseridos com sucesso
             if ($stmt->execute()) {
+
                 $us->setFotoPerfil('../Img/' . $nome_imagem . $extensao);
                 $_SESSION['usuario'] = serialize($us);
                 //Recuperar último ID inserido no banco de dados
+
                 //$ultimo_id = $pdo->lastInsertId();
                 $ultimo_id = $us->getId();
 
-                //Diretório onde o arquivo vai ser salvo
+                //DiretÃ³rio onde o arquivo vai ser salvo
                 $diretorio = '../Img/' . md5($ultimo_id) . $extensao;
 
 
