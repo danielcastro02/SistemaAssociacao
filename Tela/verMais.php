@@ -85,11 +85,11 @@ if (!isset($_SESSION['usuario'])) {
                                         <span>Previsão de Conclusão: <?php echo $aluno->getPrevisao_conclusao(); ?></span><br>
                                         <span>Saldo: <?php echo $aluno->getSaldo(); ?></span><br>
                                         <?php
-                                        if ($aluno->getId_responavel() != '') {
+                                        if ($aluno->getId_responsavel() != '') {
                                             $responsavel = new usuario();
-                                            $responsavel = $usuarioPDO->selectUsuarioPorId($aluno->getId_responavel());
+                                            $responsavel = $usuarioPDO->selectUsuarioPorId($aluno->getId_responsavel());
                                             ?>
-                                            <h5>Dados do responsável:</h5>
+                                        <span><b>Dados do responsável:</b></span><br>
                                             <span>Nome: <?php echo $responsavel->getNome(); ?></span><br>
                                             <span>CPF: <?php echo $responsavel->getCpf(); ?></span>
                                             <?php

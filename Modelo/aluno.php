@@ -3,7 +3,7 @@
 class aluno {
 
     private $id_usuario;
-    private $id_responavel;
+    private $id_responsavel;
     private $curso;
     private $saldo;
     private $previsao_conclusao;
@@ -31,8 +31,8 @@ class aluno {
         return $this->id_usuario;
     }
 
-    function getId_responavel() {
-        return $this->id_responavel;
+    function getId_responsavel() {
+        return $this->id_responsavel;
     }
 
     function getCurso() {
@@ -51,8 +51,8 @@ class aluno {
         $this->id_usuario = $id_usuario;
     }
 
-    function setId_responavel($id_responavel) {
-        $this->id_responavel = $id_responavel;
+    function setId_responsavel($id_responsavel) {
+        $this->id_responsavel = $id_resposnavel;
     }
 
     function setCurso($curso) {
