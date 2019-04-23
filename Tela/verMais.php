@@ -47,7 +47,6 @@ if (!isset($_SESSION['usuario'])) {
             <div class="col s12">
                 <div class="row">
                     <br>
-                    <br>
                     <div class="card col s10 offset-s1 left">
                         <div class="col s12">
                             <div class="row">
@@ -61,11 +60,14 @@ if (!isset($_SESSION['usuario'])) {
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="center">
+                                    <h5><?php echo $usuario->getNome(); ?></h5>
+                                </div>
                                 <div class="col s4">
                                     <br>
                                     <div class="row"></div>
-                                    <h4>Dados Gerais</h4>
-                                    <h5>Nome: <?php echo $usuario->getNome(); ?></h5>
+                                    <span><b>Dados Gerais</b></span><br>
+
                                     <span>RG: <?php echo $usuario->getRg(); ?></span><br>
                                     <span>CPF: <?php echo $usuario->getCpf(); ?></span><br>
                                     <span>CEP: <?php echo $usuario->getCep(); ?></span><br>
@@ -77,38 +79,63 @@ if (!isset($_SESSION['usuario'])) {
                                 <div class="col s4">
                                     <br>
                                     <div class="row"></div>
-                                    <h4>Dados Curso</h4>
-                                    <?php if($aluno){ ?>
-                                    <h5>Curso: <?php echo $aluno->getCurso(); ?></h5>
-                                    <span>Previsão de Conclusão: <?php echo $aluno->getPrevisao_conclusao(); ?></span><br>
-                                    <span>Saldo: <?php echo $aluno->getSaldoCpf(); ?></span><br>
-                                    <?php
-                                    if($aluno->getId_usuario()!= 'null'){
-                                        $responsavel = new usuario();
-                                        $responsavel = $usuarioPDO->selectUsuarioPorId($aluno->getId_usuario());
-                                        ?>
-                                    <h5>Dados do responsável:</h5>
-                                    <span>Nome: <?php echo $responsavel->getNome(); ?></span>
-                                    <span>CPF: <?php echo $responsavel->getCpf(); ?></span>
-                                    <?php
-                                    }
-                                    
-                                    }else{
+                                    <span><b>Dados Curso</b></span><br>
+                                    <?php if ($aluno) { ?>
+                                        <span>Curso: <?php echo $aluno->getCurso(); ?></span><br>
+                                        <span>Previsão de Conclusão: <?php echo $aluno->getPrevisao_conclusao(); ?></span><br>
+                                        <span>Saldo: <?php echo $aluno->getSaldo(); ?></span><br>
+                                        <?php
+                                        if ($aluno->getId_responavel() != '') {
+                                            $responsavel = new usuario();
+                                            $responsavel = $usuarioPDO->selectUsuarioPorId($aluno->getId_responavel());
+                                            ?>
+                                            <h5>Dados do responsável:</h5>
+                                            <span>Nome: <?php echo $responsavel->getNome(); ?></span><br>
+                                            <span>CPF: <?php echo $responsavel->getCpf(); ?></span>
+                                            <?php
+                                        } else {
+                                            if ($usuario->getIdade() < 18) {
+                                                $_SESSION['temp'] = $usuario->getId();
+                                                ?>
+                                                <a href="./cadastroResponsavel.php" class="btn corpadrao">Registrar Responsável</a>
+                                                <?php
+                                            }
+                                        }
+                                    } else {
                                         ?><h5>O usuário não é aluno</h5><?php
                                     }
-?>
+                                    ?>
                                 </div>
                                 <div class="col s4">
                                     <br>
                                     <div class="row"></div>
-                                    <h4>Diretoria</h4>
-                                    <?php if($diretoria){ ?>
-                                    <h5>Cargo: <?php echo $diretoria->getCargo(); ?></h5>
-                                    <?php }else{
+                                    <span><b>Diretoria</b></span><br>
+                                    <?php if ($diretoria) { ?>
+                                        <span>Cargo: <?php echo $diretoria->getCargo(); ?></span><br>
+                                    <?php } else {
                                         ?>
-                                    <h5>Usuário não pertence a diretoria.</h5>
-                                            <?php
-                                    } ?> 
+                                        <span>Usuário não pertence a diretoria.</span><br>
+                                    <?php }
+                                    ?>
+                                        <br>
+                                        <?php
+                                        $idFilhos = $usuarioPDO->buscarFilhos($usuario->getId());
+                                        if($idFilhos){
+                                            ?>
+                                                <span><b>Responsável por:</b></span><br>
+                                                <?php
+                                            while($linha = $idFilhos->fetch()){
+                                                $us = new usuario();
+                                                $us = $usuarioPDO->selectUsuarioPorId($linha['id_usuario']);
+                                                ?>
+                                                <span><?php echo $us->getNome();?></span><br>
+                                                <span>CPF: <?php echo $us->getCpf();?></span><br>
+                                                    <?php
+                                            }
+                                        }
+                                        
+                                        ?>
+                                     
                                 </div>
                             </div>
                             <div class="row">

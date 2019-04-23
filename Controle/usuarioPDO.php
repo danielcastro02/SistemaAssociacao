@@ -149,6 +149,20 @@ class usuarioPDO {
             
         }
     }
+    
+    public function buscarFilhos($id){
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("select * from aluno where id_responsavel = :id;");
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        if($stmt->rowCount()>0){
+            return $stmt;
+        } else {
+            return false;
+        }
+        
+    }
 
     public function veririfcarTempResponsavel($sql, usuario $us) {
         if (isset($_SESSION['temp'])) {
@@ -492,7 +506,7 @@ class usuarioPDO {
     public function selectAlunoPorId($id){
         $con = new conexao();
         $pdo = $con->getConexao();
-        $stmt = $pdo->prepare("select * from aluno where id = :id;");
+        $stmt = $pdo->prepare("select * from aluno where id_usuario = :id;");
         $stmt->bindValue(':id', $id);
         if($stmt->execute()){
             if($stmt->rowCount()>0){
@@ -508,7 +522,7 @@ class usuarioPDO {
     public function selectDiretoriaPorId($id){
         $con = new conexao();
         $pdo = $con->getConexao();
-        $stmt = $pdo->prepare("select * from diretoria where id = :id;");
+        $stmt = $pdo->prepare("select * from diretoria where id_usuario = :id;");
         $stmt->bindValue(':id', $id);
         if($stmt->execute()){
             if($stmt->rowCount()>0){
