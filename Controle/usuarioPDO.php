@@ -21,9 +21,8 @@ if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
     $classe->$metodo();
 }
- 
-class usuarioPDO {
 
+class usuarioPDO {
 
     public function pesquisarUsuariosPorNome($pesquisa) {
         $conexao = new conexao();
@@ -35,7 +34,7 @@ class usuarioPDO {
         }
         $sql->execute();
         if ($sql->rowCount() > 0) {
-            return $sql; 
+            return $sql;
         } else {
             return "nenhum_resultado";
         }
@@ -112,7 +111,7 @@ class usuarioPDO {
             return "nenhum_resultado";
         }
     }
-    
+
     public function pesquisarUsuariosPorCurso($pesquisa) {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
@@ -138,7 +137,7 @@ class usuarioPDO {
     }
 
     public function inserirUsuario() {
-        $us = new usuario($_POST); 
+        $us = new usuario($_POST);
         $al = new aluno($_POST);
         $dr = new diretoria($_POST);
         if ($this->validarFormlario($us)) { //validar estÃ¡incompleto
@@ -174,7 +173,6 @@ class usuarioPDO {
                 $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
             }
             if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
-
                 if (isset($_GET['user'])) {
                     if ($_GET['user'] == 'aluno') {
                         $this->inserirAluno($al, $us);
@@ -240,9 +238,11 @@ class usuarioPDO {
                 $logado = $this->getLogado();
                 if ($logado->getAdministrador() == 'true') {
                     header("Location: ../Tela/orientacao.php?msg=sucessoAluno"); //admin - para maior de idade
-                } else {
-                    header("Location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento"); // requerimento - aluno sem login
+                }else{
+                    header("Location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento");
                 }
+            } else {
+                header("Location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento"); // requerimento - aluno sem login
             }
         } else {
             $_SESSION['temp'] = $this->buscarIDporRG($us->getRg());
@@ -265,19 +265,18 @@ class usuarioPDO {
             
         }
     }
-    
-    public function buscarFilhos($id){
+
+    public function buscarFilhos($id) {
         $con = new conexao();
         $pdo = $con->getConexao();
         $stmt = $pdo->prepare("select * from aluno where id_responsavel = :id;");
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-        if($stmt->rowCount()>0){
+        if ($stmt->rowCount() > 0) {
             return $stmt;
         } else {
             return false;
         }
-        
     }
 
     public function veririfcarTempResponsavel($sql, usuario $us) {
@@ -588,62 +587,64 @@ class usuarioPDO {
                         $_SESSION['diretoria'] = serialize(new diretoria($s));
                     }
                 }
+                header('Location: ../Tela/home.php');
             }
-            header('Location: ../Tela/home.php');
         } else {
             header("Location: ../Tela/login.php?msg=false");
         }
     }
-    
-    public function selectUsuarioPorId($id){
+
+    public function selectUsuarioPorId($id) {
         $con = new conexao();
         $pdo = $con->getConexao();
         $stmt = $pdo->prepare("select * from usuario where id = :id;");
         $stmt->bindValue(':id', $id);
-        if($stmt->execute()){
-            if($stmt->rowCount()>0){
-            $linha = $stmt->fetch();
-            return $usuario = new usuario($linha);
-            }else{
+        if ($stmt->execute()) {
+            if ($stmt->rowCount() > 0) {
+                $linha = $stmt->fetch();
+                return $usuario = new usuario($linha);
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
-    public function selectAlunoPorId($id){
+
+    public function selectAlunoPorId($id) {
         $con = new conexao();
         $pdo = $con->getConexao();
         $stmt = $pdo->prepare("select * from aluno where id_usuario = :id;");
         $stmt->bindValue(':id', $id);
-        if($stmt->execute()){
-            if($stmt->rowCount()>0){
-            $linha = $stmt->fetch();
-            return $aluno = new aluno($linha);
-            }else{
+        if ($stmt->execute()) {
+            if ($stmt->rowCount() > 0) {
+                $linha = $stmt->fetch();
+                return $aluno = new aluno($linha);
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
-    public function selectDiretoriaPorId($id){
+
+    public function selectDiretoriaPorId($id) {
         $con = new conexao();
         $pdo = $con->getConexao();
         $stmt = $pdo->prepare("select * from diretoria where id_usuario = :id;");
         $stmt->bindValue(':id', $id);
-        if($stmt->execute()){
-            if($stmt->rowCount()>0){
-            $linha = $stmt->fetch();
-            return $diretoria = new diretoria($linha);
-            }else{
+        if ($stmt->execute()) {
+            if ($stmt->rowCount() > 0) {
+                $linha = $stmt->fetch();
+                return $diretoria = new diretoria($linha);
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
-    
+
     public function alteraFoto() {
         $us = new usuario();
         $us = unserialize($_SESSION['usuario']);
@@ -667,7 +668,6 @@ class usuarioPDO {
                 $us->setFotoPerfil('../Img/' . $nome_imagem . $extensao);
                 $_SESSION['usuario'] = serialize($us);
                 //Recuperar último ID inserido no banco de dados
-
                 //$ultimo_id = $pdo->lastInsertId();
                 $ultimo_id = $us->getId();
 
