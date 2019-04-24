@@ -80,7 +80,7 @@ if (isset($_SESSION['usuario'])) {
                     include_once '../Controle/usuarioPDO.php';
                     $usuarioListar = new usuarioPDO();
                     if (isset($_POST['pesquisar'])) {
-//                      $sql = "nenhum_resultado";  // não usar aqui -- colocar no fim
+//                      $sql = false;  // não usar aqui -- colocar no fim
                         $pesquisa = $_POST['pesquisar'];
                         if ($_POST['select'] == 'nomeUser') {  //esse if é desnecessário, mas ainda não vou exclui-lo. Posso usa-lo depois.
                             $sql = $usuarioListar->pesquisarUsuariosPorNome($pesquisa);
@@ -118,7 +118,7 @@ if (isset($_SESSION['usuario'])) {
                                                                 if ($_POST['select'] == 'apenaAlunos') {
                                                                     $sql = $usuarioListar->pesquisarUsuariosAluno($pesquisa);
                                                                 } else {
-                                                                    $sql = "nenhum_resultado";
+                                                                    $sql = false;
                                                                 }
                                                             }
                                                         }
@@ -154,7 +154,7 @@ if (isset($_SESSION['usuario'])) {
 
                         <?php
                     }
-                    if ($sql != "nenhum_resultado") {
+                    if ($sql != false) {
 
                         while ($resultado = $sql->fetch()) {
                             echo "<tr>";

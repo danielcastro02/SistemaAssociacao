@@ -31,15 +31,15 @@ if (!isset($_SESSION)) {
         <div class = "row">
             <div class = "col s6 card offset-s3">
                 <center><h4>Cadastre o aluno</h4></center>
-                <form class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
+                <form id="formularioAluno" class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
                     <div class = "col s12">
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "nome" required="true">
                             <label for = "nome">Nome</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "usuario" required="true">
-                            <label for = "usuario">Login</label>
+                            <input class = "input-field" type = "text" name = "usuario" required="true" id="usuario">
+                            <label for = "usuario" id="lusuario">Login</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "cidade" required="true">
@@ -66,8 +66,8 @@ if (!isset($_SESSION)) {
                             <label for = "telefone">Telefone</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "email" required="true">
-                            <label for = "email">E-mail</label>
+                            <input class = "input-field" type = "text" name = "email" required="true" id="email">
+                            <label for = "email" id="lemail">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "curso" required="true">
@@ -91,12 +91,12 @@ if (!isset($_SESSION)) {
                         </div>
 
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "cpf" required="true">
-                            <label for = "cpf">CPF</label>
+                            <input class = "input-field" type = "text" name = "cpf" required="true" id="cpf">
+                            <label for = "cpf" id="lcpf">CPF</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "rg" required="true">
-                            <label for = "rg">RG</label>
+                            <input class = "input-field" type = "text" name = "rg" required="true" id="rg">
+                            <label for = "rg" id="lrg">RG</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "password" name = "senha1" required="true">
@@ -136,8 +136,11 @@ if (!isset($_SESSION)) {
         <script>
             $(document).ready(function () {
                 $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
+                
+                
             });
         </script>
+        <script src="../js/verificaFormulario.js" type="text/javascript"></script>
         <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>
