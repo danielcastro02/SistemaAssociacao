@@ -89,7 +89,7 @@ if (!isset($_SESSION['usuario'])) {
                                             $responsavel = new usuario();
                                             $responsavel = $usuarioPDO->selectUsuarioPorId($aluno->getId_responsavel());
                                             ?>
-                                        <span><b>Dados do responsável:</b></span><br>
+                                            <span><b>Dados do responsável:</b></span><br>
                                             <span>Nome: <?php echo $responsavel->getNome(); ?></span><br>
                                             <span>CPF: <?php echo $responsavel->getCpf(); ?></span>
                                             <?php
@@ -117,29 +117,36 @@ if (!isset($_SESSION['usuario'])) {
                                         <span>Usuário não pertence a diretoria.</span><br>
                                     <?php }
                                     ?>
-                                        <br>
-                                        <?php
-                                        $idFilhos = $usuarioPDO->buscarFilhos($usuario->getId());
-                                        if($idFilhos){
-                                            ?>
-                                                <span><b>Responsável por:</b></span><br>
-                                                <?php
-                                            while($linha = $idFilhos->fetch()){
-                                                $us = new usuario();
-                                                $us = $usuarioPDO->selectUsuarioPorId($linha['id_usuario']);
-                                                ?>
-                                                <span><?php echo $us->getNome();?></span><br>
-                                                <span>CPF: <?php echo $us->getCpf();?></span><br>
-                                                    <?php
-                                            }
-                                        }
-                                        
+                                    <br>
+                                    <?php
+                                    $idFilhos = $usuarioPDO->buscarFilhos($usuario->getId());
+                                    if ($idFilhos) {
                                         ?>
-                                     
+                                        <span><b>Responsável por:</b></span><br>
+                                        <?php
+                                        while ($linha = $idFilhos->fetch()) {
+                                            $us = new usuario();
+                                            $us = $usuarioPDO->selectUsuarioPorId($linha['id_usuario']);
+                                            ?>
+                                            <span><?php echo $us->getNome(); ?></span><br>
+                                            <span>CPF: <?php echo $us->getCpf(); ?></span><br>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row center">
                                 <a href="./listarUsuario.php" class="btn hoverable corpadrao">Voltar</a>
+                                <?php
+                                if (($usuarioPDO->verificarAdministrador($_GET['id']) == 'true')) {
+                                    ?><a class="btn corpadrao" href="../Controle/usuarioPDO.php?function=tornarUsuarioNormal&id=<?php echo $_GET['id']; ?>">Administrador</a>
+                                       <?php
+                                   } else {
+                                       ?>
+                                    <a class="btn red darken-2" href="../Controle/usuarioPDO.php?function=tornarUsuarioAdministrador&id=<?php echo $_GET['id']; ?>">Tornar Administrador</a><?php
+                                   }
+                                   ?>
                             </div>
                         </div>
                     </div>
