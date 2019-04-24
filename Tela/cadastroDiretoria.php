@@ -1,9 +1,10 @@
 <?php
 if (!isset($_SESSION)) {
     session_start();
-    unset($_SESSION['temp']);
 }
-//NÃO VERIRIFCAR SE ESTÁ LOGADO, PQ EXISTE O REQUERIMENTO DE ASSOCIAÇÃO
+if (!isset($_SESSION['usuario'])) {
+    header("Location: ../index.php");
+}
 ?>                  
 
 <!DOCTYPE html>
@@ -19,7 +20,7 @@ if (!isset($_SESSION)) {
         <br>
         <div class = "row">
             <div class = "col s6 card offset-s3">
-                <center><h4>Cadastre o aluno</h4></center>
+                <center><h4>Cadastre o membro da diretoria</h4></center>
                 <form class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
                     <div class = "col s12">
                         <div class = "input-field col s6">
@@ -59,19 +60,6 @@ if (!isset($_SESSION)) {
                             <label for = "email">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "curso" required="true">
-                            <label for = "curso">Curso</label>
-                        </div>
-                        <div class = "input-field col s6">
-                            <div class = "left grey-text">
-                                Data de conclusão de curso
-                            </div>
-
-                            <input class = "datepicker" type = "text" name = "previsao_conclusao" required="true">
-
-                            <label for = "previsao_conclusao"></label>
-                        </div>
-                        <div class = "input-field col s6">
                             <div class = "left grey-text">
                                 Data de nascimento
                             </div>
@@ -100,27 +88,15 @@ if (!isset($_SESSION)) {
 
                         <div class="row">
                             <div class="col s12">
-                                <?php
-                                include_once '../Modelo/usuario.php';
-
-                                if (isset($_SESSION['usuario'])) {
-                                    $usuario = new usuario(unserialize($_SESSION['usuario']));
-                                    ?>
-                                    <a href = "./home.php" class = "btn hoverable corpadrao">Cancelar</a>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <a href="../index.php" class="btn hoverable corpadrao">Cancelar</a>
-                                    <?php
-                                }
-                                ?>
-                                <button type="submit" class="btn hoverable corpadrao">Enviar</button>
+                                <a href = "./home.php" class = "btn hoverable corpadrao">Cancelar</a>
+                                <a href = "../index.php" class = "btn hoverable corpadrao">Cancelar</a>
+                                <button type = "submit" class = "btn hoverable corpadrao">Enviar</button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col s3"></div>
+            <div class = "col s3"></div>
         </div>
         <script>
             $(document).ready(function () {
