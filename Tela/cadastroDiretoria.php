@@ -21,7 +21,8 @@ if (!isset($_SESSION['usuario'])) {
         <div class = "row">
             <div class = "col s6 card offset-s3">
                 <center><h4>Cadastre o membro da diretoria</h4></center>
-                <form class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
+                <form class = "center" method = "post" 
+                      action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=diretoria" name = "formulario-cadastro-diretoria">
                     <div class = "col s12">
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "nome" required="true">
@@ -89,7 +90,6 @@ if (!isset($_SESSION['usuario'])) {
                         <div class="row">
                             <div class="col s12">
                                 <a href = "./home.php" class = "btn hoverable corpadrao">Cancelar</a>
-                                <a href = "../index.php" class = "btn hoverable corpadrao">Cancelar</a>
                                 <button type = "submit" class = "btn hoverable corpadrao">Enviar</button>
                             </div>
                         </div>

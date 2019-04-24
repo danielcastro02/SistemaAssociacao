@@ -25,37 +25,50 @@ if (isset($_GET["function"])) {
 class usuarioPDO {
 
     public function pesquisarUsuariosPorNome($pesquisa) {
+        $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         if ($pesquisa != null) {
-            $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like '%$pesquisa%';");
+            $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like :pesquisa;");
+            $sql->bindValue(':pesquisa', $pesquisa);
         } else {
             $sql = $PDO->prepare("SELECT * FROM usuario;");
         }
-        $sql->execute();
-        if ($sql->rowCount() > 0) {
-            return $sql;
+        if ($sql->execute()) {
+            if ($sql->rowCount() > 0) {
+                return $sql;
+            } else {
+                return "nenhum_resultado";
+            }
         } else {
             return "nenhum_resultado";
         }
     }
 
     public function pesquisarUsuariosPorCPF($pesquisa) {
+        $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE cpf like '%$pesquisa%';");
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE cpf like :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
-        if ($sql->rowCount() > 0) {
-            return $sql;
+        if ($sql->execute()) {
+            if ($sql->rowCount() > 0) {
+                return $sql;
+            } else {
+                return "nenhum_resultado";
+            }
         } else {
             return "nenhum_resultado";
         }
     }
 
     public function pesquisarUsuariosPorRG($pesquisa) {
+        $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE rg like '%$pesquisa%';");
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE rg like :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             return $sql;
@@ -65,9 +78,11 @@ class usuarioPDO {
     }
 
     public function pesquisarUsuariosInativos($pesquisa) {
+        $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE pode_logar = 'false' and nome like '%$pesquisa%';");
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE pode_logar = 'false' and nome like :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             return $sql;
@@ -77,9 +92,11 @@ class usuarioPDO {
     }
 
     public function pesquisarUsuariosAdministradores($pesquisa) {
+        $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE administrador = 'true' and nome like '%$pesquisa%';");
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE administrador = 'true' and nome like :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             return $sql;
@@ -89,9 +106,11 @@ class usuarioPDO {
     }
 
     public function pesquisarUsuariosAtivos($pesquisa) {
+        $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE pode_logar = 'true' and nome like '%$pesquisa%';");
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE pode_logar = 'true' and nome like :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             return $sql;
@@ -101,9 +120,11 @@ class usuarioPDO {
     }
 
     public function pesquisarUsuariosAluno($pesquisa) {
+        $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN aluno a ON u.id=a.id_usuario WHERE nome like '%$pesquisa%';");
+        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN aluno a ON u.id=a.id_usuario WHERE nome like :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             return $sql;
@@ -113,9 +134,11 @@ class usuarioPDO {
     }
 
     public function pesquisarUsuariosPorCurso($pesquisa) {
+        $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN aluno a ON u.id=a.id_usuario WHERE curso like '%$pesquisa%';");
+        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN aluno a ON u.id=a.id_usuario WHERE curso like :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             return $sql;
@@ -125,9 +148,11 @@ class usuarioPDO {
     }
 
     public function pesquisarUsuariosDaDiretoria($pesquisa) {
+        $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN diretoria d ON u.id=d.id_usuario WHERE cargo like '%$pesquisa%';");
+        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN diretoria d ON u.id=d.id_usuario WHERE cargo like :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             return $sql;
@@ -238,7 +263,7 @@ class usuarioPDO {
                 $logado = $this->getLogado();
                 if ($logado->getAdministrador() == 'true') {
                     header("Location: ../Tela/orientacao.php?msg=sucessoAluno"); //admin - para maior de idade
-                }else{
+                } else {
                     header("Location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento");
                 }
             } else {
