@@ -28,7 +28,8 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         if ($pesquisa != null) {
-            $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like '%$pesquisa%';");
+            $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like '% :pesquisa %';");
+            $sql->bindValue(":pesquisa", $pesquisa);
         } else {
             $sql = $PDO->prepare("SELECT * FROM usuario;");
         }
@@ -54,8 +55,10 @@ class usuarioPDO {
 
     public function pesquisarUsuariosPorRG($pesquisa) {
         $conexao = new conexao();
+        $pesquisa = '%'.$pesquisa.'%';
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE rg like '%$pesquisa%';");
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE rg like :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             return $sql;
@@ -136,7 +139,22 @@ class usuarioPDO {
         }
     }
 
+    public function trataCpf($cpf){
+        //TODO Fazer verificação matematica do CPF
+        
+        $cpf = str_replace(array(".","-"), "", $cpf);
+        return $cpf;
+    }
+    
+    public function verificarExistencia(usuario $us){
+        
+        
+        
+        return false;
+    }
+    
     public function inserirUsuario() {
+        $_POST['cpf'] = $this->trataCpf($_POST['cpf']);
         $us = new usuario($_POST);
         $al = new aluno($_POST);
         $dr = new diretoria($_POST);
