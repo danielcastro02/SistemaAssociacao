@@ -103,7 +103,7 @@ if (!isset($_SESSION['usuario'])) {
         </div>
         <script>
             $(document).ready(function () {
-                $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
+                $('.datepicker').datepicker({format: 'dd/mm/yyyy'});
             });
         </script>
         <?php include_once '../Base/footer.php'; ?>
