@@ -692,14 +692,19 @@ class usuarioPDO {
         session_destroy();
         header('Location: ../index.php');
     }
+    
     public function tornarUsuarioNormal() {
         $id = $_GET['id'];
+        $usuario = new usuario();
+        $usuario  = unserialize($_SESSION['usuario']);
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("UPDATE usuario SET administrador = 'false' where id = :id ;");
         $sql->bindValue(':id', $id);
         if ($sql->execute()) {
-            //return $sql;
+            if($usuario->getId() == $id){
+                $_SESSION['usuario'] = serialize($this->selectUsuarioPorId($id));
+            }
             header("Location: ../Tela/verMais.php?id=" .  $id);
         } else {
             header("Location: ../Tela/listarUsuario.php?msg=erro");
