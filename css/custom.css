@@ -40,6 +40,11 @@ footer{
     background: linear-gradient(to bottom, #0277bd , #039be5);
 }
 
+.corcancelar{
+    /*    background: linear-gradient(to bottom, #0277bd , #039be5);*/
+    background: linear-gradient(to bottom, #d32f2f , #e53935 );
+}
+
 .alerta_vermelho{
     color: red;
 }

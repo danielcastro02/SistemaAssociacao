@@ -92,7 +92,7 @@ if (!isset($_SESSION['usuario'])) {
                         ?>
 
                         <div class="row">
-                            <a href="./home.php" class="btn hoverable corpadrao">Cancelar</a>
+                            <a href="./home.php" class="btn hoverable corcancelar">Cancelar</a>
                             <button type="submit" class="btn hoverable corpadrao" name="btlogin">Alterar</button>
                         </div>
                     </form>

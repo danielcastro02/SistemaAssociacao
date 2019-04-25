@@ -64,7 +64,7 @@ if (!isset($_SESSION['usuario'])) {
                             </div>
                         </div>
                         <div class="row">
-                            <a href="./home.php" class="btn corpadrao">Cancelar</a>
+                            <a href="./home.php" class="btn corcancelar">Cancelar</a>
                             <button type="submit" class="btn corpadrao" name="btlogin">Alterar</button>
                         </div>
                         <?php

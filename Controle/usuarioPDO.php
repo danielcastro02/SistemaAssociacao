@@ -678,19 +678,64 @@ class usuarioPDO {
                 if (move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio)) {
                     header('Location: ../Tela/home.php');
                 } else {
-                    header('Location: ../Tela/login.php');
+                    header('Location: ../Tela/home.php?msg=erro');
                 }
             } else {
-                header('Location: ../Tela/alterarCurso.php');
+                header('Location: ../Tela/alterarCurso.php?msg=erro');
             }
         } else {
-            header('Location: ../Tela/alterarEnderecoUsuario.php');
+            header('Location: ../Tela/alterarEnderecoUsuario.php?msg=erro');
         }
     }
 
     public function logout() {
         session_destroy();
         header('Location: ../index.php');
+    }
+    
+    public function tornarUsuarioNormal() {
+        $id = $_GET['id'];
+        $usuario = new usuario();
+        $usuario  = unserialize($_SESSION['usuario']);
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        $sql = $pdo->prepare("UPDATE usuario SET administrador = 'false' where id = :id ;");
+        $sql->bindValue(':id', $id);
+        if ($sql->execute()) {
+            if($usuario->getId() == $id){
+                $_SESSION['usuario'] = serialize($this->selectUsuarioPorId($id));
+            }
+            header("Location: ../Tela/verMais.php?id=" .  $id);
+        } else {
+            header("Location: ../Tela/listarUsuario.php?msg=erro");
+        }
+    }
+    
+    public function tornarUsuarioAdministrador() {
+        $id = $_GET['id'];
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        $sql = $pdo->prepare("UPDATE usuario SET administrador = 'true' where id = :id;");
+        $sql->bindValue(':id', $id);
+        if ($sql->execute()) {
+            //return $sql;
+            header("Location: ../Tela/verMais.php?id=" .  $id);
+        } else {
+            header("Location: ../Tela/listarUsuario.php?msg=erro");
+        }
+    }
+    
+    public function verificarAdministrador($id) {
+        $conexao = new conexao();
+        $pdo = $conexao->getConexao();
+        $sql = $pdo->prepare("SELECT administrador FROM usuario where id = :id AND administrador = 'true';");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
