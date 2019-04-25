@@ -39,11 +39,11 @@ if (isset($_SESSION['usuario'])) {
                                     <div class="input-field col s12 center">
                                         <select name="select" id="select">
                                             <option value="todosUsers">Todos</option>
-                                            <option value="nomeTodos">Nome/todos</option>
+<!--                                            <option value="nomeTodos">Nome/todos</option>
                                             <option value="apenaAlunos">Apenas alunos</option>
                                             <option value="rgUser">RG</option>
                                             <option value="cpfUser">CPF</option>
-                                            <option value="cursoUser">Curso</option>
+                                            <option value="cursoUser">Curso</option>-->
                                             <option value="membrosAtivos">Membros ativos</option>
                                             <option value="membrosInativos">Membros inativos</option>
                                             <option value="membrosDiretoria">Membros da diretoria</option>

@@ -36,7 +36,7 @@ if (realpath("./index.php")) {
             <ul id='dropdown2' class='dropdown-content'>
                 <li><a><b>Cadastrar informações</b></a></li>
                 <li><a href="../Tela/cadastroAluno.php">Aluno</a></li>
-                <li><a href="#">Usuário</a></li>
+                <li><a href="../Tela/cadastroDiretoria.php">Usuário da diretoria</a></li>
             </ul>
             <!----------------------------------------------------------------------------------------------->
             <li><a class='dropdown-trigger' data-target='dropdown4'>Listar informações</a></li>

@@ -1,9 +1,10 @@
 <?php
 if (!isset($_SESSION)) {
     session_start();
-    unset($_SESSION['temp']);
 }
-//NÃO VERIRIFCAR SE ESTÁ LOGADO, PQ EXISTE O REQUERIMENTO DE ASSOCIAÇÃO
+if (!isset($_SESSION['usuario'])) {
+    header("Location: ../index.php");
+}
 ?>                  
 
 <!DOCTYPE html>
@@ -19,16 +20,17 @@ if (!isset($_SESSION)) {
         <br>
         <div class = "row">
             <div class = "col s6 card offset-s3">
-                <center><h4>Cadastre o aluno</h4></center>
-                <form id="formulario" class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
+                <center><h4>Cadastre o membro da diretoria</h4></center>
+                <form class = "center" method = "post" 
+                      action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=diretoria" name = "formulario-cadastro-diretoria">
                     <div class = "col s12">
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "nome" required="true">
                             <label for = "nome">Nome</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "usuario" required="true" id="usuario">
-                            <label for = "usuario" id="lusuario">Login</label>
+                            <input class = "input-field" type = "text" name = "usuario" required="true">
+                            <label for = "usuario">Login</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "cidade" required="true">
@@ -55,37 +57,27 @@ if (!isset($_SESSION)) {
                             <label for = "telefone">Telefone</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "email" required="true" id="email">
-                            <label for = "email" id="lemail">E-mail</label>
-                        </div>
-                        <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "curso" required="true">
-                            <label for = "curso">Curso</label>
-                        </div>
-                        <div class = "input-field col s6">
-                            <div class = "left grey-text">
-                                Data de conclusão de curso
-                            </div>
-
-                            <input class = "date" type = "text" name = "previsao_conclusao" required="true">
-
-                            <label for = "previsao_conclusao"></label>
+                            <input class = "input-field" type = "text" name = "email" required="true">
+                            <label for = "email">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
                             <div class = "left grey-text">
                                 Data de nascimento
                             </div>
-                            <input class = "date" type = "text" name = "data_nasc" required="true">
+                            <input class = "datepicker" type = "text" name = "data_nasc" required="true">
                             <label for = "data_nasc"></label>
                         </div>
-
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "cpf" required="true" id="cpf">
-                            <label for = "cpf" id="lcpf">CPF</label>
+                            <input class = "input-field" type = "text" name = "cargo" required="true">
+                            <label for = "cargo">Cargo</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "rg" required="true" id="rg">
-                            <label for = "rg" id="lrg">RG</label>
+                            <input class = "input-field" type = "text" name = "cpf" required="true">
+                            <label for = "cpf">CPF</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "rg" required="true">
+                            <label for = "rg">RG</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "password" name = "senha1" required="true">
@@ -100,35 +92,20 @@ if (!isset($_SESSION)) {
 
                         <div class="row">
                             <div class="col s12">
-                                <?php
-                                include_once '../Modelo/usuario.php';
-
-                                if (isset($_SESSION['usuario'])) {
-                                    $usuario = new usuario(unserialize($_SESSION['usuario']));
-                                    ?>
-                                    <a href = "./home.php" class = "btn hoverable corcancelar">Cancelar</a>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <a href="../index.php" class="btn hoverable corcancelar">Cancelar</a>
-                                    <?php
-                                }
-                                ?>
-                                <button type="submit" class="btn hoverable corpadrao">Enviar</button>
+                                <a href = "./home.php" class = "btn hoverable corpadrao">Cancelar</a>
+                                <button type = "submit" class = "btn hoverable corpadrao">Enviar</button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col s3"></div>
+            <div class = "col s3"></div>
         </div>
-        <script src="../js/mascaras.js"></script>
         <script>
             $(document).ready(function () {
-                $('.date').mask("00/00/0000");
+                $('.datepicker').datepicker({format: 'dd/mm/yyyy'});
             });
         </script>
-        <script src="../js/verificaFormulario.js" type="text/javascript"></script>
         <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>
