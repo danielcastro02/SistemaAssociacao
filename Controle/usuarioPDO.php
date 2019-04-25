@@ -19,7 +19,7 @@ $classe = new usuarioPDO();
 
 if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
-    $classe->$metodo();
+    $classe->$metodo("");
 }
 
 class usuarioPDO {
@@ -154,7 +154,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN aluno a ON u.id=a.id_usuario WHERE usuario like :pesquisa;");
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE usuario like :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -172,7 +172,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("SELECT * FROM usuario u INNER JOIN aluno a ON u.id=a.id_usuario WHERE email like :pesquisa;");
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE email like :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {

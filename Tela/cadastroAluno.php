@@ -31,7 +31,7 @@ if (!isset($_SESSION)) {
         <div class = "row">
             <div class = "col s6 card offset-s3">
                 <center><h4>Cadastre o aluno</h4></center>
-                <form id="formularioAluno" class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
+                <form id="formulario" class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
                     <div class = "col s12">
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "nome" required="true">
@@ -78,7 +78,7 @@ if (!isset($_SESSION)) {
                                 Data de conclusão de curso
                             </div>
 
-                            <input class = "datepicker" type = "text" name = "previsao_conclusao" required="true">
+                            <input class = "date" type = "text" name = "previsao_conclusao" required="true">
 
                             <label for = "previsao_conclusao"></label>
                         </div>
@@ -86,7 +86,7 @@ if (!isset($_SESSION)) {
                             <div class = "left grey-text">
                                 Data de nascimento
                             </div>
-                            <input class = "datepicker" type = "text" name = "data_nasc" required="true">
+                            <input class = "date" type = "text" name = "data_nasc" required="true">
                             <label for = "data_nasc"></label>
                         </div>
 
@@ -133,11 +133,10 @@ if (!isset($_SESSION)) {
             </div>
             <div class="col s3"></div>
         </div>
+        <script src="../js/mascaras.js"></script>
         <script>
             $(document).ready(function () {
-                $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
-                
-                
+                $('.date').mask("00/00/0000");
             });
         </script>
         <script src="../js/verificaFormulario.js" type="text/javascript"></script>

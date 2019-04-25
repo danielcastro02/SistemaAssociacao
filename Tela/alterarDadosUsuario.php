@@ -34,18 +34,18 @@ if (!isset($_SESSION['usuario'])) {
                                 <label for="nome">Nome</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="usuario"  value="<?php echo $logado->getUsuario(); ?>">
-                                <label for="usuario">Usuário</label>
+                                <input type="text" class="input-field" name="usuario"  value="<?php echo $logado->getUsuario(); ?>" id="usuario">
+                                <label for="usuario" id="lusuario">Usuário</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cpf" value="<?php echo $logado->getCpf(); ?>">
-                                <label for="cpf">CPF</label>
+                                <input type="text" class="input-field" name="cpf" value="<?php echo $logado->getCpf(); ?>" id="cpf">
+                                <label for="cpf" id="lcpf">CPF</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="rg" value="<?php echo $logado->getRg(); ?>">
-                                <label for="rg">RG</label>
+                                <input type="text" class="input-field" name="rg" value="<?php echo $logado->getRg(); ?>" id="rj">
+                                <label for="rg" id="rg">RG</label>
                             </div>
                         </div>
                         <div class="row">
@@ -54,8 +54,8 @@ if (!isset($_SESSION['usuario'])) {
                                 <label for="telefone">Telefone</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="email" value="<?php echo $logado->getEmail(); ?>">
-                                <label for="email">Email</label>
+                                <input type="text" class="input-field" name="email" value="<?php echo $logado->getEmail(); ?>" id="email">
+                                <label for="email" id="email">Email</label>
                             </div>
                         </div>
                         <div class="row" id="esconde">
@@ -126,6 +126,7 @@ if (!isset($_SESSION['usuario'])) {
             });
             
         </script>
+        <script src="../js/verificaFormulario.js"></script>
         <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>
