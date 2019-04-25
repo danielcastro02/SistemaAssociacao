@@ -34,7 +34,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <label for="curso">Curso</label>
                             </div>
                             <div class="input-field col s6">
-                                <input class = "input-field datepicker" type = "text" name = "previsao_conclusao" value="<?php echo $logado->getPrevisao_conclusao(); ?>">
+                                <input class = "input-field date" type = "text" name = "previsao_conclusao" value="<?php echo $logado->getPrevisao_conclusao(); ?>">
                                 <label for = "previsao_conclusao">Previsão de Conclusão</label>
                             </div>
                         </div>
@@ -64,7 +64,7 @@ if (!isset($_SESSION['usuario'])) {
                             </div>
                         </div>
                         <div class="row">
-                            <a href="./home.php" class="btn corpadrao">Cancelar</a>
+                            <a href="./home.php" class="btn corcancelar">Cancelar</a>
                             <button type="submit" class="btn corpadrao" name="btlogin">Alterar</button>
                         </div>
                         <?php
@@ -83,16 +83,12 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </div>
         </main>
+        <?php include_once '../Base/footer.php'; ?>
+        <script src="../js/mascaras.js"></script>
         <script>
             $(document).ready(function () {
-                $("#esconde").click(function () {
-                    $("#mostra").removeAttr('hidden');
-                    $("#esconde").attr('hidden', 'true');
-                });
-                $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
+                $('.date').mask("00/00/0000");
             });
-
         </script>
-        <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>
