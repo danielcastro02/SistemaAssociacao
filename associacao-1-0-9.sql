@@ -9,7 +9,7 @@
 
 drop database associacao;
 create database associacao;
-use associcao;
+use associacao;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
