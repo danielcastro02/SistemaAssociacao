@@ -15,11 +15,11 @@ session_start();
                 <div class="center">
                     <h4>Cadastre o responsável</h4>
                     <?php
-                    if(isset($_GET['msg'])){
-                        if($_GET['msg']== 'responsavelMenorDeIdade'){
+                    if (isset($_GET['msg'])) {
+                        if ($_GET['msg'] == 'responsavelMenorDeIdade') {
                             ?>
-                    <h5 class="red-text">O Responsável tem que ser maior de Idade!</h5>
-                                <?php
+                            <h5 class="red-text">O Responsável tem que ser maior de Idade!</h5>
+                            <?php
                         }
                     }
                     ?>
@@ -63,7 +63,7 @@ session_start();
                             <label for="email">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input required="true"  class = "input-field datepicker" type = "text" name = "data_nasc">
+                            <input required="true"  class = "input-field date" type = "text" name = "data_nasc">
                             <label for = "data_nasc">Data de Nascimento</label>
                         </div>
                         <div class="input-field col s6">
@@ -94,14 +94,15 @@ session_start();
                         </div>
                     </div>
                 </form>
-                <script>
-                    $(document).ready(function () {
-                        $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
-                    });
-                </script>
             </div>
             <div class="col s3"></div>
         </div>
         <?php include_once '../Base/footer.php'; ?>
+        <script src="../js/mascaras.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.date').mask("00/00/0000");
+            });
+        </script>
     </body>
 </html>
