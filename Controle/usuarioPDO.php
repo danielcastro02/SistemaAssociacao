@@ -422,7 +422,7 @@ class usuarioPDO {
         $mesAtual = date('m');
         $diaAtual = date('d');
         $nascimento = $data_nasc;
-        list($ano, $mes, $dia) = explode('-', $nascimento);
+        list($ano, $mes, $dia) = explode('/', $nascimento);
         $idade = $anoAtual - $ano;
         if ($mesAtual > $mes) {
             return $idade;
