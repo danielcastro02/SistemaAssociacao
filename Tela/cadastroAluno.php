@@ -117,11 +117,11 @@ if (!isset($_SESSION)) {
                                 if (isset($_SESSION['usuario'])) {
                                     $usuario = new usuario(unserialize($_SESSION['usuario']));
                                     ?>
-                                    <a href = "./home.php" class = "btn hoverable corpadrao">Cancelar</a>
+                                    <a href = "./home.php" class = "btn hoverable corcancelar">Cancelar</a>
                                     <?php
                                 } else {
                                     ?>
-                                    <a href="../index.php" class="btn hoverable corpadrao">Cancelar</a>
+                                    <a href="../index.php" class="btn hoverable corcancelar">Cancelar</a>
                                     <?php
                                 }
                                 ?>
