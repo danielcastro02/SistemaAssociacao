@@ -38,7 +38,7 @@ class usuario {
             $diaAtual = date('d');
             $nascimento = $this->data_nasc;
 
-            list($dia, $mes, $ano) = explode('-', $nascimento);
+            list($dia, $mes, $ano) = explode('/', $nascimento);
 
             $idade = $anoAtual - $ano;
             if ($mesAtual > $mes) {
@@ -217,7 +217,7 @@ class usuario {
             $mesAtual = date('m');
             $diaAtual = date('d');
             $nascimento = $data_nasc;
-            list($dia, $mes, $ano) = explode('-', $this->data_nasc);
+            list($dia, $mes, $ano) = explode('/', $this->data_nasc);
             $idade = $anoAtual - $ano;
             if ($mesAtual > $mes) {
                 $this->idade = $idade;
