@@ -219,7 +219,8 @@ class usuarioPDO {
 
     public function inserirDiretoria(diretoria $dr) {
         if (!is_null($dr->getCargo())) {
-            $this->abrirConexao();
+            $conexao = new conexao();
+            $pdo = $conexao->getConexao();
             $sql = $pdo->prepare("select id from usuario where rg = :rg;");
             $sql->bindValue(':rg', $_POST['rg']);
             $sql->execute();
@@ -230,11 +231,7 @@ class usuarioPDO {
                 $sql->bindValue(':id', $id);
                 $sql->bindValue(':cargo', $_POST['cargo']);
                 $sql->execute();
-                if ($_SESSION['administrador'] == 'true') {
-                    header("Location: ../Tela/orientacaao.php");
-                } else {
-                    header("Location: ../Tela/orientacao.php");
-                }
+                header("Location: ../Tela/home.php");
             }
         } else {
             header("Location: ../index.php?msg=erroInserirDiretoria");

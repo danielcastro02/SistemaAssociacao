@@ -67,7 +67,10 @@ if (!isset($_SESSION['usuario'])) {
                             <input class = "datepicker" type = "text" name = "data_nasc" required="true">
                             <label for = "data_nasc"></label>
                         </div>
-
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "cargo" required="true">
+                            <label for = "cargo">Cargo</label>
+                        </div>
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "cpf" required="true">
                             <label for = "cpf">CPF</label>
