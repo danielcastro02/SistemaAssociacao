@@ -22,7 +22,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class = "col s6 card offset-s3">
                 <center><h4>Cadastre o membro da diretoria</h4></center>
                 <form class = "center" method = "post" 
-                      action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=diretoria" name = "formulario-cadastro-diretoria">
+                      action = "../Controle/usuarioPDO.php?function=inserirDiretoria" name = "formulario-cadastro-diretoria">
                     <div class = "col s12">
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "nome" required="true">
@@ -49,30 +49,27 @@ if (!isset($_SESSION['usuario'])) {
                             <label for = "numero">Número da casa</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "cep" required="true">
+                            <input class = "input-field" type = "text" name = "cep" required="true" id="cep">
                             <label for = "cep">CEP</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "telefone" required="true"> 
+                            <input class = "input-field" type = "text" name = "telefone" required="true" id="telefone"> 
                             <label for = "telefone">Telefone</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "email" required="true">
+                            <input class = "input-field" type = "email" name = "email" required="true">
                             <label for = "email">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
-                            <div class = "left grey-text">
-                                Data de nascimento
-                            </div>
-                            <input class = "datepicker" type = "text" name = "data_nasc" required="true">
-                            <label for = "data_nasc"></label>
+                            <input class = "date" type = "text" name = "data_nasc" required="true">
+                            <label for = "data">Data de Nascimento</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "cargo" required="true">
                             <label for = "cargo">Cargo</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "cpf" required="true">
+                            <input class = "input-field" type = "text" name = "cpf" required="true" id="cpf">
                             <label for = "cpf">CPF</label>
                         </div>
                         <div class = "input-field col s6">
@@ -101,9 +98,13 @@ if (!isset($_SESSION['usuario'])) {
             </div>
             <div class = "col s3"></div>
         </div>
+        <script src="../js/mascaras.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
-                $('.datepicker').datepicker({format: 'dd/mm/yyyy'});
+                $('.date').mask("00/00/0000");
+                $('#cpf').mask("000.000.000-00");
+                $('#telefone').mask("(00) 00000-0000");
+                $('#cep').mask("00000-000");
             });
         </script>
         <?php include_once '../Base/footer.php'; ?>
