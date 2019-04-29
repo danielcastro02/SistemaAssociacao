@@ -32,7 +32,6 @@ class usuarioPDO {
 
             $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like :pesquisa;");
             $sql->bindValue(':pesquisa', $pesquisa);
-
         } else {
             $sql = $PDO->prepare("SELECT * FROM usuario;");
         }
@@ -49,7 +48,7 @@ class usuarioPDO {
 
     public function pesquisarUsuariosPorCPF($pesquisa) {
         $pesquisa = '%' . $pesquisa . '%';
-        if(isset($_GET['cpf'])){
+        if (isset($_GET['cpf'])) {
             $pesquisa = $_GET['cpf'];
         }
         $conexao = new conexao();
@@ -61,6 +60,7 @@ class usuarioPDO {
             if ($sql->rowCount() > 0) {
                 return $sql;
             } else {
+                echo 'false';
                 return "nenhum_resultado";
             }
         } else {
@@ -71,12 +71,46 @@ class usuarioPDO {
 
     public function pesquisarUsuariosPorRG($pesquisa) {
         $pesquisa = '%' . $pesquisa . '%';
-        if(isset($_GET['rg'])){
+        if (isset($_GET['rg'])) {
             $pesquisa = $_GET['rg'];
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $sql = $PDO->prepare("SELECT * FROM usuario WHERE rg like :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            echo 'false';
+            return false;
+        }
+    }
+
+    public function pesquisarPorCPFExata($pesquisa) {
+        if (isset($_GET['cpf'])) {
+            $pesquisa = $_GET['cpf'];
+        }
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE cpf = :pesquisa;");
+        $sql->bindValue(':pesquisa', $pesquisa);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            echo 'false';
+            return false;
+        }
+    }
+
+    public function pesquisarPorRGExata($pesquisa) {
+        if (isset($_GET['rg'])) {
+            $pesquisa = $_GET['rg'];
+        }
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE rg = :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -172,7 +206,7 @@ class usuarioPDO {
     }
 
     public function pesquisarUsuariosPorUsuario($pesquisa) {
-        if(isset($_GET['usuario'])){
+        if (isset($_GET['usuario'])) {
             $pesquisa = $_GET['usuario'];
         }
         $conexao = new conexao();
@@ -190,13 +224,47 @@ class usuarioPDO {
     }
 
     public function pesquisarUsuariosPorEmail($pesquisa) {
-        if(isset($_GET['email'])){
+        if (isset($_GET['email'])) {
             $pesquisa = $_GET['email'];
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
         $sql = $PDO->prepare("SELECT * FROM usuario WHERE email like :pesquisa;");
+        $sql->bindValue(":pesquisa", $pesquisa);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            echo 'false';
+            return false;
+        }
+    }
+
+    public function pesquisarPorUsuarioExata($pesquisa) {
+        if (isset($_GET['usuario'])) {
+            $pesquisa = $_GET['usuario'];
+        }
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE usuario = :pesquisa;");
+        $sql->bindValue(":pesquisa", $pesquisa);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            echo 'false';
+            return false;
+        }
+    }
+
+    public function pesquisarPorEmailExata($pesquisa) {
+        if (isset($_GET['email'])) {
+            $pesquisa = $_GET['email'];
+        }
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE email = :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -215,16 +283,20 @@ class usuarioPDO {
     }
 
     public function verificarExistencia(usuario $us) {
-        if ($this->pesquisarUsuariosPorRG($us->getRg())) {
+        if ($this->pesquisarPorRGExata($us->getRg())) {
+            echo 'rg';
             return true;
         }
-        if ($this->pesquisarUsuariosPorCPF($us->getCpf())) {
+        if ($this->pesquisarPorCPFExata($us->getCpf())) {
+            echo 'cpf';
             return true;
         }
-        if ($this->pesquisarUsuariosPorEmail($us->getEmail())) {
+        if ($this->pesquisarPorEmailExata($us->getEmail())) {
+            echo 'email';
             return true;
         }
-        if ($this->pesquisarUsuariosPorUsuario($us->getUsuario())) {
+        if ($this->pesquisarPorUsuarioExata($us->getUsuario())) {
+            echo 'user';
             return true;
         }
         return false;
@@ -234,7 +306,7 @@ class usuarioPDO {
         $_POST['cpf'] = $this->trataCpf($_POST['cpf']);
         $us = new usuario($_POST);
         if ($this->verificarExistencia($us)) {
-            header("location: ../Tela/erroInterno.php");
+            //header("location: ../Tela/erroInterno.php");
         } else {
             $al = new aluno($_POST);
             $dr = new diretoria($_POST);
@@ -788,25 +860,25 @@ class usuarioPDO {
         session_destroy();
         header('Location: ../index.php');
     }
-    
+
     public function tornarUsuarioNormal() {
         $id = $_GET['id'];
         $usuario = new usuario();
-        $usuario  = unserialize($_SESSION['usuario']);
+        $usuario = unserialize($_SESSION['usuario']);
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("UPDATE usuario SET administrador = 'false' where id = :id ;");
         $sql->bindValue(':id', $id);
         if ($sql->execute()) {
-            if($usuario->getId() == $id){
+            if ($usuario->getId() == $id) {
                 $_SESSION['usuario'] = serialize($this->selectUsuarioPorId($id));
             }
-            header("Location: ../Tela/verMais.php?id=" .  $id);
+            header("Location: ../Tela/verMais.php?id=" . $id);
         } else {
             header("Location: ../Tela/listarUsuario.php?msg=erro");
         }
     }
-    
+
     public function tornarUsuarioAdministrador() {
         $id = $_GET['id'];
         $conexao = new conexao();
@@ -815,12 +887,12 @@ class usuarioPDO {
         $sql->bindValue(':id', $id);
         if ($sql->execute()) {
             //return $sql;
-            header("Location: ../Tela/verMais.php?id=" .  $id);
+            header("Location: ../Tela/verMais.php?id=" . $id);
         } else {
             header("Location: ../Tela/listarUsuario.php?msg=erro");
         }
     }
-    
+
     public function verificarAdministrador($id) {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
