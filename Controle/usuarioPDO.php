@@ -3,16 +3,25 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!realpath("./index.php")) {
-    include_once "../Controle/conexao.php";
-    include_once '../Modelo/usuario.php';
-    include_once '../Modelo/aluno.php';
-    include_once '../Modelo/diretoria.php';
-} else {
+if (realpath("./index.php")) {
     include_once "./Controle/conexao.php";
     include_once './Modelo/usuario.php';
     include_once './Modelo/aluno.php';
     include_once './Modelo/diretoria.php';
+} else {
+    if (realpath("../index.php")) {
+        include_once "../Controle/conexao.php";
+        include_once '../Modelo/usuario.php';
+        include_once '../Modelo/aluno.php';
+        include_once '../Modelo/diretoria.php';
+    } else {
+        if (realpath("../../index.php")) {
+            include_once "../../Controle/conexao.php";
+            include_once '../../Modelo/usuario.php';
+            include_once '../../Modelo/aluno.php';
+            include_once '../../Modelo/diretoria.php';
+        }
+    }
 }
 $classe = new usuarioPDO();
 
@@ -418,7 +427,7 @@ class usuarioPDO {
             $us->setId($this->buscarIDporRG($us->getRg()));
             $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
             $sql->bindValue(':id', $us->getId());
-            $sql->bindValue(':curso', $al->getCurso());
+            $sql->bindValue(':curso', $al->getId_curso());
             $sql->bindValue(':conclusao', $al->getPrevisao_conclusao());
             if ($sql->execute()) {
                 header("Location: ../Tela/orientacao.php?msg=" . $this->enviarOrientacaoCadAluno($us));
@@ -524,7 +533,8 @@ class usuarioPDO {
             return 'senhaVazia';
         }
     }
-    public function validaSenhaJs(){
+
+    public function validaSenhaJs() {
         $us = new usuario($_POST);
         $this->validaSenha($us);
     }
@@ -536,7 +546,7 @@ class usuarioPDO {
         } else {
             $arrNome = str_split($us->getNome(), 4);
             for ($i = 0; $i < count($arrNome); $i++) {
-                if (strpos($us->getSenha1(), "".$arrNome[$i])) {
+                if (strpos($us->getSenha1(), "" . $arrNome[$i])) {
                     echo 'false';
                     return false;
                 }
@@ -581,11 +591,11 @@ class usuarioPDO {
             header("Location: ../index.php?msg=erroBuscarPorCPF");
         }
     }
-    
-    public function verificaMaioridadeJs(){
-        if($this->defineIdade($_POST['data_nasc'])>=18){
+
+    public function verificaMaioridadeJs() {
+        if ($this->defineIdade($_POST['data_nasc']) >= 18) {
             echo 'true';
-        }else{
+        } else {
             echo 'false';
         }
     }
@@ -746,8 +756,8 @@ class usuarioPDO {
             header('Location: ../Tela/alterarAluno.php?msg=senhavazia');
         } else {
             if ($linha['senha'] == $senhaantiga) {
-                $stmt = $pdo->prepare('UPDATE aluno SET curso = :curso, previsao_conclusao = :previsao_conclusao WHERE id_usuario = :id;');
-                $stmt->bindValue(':curso', $aluno->getCurso());
+                $stmt = $pdo->prepare('UPDATE aluno SET id_curso = :curso, previsao_conclusao = :previsao_conclusao WHERE id_usuario = :id;');
+                $stmt->bindValue(':curso', $aluno->getId_curso());
                 $stmt->bindValue(':previsao_conclusao', $aluno->getPrevisao_conclusao());
                 $stmt->bindValue(':id', $al->getId_usuario());
                 if ($stmt->execute()) {

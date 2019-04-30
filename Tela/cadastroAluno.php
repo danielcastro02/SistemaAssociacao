@@ -59,8 +59,22 @@ if (!isset($_SESSION)) {
                             <label for = "email" id="lemail">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "curso" required="true">
-                            <label for = "curso">Curso</label>
+                            <select name = "id_curso" required="true">
+                                <option value="0">Selecione o curso</option>
+                                <?php
+                                include_once '../Controle/cursoPDO.php';
+                                $cursoPDO = new cursoPDO();
+                                $resultado = $cursoPDO->selectTudo();
+                                if ($resultado) {
+                                    while ($linha = $resultado->fetch()) {
+                                        echo "<option value='" . $linha['id'] . "'>" . $linha['nome'] . "</option>";
+                                    }
+                                }else{
+                                    echo "<option value='0'>Nenhum curso cadastrado!</option>";
+                                }
+                                ?>
+                            </select>
+                            <label for = "id_curso">Curso</label>
                         </div>
                         <div class = "input-field col s6">
                             <div class = "left grey-text">
@@ -125,6 +139,7 @@ if (!isset($_SESSION)) {
         <script src="../js/mascaras.js"></script>
         <script>
             $(document).ready(function () {
+                $('select').formSelect();
                 $('.date').mask("00/00/0000");
                 $('#cpf').mask("000.000.000-00");
                 $('#telefone').mask("(00) 00000-0000");

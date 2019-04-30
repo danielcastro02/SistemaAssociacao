@@ -1,8 +1,15 @@
 <?php
+$pontos = "";
 if (realpath("./index.php")) {
-    $pontos = "";
+    $pontos = './';
 } else {
-    $pontos = ".";
+    if (realpath("../index.php")) {
+        $pontos = '../';
+    } else {
+        if (realpath("../../index.php")) {
+            $pontos = '../../';
+        }
+    }
 }
 ?>
 
@@ -23,17 +30,17 @@ if (realpath("./index.php")) {
                     echo $usuario->getNome();
                     ?>
                         </b></a></li>
-                <li><a href="../Tela/alterarDadosUsuario.php">Alterar Dados Pessoais</a></li>
-                <li><a href="../Tela/alterarEnderecoUsuario.php">Alterar Endereço</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/alterarDadosUsuario.php">Alterar Dados Pessoais</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/alterarEnderecoUsuario.php">Alterar Endereço</a></li>
                 <?php 
                     if(isset($_SESSION['aluno'])){
                         ?>
-                <li><a href="../Tela/alterarCurso.php">Alterar Curso</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/alterarCurso.php">Alterar Curso</a></li>
                 <?php
                     }
                 ?>
             </ul>
-            <li><a href="<?php echo $pontos; ?>./Controle/usuarioPDO.php?function=logout">Sair</a></li>
+            <li><a href="<?php echo $pontos; ?>Controle/usuarioPDO.php?function=logout">Sair</a></li>
         </ul>
     </div>
 </nav>
@@ -41,7 +48,7 @@ if (realpath("./index.php")) {
 <script>
 
     $('.dropdown-trigger').dropdown({
-    hover: true
+    hover: false
     });
 
 </script>
