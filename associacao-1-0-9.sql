@@ -7,9 +7,9 @@
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.3
 
-drop database associacao;
+drop database if exists associacao;
 create database associacao;
-use associcao;
+use associacao;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
