@@ -67,7 +67,7 @@ if (!isset($_SESSION)) {
                                 $resultado = $cursoPDO->selectTudo();
                                 if ($resultado) {
                                     while ($linha = $resultado->fetch()) {
-                                        echo "<option value='" . $linha['id'] . "'>" . $linha['nome'] . "</option>";
+                                        echo "<option value='" . $linha['id'] . "'>" . $linha['nome'] ." (".$linha['turno'].")". "</option>";
                                     }
                                 }else{
                                     echo "<option value='0'>Nenhum curso cadastrado!</option>";

@@ -38,7 +38,7 @@ if (!isset($_SESSION['usuario'])) {
                                 $resultado = $cursoPDO->selectTudo();
                                 if ($resultado) {
                                     while ($linha = $resultado->fetch()) {
-                                        echo "<option value='" . $linha['id'] . $linha['id'] == $logado->getId_curso()?"selected":"" . "'>" . $linha['nome'] . "</option>";
+                                        echo "<option value='" . $linha['id'] . $linha['id'] == $logado->getId_curso()?"selected":"" . "'>" . $linha['nome'] ." (".$linha['turno'].")". "</option>";
                                     }
                                 }else{
                                     echo "<option value='0'>Nenhum curso cadastrado!</option>";
