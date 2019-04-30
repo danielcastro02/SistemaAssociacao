@@ -11,7 +11,7 @@ session_start();
         <?php include_once '../Base/nav.php'; ?>
         <br> 
         <div class="row">
-            <div class="col s6 card offset-s3">
+            <div class="col s8 card offset-s2">
                 <div class="center">
                     <h4>Cadastre o responsável</h4>
                     <?php
@@ -63,8 +63,8 @@ session_start();
                             <label for="email" id="lemail">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input required="true"  class = "input-field date" type = "text" name = "data_nasc">
-                            <label for = "data_nasc">Data de Nascimento</label>
+                            <input required="true"  class = "input-field date" type = "text" name = "data_nasc" id="datanasc">
+                            <label for = "data_nasc" id="ldataNasc">Data de Nascimento</label>
                         </div>
                         <div class="input-field col s6">
                             <input required="true"  class="input-field" type="text" name="cpf" id="cpf">
@@ -74,13 +74,13 @@ session_start();
                             <input required="true"  class="input-field" type="text" name="rg" id="rg">
                             <label for="rg" id="lrg">RG</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input required="true"  class="input-field" type="password" name="senha1">
-                            <label for="senha1">Senha</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" id="senha1" type = "password" name = "senha1" required="true">
+                            <label for = "senha1" id="lsenha1">Senha</label>
                         </div>
-                        <div class="input-field col s6">
-                            <input required="true"  class="input-field" type="password" name="senha2">
-                            <label for="senha2">Confirme a senha</label>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" id="senha2" type = "password" name = "senha2" required="true">
+                            <label for = "senha2" id="lsenha2">Confirme a senha</label>
                         </div>
                         <?php
                         include_once '../Base/msgSaida.php';
@@ -109,5 +109,7 @@ session_start();
             });
         </script>
         <script src="../js/verificaFormulario.js" type="text/javascript"></script>
+        <script src="../js/verificaSenha.js" type="text/javascript"></script>
+        <script src="../js/verificaIdade.js" type="text/javascript"></script>
     </body>
 </html>

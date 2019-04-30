@@ -19,7 +19,7 @@ if (!isset($_SESSION['usuario'])) {
         ?>
         <br>
         <div class = "row">
-            <div class = "col s6 card offset-s3">
+            <div class = "col s8 card offset-s2">
                 <center><h4>Cadastre o membro da diretoria</h4></center>
                 <form class = "center" method = "post" 
                       action = "../Controle/usuarioPDO.php?function=inserirDiretoria" name = "formulario-cadastro-diretoria">
@@ -29,8 +29,8 @@ if (!isset($_SESSION['usuario'])) {
                             <label for = "nome">Nome</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "usuario" required="true">
-                            <label for = "usuario">Login</label>
+                            <input class = "input-field" type = "text" name = "usuario" required="true" id="usuario">
+                            <label for = "usuario" id="lusuario">Login</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "cidade" required="true">
@@ -57,8 +57,8 @@ if (!isset($_SESSION['usuario'])) {
                             <label for = "telefone">Telefone</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "email" name = "email" required="true">
-                            <label for = "email">E-mail</label>
+                            <input class = "input-field" type = "email" name = "email" required="true" id="email">
+                            <label for = "email" id="lemail">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "date" type = "text" name = "data_nasc" required="true">
@@ -70,19 +70,19 @@ if (!isset($_SESSION['usuario'])) {
                         </div>
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "cpf" required="true" id="cpf">
-                            <label for = "cpf">CPF</label>
+                            <label for = "cpf" id="lcpf">CPF</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "rg" required="true">
-                            <label for = "rg">RG</label>
+                            <input class = "input-field" type = "text" name = "rg" required="true" id="rg"> 
+                            <label for = "rg" id="lrg">RG</label>
+                        </div>
+                       <div class = "input-field col s6">
+                            <input class = "input-field" id="senha1" type = "password" name = "senha1" required="true">
+                            <label for = "senha1" id="lsenha1">Senha</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "password" name = "senha1" required="true">
-                            <label for = "senha1">Senha</label>
-                        </div>
-                        <div class = "input-field col s6">
-                            <input class = "input-field" type = "password" name = "senha2" required="true">
-                            <label for = "senha2">Confirme a senha</label>
+                            <input class = "input-field" id="senha2" type = "password" name = "senha2" required="true">
+                            <label for = "senha2" id="lsenha2">Confirme a senha</label>
                         </div>
 
                         <?php include_once '../Base/msgSaida.php'; ?>
@@ -107,6 +107,8 @@ if (!isset($_SESSION['usuario'])) {
                 $('#cep').mask("00000-000");
             });
         </script>
+        <script src="../js/verificaSenha.js" type="text/javascript"></script>
+        <script src="../js/verificaFormulario.js" type="text/javascript"></script>
         <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>

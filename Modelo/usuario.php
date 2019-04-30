@@ -32,7 +32,7 @@ class usuario {
                 }
             }
         }
-        if (!is_null($this->data_nasc)) {
+        if (!is_null($this->data_nasc) && $this->data_nasc!= '') {
             $anoAtual = date('Y');
             $mesAtual = date('m');
             $diaAtual = date('d');

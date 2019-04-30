@@ -18,7 +18,7 @@ if (!isset($_SESSION)) {
         ?>
         <br>
         <div class = "row">
-            <div class = "col s6 card offset-s3">
+            <div class = "col s8 card offset-s2">
                 <center><h4>Cadastre o aluno</h4></center>
                 <form id="formulario" class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirAluno" name = "formulario-cadastro-aluno">
                     <div class = "col s12">
@@ -88,12 +88,12 @@ if (!isset($_SESSION)) {
                             <label for = "rg" id="lrg">RG</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "password" name = "senha1" required="true">
-                            <label for = "senha1">Senha</label>
+                            <input class = "input-field" id="senha1" type = "password" name = "senha1" required="true">
+                            <label for = "senha1" id="lsenha1">Senha</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "password" name = "senha2" required="true">
-                            <label for = "senha2">Confirme a senha</label>
+                            <input class = "input-field" id="senha2" type = "password" name = "senha2" required="true">
+                            <label for = "senha2" id="lsenha2">Confirme a senha</label>
                         </div>
 
                         <?php include_once '../Base/msgSaida.php'; ?>
@@ -131,6 +131,7 @@ if (!isset($_SESSION)) {
                 $('#cep').mask("00000-000");
             });
         </script>
+        <script src="../js/verificaSenha.js" type="text/javascript"></script>
         <script src="../js/verificaFormulario.js" type="text/javascript"></script>
         <?php include_once '../Base/footer.php'; ?>
     </body>
