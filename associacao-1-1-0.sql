@@ -1,15 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25-Abr-2019 às 02:56
--- Versão do servidor: 10.1.38-MariaDB
--- versão do PHP: 7.3.3
-
-drop database if exists associacao;
-create database associacao;
-use associacao;
+-- Generation Time: 01-Maio-2019 às 16:35
+-- Versão do servidor: 10.1.36-MariaDB
+-- versão do PHP: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -49,20 +45,10 @@ CREATE TABLE `acesso_negado` (
 CREATE TABLE `aluno` (
   `id_usuario` int(11) NOT NULL,
   `id_responsavel` int(11) DEFAULT NULL,
-  `curso` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `saldo` decimal(10,2) DEFAULT NULL,
-  `previsao_conclusao` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL
+  `id_curso` int(11) DEFAULT NULL,
+  `saldo` decimal(15,2) DEFAULT NULL,
+  `previsao_conclusao` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `aluno`
---
-
-INSERT INTO `aluno` (`id_usuario`, `id_responsavel`, `curso`, `saldo`, `previsao_conclusao`) VALUES
-(17, NULL, 'ADS', '0.00', '20/12/2019'),
-(18, 20, 'a', '0.00', '30/04/2019'),
-(21, NULL, 'c', '0.00', '15/04/2021'),
-(23, NULL, 'ads', '0.00', '18/04/2019');
 
 -- --------------------------------------------------------
 
@@ -78,6 +64,26 @@ CREATE TABLE `contato` (
   `motivo` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `descricao` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `curso`
+--
+
+CREATE TABLE `curso` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `turno` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nivel` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `curso`
+--
+
+INSERT INTO `curso` (`id`, `nome`, `turno`, `nivel`) VALUES
+(3, 'Analise e Desenvolvimento de Sistemas', 'Tarde', 'Superior');
 
 -- --------------------------------------------------------
 
@@ -151,12 +157,19 @@ ALTER TABLE `acesso_negado`
 --
 ALTER TABLE `aluno`
   ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `id_responsavel` (`id_responsavel`);
+  ADD KEY `id_responsavel` (`id_responsavel`),
+  ADD KEY `id_curso` (`id_curso`);
 
 --
 -- Indexes for table `contato`
 --
 ALTER TABLE `contato`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `curso`
+--
+ALTER TABLE `curso`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -185,13 +198,19 @@ ALTER TABLE `acesso_negado`
 -- AUTO_INCREMENT for table `contato`
 --
 ALTER TABLE `contato`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `curso`
+--
+ALTER TABLE `curso`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
@@ -202,7 +221,8 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `aluno`
   ADD CONSTRAINT `aluno_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `aluno_ibfk_2` FOREIGN KEY (`id_responsavel`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `aluno_ibfk_2` FOREIGN KEY (`id_responsavel`) REFERENCES `usuario` (`id`),
+  ADD CONSTRAINT `aluno_ibfk_3` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id`);
 
 --
 -- Limitadores para a tabela `diretoria`

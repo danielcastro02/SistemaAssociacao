@@ -32,7 +32,8 @@ class usuario {
                 }
             }
         }
-        if (!is_null($this->data_nasc)) {
+        if (!is_null($this->data_nasc) && $this->data_nasc!= '') {
+            date_default_timezone_set('America/Sao_Paulo');
             $anoAtual = date('Y');
             $mesAtual = date('m');
             $diaAtual = date('d');
@@ -213,6 +214,7 @@ class usuario {
 
     function setIdade() {
         if (isset($this->data_nasc)) {
+            date_default_timezone_set('America/Sao_Paulo');
             $anoAtual = date('Y');
             $mesAtual = date('m');
             $diaAtual = date('d');

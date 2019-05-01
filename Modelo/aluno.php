@@ -4,7 +4,7 @@ class aluno {
 
     private $id_usuario;
     private $id_responsavel;
-    private $curso;
+    private $id_curso;
     private $saldo;
     private $previsao_conclusao;
     
@@ -35,10 +35,6 @@ class aluno {
         return $this->id_responsavel;
     }
 
-    function getCurso() {
-        return $this->curso;
-    }
-
     function getSaldo() {
         return $this->saldo;
     }
@@ -55,10 +51,6 @@ class aluno {
         $this->id_responsavel = $id_resposnavel;
     }
 
-    function setCurso($curso) {
-        $this->curso = $curso;
-    }
-
     function setSaldo($saldo) {
         $this->saldo = $saldo;
     }
@@ -66,5 +58,15 @@ class aluno {
     function setPrevisao_conclusao($previsao_conclusao) {
         $this->previsao_conclusao = $previsao_conclusao;
     }
+    
+    function getId_curso() {
+        return $this->id_curso;
+    }
+
+    function setId_curso($id_curso) {
+        $this->id_curso = $id_curso;
+    }
+
+
 
 }

@@ -1,8 +1,15 @@
 <?php
+$pontos = "";
 if (realpath("./index.php")) {
-    $pontos = "";
+    $pontos = './';
 } else {
-    $pontos = ".";
+    if (realpath("../index.php")) {
+        $pontos = '../';
+    } else {
+        if (realpath("../../index.php")) {
+            $pontos = '../../';
+        }
+    }
 }
 ?>
 
@@ -20,12 +27,12 @@ if (realpath("./index.php")) {
                 </a></li>
             <ul id='dropdown1' class='dropdown-content'>
                 <li><a><b>Seu Perfil</b></a></li>
-                <li><a href="../Tela/alterarDadosUsuario.php">Alterar dados pessoais</a></li>
-                <li><a href="../Tela/alterarEnderecoUsuario.php">Alterar endereço</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/alterarDadosUsuario.php">Alterar dados pessoais</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/alterarEnderecoUsuario.php">Alterar endereço</a></li>
                 <?php 
                     if(isset($_SESSION['aluno'])){
                         ?>
-                <li><a href="../Tela/alterarCurso.php">Alterar curso</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/alterarCurso.php">Alterar curso</a></li>
                 <li><a href="#">Alterar senha</a></li>
                 <?php
                     }
@@ -35,14 +42,16 @@ if (realpath("./index.php")) {
             <li><a class='dropdown-trigger' data-target='dropdown2'>Cadastrar informações</a></li>
             <ul id='dropdown2' class='dropdown-content'>
                 <li><a><b>Cadastrar informações</b></a></li>
-                <li><a href="../Tela/cadastroAluno.php">Aluno</a></li>
-                <li><a href="../Tela/cadastroDiretoria.php">Usuário da diretoria</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/cadastroAluno.php">Aluno</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/cadastroDiretoria.php">Membro da diretoria</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/cadastroResponsavel.php">Responsável</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Curso/inserirCurso.php">Curso</a></li>
             </ul>
             <!----------------------------------------------------------------------------------------------->
             <li><a class='dropdown-trigger' data-target='dropdown4'>Listar informações</a></li>
             <ul id='dropdown4' class='dropdown-content'>
                 <li><a><b>Listar</b></a></li>
-                <li><a href="../Tela/listarUsuario.php">Usuários</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/listarUsuario.php">Usuários</a></li>
                 <li><a href="#">Movimentações</a></li>
 <!--                <li><a href="#"></a></li>
                 <li><a href="#"></a></li>
@@ -57,7 +66,7 @@ if (realpath("./index.php")) {
 <script>
 
      $('.dropdown-trigger').dropdown({
-         hover:true
+         hover:false
      });
 
 </script>

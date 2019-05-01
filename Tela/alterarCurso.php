@@ -30,8 +30,22 @@ if (!isset($_SESSION['usuario'])) {
                     <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=update" method="POST">
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="curso" value="<?php echo $logado->getCurso(); ?>">
-                                <label for="curso">Curso</label>
+                                <select name = "id_curso" required="true">
+                                <option value="0">Selecione o curso</option>
+                                <?php
+                                include_once '../Controle/cursoPDO.php';
+                                $cursoPDO = new cursoPDO();
+                                $resultado = $cursoPDO->selectTudo();
+                                if ($resultado) {
+                                    while ($linha = $resultado->fetch()) {
+                                        echo "<option value='" . $linha['id'] . $linha['id'] == $logado->getId_curso()?"selected":"" . "'>" . $linha['nome'] ." (".$linha['turno'].")". "</option>";
+                                    }
+                                }else{
+                                    echo "<option value='0'>Nenhum curso cadastrado!</option>";
+                                }
+                                ?>
+                            </select>
+                            <label for = "id_curso">Curso</label>
                             </div>
                             <div class="input-field col s6">
                                 <input class = "input-field date" type = "text" name = "previsao_conclusao" value="<?php echo $logado->getPrevisao_conclusao(); ?>">
