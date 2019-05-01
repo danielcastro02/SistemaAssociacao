@@ -24,14 +24,12 @@ if (!isset($_SESSION)) {
             <br>
             <br>
             <br>
-            <div class="col s4">
-
-            </div>
+            
             <?php
             if (isset($_GET['msg'])) {
                 if ($_GET['msg'] == 'sucessoAluno') {
                     ?>
-                    <div class="col s4 center">
+                    <div class="col s6 center offset-s3">
                         <h5>Aluno(a) cadastrado(a) com sucesso.</h5>
                         <br>
                         <a class="btn hoverable corpadrao" href="../Tela/home.php">Tela inicial</a>
@@ -45,7 +43,7 @@ if (!isset($_SESSION)) {
                         $presidente = $usuarioPDO->selectPresidente();
                         
                         ?>
-                        <div class="col s4 center">
+                        <div class="col s6 center offset-s3">
                             <h5>Seu cadastro foi concluido com sucesso!<br>
                                 Para acessar o portal aguarde a análise do adminstrador ou entre em contado com a Associação.
                             </h5>
@@ -68,7 +66,7 @@ if (!isset($_SESSION)) {
                     } else {
                         if ($_GET['msg'] == 'cadastrarResponsavel') {
                             ?>
-                            <div class="col s4 center">
+                            <div class="col s4 center offset-s4">
                                 <h5>Alunos(as) menores de idade preisam de um responsável.</h5>
                                 <br>
                                 <a class="btn hoverable corpadrao" href="../Tela/cadastroResponsavel.php">Cadastrar responsável</a>

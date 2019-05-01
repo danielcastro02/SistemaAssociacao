@@ -6,7 +6,9 @@ class aluno {
     private $id_responsavel;
     private $id_curso;
     private $saldo;
+    private $data_inicio;
     private $previsao_conclusao;
+    private $concluido;
     
     public function __construct() {
         if (func_num_args() != 0) {
@@ -25,6 +27,22 @@ class aluno {
                 $this->$atributo = $valor;
             }
         }
+    }
+    
+    function getData_inicio() {
+        return $this->data_inicio;
+    }
+
+    function getConcluido() {
+        return $this->concluido;
+    }
+
+    function setData_inicio($data_inicio) {
+        $this->data_inicio = $data_inicio;
+    }
+
+    function setConcluido($concluido) {
+        $this->concluido = $concluido;
     }
     
     function getId_usuario() {

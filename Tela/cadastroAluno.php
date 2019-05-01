@@ -59,6 +59,10 @@ if (!isset($_SESSION)) {
                             <label for = "email" id="lemail">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
+                            <input class = "date" type = "text" name = "data_associacao" required="true">
+                            <label for = "data_nasc">Data de associação</label>
+                        </div>
+                        <div class = "input-field col s6">
                             <select name = "id_curso" required="true">
                                 <option value="0">Selecione o curso</option>
                                 <?php
@@ -77,20 +81,16 @@ if (!isset($_SESSION)) {
                             <label for = "id_curso">Curso</label>
                         </div>
                         <div class = "input-field col s6">
-                            <div class = "left grey-text">
-                                Data de conclusão de curso
-                            </div>
-
-                            <input class = "date" type = "text" name = "previsao_conclusao" required="true">
-
-                            <label for = "previsao_conclusao"></label>
+                            <input class = "date" type = "text" name = "data_inicio" required="true">
+                            <label for = "data_nasc">Data de início do Curso</label>
                         </div>
                         <div class = "input-field col s6">
-                            <div class = "left grey-text">
-                                Data de nascimento
-                            </div>
+                            <input class = "date" type = "text" name = "previsao_conclusao" required="true">
+                            <label for = "previsao_conclusao">Data de conclusão de curso</label>
+                        </div>
+                        <div class = "input-field col s6">
                             <input class = "date" type = "text" name = "data_nasc" required="true">
-                            <label for = "data_nasc"></label>
+                            <label for = "data_nasc">Data de nascimento</label>
                         </div>
 
                         <div class = "input-field col s6">
