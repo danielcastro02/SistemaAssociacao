@@ -63,6 +63,10 @@ session_start();
                             <label for="email" id="lemail">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
+                            <input class = "date" type = "text" name = "data_associacao" required="true">
+                            <label for = "data_nasc">Data de associação</label>
+                        </div>
+                        <div class = "input-field col s6">
                             <input required="true"  class = "input-field date" type = "text" name = "data_nasc" id="datanasc">
                             <label for = "data_nasc" id="ldataNasc">Data de Nascimento</label>
                         </div>

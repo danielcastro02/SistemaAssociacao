@@ -374,7 +374,7 @@ class usuarioPDO {
             $pdo = $conexao->getConexao();
             $senhaMD5 = md5($us->getSenha1());
             $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , "
-                    . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :nascimento, :telefone , :email , :fotoPerfil , "
+                    . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :nascimento, :telefone , :email , :data_associacao , :fotoPerfil , "
                     . ":podeLogar , 'false' );");
             $sql->bindValue(':nome', $us->getNome());
             $sql->bindValue(':usuario', $us->getUsuario());
@@ -390,6 +390,7 @@ class usuarioPDO {
             //$sql = $this->veririfcarTempResponsavel($sql, $us); A principio não é mais necessário
             $sql->bindValue(':telefone', $us->getTelefone());
             $sql->bindValue(':email', $us->getEmail());
+            $sql->bindValue(':data_associacao', $us->getData_associacao());
             $sql->bindValue(':fotoPerfil', '../Img/user_icon.png');
             $sql = $this->verificaPodeLogar($sql);
             if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
@@ -425,9 +426,10 @@ class usuarioPDO {
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
             $us->setId($this->buscarIDporRG($us->getRg()));
-            $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
+            $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0, :dataInicio ,:conclusao, 'false');");
             $sql->bindValue(':id', $us->getId());
             $sql->bindValue(':curso', $al->getId_curso());
+            $sql->bindValue(':dataInicio', $al->getData_inicio());
             $sql->bindValue(':conclusao', $al->getPrevisao_conclusao());
             if ($sql->execute()) {
                 header("Location: ../Tela/orientacao.php?msg=" . $this->enviarOrientacaoCadAluno($us));
@@ -696,13 +698,14 @@ class usuarioPDO {
             $us = new usuario($_POST);
             $us->setId($logado->getId());
             if (($us->getSenha2() == "") && ($us->getSenha1() == "")) {
-                $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email WHERE id = :id;');
+                $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email , data_associacao = :dataAssociacao WHERE id = :id;');
                 $stmt->bindValue(':nome', $us->getNome());
                 $stmt->bindValue(':usuario', $us->getUsuario());
                 $stmt->bindValue(':cpf', $us->getCpf());
                 $stmt->bindValue(':rg', $us->getRg());
                 $stmt->bindValue(':telefone', $us->getTelefone());
                 $stmt->bindValue(':email', $us->getEmail());
+                $stmt->bindValue(':dataAssociacao', $us->getData_associacao());
                 $stmt->bindValue(':id', $us->getId());
 
                 if ($stmt->execute()) {
@@ -757,9 +760,11 @@ class usuarioPDO {
             header('Location: ../Tela/alterarAluno.php?msg=senhavazia');
         } else {
             if ($linha['senha'] == $senhaantiga) {
-                $stmt = $pdo->prepare('UPDATE aluno SET id_curso = :curso, previsao_conclusao = :previsao_conclusao WHERE id_usuario = :id;');
+                $stmt = $pdo->prepare('UPDATE aluno SET id_curso = :curso, data_inicio = :dataInicio , previsao_conclusap = :previsao_conclusao, concluido = :concluido WHERE id_usuario = :id;');
                 $stmt->bindValue(':curso', $aluno->getId_curso());
                 $stmt->bindValue(':previsao_conclusao', $aluno->getPrevisao_conclusao());
+                $stmt->bindValue(':dataInicio', $aluno->getData_inicio());
+                $stmt->bindValue(':concluido', $aluno->getConcluido());
                 $stmt->bindValue(':id', $al->getId_usuario());
                 if ($stmt->execute()) {
                     $logado->atualizar($_POST);

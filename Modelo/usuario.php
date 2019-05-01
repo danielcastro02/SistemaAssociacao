@@ -15,6 +15,7 @@ class usuario {
     private $data_nasc;
     private $telefone;
     private $email;
+    private $data_associacao;
     private $fotoPerfil;
     private $pode_logar;
     private $administrador;
@@ -62,6 +63,14 @@ class usuario {
             }
         }
         $this->setIdade();
+    }
+    
+    function getData_associacao() {
+        return $this->data_associacao;
+    }
+
+    function setData_associacao($data_associacao) {
+        $this->data_associacao = $data_associacao;
     }
 
     function getId() {
