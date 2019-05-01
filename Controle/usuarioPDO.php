@@ -601,6 +601,7 @@ class usuarioPDO {
     }
 
     public function defineIdade($data_nasc) {
+        date_default_timezone_set('America/Sao_Paulo');        
         $anoAtual = date('Y');
         $mesAtual = date('m');
         $diaAtual = date('d');
