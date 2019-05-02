@@ -52,6 +52,7 @@ if (realpath("./index.php")) {
             <ul id='dropdown4' class='dropdown-content'>
                 <li><a><b>Listar</b></a></li>
                 <li><a href="<?php echo $pontos; ?>Tela/listarUsuario.php">Usuários</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/ListagemUsuario/guiaCurso.php">Guia Por Cursos</a></li>
                 <li><a href="#">Movimentações</a></li>
 <!--                <li><a href="#"></a></li>
                 <li><a href="#"></a></li>

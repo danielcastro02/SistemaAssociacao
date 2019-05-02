@@ -282,11 +282,11 @@ class usuarioPDO {
             return false;
         }
     }
-    
-    public function selectTodosUsers($pesquisa){
+
+    public function selectTodosUsers($pesquisa) {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $pesquisa = "%".$pesquisa."%";
+        $pesquisa = "%" . $pesquisa . "%";
         $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like :nome or "
                 . "usuario like :usuario or "
                 . "cpf like :cpf or rg like :rg or email like :email;");
@@ -303,11 +303,11 @@ class usuarioPDO {
             return false;
         }
     }
-    
-    public function selectMembrosAtivos($pesquisa){
+
+    public function selectMembrosAtivos($pesquisa) {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $pesquisa = "%".$pesquisa."%";
+        $pesquisa = "%" . $pesquisa . "%";
         $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
                 . "usuario like :usuario or "
                 . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'true';");
@@ -320,17 +320,16 @@ class usuarioPDO {
         if ($sql->rowCount() > 0) {
             return $sql;
         } else {
-            
+
             //echo 'false';
             return false;
         }
     }
-    
-    
-    public function selectMembrosInativos($pesquisa){
+
+    public function selectMembrosInativos($pesquisa) {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $pesquisa = "%".$pesquisa."%";
+        $pesquisa = "%" . $pesquisa . "%";
         $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
                 . "usuario like :usuario or "
                 . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'false';");
@@ -347,11 +346,11 @@ class usuarioPDO {
             return false;
         }
     }
-    
-    public function selectMembrosDiretoria($pesquisa){
+
+    public function selectMembrosDiretoria($pesquisa) {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $pesquisa = "%".$pesquisa."%";
+        $pesquisa = "%" . $pesquisa . "%";
         $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
                 . "usuario like :usuario or "
                 . "cpf like :cpf or rg like :rg or email like :email) and "
@@ -369,11 +368,11 @@ class usuarioPDO {
             return false;
         }
     }
-    
-    public function selectAdmin($pesquisa){
+
+    public function selectAdmin($pesquisa) {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $pesquisa = "%".$pesquisa."%";
+        $pesquisa = "%" . $pesquisa . "%";
         $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
                 . "usuario like :usuario or "
                 . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'true';");
@@ -387,6 +386,19 @@ class usuarioPDO {
             return $sql;
         } else {
             echo 'false';
+            return false;
+        }
+    }
+
+    public function selectPorCurso($id) {
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE id in (select id_usuario from aluno where id_curso = :pesquisa);");
+        $sql->bindValue(':pesquisa', $id);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
             return false;
         }
     }
@@ -711,7 +723,7 @@ class usuarioPDO {
     }
 
     public function defineIdade($data_nasc) {
-        date_default_timezone_set('America/Sao_Paulo');        
+        date_default_timezone_set('America/Sao_Paulo');
         $anoAtual = date('Y');
         $mesAtual = date('m');
         $diaAtual = date('d');
