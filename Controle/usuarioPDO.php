@@ -3,18 +3,26 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!realpath("./index.php")) {
-    include_once "../Controle/conexao.php";
-    include_once '../Modelo/usuario.php';
-    include_once '../Modelo/aluno.php';
-    include_once '../Modelo/diretoria.php';
-} else {
+if (realpath("./index.php")) {
     include_once "./Controle/conexao.php";
     include_once './Modelo/usuario.php';
     include_once './Modelo/aluno.php';
     include_once './Modelo/diretoria.php';
+} else {
+    if (realpath("../index.php")) {
+        include_once "../Controle/conexao.php";
+        include_once '../Modelo/usuario.php';
+        include_once '../Modelo/aluno.php';
+        include_once '../Modelo/diretoria.php';
+    } else {
+        if (realpath("../../index.php")) {
+            include_once "../../Controle/conexao.php";
+            include_once '../../Modelo/usuario.php';
+            include_once '../../Modelo/aluno.php';
+            include_once '../../Modelo/diretoria.php';
+        }
+    }
 }
-// fazer a verificaÃ§Ã£o utilizando o realpath para get do cadastroResponsavel -- nota: utilizar temp
 $classe = new usuarioPDO();
 
 if (isset($_GET["function"])) {
@@ -39,7 +47,7 @@ class usuarioPDO {
             if ($sql->rowCount() > 0) {
                 return $sql;
             } else {
-                return "nenhum_resultado";
+                return false;
             }
         } else {
             return false;
@@ -61,7 +69,7 @@ class usuarioPDO {
                 return $sql;
             } else {
                 echo 'false';
-                return "nenhum_resultado";
+                return false;
             }
         } else {
             echo 'false';
@@ -275,162 +283,205 @@ class usuarioPDO {
         }
     }
 
-    public function trataCpf($cpf) {
-        //TODO Fazer verificação matematica do CPF
+    public function validaCpf($cpf) {
+        $cpf = str_replace(".", "", $cpf);
+        $cpf = str_replace("-", "", $cpf);
+        if (strlen($cpf) != 11) {
+            return false;
+        } else {
+            if ($cpf == '11111111111' ||
+                    $cpf == '22222222222' ||
+                    $cpf == '33333333333' ||
+                    $cpf == '44444444444' ||
+                    $cpf == '55555555555' ||
+                    $cpf == '66666666666' ||
+                    $cpf == '77777777777' ||
+                    $cpf == '88888888888' ||
+                    $cpf == '99999999999' ||
+                    $cpf == '00000000000') {
+                return false;
+            } else {
+                $v1 = 0;
+                $v2 = 0;
+                $cpfArr = str_split($cpf);
+                for ($i = 0; $i < 9; $i++) {
+                    $v1 += ($i + 1) * $cpfArr[$i];
+                }
+                $v1 = $v1 % 11;
+                $v1 = $v1 % 10;
+                for ($i = 1; $i < 9; $i++) {
+                    $v2 += ($i) * $cpfArr[$i];
+                }
+                $v2 += 9 * $v1;
+                $v2 = $v2 % 11;
+                $v2 = $v2 % 10;
 
-        $cpf = str_replace(array(".", "-"), "", $cpf);
-        return $cpf;
+                if (($v1 != $cpfArr[9]) || ($v2 != $cpfArr[10])) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
     }
 
-    public function verificarExistencia(usuario $us) {
+    private function verificarExistencia(usuario $us) {
         if ($this->pesquisarPorRGExata($us->getRg())) {
-            echo 'rg';
             return true;
         }
         if ($this->pesquisarPorCPFExata($us->getCpf())) {
-            echo 'cpf';
             return true;
         }
         if ($this->pesquisarPorEmailExata($us->getEmail())) {
-            echo 'email';
             return true;
         }
         if ($this->pesquisarPorUsuarioExata($us->getUsuario())) {
-            echo 'user';
             return true;
         }
         return false;
     }
 
-    public function inserirUsuario() {
-        $_POST['cpf'] = $this->trataCpf($_POST['cpf']);
+    public function inserirDiretoria() {
         $us = new usuario($_POST);
-        if ($this->verificarExistencia($us)) {
-            //header("location: ../Tela/erroInterno.php");
-        } else {
-            $al = new aluno($_POST);
-            $dr = new diretoria($_POST);
-            if ($this->validarFormlario($us)) { //validar estÃ¡incompleto
-                $conexao = new conexao();
-                $pdo = $conexao->getConexao();
-                $senhaMD5 = md5($us->getSenha1());
-                $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , "
-                        . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :nascimento, :telefone , :email , :fotoPerfil , "
-                        . ":podeLogar , 'false' );");
-                $sql->bindValue(':nome', $us->getNome());
-                $sql->bindValue(':usuario', $us->getUsuario());
-                $sql->bindValue(':senha', $senhaMD5);
-                $sql->bindValue(':cidade', $us->getCidade());
-                $sql->bindValue(':bairro', $us->getBairro());
-                $sql->bindValue(':rua', $us->getRua());
-                $sql->bindValue(':numero', $us->getNumero());
-                $sql->bindValue(':cep', $us->getCep());
-                $sql->bindValue(':cpf', $us->getCpf());
-                $sql->bindValue(':rg', $us->getRg());
-                $sql = $this->veririfcarTempResponsavel($sql, $us);
-                $sql->bindValue(':telefone', $us->getTelefone());
-                $sql->bindValue(':email', $us->getEmail());
-                $sql->bindValue(':fotoPerfil', '../Img/user_icon.png');
-                if (isset($_SESSION['usuario'])) {
-                    $logado = new usuario(unserialize($_SESSION['usuario']));
-                    if ($logado->getAdministrador() == 'true') {
-                        $sql->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
-                    } else {
-
-                        $sql->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
-                    }
-                } else {
-                    $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
-                }
-                if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
-                    if (isset($_GET['user'])) {
-                        if ($_GET['user'] == 'aluno') {
-                            $this->inserirAluno($al, $us);
-                        }
-                        if ($_GET['user'] == 'diretoria') {
-                            $this->inserirDiretoria($dr);
-                        }
-                        if (isset($_SESSION['temp']) && $_GET['user'] == 'responsavel') {
-                            $this->inserirResponsavel($us);
-                        }
-                    }
-                } else {
-                    header('location: ../Tela/erroInserirUsuario.php');
-                }
-            } else {
-//nunca vai chegar aqui. O ValidarFormulario vai redirecionar antes erro.
-            }
-        }
-    }
-
-    public function inserirDiretoria(diretoria $dr) {
-        if (!is_null($dr->getCargo())) {
+        $dr = new diretoria($_POST);
+        $resposta = $this->inserirUsuario($us);
+        if ($resposta == 'true') {
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
             $sql = $pdo->prepare("select id from usuario where rg = :rg;");
-            $sql->bindValue(':rg', $_POST['rg']);
+            $sql->bindValue(':rg', $us->getRg());
             $sql->execute();
             if ($sql->rowCount() > 0) {
                 $linha = $sql->fetch(PDO::FETCH_ASSOC);
-                $id = $linha['id'];
+                $dr->setId_usuario($linha['id']);
                 $sql = $pdo->prepare("insert into diretoria values(:id,:cargo);");
-                $sql->bindValue(':id', $id);
-                $sql->bindValue(':cargo', $_POST['cargo']);
+                $sql->bindValue(':id', $dr->getId_usuario());
+                $sql->bindValue(':cargo', $dr->getCargo());
                 $sql->execute();
-                header("Location: ../Tela/home.php");
+                header("Location: ../Tela/cadastroDiretoria.php?msg=sucesso");
+            } else {
+                header("Location: ../Tela/cadastroDiretoria.php?msg=erroInserirDiretoria");
             }
         } else {
-            header("Location: ../index.php?msg=erroInserirDiretoria");
+            header('location: ../Tela/cadastrodiretoria.php?msg=' . $resposta);
         }
     }
 
-    public function inserirAluno(aluno $al, usuario $us) {
-        $conexao = new conexao();
-        $pdo = $conexao->getConexao();
-        $id = $this->buscarIDporRG($us->getRg());
-        $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0,:conclusao);");
-        $sql->bindValue(':id', $id);
-        $sql->bindValue(':curso', $al->getCurso());
-        $sql->bindValue(':conclusao', $al->getPrevisao_conclusao());
-        if ($sql->execute()) {
-            $this->enviarOrientacaoCadAluno($us);
+    public function inserirUsuario(usuario $us) {
+        $validacao = $this->validarFormlario($us);
+        if ($validacao == 'true') { //validar estáincompleto
+            $conexao = new conexao();
+            $pdo = $conexao->getConexao();
+            $senhaMD5 = md5($us->getSenha1());
+            $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , "
+                    . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :nascimento, :telefone , :email , :data_associacao , :fotoPerfil , "
+                    . ":podeLogar , 'false' );");
+            $sql->bindValue(':nome', $us->getNome());
+            $sql->bindValue(':usuario', $us->getUsuario());
+            $sql->bindValue(':senha', $senhaMD5);
+            $sql->bindValue(':cidade', $us->getCidade());
+            $sql->bindValue(':bairro', $us->getBairro());
+            $sql->bindValue(':rua', $us->getRua());
+            $sql->bindValue(':numero', $us->getNumero());
+            $sql->bindValue(':cep', $us->getCep());
+            $sql->bindValue(':cpf', $us->getCpf());
+            $sql->bindValue(':rg', $us->getRg());
+            $sql->bindValue(':nascimento', $us->getData_nasc());
+            //$sql = $this->veririfcarTempResponsavel($sql, $us); A principio não é mais necessário
+            $sql->bindValue(':telefone', $us->getTelefone());
+            $sql->bindValue(':email', $us->getEmail());
+            $sql->bindValue(':data_associacao', $us->getData_associacao());
+            $sql->bindValue(':fotoPerfil', '../Img/user_icon.png');
+            $sql = $this->verificaPodeLogar($sql);
+            if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
+                return true;
+            } else {
+                return 'erroInsertUsuario';
+            }
         } else {
-            header("Location: ../index.php?msg=erroInserirAlunoMethod");  //MODIFICAR HEADER
+            return $validacao;
         }
     }
 
-    public function enviarOrientacaoCadAluno(usuario $us) { //mÃ©todo de controle
+    private function verificaPodeLogar(PDOStatement $sql) {
+        if (isset($_SESSION['usuario'])) {
+            $logado = new usuario(unserialize($_SESSION['usuario']));
+            if ($logado->getAdministrador() == 'true') {
+                $sql->bindValue(':podeLogar', 'true'); //administrador logado cadastrando aluno TRUE
+            } else {
+
+                $sql->bindValue(':podeLogar', 'false'); //aluno logado cadastrando o responsável
+            }
+        } else {
+            $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
+        }
+        return $sql;
+    }
+
+    public function inserirAluno() {
+        $us = new usuario($_POST);
+        $al = new aluno($_POST);
+        $resultado = $this->inserirUsuario($us);
+        if ($resultado == 'true') {
+            $conexao = new conexao();
+            $pdo = $conexao->getConexao();
+            $us->setId($this->buscarIDporRG($us->getRg()));
+            $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0, :dataInicio ,:conclusao, 'false');");
+            $sql->bindValue(':id', $us->getId());
+            $sql->bindValue(':curso', $al->getId_curso());
+            $sql->bindValue(':dataInicio', $al->getData_inicio());
+            $sql->bindValue(':conclusao', $al->getPrevisao_conclusao());
+            if ($sql->execute()) {
+                header("Location: ../Tela/orientacao.php?msg=" . $this->enviarOrientacaoCadAluno($us));
+            } else {
+                header("Location: ../Tela/cadastroAluno.php?msg=erroInserirAluno");
+            }
+        } else {
+            header('location: ../Tela/cadastroAluno.php?msg=' . $resultado);
+        }
+    }
+
+    private function enviarOrientacaoCadAluno(usuario $us) { //mÃ©todo de controle
         if ($us->getIdade() >= 18) { //Sucesso ao cadastrar ALUNO
             if (isset($_SESSION['usuario'])) {
-                $logado = new usuario();
-                $logado = $this->getLogado();
+                $logado = new usuario($this->getLogado());
                 if ($logado->getAdministrador() == 'true') {
-                    header("Location: ../Tela/orientacao.php?msg=sucessoAluno"); //admin - para maior de idade
+                    return "sucessoAluno"; //admin - para maior de idade
                 } else {
-                    header("Location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento");
+                    return "sucessoAlunoRequerimento";
                 }
             } else {
-                header("Location: ../Tela/orientacao.php?msg=sucessoAlunoRequerimento"); // requerimento - aluno sem login
+                return "sucessoAlunoRequerimento"; // requerimento - aluno sem login
             }
         } else {
-            $_SESSION['temp'] = $this->buscarIDporRG($us->getRg());
-            header("location: ../Tela/orientacao.php?msg=cadastrarResponsavel");
+            $_SESSION['temp'] = $us->getId();
+            return "cadastrarResponsavel";
         }
     }
 
-    public function inserirResponsavel(usuario $us) {
-        $con = new conexao();
-        $pdo = $con->getConexao();
-        $id_respon = $this->buscarIDporRG($us->getRg());
-        $stmt = $pdo->prepare("update aluno set id_responsavel = :idresponsavel where id_usuario = :iduser ; ");
-        $stmt->bindValue(':idresponsavel', $id_respon);
-        $stmt->bindValue(':iduser', $_SESSION['temp']);
-        $id_aluno = $_SESSION['temp'];
-        unset($_SESSION['temp']);
-        if ($stmt->execute()) {
-            $this->enviarOrientacaoCadAluno($this->selectUsuarioPorId($id_aluno));
+    public function inserirResponsavel() {
+        $us = new usuario($_POST);
+        $resposta = $this->inserirUsuario($us);
+        if ($resposta == 'true') {
+            if (isset($_SESSION['temp'])) {
+                $con = new conexao();
+                $pdo = $con->getConexao();
+                $us->setId($this->buscarIDporRG($us->getRg()));
+                $stmt = $pdo->prepare("update aluno set id_responsavel = :idresponsavel where id_usuario = :iduser ; ");
+                $stmt->bindValue(':idresponsavel', $us->getId());
+                $stmt->bindValue(':iduser', $_SESSION['temp']);
+                $id = $_SESSION['temp'];
+                unset($_SESSION['temp']);
+                if ($stmt->execute()) {
+                    header('location: ../Tela/orientacao.php?msg=' . $this->enviarOrientacaoCadAluno($this->selectAlunoPorId($id)));
+                } else {
+                    header('location: ../Tela/cadastroResponsavel.php?msg=erroInsert');
+                }
+            } else {
+                header('location: ../Tela/cadastroResponsavel.php?msg=sucesso');
+            }
         } else {
-            
+            header('location: ../Tela/cadastroResponsavel.php?msg=' . $resposta);
         }
     }
 
@@ -447,7 +498,7 @@ class usuarioPDO {
         }
     }
 
-    public function veririfcarTempResponsavel($sql, usuario $us) {
+    private function veririfcarTempResponsavel($sql, usuario $us) {
         if (isset($_SESSION['temp'])) {
             if ($us->getIdade() >= 18) {
                 $sql->bindValue(':nascimento', $us->getData_nasc());
@@ -461,23 +512,56 @@ class usuarioPDO {
         }
     }
 
-    public function validarFormlario(usuario $us) {
-//verificarCadastroExistente(); //por CPF e RG
+    private function validarFormlario(usuario $us) {
         if ($us->getSenha1() != null and $us->getSenha2() != null) { //completar
             if ($us->getSenha1() == $us->getSenha2()) {
-                return true;
+                if ($this->validaSenha($us)) {
+                    if ($this->validaCpf($us->getCpf())) {
+                        if (!$this->verificarExistencia($us)) {
+                            return true;
+                        } else {
+                            return 'dadosJaExistem';
+                        }
+                    } else {
+                        return 'cpfInvalidos';
+                    }
+                } else {
+                    return 'senhaInvalida';
+                }
             } else {
-                header('location: ../Tela/cadastroUsuario.php?msg=senhasDiferentes');
+                return 'senhasNaoCoincidem';
             }
         } else {
-            header('location: ../Tela/cadastroUsuario.php?msg=senhaVazia');
+            return 'senhaVazia';
         }
     }
 
-    public function cancelarCadastroAluno() {
-        $conexao = new conexao();
-        $pdo = $conexao->getConexao();
-//continuar -- se chegar nessa function com a temp fazer um delete do usuario -- nota: Falar com o Daniel
+    public function validaSenhaJs() {
+        $us = new usuario($_POST);
+        $this->validaSenha($us);
+    }
+
+    private function validaSenha(usuario $us) {
+        if (strlen($us->getSenha1()) < 8) {
+            echo 'false';
+            return false;
+        } else {
+            $arrNome = str_split($us->getNome(), 4);
+            for ($i = 0; $i < count($arrNome); $i++) {
+                if (strpos($us->getSenha1(), "" . $arrNome[$i])) {
+                    echo 'false';
+                    return false;
+                }
+            }
+            for ($i = 0; $i < 10; $i++) {
+                if (strpos($us->getSenha1(), '' . $i)) {
+                    echo 'true';
+                    return true;
+                }
+            }
+            echo 'false';
+            return false;
+        }
     }
 
     public function buscarIDporRG($rg) {
@@ -510,7 +594,16 @@ class usuarioPDO {
         }
     }
 
-    public function buscarIdade($data_nasc) { // mÃ©todo incompleto - verificar
+    public function verificaMaioridadeJs() {
+        if ($this->defineIdade($_POST['data_nasc']) >= 18) {
+            echo 'true';
+        } else {
+            echo 'false';
+        }
+    }
+
+    public function defineIdade($data_nasc) {
+        date_default_timezone_set('America/Sao_Paulo');        
         $anoAtual = date('Y');
         $mesAtual = date('m');
         $diaAtual = date('d');
@@ -579,9 +672,12 @@ class usuarioPDO {
     }
 
     public function getLogado() {
-        $logado = new usuario();
-        $logado = unserialize($_SESSION['usuario']);
-        return $logado;
+        if (isset($_SESSION['usuario'])) {
+            $logado = new usuario(unserialize($_SESSION['usuario']));
+            return $logado;
+        } else {
+            return false;
+        }
     }
 
     public function update() {
@@ -602,13 +698,14 @@ class usuarioPDO {
             $us = new usuario($_POST);
             $us->setId($logado->getId());
             if (($us->getSenha2() == "") && ($us->getSenha1() == "")) {
-                $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email WHERE id = :id;');
+                $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email , data_associacao = :dataAssociacao WHERE id = :id;');
                 $stmt->bindValue(':nome', $us->getNome());
                 $stmt->bindValue(':usuario', $us->getUsuario());
                 $stmt->bindValue(':cpf', $us->getCpf());
                 $stmt->bindValue(':rg', $us->getRg());
                 $stmt->bindValue(':telefone', $us->getTelefone());
                 $stmt->bindValue(':email', $us->getEmail());
+                $stmt->bindValue(':dataAssociacao', $us->getData_associacao());
                 $stmt->bindValue(':id', $us->getId());
 
                 if ($stmt->execute()) {
@@ -663,9 +760,11 @@ class usuarioPDO {
             header('Location: ../Tela/alterarAluno.php?msg=senhavazia');
         } else {
             if ($linha['senha'] == $senhaantiga) {
-                $stmt = $pdo->prepare('UPDATE aluno SET curso = :curso, previsao_conclusao = :previsao_conclusao WHERE id_usuario = :id;');
-                $stmt->bindValue(':curso', $aluno->getCurso());
+                $stmt = $pdo->prepare('UPDATE aluno SET id_curso = :curso, data_inicio = :dataInicio , previsao_conclusap = :previsao_conclusao, concluido = :concluido WHERE id_usuario = :id;');
+                $stmt->bindValue(':curso', $aluno->getId_curso());
                 $stmt->bindValue(':previsao_conclusao', $aluno->getPrevisao_conclusao());
+                $stmt->bindValue(':dataInicio', $aluno->getData_inicio());
+                $stmt->bindValue(':concluido', $aluno->getConcluido());
                 $stmt->bindValue(':id', $al->getId_usuario());
                 if ($stmt->execute()) {
                     $logado->atualizar($_POST);

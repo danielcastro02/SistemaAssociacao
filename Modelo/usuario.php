@@ -15,6 +15,7 @@ class usuario {
     private $data_nasc;
     private $telefone;
     private $email;
+    private $data_associacao;
     private $fotoPerfil;
     private $pode_logar;
     private $administrador;
@@ -32,7 +33,8 @@ class usuario {
                 }
             }
         }
-        if (!is_null($this->data_nasc)) {
+        if (!is_null($this->data_nasc) && $this->data_nasc!= '') {
+            date_default_timezone_set('America/Sao_Paulo');
             $anoAtual = date('Y');
             $mesAtual = date('m');
             $diaAtual = date('d');
@@ -61,6 +63,14 @@ class usuario {
             }
         }
         $this->setIdade();
+    }
+    
+    function getData_associacao() {
+        return $this->data_associacao;
+    }
+
+    function setData_associacao($data_associacao) {
+        $this->data_associacao = $data_associacao;
     }
 
     function getId() {
@@ -213,6 +223,7 @@ class usuario {
 
     function setIdade() {
         if (isset($this->data_nasc)) {
+            date_default_timezone_set('America/Sao_Paulo');
             $anoAtual = date('Y');
             $mesAtual = date('m');
             $diaAtual = date('d');

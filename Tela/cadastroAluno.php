@@ -18,9 +18,9 @@ if (!isset($_SESSION)) {
         ?>
         <br>
         <div class = "row">
-            <div class = "col s6 card offset-s3">
+            <div class = "col s8 card offset-s2">
                 <center><h4>Cadastre o aluno</h4></center>
-                <form id="formulario" class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
+                <form id="formulario" class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirAluno" name = "formulario-cadastro-aluno">
                     <div class = "col s12">
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "nome" required="true">
@@ -47,36 +47,50 @@ if (!isset($_SESSION)) {
                             <label for = "numero">Número da casa</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "cep" required="true">
+                            <input class = "input-field" type = "text" name = "cep" required="true" id="cep">
                             <label for = "cep">CEP</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "telefone" required="true"> 
+                            <input class = "input-field" type = "text" name = "telefone" required="true" id="telefone"> 
                             <label for = "telefone">Telefone</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "email" required="true" id="email">
+                            <input class = "input-field validate" type = "email" name = "email" required="true" id="email">
                             <label for = "email" id="lemail">E-mail</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "text" name = "curso" required="true">
-                            <label for = "curso">Curso</label>
+                            <input class = "date" type = "text" name = "data_associacao" required="true">
+                            <label for = "data_nasc">Data de associação</label>
                         </div>
                         <div class = "input-field col s6">
-                            <div class = "left grey-text">
-                                Data de conclusão de curso
-                            </div>
-
+                            <select name = "id_curso" required="true">
+                                <option value="0">Selecione o curso</option>
+                                <?php
+                                include_once '../Controle/cursoPDO.php';
+                                $cursoPDO = new cursoPDO();
+                                $resultado = $cursoPDO->selectTudo();
+                                if ($resultado) {
+                                    while ($linha = $resultado->fetch()) {
+                                        echo "<option value='" . $linha['id'] . "'>" . $linha['nome'] ." (".$linha['turno'].")". "</option>";
+                                    }
+                                }else{
+                                    echo "<option value='0'>Nenhum curso cadastrado!</option>";
+                                }
+                                ?>
+                            </select>
+                            <label for = "id_curso">Curso</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "date" type = "text" name = "data_inicio" required="true">
+                            <label for = "data_nasc">Data de início do Curso</label>
+                        </div>
+                        <div class = "input-field col s6">
                             <input class = "date" type = "text" name = "previsao_conclusao" required="true">
-
-                            <label for = "previsao_conclusao"></label>
+                            <label for = "previsao_conclusao">Data de conclusão de curso</label>
                         </div>
                         <div class = "input-field col s6">
-                            <div class = "left grey-text">
-                                Data de nascimento
-                            </div>
                             <input class = "date" type = "text" name = "data_nasc" required="true">
-                            <label for = "data_nasc"></label>
+                            <label for = "data_nasc">Data de nascimento</label>
                         </div>
 
                         <div class = "input-field col s6">
@@ -88,12 +102,12 @@ if (!isset($_SESSION)) {
                             <label for = "rg" id="lrg">RG</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "password" name = "senha1" required="true">
-                            <label for = "senha1">Senha</label>
+                            <input class = "input-field" id="senha1" type = "password" name = "senha1" required="true">
+                            <label for = "senha1" id="lsenha1">Senha</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input class = "input-field" type = "password" name = "senha2" required="true">
-                            <label for = "senha2">Confirme a senha</label>
+                            <input class = "input-field" id="senha2" type = "password" name = "senha2" required="true">
+                            <label for = "senha2" id="lsenha2">Confirme a senha</label>
                         </div>
 
                         <?php include_once '../Base/msgSaida.php'; ?>
@@ -125,9 +139,14 @@ if (!isset($_SESSION)) {
         <script src="../js/mascaras.js"></script>
         <script>
             $(document).ready(function () {
+                $('select').formSelect();
                 $('.date').mask("00/00/0000");
+                $('#cpf').mask("000.000.000-00");
+                $('#telefone').mask("(00) 00000-0000");
+                $('#cep').mask("00000-000");
             });
         </script>
+        <script src="../js/verificaSenha.js" type="text/javascript"></script>
         <script src="../js/verificaFormulario.js" type="text/javascript"></script>
         <?php include_once '../Base/footer.php'; ?>
     </body>

@@ -63,12 +63,12 @@ if (!isset($_SESSION['usuario'])) {
                         </div>
                         <div class="row" hidden="true" id="mostra">
                             <div class="input-field col s6">
-                                <input type="password" class="input-field msenha" name="senha1">
-                                <label for="senha2">Nova senha</label>
+                                <input type="password" class="input-field msenha" name="senha1" id="senha1">
+                                <label for="senha2" id="lsenha1">Nova senha</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="password" class="input-field msenha" name="senha2">
-                                <label for="senha2conf">Confirmar nova senha</label>
+                                <input type="password" class="input-field msenha" name="senha2" id="senha2">
+                                <label for="senha2conf" id="lsenha2">Confirmar nova senha</label>
                             </div>
                         </div>
                         <div class="row">
@@ -126,6 +126,7 @@ if (!isset($_SESSION['usuario'])) {
             });
             
         </script>
+        <script src="../js/verificaSenha.js" type="text/javascript"></script>
         <script src="../js/verificaFormulario.js"></script>
         <?php include_once '../Base/footer.php'; ?>
     </body>

@@ -1,5 +1,50 @@
 $("#formulario").submit(function () {
-    alert('a');
+
+    var cpf = $('#cpf').val().replace('.', '').toString();
+    cpf = cpf.replace('.', '');
+    cpf = cpf.replace('-', '');
+    if (cpf.length == 11) {
+        var x = false;
+        for (var i = 0; i <= 8; i++) {
+            if (!(cpf[i] == cpf[i + 1])) {
+                x = true;
+            }
+        }
+        if (x) {
+            var v = [];
+            v[0] = (1 * cpf[0]) + (2 * cpf[1]) + (3 * cpf[2]);
+            v[0] += (4 * cpf[3]) + (5 * cpf[4]) + (6 * cpf[5]);
+            v[0] += (7 * cpf[6]) + (8 * cpf[7]) + (9 * cpf[8]);
+            v[0] = v[0] % 11;
+            v[0] = v[0] % 10;
+
+            v[1] = (1 * cpf[1]) + (2 * cpf[2]) + (3 * cpf[3]);
+            v[1] += (4 * cpf[4]) + (5 * cpf[5]) + (6 * cpf[6]);
+            v[1] += (7 * cpf[7]) + (8 * cpf[8]) + (9 * v[0]);
+            v[1] = v[1] % 11;
+            v[1] = v[1] % 10;
+
+            if ((v[0] != cpf[9]) || v[1] != cpf[10]) {
+                $("#cpf").attr('class', 'invalid red-text');
+                $("#lcpf").text('CPF Invalido!');
+                $("#cpf").focus();
+                resposta = false;
+            } else {
+                $("#cpf").attr('class', 'valid green-text');
+                $("#lcpf").text('CPF');
+            }
+        } else {
+            $("#cpf").attr('class', 'invalid red-text');
+            $("#lcpf").text('CPF Invalido!');
+            $("#cpf").focus();
+            resposta = false;
+        }
+    } else {
+        $("#cpf").attr('class', 'invalid red-text');
+        $("#lcpf").text('CPF Invalido!');
+        $("#cpf").focus();
+        resposta = false;
+    }
     post = $("#formulario").serialize();
     resposta = 'true';
     $.ajax({
@@ -8,7 +53,6 @@ $("#formulario").submit(function () {
         url: "../Controle/usuarioPDO.php?function=pesquisarPorRgExata&rg=" + $("#rg").val(),
         data: post,
         success: function (dado) {
-            alert('rg' + dado);
             if (dado != 'false') {
                 resposta = 'false';
                 $("#lrg").attr('class', "red-text");
@@ -31,7 +75,6 @@ $("#formulario").submit(function () {
         url: "../Controle/usuarioPDO.php?function=pesquisarPorUsuarioExata&usuario=" + $("#usuario").val(),
         data: post,
         success: function (dado) {
-            alert("user" + dado);
             if (dado != 'false') {
                 resposta = 'false';
                 $("#usuario").attr('class', "red-text");
@@ -55,7 +98,6 @@ $("#formulario").submit(function () {
         url: "../Controle/usuarioPDO.php?function=pesquisarPorCpfExata&cpf=" + $("#cpf").val(),
         data: post,
         success: function (dado) {
-            alert("user" + dado);
             if (dado != 'false') {
                 resposta = 'false';
                 $("#cpf").attr('class', "red-text");
@@ -65,7 +107,6 @@ $("#formulario").submit(function () {
                 M.updateTextFields();
             } else {
                 $("#lcpf").removeAttr('class');
-                $("#lcpf").text("CPF");
                 $("#cpf").attr('class', 'input-field');
                 M.updateTextFields();
             }
@@ -80,7 +121,6 @@ $("#formulario").submit(function () {
         url: "../Controle/usuarioPDO.php?function=pesquisarPorEmailExata&email=" + $("#email").val(),
         data: post,
         success: function (dado) {
-            alert("email" + dado);
             if (dado != 'false') {
                 resposta = 'false';
                 $("#lemail").attr('class', "red-text");
@@ -97,6 +137,7 @@ $("#formulario").submit(function () {
 
         }
     });
+    
 
     if (resposta == 'true') {
         return true;

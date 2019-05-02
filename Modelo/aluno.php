@@ -4,9 +4,11 @@ class aluno {
 
     private $id_usuario;
     private $id_responsavel;
-    private $curso;
+    private $id_curso;
     private $saldo;
+    private $data_inicio;
     private $previsao_conclusao;
+    private $concluido;
     
     public function __construct() {
         if (func_num_args() != 0) {
@@ -27,16 +29,28 @@ class aluno {
         }
     }
     
+    function getData_inicio() {
+        return $this->data_inicio;
+    }
+
+    function getConcluido() {
+        return $this->concluido;
+    }
+
+    function setData_inicio($data_inicio) {
+        $this->data_inicio = $data_inicio;
+    }
+
+    function setConcluido($concluido) {
+        $this->concluido = $concluido;
+    }
+    
     function getId_usuario() {
         return $this->id_usuario;
     }
 
     function getId_responsavel() {
         return $this->id_responsavel;
-    }
-
-    function getCurso() {
-        return $this->curso;
     }
 
     function getSaldo() {
@@ -55,10 +69,6 @@ class aluno {
         $this->id_responsavel = $id_resposnavel;
     }
 
-    function setCurso($curso) {
-        $this->curso = $curso;
-    }
-
     function setSaldo($saldo) {
         $this->saldo = $saldo;
     }
@@ -66,5 +76,15 @@ class aluno {
     function setPrevisao_conclusao($previsao_conclusao) {
         $this->previsao_conclusao = $previsao_conclusao;
     }
+    
+    function getId_curso() {
+        return $this->id_curso;
+    }
+
+    function setId_curso($id_curso) {
+        $this->id_curso = $id_curso;
+    }
+
+
 
 }
