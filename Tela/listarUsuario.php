@@ -32,7 +32,7 @@ if (isset($_SESSION['usuario'])) {
                 <h5 class="center">Lista de usuários cadastrados</h5>
 
                 <div class="row center">
-                    <form method="post" action="./listarUsuario.php" class="col s10 offset-s1 input-field">
+                    <form method="post" action="./listarUsuario.php" id="formulario" class="col s10 offset-s1 input-field">
                         <table>
                             <tr>
                                 <td>
@@ -48,7 +48,7 @@ if (isset($_SESSION['usuario'])) {
                                 </td>
                                 <td>
                                     <div class="input-field col s12 center">
-                                        <input id="" class="input-field col s12" type="text" name="pesquisar">
+                                        <input id="pesquisa" class="input-field col s12" type="text" name="pesquisar">
                                         <label for="pesquisar">Pesquise</label>
                                     </div>
                                 </td>
@@ -73,6 +73,7 @@ if (isset($_SESSION['usuario'])) {
                         </tr>
                         <?php
                         include_once '../Controle/usuarioPDO.php';
+                        include_once '../Modelo/usuario.php';
                         $usuarioListar = new usuarioPDO();
                         if (isset($_POST['pesquisar'])) {
                             $pesquisa = $_POST['pesquisar'];
@@ -156,31 +157,32 @@ if (isset($_SESSION['usuario'])) {
                         if ($sql != false) {
 
                             while ($resultado = $sql->fetch()) {
+                                $us = new usuario($resultado);
                                 echo "<tr>";
-                                echo "<td>" . $resultado['nome'] . "</td>";
-                                echo "<td>" . $resultado['usuario'] . "</td>";
-                                echo "<td>" . $resultado['cpf'] . "</td>";
-                                echo "<td>" . $resultado['telefone'] . "</td>";
+                                echo "<td>" . $us->getNome() . "</td>";
+                                echo "<td>" . $us->getUsuario() . "</td>";
+                                echo "<td>" . $us->getCpf() . "</td>";
+                                echo "<td>" . $us->getTelefone() . "</td>";
 
 //                        -----------------------------------------------------------
-                                if (($resultado['pode_logar'] == 'true')) {
+                                if (($us->getAdministrador() == 'true')) {
                                     echo "<td>";
                                     ?><a class="btn corpadrao" href="../Controle/usuarioPDO.php?function=tornarUsuarioInativo&id=
-                                       <?php echo $resultado['id'] ?>">Ativo</a>
+                                       <?php echo $us->getId(); ?>">Ativo</a>
                                        <?php
                                        echo "</td>";
                                    } else {
                                        echo "<td>";
                                        ?>
                                     <a class="btn red darken-2" href="../Controle/usuarioPDO.php?function=tornarUsuarioAtivo&id=
-                                       <?php echo $resultado['id'] ?>">Inativo</a><?php
+                                       <?php echo $us->getId(); ?>">Inativo</a><?php
                                        echo "</td>";
                                    }
 //                        -----------------------------------------------------------
 
 
                                    echo "<td>";
-                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $resultado['id']; ?>">Ver mais</a><?php
+                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
                                 echo "</td>";
                                 echo "</tr>";
                             }
@@ -197,7 +199,12 @@ if (isset($_SESSION['usuario'])) {
             $(document).ready(function () {
                 $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
                 $('select').formSelect();
-                
+                $('#select').change(atualiza);
+                $('#pesquisa').keyup(atualiza);
+                function atualiza() {
+                    var dados = $('#formulario').serialize();
+                    $('#tabela').load("./ListagemUsuario/tabelaDinamica.php", dados);
+                }
             });
         </script>
         <?php include_once '../Base/footer.php'; ?>

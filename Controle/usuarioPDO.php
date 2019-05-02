@@ -299,7 +299,7 @@ class usuarioPDO {
         if ($sql->rowCount() > 0) {
             return $sql;
         } else {
-            echo 'false';
+            //echo 'false';
             return false;
         }
     }
@@ -320,10 +320,12 @@ class usuarioPDO {
         if ($sql->rowCount() > 0) {
             return $sql;
         } else {
-            echo 'false';
+            
+            //echo 'false';
             return false;
         }
     }
+    
     
     public function selectMembrosInativos($pesquisa){
         $conexao = new conexao();
@@ -341,7 +343,7 @@ class usuarioPDO {
         if ($sql->rowCount() > 0) {
             return $sql;
         } else {
-            echo 'false';
+            //echo 'false';
             return false;
         }
     }
@@ -363,7 +365,7 @@ class usuarioPDO {
         if ($sql->rowCount() > 0) {
             return $sql;
         } else {
-            echo 'false';
+            //echo 'false';
             return false;
         }
     }
