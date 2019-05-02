@@ -282,6 +282,112 @@ class usuarioPDO {
             return false;
         }
     }
+    
+    public function selectTodosUsers($pesquisa){
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $pesquisa = "%".$pesquisa."%";
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like :nome or "
+                . "usuario like :usuario or "
+                . "cpf like :cpf or rg like :rg or email like :email;");
+        $sql->bindValue(":nome", $pesquisa);
+        $sql->bindValue(":usuario", $pesquisa);
+        $sql->bindValue(":cpf", $pesquisa);
+        $sql->bindValue(":rg", $pesquisa);
+        $sql->bindValue(":email", $pesquisa);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            echo 'false';
+            return false;
+        }
+    }
+    
+    public function selectMembrosAtivos($pesquisa){
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $pesquisa = "%".$pesquisa."%";
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
+                . "usuario like :usuario or "
+                . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'true';");
+        $sql->bindValue(":nome", $pesquisa);
+        $sql->bindValue(":usuario", $pesquisa);
+        $sql->bindValue(":cpf", $pesquisa);
+        $sql->bindValue(":rg", $pesquisa);
+        $sql->bindValue(":email", $pesquisa);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            echo 'false';
+            return false;
+        }
+    }
+    
+    public function selectMembrosInativos($pesquisa){
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $pesquisa = "%".$pesquisa."%";
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
+                . "usuario like :usuario or "
+                . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'false';");
+        $sql->bindValue(":nome", $pesquisa);
+        $sql->bindValue(":usuario", $pesquisa);
+        $sql->bindValue(":cpf", $pesquisa);
+        $sql->bindValue(":rg", $pesquisa);
+        $sql->bindValue(":email", $pesquisa);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            echo 'false';
+            return false;
+        }
+    }
+    
+    public function selectMembrosDiretoria($pesquisa){
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $pesquisa = "%".$pesquisa."%";
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
+                . "usuario like :usuario or "
+                . "cpf like :cpf or rg like :rg or email like :email) and "
+                . "id in (select id_usuario from diretoria);");
+        $sql->bindValue(":nome", $pesquisa);
+        $sql->bindValue(":usuario", $pesquisa);
+        $sql->bindValue(":cpf", $pesquisa);
+        $sql->bindValue(":rg", $pesquisa);
+        $sql->bindValue(":email", $pesquisa);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            echo 'false';
+            return false;
+        }
+    }
+    
+    public function selectAdmin($pesquisa){
+        $conexao = new conexao();
+        $PDO = $conexao->getConexao();
+        $pesquisa = "%".$pesquisa."%";
+        $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
+                . "usuario like :usuario or "
+                . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'true';");
+        $sql->bindValue(":nome", $pesquisa);
+        $sql->bindValue(":usuario", $pesquisa);
+        $sql->bindValue(":cpf", $pesquisa);
+        $sql->bindValue(":rg", $pesquisa);
+        $sql->bindValue(":email", $pesquisa);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            return $sql;
+        } else {
+            echo 'false';
+            return false;
+        }
+    }
 
     public function validaCpf($cpf) {
         $cpf = str_replace(".", "", $cpf);
