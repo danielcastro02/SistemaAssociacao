@@ -5,6 +5,7 @@ class aluno {
     private $id_usuario;
     private $id_responsavel;
     private $id_curso;
+    private $curso;
     private $saldo;
     private $data_inicio;
     private $previsao_conclusao;
@@ -67,6 +68,14 @@ class aluno {
 
     function setId_responsavel($id_responsavel) {
         $this->id_responsavel = $id_resposnavel;
+    }
+    
+    function getCurso() {
+        return $this->curso;
+    }
+
+    function setCurso($curso) {
+        $this->curso = $curso;
     }
 
     function setSaldo($saldo) {

@@ -47,4 +47,23 @@ class cursoPDO {
         }
     }
 
+    public function selectCursoPorId($id) {
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("SELECT curso FROM aluno WHERE id_usuario = :id");
+        $stmt->bindValue(":id", $id);
+        if ($stmt->execute()) {
+            if ($stmt->rowCount() > 0) {
+                $linha = $stmt->fetch();
+                $aluno = new aluno();
+                $aluno->setCurso($linha);
+                return $aluno->getCurso();
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 }
