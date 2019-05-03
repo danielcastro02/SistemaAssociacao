@@ -20,6 +20,7 @@ if (!isset($_SESSION['usuario'])) {
         include_once '../Base/nav.php';
         include_once '../Modelo/usuario.php';
         include_once '../Controle/usuarioPDO.php';
+        include_once '../Controle/cursoPDO.php';
         $usuarioPDO = new usuarioPDO();
         if (isset($_SESSION['usuario'])) {
             $logado = new usuario();
@@ -81,7 +82,11 @@ if (!isset($_SESSION['usuario'])) {
                                     <div class="row"></div>
                                     <span><b>Dados Curso</b></span><br>
                                     <?php if ($aluno) { ?>
-                                        <span>Curso: <?php echo $aluno->getCurso(); ?></span><br>
+                                        <span>Curso: <?php
+                                            $curso = new cursoPDO();
+                                            $curso->selectCursoPorId($_GET['id']);
+                                            echo $aluno->getCurso();
+                                            ?></span><br>
                                         <span>Previsão de Conclusão: <?php echo $aluno->getPrevisao_conclusao(); ?></span><br>
                                         <span>Saldo: <?php echo $aluno->getSaldo(); ?></span><br>
                                         <?php
@@ -141,12 +146,12 @@ if (!isset($_SESSION['usuario'])) {
                                 <?php
                                 if (($usuarioPDO->verificarAdministrador($_GET['id']) == 'true')) {
                                     ?><a class="btn corpadrao" href="../Controle/usuarioPDO.php?function=tornarUsuarioNormal&id=<?php echo $_GET['id']; ?>">Administrador</a>
-                                       <?php
-                                   } else {
-                                       ?>
+                                    <?php
+                                } else {
+                                    ?>
                                     <a class="btn red darken-2" href="../Controle/usuarioPDO.php?function=tornarUsuarioAdministrador&id=<?php echo $_GET['id']; ?>">Tornar Administrador</a><?php
-                                   }
-                                   ?>
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
