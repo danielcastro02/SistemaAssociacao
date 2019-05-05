@@ -3,12 +3,20 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!realpath("./index.php")) {
-    include_once "../Controle/conexao.php";
-    include_once '../Modelo/curso.php';
-} else {
+
+if (realpath("./index.php")) {
     include_once "./Controle/conexao.php";
     include_once './Modelo/curso.php';
+} else {
+    if (realpath("../index.php")) {
+        include_once "../Controle/conexao.php";
+        include_once '../Modelo/curso.php';
+    } else {
+        if (realpath("../../index.php")) {
+            include_once "../../Controle/conexao.php";
+            include_once '../../Modelo/curso.php';
+        }
+    }
 }
 
 $classe = new cursoPDO();
@@ -45,6 +53,21 @@ class cursoPDO {
         } else {
             return false;
         }
+    }
+    
+    public function selectPorTurno($turno){
+        $turno = "%".$turno."%";
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("select * from curso where turno like :turno;");
+        $stmt->bindValue(":turno", $turno);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            return $stmt;
+        } else {
+            return false;
+        }
+        
     }
 
     public function selectCursoPorId($id) {
