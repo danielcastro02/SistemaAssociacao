@@ -81,8 +81,8 @@
                                 <?php
                             }
                             ?>
-                                <a class="btn corcancelar" href="../Tela/home.php">Cancelar</a>
-                                <button class="btn corpadrao">Confirmar</button>
+                            <a class="btn corcancelar" href="../Tela/home.php">Cancelar</a>
+                            <button class="btn corpadrao">Confirmar</button>
                         </form>
                     </div>
                 </div>
@@ -93,6 +93,6 @@
                 });
             </script>
         </main>
-<?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../Base/footer.php'; ?>
     </body>
 </html>

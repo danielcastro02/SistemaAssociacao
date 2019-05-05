@@ -64,4 +64,16 @@ class sistemaPDO {
         }
     }
 
+    function selectContatos() {
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("SELECT * FROM contato");
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return $stmt;
+        }else{
+            return false;
+        }
+    }
+
 }
