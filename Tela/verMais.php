@@ -21,6 +21,7 @@ if (!isset($_SESSION['usuario'])) {
         include_once '../Modelo/usuario.php';
         include_once '../Controle/usuarioPDO.php';
         include_once '../Controle/cursoPDO.php';
+        include_once '../Modelo/curso.php';
         $usuarioPDO = new usuarioPDO();
         if (isset($_SESSION['usuario'])) {
             $logado = new usuario();
@@ -83,10 +84,13 @@ if (!isset($_SESSION['usuario'])) {
                                     <span><b>Dados Curso</b></span><br>
                                     <?php if ($aluno) { ?>
                                         <span>Curso: <?php
-                                            $curso = new cursoPDO();
-                                            $curso->selectCursoPorId($_GET['id']);
-                                            echo $aluno->getCurso();
+                                            $cursopdo = new cursoPDO();
+                                            $curso = new curso();
+                                            $curso = $cursopdo->selectCursoPorId($_GET['id']);
+                                            echo $curso->getNome();
                                             ?></span><br>
+                                            <span>Turno: <?php echo $curso->getTurno(); ?></span><br>
+                                            <span>Nível: <?php echo $curso->getNivel(); ?></span><br>
                                         <span>Previsão de Conclusão: <?php echo $aluno->getPrevisao_conclusao(); ?></span><br>
                                         <span>Saldo: <?php echo $aluno->getSaldo(); ?></span><br>
                                         <?php
