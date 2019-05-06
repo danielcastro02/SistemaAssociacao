@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 01-Maio-2019 às 16:36
+-- Generation Time: 05-Maio-2019 às 21:42
 -- Versão do servidor: 10.1.36-MariaDB
 -- versão do PHP: 7.2.10
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `associacao2`
+-- Database: `associacao`
 --
 
 -- --------------------------------------------------------
@@ -32,7 +32,7 @@ CREATE TABLE `acesso_negado` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `cpf` varchar(14) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `motivo` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `descricao` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -51,6 +51,13 @@ CREATE TABLE `aluno` (
   `previsao_conclusao` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `concluido` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `aluno`
+--
+
+INSERT INTO `aluno` (`id_usuario`, `id_responsavel`, `id_curso`, `saldo`, `data_inicio`, `previsao_conclusao`, `concluido`) VALUES
+(1, NULL, 1, '0.00', '01/01/2017', '30/12/2019', 'false');
 
 -- --------------------------------------------------------
 
@@ -80,6 +87,13 @@ CREATE TABLE `curso` (
   `nivel` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Extraindo dados da tabela `curso`
+--
+
+INSERT INTO `curso` (`id`, `nome`, `turno`, `nivel`) VALUES
+(1, 'Analise e Desenvolvimento de Sistemas', 'Tarde', 'Superior');
+
 -- --------------------------------------------------------
 
 --
@@ -90,6 +104,13 @@ CREATE TABLE `diretoria` (
   `id_usuario` int(11) NOT NULL,
   `cargo` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `diretoria`
+--
+
+INSERT INTO `diretoria` (`id_usuario`, `cargo`) VALUES
+(1, 'Presidente');
 
 -- --------------------------------------------------------
 
@@ -117,6 +138,13 @@ CREATE TABLE `usuario` (
   `pode_logar` varchar(30) COLLATE utf8_unicode_ci DEFAULT 'false',
   `administrador` varchar(30) COLLATE utf8_unicode_ci DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`, `cidade`, `bairro`, `rua`, `numero`, `cep`, `cpf`, `rg`, `data_nasc`, `telefone`, `email`, `data_associacao`, `fotoPerfil`, `pode_logar`, `administrador`) VALUES
+(1, 'Daniel Zanini de Castro', 'dcastro', 'f903d5d4141b05ae28192bc3d75e0491', 'Jaguari', 'Centro', 'Av. dr. severiano de almeida', '280', '97760-000', '039.855.650-40', '5123700463', '10/03/2000', '(55) 55995-9841', 'zanini.castro@hotmail.com', '01/01/2019', '../Img/c4ca4238a0b923820dcc509a6f75849b.png', 'true', 'true');
 
 --
 -- Indexes for dumped tables
@@ -183,13 +211,13 @@ ALTER TABLE `contato`
 -- AUTO_INCREMENT for table `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
