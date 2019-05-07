@@ -662,7 +662,7 @@ class usuarioPDO {
     }
 
     private function validaSenha(usuario $us) {
-        if (strlen($us->getSenha1()) < 8) {
+        if (strlen($us->getSenha1()) <= 8) {
             echo 'false';
             return false;
         } else {
@@ -806,7 +806,7 @@ class usuarioPDO {
         $logado = new usuario();
         $logado = $this->getLogado();
         if ($_POST['oldsenha'] == "") {
-            header('Location: ../Tela/alterarDadosUsuario.php?msg=senhavazia');
+            header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=senhavazia');
         }
         $senhaantiga = md5($_POST['oldsenha']);
         $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
@@ -831,9 +831,9 @@ class usuarioPDO {
                 if ($stmt->execute()) {
                     $logado->atualizar($_POST);
                     $_SESSION['usuario'] = serialize($logado);
-                    header('Location: ../Tela/alterarDadosUsuario.php?msg=sucessoss');
+                    header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=sucessoss');
                 } else {
-                    header('Location: ../Tela/alterarDadosUsuario.php?msg=bderross');
+                    header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=bderross');
                 }
             } else {
                 if ($us->getSenha2() == $us->getSenha1()) {
@@ -850,12 +850,12 @@ class usuarioPDO {
                     if ($stmt->execute()) {
                         $logado->atualizar($_POST);
                         $_SESSION['usuario'] = serialize($logado);
-                        header('Location: ../Tela/alterarDadosUsuario.php?msg=sucessocs');
+                        header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=sucessocs');
                     } else {
-                        header('Location: ../Tela/alterarDadosUsuario.php?msg=bderrocs');
+                        header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=bderrocs');
                     }
                 } else {
-                    header('Location: ../Tela/alterarDadosUsuario.php?msg=senhaerrada');
+                    header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=senhaerrada');
                 }
             }
         }
@@ -877,7 +877,7 @@ class usuarioPDO {
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($al->getSenha1() == "") {
-            header('Location: ../Tela/alterarAluno.php?msg=senhavazia');
+            header('Location: ../Tela/Update/alterarAluno.php?msg=senhavazia');
         } else {
             if ($linha['senha'] == $senhaantiga) {
                 $stmt = $pdo->prepare('UPDATE aluno SET id_curso = :curso, data_inicio = :dataInicio , previsao_conclusap = :previsao_conclusao, concluido = :concluido WHERE id_usuario = :id;');
@@ -889,12 +889,12 @@ class usuarioPDO {
                 if ($stmt->execute()) {
                     $logado->atualizar($_POST);
                     $_SESSION['usuario'] = serialize($logado);
-                    header('Location: ../Tela/alterarAluno.php?msg=sucesso');
+                    header('Location: ../Tela/Update/alterarAluno.php?msg=sucesso');
                 } else {
-                    header('Location: ./Tela/alterarAluno.php?msg=bderro');
+                    header('Location: ./Tela/Update/alterarAluno.php?msg=bderro');
                 }
             } else {
-                header('Location: ../Tela/alterarAluno.php?msg=senhaerrada');
+                header('Location: ../Tela/Update/alterarAluno.php?msg=senhaerrada');
             }
         }
     }
@@ -913,7 +913,7 @@ class usuarioPDO {
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($us->getSenha1() == "") {
-            header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhavazia');
+            header('Location: ../Tela/Update/alterarEnderecoUsuario.php?msg=senhavazia');
         } else {
             if ($linha['senha'] == $senhaantiga) {
                 $stmt = $pdo->prepare('UPDATE usuario SET cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cep = :cep WHERE id = :id;');
@@ -926,12 +926,12 @@ class usuarioPDO {
                 if ($stmt->execute()) {
                     $logado->atualizar($_POST);
                     $_SESSION['usuario'] = serialize($logado);
-                    header('Location: ../Tela/alterarEnderecoUsuario.php?msg=sucesso');
+                    header('Location: ../Tela/Update/alterarEnderecoUsuario.php?msg=sucesso');
                 } else {
-                    header('Location: ./Tela/alterarEnderecoUsuario.php?msg=bderro');
+                    header('Location: ./Tela/Update/alterarEnderecoUsuario.php?msg=bderro');
                 }
             } else {
-                header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhaerrada');
+                header('Location: ../Tela/Update/alterarEnderecoUsuario.php?msg=senhaerrada');
             }
         }
     }
@@ -1047,31 +1047,31 @@ class usuarioPDO {
             $pdo = $conexao->getConexao();
             $stmt = $pdo->prepare("update usuario set fotoPerfil = :imagem where id = :id");
             $stmt->bindValue(':id', $us->getId());
-            $stmt->bindValue(':imagem', '../Img/' . $nome_imagem . $extensao);
+            $stmt->bindValue(':imagem', '../Img/Perfil/' . $nome_imagem . $extensao);
 
             //Verificar se os dados foram inseridos com sucesso
             if ($stmt->execute()) {
 
-                $us->setFotoPerfil('../Img/' . $nome_imagem . $extensao);
+                $us->setFotoPerfil('../Img/Perfil/' . $nome_imagem . $extensao);
                 $_SESSION['usuario'] = serialize($us);
                 //Recuperar último ID inserido no banco de dados
                 //$ultimo_id = $pdo->lastInsertId();
                 $ultimo_id = $us->getId();
 
                 //DiretÃ³rio onde o arquivo vai ser salvo
-                $diretorio = '../Img/' . md5($ultimo_id) . $extensao;
+                $diretorio = '../Img/Perfil/' . md5($ultimo_id) . $extensao;
 
 
                 if (move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio)) {
-                    header('Location: ../Tela/home.php');
+                    header('Location: ../Tela/Sistema/home.php');
                 } else {
-                    header('Location: ../Tela/home.php?msg=erro');
+                    header('Location: ../Tela/Sistema/home.php?msg=erro');
                 }
             } else {
-                header('Location: ../Tela/alterarCurso.php?msg=erro');
+                header('Location: ../Tela/Sistema/home.php?msg=erro');
             }
         } else {
-            header('Location: ../Tela/alterarEnderecoUsuario.php?msg=erro');
+            header('Location: ../Tela/Sistema/home.php?msg=erro');
         }
     }
 
