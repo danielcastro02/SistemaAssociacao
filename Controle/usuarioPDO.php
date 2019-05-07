@@ -913,7 +913,7 @@ class usuarioPDO {
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($us->getSenha1() == "") {
-            header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhavazia');
+            header('Location: ../Tela/Update/alterarEnderecoUsuario.php?msg=senhavazia');
         } else {
             if ($linha['senha'] == $senhaantiga) {
                 $stmt = $pdo->prepare('UPDATE usuario SET cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cep = :cep WHERE id = :id;');
@@ -926,12 +926,12 @@ class usuarioPDO {
                 if ($stmt->execute()) {
                     $logado->atualizar($_POST);
                     $_SESSION['usuario'] = serialize($logado);
-                    header('Location: ../Tela/alterarEnderecoUsuario.php?msg=sucesso');
+                    header('Location: ../Tela/Update/alterarEnderecoUsuario.php?msg=sucesso');
                 } else {
-                    header('Location: ./Tela/alterarEnderecoUsuario.php?msg=bderro');
+                    header('Location: ./Tela/Update/alterarEnderecoUsuario.php?msg=bderro');
                 }
             } else {
-                header('Location: ../Tela/alterarEnderecoUsuario.php?msg=senhaerrada');
+                header('Location: ../Tela/Update/alterarEnderecoUsuario.php?msg=senhaerrada');
             }
         }
     }
