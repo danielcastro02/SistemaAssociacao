@@ -27,12 +27,12 @@ if (realpath("./index.php")) {
                 </a></li>
             <ul id='dropdown1' class='dropdown-content'>
                 <li><a><b>Seu Perfil</b></a></li>
-                <li><a href="<?php echo $pontos; ?>Tela/alterarDadosUsuario.php">Alterar dados pessoais</a></li>
-                <li><a href="<?php echo $pontos; ?>Tela/alterarEnderecoUsuario.php">Alterar endereço</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Update/alterarDadosUsuario.php">Alterar dados pessoais</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Update/alterarEnderecoUsuario.php">Alterar endereço</a></li>
                 <?php 
                     if(isset($_SESSION['aluno'])){
                         ?>
-                <li><a href="<?php echo $pontos; ?>Tela/alterarCurso.php">Alterar curso</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Update/alterarCurso.php">Alterar curso</a></li>
                 <li><a href="#">Alterar senha</a></li>
                 <?php
                     }
@@ -42,17 +42,17 @@ if (realpath("./index.php")) {
             <li><a class='dropdown-trigger' data-target='dropdown2'>Cadastrar informações</a></li>
             <ul id='dropdown2' class='dropdown-content'>
                 <li><a><b>Cadastrar informações</b></a></li>
-                <li><a href="<?php echo $pontos; ?>Tela/cadastroAluno.php">Aluno</a></li>
-                <li><a href="<?php echo $pontos; ?>Tela/cadastroDiretoria.php">Membro da diretoria</a></li>
-                <li><a href="<?php echo $pontos; ?>Tela/cadastroResponsavel.php">Responsável</a></li>
-                <li><a href="<?php echo $pontos; ?>Tela/Curso/inserirCurso.php">Curso</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Cadastro/cadastroAluno.php">Aluno</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Cadastro/cadastroDiretoria.php">Membro da diretoria</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Cadastro/cadastroResponsavel.php">Responsável</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Cadastro/inserirCurso.php">Curso</a></li>
             </ul>
             <!----------------------------------------------------------------------------------------------->
             <li><a class='dropdown-trigger' data-target='dropdown4'>Listar informações</a></li>
             <ul id='dropdown4' class='dropdown-content'>
                 <li><a><b>Listar</b></a></li>
-                <li><a href="<?php echo $pontos; ?>Tela/listarUsuario.php">Usuários</a></li>
-                <li><a href="<?php echo $pontos; ?>Tela/ListagemUsuario/guiaCurso.php">Guia Por Cursos</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Listagem/listarUsuario.php">Usuários</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Listagem/guiaCurso.php">Guia Por Cursos</a></li>
                 <li><a href="#">Movimentações</a></li>
 <!--                <li><a href="#"></a></li>
                 <li><a href="#"></a></li>
