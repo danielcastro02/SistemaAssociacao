@@ -3,13 +3,13 @@
     <head>
         <title>Login</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
     </head>
     <body class="homeimg">
 
         <?php
-        include_once '../Base/nav.php';
+        include_once '../../Base/nav.php';
         ?>
 
         <main id="main">
@@ -17,7 +17,7 @@
                 <div style="height: 10vh;"></div>
                 <div class="col s8 offset-s2 card center " style="padding-top: 10px;">
                     <div class="row">
-                        <form class="col s10 offset-s1" action="../Controle/sistemaPDO.php?function=<?php echo isset($_GET['msg']) ? $_GET['msg'] == 'acessoNegado' ? 'acessoNegado' : 'contato' : 'contato'; ?>" method="post">
+                        <form class="col s10 offset-s1" action="../../Controle/sistemaPDO.php?function=<?php echo isset($_GET['msg']) ? $_GET['msg'] == 'acessoNegado' ? 'acessoNegado' : 'contato' : 'contato'; ?>" method="post">
                             <?php
                             if (isset($_GET['msg'])) {
                                 if ($_GET["msg"] == 'acessoNegado') {
@@ -81,7 +81,7 @@
                                 <?php
                             }
                             ?>
-                            <a class="btn corcancelar" href="../Tela/home.php">Cancelar</a>
+                            <a class="btn corcancelar" href="../../Tela/home.php">Cancelar</a>
                             <button class="btn corpadrao">Confirmar</button>
                         </form>
                     </div>
@@ -93,6 +93,6 @@
                 });
             </script>
         </main>
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

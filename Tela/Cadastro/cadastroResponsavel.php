@@ -5,10 +5,10 @@ session_start();
 <!DOCTYPE html>
 <html>
     <head>
-        <?php include_once '../Base/header.php'; ?>
+        <?php include_once '../../Base/header.php'; ?>
     </head>
     <body class="homeimg">
-        <?php include_once '../Base/nav.php'; ?>
+        <?php include_once '../../Base/nav.php'; ?>
         <br> 
         <div class="row">
             <div class="col s8 card offset-s2">
@@ -24,7 +24,7 @@ session_start();
                     }
                     ?>
                 </div>
-                <form class="center" id="formulario"  method="post" action="../Controle/usuarioPDO.php?function=inserirResponsavel" name="formulario-cadastro-responsavel">
+                <form class="center" id="formulario"  method="post" action="../../Controle/usuarioPDO.php?function=inserirResponsavel" name="formulario-cadastro-responsavel">
                     <div class="col s12">
                         <div class="input-field col s6">
                             <input required="true"  class="input-field" type="text" name="nome">
@@ -92,7 +92,7 @@ session_start();
                         ?>
                         <div class="row">
                             <div class="col s12">
-                                <a href="./home.php" class="btn hoverable corcancelar">Cancelar</a>
+                                <a href="../Sistema/home.php" class="btn hoverable corcancelar">Cancelar</a>
                                 <button type="submit" class="btn hoverable corpadrao">Enviar</button>
                             </div>
                         </div>
@@ -101,19 +101,18 @@ session_start();
             </div>
             <div class="col s3"></div>
         </div>
-        <?php include_once '../Base/footer.php'; ?>
-        <script src="../js/mascaras.js"></script>
+        <?php include_once '../../Base/footer.php'; ?>
+        <script src="../../js/mascaras.js"></script>
         <script>
             $(document).ready(function () {
                 $('.date').mask("00/00/0000");
                 $('#cpf').mask('000.000.000-00');
                 $('#celular').mask('(00) 00000-0000');
                 $('#cep').mask('00000-000');
-                
             });
         </script>
-        <script src="../js/verificaFormulario.js" type="text/javascript"></script>
-        <script src="../js/verificaSenha.js" type="text/javascript"></script>
-        <script src="../js/verificaIdade.js" type="text/javascript"></script>
+        <script src="../../js/verificaFormulario.js" type="text/javascript"></script>
+        <script src="../../js/verificaSenha.js" type="text/javascript"></script>
+        <script src="../../js/verificaIdade.js" type="text/javascript"></script>
     </body>
 </html>

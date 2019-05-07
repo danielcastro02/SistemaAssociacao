@@ -3,7 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (!isset($_SESSION['usuario'])) {
-    header('Location: ./login.php');
+    header('Location: ../Sistemalogin.php');
 }
 ?>
 <!DOCTYPE html>
@@ -11,14 +11,14 @@ if (!isset($_SESSION['usuario'])) {
     <head>
         <title>Alterar Dados</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
     </head>
     <body class="homeimg">
 
         <?php
-        include_once '../Base/nav.php';
-        include_once '../Modelo/usuario.php';
+        include_once '../../Base/nav.php';
+        include_once '../../Modelo/usuario.php';
         $logado = new usuario();
         $logado = unserialize($_SESSION['usuario']);
         ?>
@@ -27,7 +27,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class="row">
                 <div class="col s8 offset-s2 card center ">
                     <h5>Seus dados</h5>
-                    <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=update" method="POST">
+                    <form class="col s12 input-field" action="../../Controle/usuarioPDO.php?function=update" method="POST" id="formulario">
                         <div class="row">
                             <div class="input-field col s6">
                                 <input type="text" class="input-field" name="nome" value="<?php echo $logado->getNome(); ?>">
@@ -54,7 +54,7 @@ if (!isset($_SESSION['usuario'])) {
                                 <label for="telefone">Telefone</label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="email" value="<?php echo $logado->getEmail(); ?>" id="email">
+                                <input type="email" class="input-field validate" name="email" value="<?php echo $logado->getEmail(); ?>" id="email">
                                 <label for="email" id="email">Email</label>
                             </div>
                         </div>
@@ -97,7 +97,7 @@ if (!isset($_SESSION['usuario'])) {
                         }
                         ?>
                         <div class="row">
-                            <a href="./home.php" class="btn corcancelar">Cancelar</a>
+                            <a href="../Sistema/home.php" class="btn corcancelar">Cancelar</a>
                             <button type="submit" class="btn corpadrao" name="btlogin">Alterar</button>
                         </div>
                         <?php
@@ -126,8 +126,16 @@ if (!isset($_SESSION['usuario'])) {
             });
             
         </script>
-        <script src="../js/verificaSenha.js" type="text/javascript"></script>
-        <script src="../js/verificaFormulario.js"></script>
-        <?php include_once '../Base/footer.php'; ?>
+        <script src="../../js/mascaras.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#cpf').mask("000.000.000-00");
+                $('#telefone').mask("(00) 00000-0000");
+                $('#cep').mask("00000-000");
+            });
+        </script>
+        <script src="../../js/verificaSenha.js" type="text/javascript"></script>
+        <script src="../../js/verificaFormulario.js"></script>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

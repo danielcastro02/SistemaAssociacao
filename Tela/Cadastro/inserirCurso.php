@@ -8,10 +8,10 @@ if (isset($_SESSION['usuario'])) {
     $logado = new usuario();
     $logado = unserialize($_SESSION['usuario']);
     if ($logado->getAdministrador() == 'false') {
-        header('location: ../acessoNegado.php');
+        header('location: ../Sistema/acessoNegado.php');
     }
 } else {
-    header('location: ../login.php');
+    header('location: ../Sistema/login.php');
 }
 ?>                  
 <!DOCTYPE html>
@@ -54,7 +54,7 @@ if (isset($_SESSION['usuario'])) {
                             <label for = 'nivel'>Nível</label>
                         </div>
                         <div class="row">
-                            <a href="./home.php" class="btn corcancelar">Cancelar</a>
+                            <a href="../Sistema/home.php" class="btn corcancelar">Cancelar</a>
                             <button type="submit" class="btn corpadrao" name="btlogin">Inserir</button>
                         </div>
                     </div>

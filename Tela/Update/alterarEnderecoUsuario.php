@@ -3,7 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (!isset($_SESSION['usuario'])) {
-    header('Location: ./login.php');
+    header('Location: ../Sistema/login.php');
 }
 ?> 
 <!DOCTYPE html>
@@ -11,14 +11,14 @@ if (!isset($_SESSION['usuario'])) {
     <head>
         <title>Alterar Dados</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
     </head>
     <body class="homeimg">
 
         <?php
-        include_once '../Base/nav.php';
-        include_once '../Modelo/usuario.php';
+        include_once '../../Base/nav.php';
+        include_once '../../Modelo/usuario.php';
         $logado = new usuario();
         $logado = unserialize($_SESSION['usuario']);
         ?>
@@ -27,7 +27,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class="row">
                 <div class="col s8 offset-s2 card center">
                     <h5>Seus dados</h5>
-                    <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=updateEndereco" method="POST">
+                    <form class="col s12 input-field" action="../../Controle/usuarioPDO.php?function=updateEndereco" method="POST">
                         <div class="row">
                             <div class="input-field col s6">
                                 <input type="text" class="input-field" name="cidade" value="<?php echo $logado->getCidade(); ?>">
@@ -92,7 +92,7 @@ if (!isset($_SESSION['usuario'])) {
                         ?>
 
                         <div class="row">
-                            <a href="./home.php" class="btn hoverable corcancelar">Cancelar</a>
+                            <a href="../Sistema/home.php" class="btn hoverable corcancelar">Cancelar</a>
                             <button type="submit" class="btn hoverable corpadrao" name="btlogin">Alterar</button>
                         </div>
                     </form>
@@ -100,6 +100,6 @@ if (!isset($_SESSION['usuario'])) {
             </div>
         </main>
 
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

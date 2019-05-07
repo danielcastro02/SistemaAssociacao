@@ -27,7 +27,7 @@ session_start();
         </div>
 
         <div class="parallax-container" style="height: 200px;">
-            <div class="parallax"><img src="Img/estrada.jpg"></div>
+            <div class="parallax"><img src="Img/Src/estrada.jpg"></div>
         </div>
 
         <div class="section white">
@@ -38,7 +38,7 @@ session_start();
         </div>
 
         <div class="parallax-container" style="height: 200px;">
-            <div class="parallax"><img src="Img/estrada.jpg"></div>
+            <div class="parallax"><img src="Img/Src/estrada.jpg"></div>
         </div>
 
         <div class="section white">
@@ -57,7 +57,7 @@ session_start();
         </div>
 
         <div class="parallax-container" style="height: 200px;">
-            <div class="parallax"><img src="Img/estrada.jpg"></div>
+            <div class="parallax"><img src="Img/Src/estrada.jpg"></div>
         </div>
 
         <div class="section white">
@@ -68,7 +68,7 @@ session_start();
         </div>
 
         <div class="parallax-container" style="height: 200px;">
-            <div class="parallax"><img src="Img/estrada.jpg"></div>
+            <div class="parallax"><img src="Img/Src/estrada.jpg"></div>
         </div>
 
         <script>

@@ -7,10 +7,10 @@ if (!isset($_SESSION)) {
 <!DOCTYPE html>
 <html>
     <head> 
-        <?php include_once '../Base/header.php'; ?>
+        <?php include_once '../../Base/header.php'; ?>
     </head>
     <body class="homeimg">
-        <?php include_once '../Base/navBar.php'; ?>
+        <?php include_once '../../Base/navBar.php'; ?>
         <br>
         <div class="row">
             <div class="col s6 card offset-s3">
@@ -29,21 +29,13 @@ if (!isset($_SESSION)) {
                     <br>
                     <br>
                             <?php
-                        } else {
-                            //cadastro realizado com sucesso - redirecionar para página de orientação
                         }
                     }
                     ?>
                 </div>
-
             </div>
             <div class="col s3"></div>
         </div>
+         <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>
-
-<?php
-//
-if (isset($_GET['cadastrar'])) {
-    
-}

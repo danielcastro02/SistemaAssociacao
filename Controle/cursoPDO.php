@@ -37,9 +37,9 @@ class cursoPDO {
         $stmt->bindValue(':turno', $curso->getTurno());
         $stmt->bindValue(':nivel', $curso->getNivel());
         if ($stmt->execute()) {
-            header('location: ../Tela/Curso/inserirCurso.php?msg=sucesso');
+            header('location: ../Tela/Cadastro/inserirCurso.php?msg=sucesso');
         } else {
-            header('location: ../Tela/Curso/inserirCurso.php?msg=erro');
+            header('location: ../Tela/Cadastro/inserirCurso.php?msg=erro');
         }
     }
 

@@ -15,7 +15,7 @@ if (realpath("./index.php")) {
 
 <nav class="nav-extended corpadrao">
     <div class="nav-wrapper">
-        <a href="<?php echo $pontos; ?>./Tela/home.php" class="brand-logo">Sistema para Associação</a>
+        <a href="<?php echo $pontos; ?>Tela/Sistema/home.php" class="brand-logo">Sistema para Associação</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <!-- Dropdown Trigger -->
             <li><a class='dropdown-trigger' data-target='dropdown1'>
@@ -59,7 +59,7 @@ if (realpath("./index.php")) {
                 <li><a href="#"></a></li>-->
             </ul>
             
-            <li><a href="<?php echo $pontos; ?>./Controle/usuarioPDO.php?function=logout">Sair</a></li>
+            <li><a href="<?php echo $pontos; ?>Controle/usuarioPDO.php?function=logout">Sair</a></li>
         </ul>
     </div>
 </nav>

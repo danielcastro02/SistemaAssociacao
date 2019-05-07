@@ -11,15 +11,15 @@ if (!isset($_SESSION['usuario'])) {
     <head>
         <title>Home Page</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
 
     </head>
     <body class="homeimg">
 
         <?php
-        include_once '../Base/nav.php';
-        include_once '../Modelo/usuario.php';
+        include_once '../../Base/nav.php';
+        include_once '../../Modelo/usuario.php';
         $logado = new usuario();
         $logado = unserialize($_SESSION['usuario']);
         ?>
@@ -37,8 +37,8 @@ if (!isset($_SESSION['usuario'])) {
                             <div class="row">
                                 <br>
                                 <br>
-                                <a href="./alterarFotoPerfil.php">
-                                    <div  class="fotoPerfil" style='background-image: url("<?php echo $logado->getFotoPerfil(); ?>");
+                                <a href="../Update/alterarFotoPerfil.php">
+                                    <div  class="fotoPerfil" style='background-image: url(../"<?php echo $logado->getFotoPerfil(); ?>");
                                           background-size: cover;
                                           background-position: center;
                                           background-repeat: no-repeat;'>
@@ -76,7 +76,7 @@ if (!isset($_SESSION['usuario'])) {
             </div>
         </div>
 
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
 
     </body>
 </html>

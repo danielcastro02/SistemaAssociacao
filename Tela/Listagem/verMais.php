@@ -3,7 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (!isset($_SESSION['usuario'])) {
-    header('Location: ./login.php');
+    header('Location: ../Sistema/login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -11,23 +11,23 @@ if (!isset($_SESSION['usuario'])) {
     <head>
         <title>Home Page</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
 
     </head>
     <body class="homeimg">
         <?php
-        include_once '../Base/nav.php';
-        include_once '../Modelo/usuario.php';
-        include_once '../Controle/usuarioPDO.php';
-        include_once '../Controle/cursoPDO.php';
-        include_once '../Modelo/curso.php';
+        include_once '../../Base/nav.php';
+        include_once '../../Modelo/usuario.php';
+        include_once '../../Controle/usuarioPDO.php';
+        include_once '../../Controle/cursoPDO.php';
+        include_once '../../Modelo/curso.php';
         $usuarioPDO = new usuarioPDO();
         if (isset($_SESSION['usuario'])) {
             $logado = new usuario();
             $logado = unserialize($_SESSION['usuario']);
             if ($logado->getAdministrador() == 'false') {
-                header('location: ./acessoNegado.php');
+                header('location: ../Sistema/acessoNegado.php');
             } else {
                 $usuario = new usuario();
                 $usuario = $usuarioPDO->selectUsuarioPorId($_GET['id']);
@@ -36,11 +36,11 @@ if (!isset($_SESSION['usuario'])) {
                 $diretoria = new diretoria();
                 $diretoria = $usuarioPDO->selectDiretoriaPorId($_GET['id']);
                 if (!$usuario) {
-                    header('location: ./erroInterno.php');
+                    header('location: ../Sistema/erroInterno.php');
                 }
             }
         } else {
-            header('location: ./login.php');
+            header('location: ../Sistema/login.php');
         }
         ?>
 
@@ -53,7 +53,7 @@ if (!isset($_SESSION['usuario'])) {
                         <div class="col s12">
                             <div class="row">
                                 <div class="col s12">
-                                    <div  class="fotoPerfil" style='background-image: url("<?php echo $usuario->getFotoPerfil(); ?>");
+                                    <div  class="fotoPerfil" style='background-image: url(../"<?php echo $usuario->getFotoPerfil(); ?>");
                                           background-size: cover;
                                           background-position: center;
                                           background-repeat: no-repeat;
@@ -106,7 +106,7 @@ if (!isset($_SESSION['usuario'])) {
                                             if ($usuario->getIdade() < 18) {
                                                 $_SESSION['temp'] = $usuario->getId();
                                                 ?>
-                                                <a href="./cadastroResponsavel.php" class="btn corpadrao">Registrar Responsável</a>
+                                            <a href="../Cadastro/cadastroResponsavel.php" class="btn corpadrao">Registrar Responsável</a>
                                                 <?php
                                             }
                                         }
@@ -149,11 +149,11 @@ if (!isset($_SESSION['usuario'])) {
                                 <a href="./listarUsuario.php" class="btn hoverable corpadrao">Voltar</a>
                                 <?php
                                 if (($usuarioPDO->verificarAdministrador($_GET['id']) == 'true')) {
-                                    ?><a class="btn corpadrao" href="../Controle/usuarioPDO.php?function=tornarUsuarioNormal&id=<?php echo $_GET['id']; ?>">Administrador</a>
+                                    ?><a class="btn corpadrao" href="../../Controle/usuarioPDO.php?function=tornarUsuarioNormal&id=<?php echo $_GET['id']; ?>">Administrador</a>
                                     <?php
                                 } else {
                                     ?>
-                                    <a class="btn red darken-2" href="../Controle/usuarioPDO.php?function=tornarUsuarioAdministrador&id=<?php echo $_GET['id']; ?>">Tornar Administrador</a><?php
+                                    <a class="btn red darken-2" href="../../Controle/usuarioPDO.php?function=tornarUsuarioAdministrador&id=<?php echo $_GET['id']; ?>">Tornar Administrador</a><?php
                                 }
                                 ?>
                             </div>
@@ -163,7 +163,7 @@ if (!isset($_SESSION['usuario'])) {
             </div>
         </div>
 
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
 
     </body>
 </html>

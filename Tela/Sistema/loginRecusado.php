@@ -3,11 +3,11 @@
     <head>
         <title>Login Recusado</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
 
-        include_once '../Controle/usuarioPDO.php';
+        include_once '../../Controle/usuarioPDO.php';
         $usuarioPDO = new usuarioPDO();
-        include_once '../Modelo/usuario.php';
+        include_once '../../Modelo/usuario.php';
         $presidente = new usuario();
         $presidente = $usuarioPDO->selectPresidente();
         ?>
@@ -32,17 +32,18 @@
                                 <h5 class="red-text">Desculpe, você ainda não pode logar...</h5>
                             </div>
                             <div class="row">
-
-
-                                <span class="left-align col s12 ">Não se preocupe, basta entrar em contato com o presidente da associacao <?php echo $presidente->getNome(); ?>
-                                    para validar seus documentos...<br>Entre em contato pelo Telefone: <?php echo $presidente->getTelefone(); ?>, pelo E-mail: <?php echo $presidente->getEmail(); ?>.<br>Ou diretamente no endereço:
-                                    Rua, <?php echo $presidente->getRua(); ?>, Bairro <?php echo $presidente->getBairro(); ?>, Número  <?php echo $presidente->getNumero(); ?>, na cidade de <?php echo $presidente->getCidade(); ?></span></div>
-
-
+                                <span class="left-align col s12 ">
+                                    Não se preocupe, basta entrar em contato com o presidente da associacao <?php echo $presidente->getNome(); ?>
+                                    para validar seus documentos...<br>Entre em contato pelo Telefone: <?php echo $presidente->getTelefone(); ?>,
+                                    pelo E-mail: <?php echo $presidente->getEmail(); ?>.<br>Ou diretamente no endereço:
+                                    Rua, <?php echo $presidente->getRua(); ?>, Bairro <?php echo $presidente->getBairro(); ?>,
+                                    Número  <?php echo $presidente->getNumero(); ?>, na cidade de <?php echo $presidente->getCidade(); ?>
+                                </span>
+                            </div>
                             <div class="row left-align">
                                 <h5 class="col s9">
                                     Isso é para a segurança de todos os nossos associados!</h5>
-                                <img class="col s2" src="../Img/sintoMuito.png">
+                                <img class="col s2" src="../../Img/Src/sintoMuito.png">
                             </div>
 
                             <div class="row">
@@ -54,6 +55,6 @@
                 </div>
             </div>
         </main>
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

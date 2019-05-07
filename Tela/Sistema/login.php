@@ -1,9 +1,17 @@
+<?php
+if(!isset($_SESSION)){
+    session_start();
+}
+if(isset($_SESSION['usuario'])){
+    header('location ./home.php');
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Login</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
     </head>
     <body class="homeimg">
@@ -19,7 +27,7 @@
                 <div style="height: 15vh;"></div>
                 <div class="col s4 offset-s4 card center">
                     <h5>Identifique-se com seu cadastro</h5>
-                    <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=login" method="POST">
+                    <form class="col s12 input-field" action="../../Controle/usuarioPDO.php?function=login" method="POST">
                         <div class="input-field col s12">
                             <input type="text" class="input-field" name="usuario" required="true">
                             <label for="usuario">Usuário</label>
@@ -47,6 +55,6 @@
                 </div>
             </div>
         </main>
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

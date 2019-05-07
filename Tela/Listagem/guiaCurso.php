@@ -7,10 +7,10 @@ if (isset($_SESSION['usuario'])) {
     $logado = new usuario();
     $logado = unserialize($_SESSION['usuario']);
     if ($logado->getAdministrador() == 'false') {
-        header('location: ../acessoNegado.php');
+        header('location: ../Sistema/acessoNegado.php');
     }
 } else {
-    header('location: ../login.php');
+    header('location: ../Sistema/login.php');
 }
 include_once '../../Modelo/curso.php';
 include_once '../../Controle/cursoPDO.php';

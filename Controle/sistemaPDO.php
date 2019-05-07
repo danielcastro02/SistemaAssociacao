@@ -3,14 +3,21 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!realpath("./index.php")) {
-    include_once "../Controle/conexao.php";
-    include_once '../Modelo/contato.php';
-} else {
+
+if (realpath("./index.php")) {
     include_once "./Controle/conexao.php";
     include_once './Modelo/contato.php';
+} else {
+    if (realpath("../index.php")) {
+        include_once "../Controle/conexao.php";
+    include_once '../Modelo/contato.php';
+    } else {
+        if (realpath("../../index.php")) {
+            include_once "../../Controle/conexao.php";
+            include_once '../../Modelo/contato.php';
+        }
+    }
 }
-// fazer a verificação utilizando o realpath para get do cadastroResponsavel -- nota: utilizar temp
 $classe = new sistemaPDO();
 
 if (isset($_GET["function"])) {
@@ -30,9 +37,9 @@ class sistemaPDO {
         $stmt->bindValue(':email', $contato->getEmail());
         $stmt->bindValue(':descricao', $contato->getDescricao());
         if ($stmt->execute()) {
-            header('location: ../Tela/reclamacao.php?msg=sucessoReclamacao');
+            header('location: ../Tela/Sistema/reclamacao.php?msg=sucessoReclamacao');
         } else {
-            header('location: ../Tela/reclamacao.php?msg=erroReclamacao');
+            header('location: ../Tela/Sistema/reclamacao.php?msg=erroReclamacao');
         }
     }
 
@@ -48,19 +55,19 @@ class sistemaPDO {
         $stmt->bindValue(':descricao', $contato->getDescricao());
         if ($stmt->execute()) {
             if ($contato->getMotivo() == 'bug') {
-                header('location: ../Tela/reclamacao.php?msg=sucessoContatoBug');
+                header('location: ../Tela/Sistema/reclamacao.php?msg=sucessoContatoBug');
             }
             if ($contato->getMotivo() == 'critica') {
-                header('location: ../Tela/reclamacao.php?msg=sucessoContatoCritica');
+                header('location: ../Tela/Sistema/reclamacao.php?msg=sucessoContatoCritica');
             }
             if ($contato->getMotivo() == 'sugestao') {
-                header('location: ../Tela/reclamacao.php?msg=sucessoContatoSugestao');
+                header('location: ../Tela/Sistema/reclamacao.php?msg=sucessoContatoSugestao');
             }
             if ($contato->getMotivo() == 'problema') {
-                header('location: ../Tela/reclamacao.php?msg=sucessoContatoProblema');
+                header('location: ../Tela/Sistema/reclamacao.php?msg=sucessoContatoProblema');
             }
         } else {
-            header('location: ../Tela/reclamacao.php?msg=erroContato');
+            header('location: ../Tela/Sistema/reclamacao.php?msg=erroContato');
         }
     }
 

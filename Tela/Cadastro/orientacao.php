@@ -6,14 +6,14 @@ if (!isset($_SESSION)) {
 <!DOCTYPE html>
 <html>
     <head>
-        <?php include_once '../Base/header.php'; ?>
+        <?php include_once '../../Base/header.php'; ?>
     </head> 
     <body class="homeimg">
         <?php
-        include_once '../Base/nav.php';
-        include_once '../Controle/usuarioPDO.php';
+        include_once '../../Base/nav.php';
+        include_once '../../Controle/usuarioPDO.php';
         $usuarioPDO = new usuarioPDO();
-        include_once '../Modelo/usuario.php';
+        include_once '../../Modelo/usuario.php';
         $presidente = new usuario();
         $presidente = $usuarioPDO->selectPresidente();
         
@@ -32,13 +32,13 @@ if (!isset($_SESSION)) {
                     <div class="col s6 center offset-s3">
                         <h5>Aluno(a) cadastrado(a) com sucesso.</h5>
                         <br>
-                        <a class="btn hoverable corpadrao" href="../Tela/home.php">Tela inicial</a>
-                        <a class="btn hoverable corpadrao" href="../Tela/cadastroAluno.php">Cadastrar +</a>
+                        <a class="btn hoverable corpadrao" href="../Sistema/home.php">Tela inicial</a>
+                        <a class="btn hoverable corpadrao" href="../Sistema/cadastroAluno.php">Cadastrar +</a>
                     </div>
                     <?php
                 } else {
                     if ($_GET['msg'] == 'sucessoAlunoRequerimento') {
-                        include_once '../Controle/usuarioPDO.php';
+                        include_once '../../Controle/usuarioPDO.php';
                         $usuarioPDO = new usuarioPDO();
                         $presidente = $usuarioPDO->selectPresidente();
                         
@@ -57,10 +57,10 @@ if (!isset($_SESSION)) {
                             <div class="row left-align">
                                 <h5 class="col s9">
                                     Isso é para a segurança de todos os nossos associados!</h5>
-                                <img class="col s2" src="../Img/sintoMuito.png">
+                                <img class="col s2" src="../../Img/Src/sintoMuito.png">
                             </div>
                             <br>
-                            <a class="btn hoverable corpadrao" href="../index.php">Continuar</a>
+                            <a class="btn hoverable corpadrao" href="../../index.php">Continuar</a>
                         </div>
                         <?php
                     } else {
@@ -69,7 +69,7 @@ if (!isset($_SESSION)) {
                             <div class="col s4 center offset-s4">
                                 <h5>Alunos(as) menores de idade preisam de um responsável.</h5>
                                 <br>
-                                <a class="btn hoverable corpadrao" href="../Tela/cadastroResponsavel.php">Cadastrar responsável</a>
+                                <a class="btn hoverable corpadrao" href="../Cadastro/cadastroResponsavel.php">Cadastrar responsável</a>
                             </div>
                             <?php
                         }

@@ -3,16 +3,16 @@
     <head>
         <title>Login</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
     </head>
     <body class="homeimg">
 
         <?php
-        include_once '../Base/nav.php';
-        include_once '../Controle/usuarioPDO.php';
+        include_once '../../Base/nav.php';
+        include_once '../../Controle/usuarioPDO.php';
         $usuarioPDO = new usuarioPDO();
-        include_once '../Modelo/usuario.php';
+        include_once '../../Modelo/usuario.php';
         $presidente = new usuario();
         $presidente = $usuarioPDO->selectPresidente();
         ?>
@@ -66,6 +66,6 @@
                 </div>
             </div>
         </main>
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>
