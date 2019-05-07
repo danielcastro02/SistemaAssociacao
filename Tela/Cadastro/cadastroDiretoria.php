@@ -3,26 +3,26 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (!isset($_SESSION['usuario'])) {
-    header("Location: ../index.php");
+    header("Location: ../../index.php");
 }
 ?>                  
 
 <!DOCTYPE html>
 <html>
     <head>
-        <?php include_once '../Base/header.php'; ?>
+        <?php include_once '../../Base/header.php'; ?>
     </head> 
     <body class="homeimg">
 
         <?php
-        include_once '../Base/nav.php';
+        include_once '../../Base/nav.php';
         ?>
         <br>
         <div class = "row">
             <div class = "col s8 card offset-s2">
                 <center><h4>Cadastre o membro da diretoria</h4></center>
                 <form class = "center" method = "post" 
-                      action = "../Controle/usuarioPDO.php?function=inserirDiretoria" name = "formulario-cadastro-diretoria">
+                      action = "../../Controle/usuarioPDO.php?function=inserirDiretoria" name = "formulario-cadastro-diretoria">
                     <div class = "col s12">
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "nome" required="true">
@@ -89,11 +89,11 @@ if (!isset($_SESSION['usuario'])) {
                             <label for = "senha2" id="lsenha2">Confirme a senha</label>
                         </div>
 
-                        <?php include_once '../Base/msgSaida.php'; ?>
+                        <?php include_once '../../Base/msgSaida.php'; ?>
 
                         <div class="row">
                             <div class="col s12">
-                                <a href = "./home.php" class = "btn hoverable corcancelar">Cancelar</a>
+                                <a href = "../Sistema/home.php" class = "btn hoverable corcancelar">Cancelar</a>
                                 <button type = "submit" class = "btn hoverable corpadrao">Enviar</button>
                             </div>
                         </div>
@@ -102,7 +102,7 @@ if (!isset($_SESSION['usuario'])) {
             </div>
             <div class = "col s3"></div>
         </div>
-        <script src="../js/mascaras.js" type="text/javascript"></script>
+        <script src="../../js/mascaras.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
                 $('.date').mask("00/00/0000");
@@ -111,8 +111,8 @@ if (!isset($_SESSION['usuario'])) {
                 $('#cep').mask("00000-000");
             });
         </script>
-        <script src="../js/verificaSenha.js" type="text/javascript"></script>
-        <script src="../js/verificaFormulario.js" type="text/javascript"></script>
-        <?php include_once '../Base/footer.php'; ?>
+        <script src="../../js/verificaSenha.js" type="text/javascript"></script>
+        <script src="../../js/verificaFormulario.js" type="text/javascript"></script>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

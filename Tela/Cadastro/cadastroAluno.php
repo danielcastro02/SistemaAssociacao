@@ -3,24 +3,22 @@ if (!isset($_SESSION)) {
     session_start();
     unset($_SESSION['temp']);
 }
-//NÃO VERIRIFCAR SE ESTÁ LOGADO, PQ EXISTE O REQUERIMENTO DE ASSOCIAÇÃO
 ?>                  
-
 <!DOCTYPE html>
 <html>
     <head>
-        <?php include_once '../Base/header.php'; ?>
+        <?php include_once '../../Base/header.php'; ?>
     </head> 
     <body class="homeimg">
 
         <?php
-        include_once '../Base/nav.php';
+        include_once '../../Base/nav.php';
         ?>
         <br>
         <div class = "row">
             <div class = "col s8 card offset-s2">
                 <center><h4>Cadastre o aluno</h4></center>
-                <form id="formulario" class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirAluno" name = "formulario-cadastro-aluno">
+                <form id="formulario" class = "center" method = "post" action = "../../Controle/usuarioPDO.php?function=inserirAluno" name = "formulario-cadastro-aluno">
                     <div class = "col s12">
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "nome" required="true">
@@ -66,7 +64,7 @@ if (!isset($_SESSION)) {
                             <select name = "id_curso" required="true">
                                 <option value="0">Selecione o curso</option>
                                 <?php
-                                include_once '../Controle/cursoPDO.php';
+                                include_once '../../Controle/cursoPDO.php';
                                 $cursoPDO = new cursoPDO();
                                 $resultado = $cursoPDO->selectTudo();
                                 if ($resultado) {
@@ -110,21 +108,21 @@ if (!isset($_SESSION)) {
                             <label for = "senha2" id="lsenha2">Confirme a senha</label>
                         </div>
 
-                        <?php include_once '../Base/msgSaida.php'; ?>
+                        <?php include_once '../../Base/msgSaida.php'; ?>
 
                         <div class="row">
                             <div class="col s12">
                                 <?php
-                                include_once '../Modelo/usuario.php';
+                                include_once '../../Modelo/usuario.php';
 
                                 if (isset($_SESSION['usuario'])) {
                                     $usuario = new usuario(unserialize($_SESSION['usuario']));
                                     ?>
-                                    <a href = "./home.php" class = "btn hoverable corcancelar">Cancelar</a>
+                                <a href = "../Sistema/home.php" class = "btn hoverable corcancelar">Cancelar</a>
                                     <?php
                                 } else {
                                     ?>
-                                    <a href="../index.php" class="btn hoverable corcancelar">Cancelar</a>
+                                    <a href="../../index.php" class="btn hoverable corcancelar">Cancelar</a>
                                     <?php
                                 }
                                 ?>
@@ -136,7 +134,7 @@ if (!isset($_SESSION)) {
             </div>
             <div class="col s3"></div>
         </div>
-        <script src="../js/mascaras.js"></script>
+        <script src="../../js/mascaras.js"></script>
         <script>
             $(document).ready(function () {
                 $('select').formSelect();
@@ -146,8 +144,8 @@ if (!isset($_SESSION)) {
                 $('#cep').mask("00000-000");
             });
         </script>
-        <script src="../js/verificaSenha.js" type="text/javascript"></script>
-        <script src="../js/verificaFormulario.js" type="text/javascript"></script>
-        <?php include_once '../Base/footer.php'; ?>
+        <script src="../../js/verificaSenha.js" type="text/javascript"></script>
+        <script src="../../js/verificaFormulario.js" type="text/javascript"></script>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

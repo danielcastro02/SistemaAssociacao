@@ -2,28 +2,28 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-include_once '../Modelo/usuario.php';
+include_once '../../Modelo/usuario.php';
 if (isset($_SESSION['usuario'])) {
     $logado = new usuario();
     $logado = unserialize($_SESSION['usuario']);
     if ($logado->getAdministrador() == 'false') {
-        header('location: ./acessoNegado.php');
+        header('location: ../Sistema/acessoNegado.php');
     }
 } else {
-    header('location: ./login.php');
+    header('location: ../Sistema/login.php');
 }
 ?>
 <!DOCTYPE html>
 <html>
     <header>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
     </header>
     <body class="homeimg">
 
         <?php
-        include_once '../Base/nav.php';
+        include_once '../../Base/nav.php';
         ?>
         <div class="row ">
             <!--<div class="col s2"></div>-->
@@ -72,64 +72,13 @@ if (isset($_SESSION['usuario'])) {
                             <td></td>
                         </tr>
                         <?php
-                        include_once '../Controle/usuarioPDO.php';
-                        include_once '../Modelo/usuario.php';
+                        include_once '../../Controle/usuarioPDO.php';
+                        include_once '../../Modelo/usuario.php';
                         $usuarioListar = new usuarioPDO();
                         if (isset($_POST['pesquisar'])) {
                             $pesquisa = $_POST['pesquisar'];
                             $metodo = $_POST['select'];
                             $sql = $usuarioListar->$metodo($pesquisa);
-                            if (false) {
-//                        $pesquisa = $_POST['pesquisar'];
-//                        if ($_POST['select'] == 'nomeUser') {  //esse if é desnecessário, mas ainda não vou exclui-lo. Posso usa-lo depois.
-//                            $sql = $usuarioListar->pesquisarUsuariosPorNome($pesquisa);
-//                        } else {
-//                            if ($_POST['select'] == 'rgUser') {
-////                                $pesquisa = $_POST['pesquisar'];
-//                                $sql = $usuarioListar->pesquisarUsuariosPorRG($pesquisa);
-//                            } else {
-//                                if ($_POST['select'] == 'cpfUser') {
-////                                    $pesquisa = $_POST['pesquisar'];
-//                                    $sql = $usuarioListar->pesquisarUsuariosPorCPF($pesquisa);
-//                                } else {
-//                                    if ($_POST['select'] == 'cursoUser') {
-////                                        $pesquisa = $_POST['pesquisar'];
-//                                        $sql = $usuarioListar->pesquisarUsuariosPorCurso($pesquisa);
-//                                    } else {
-//                                        if ($_POST['select'] == 'todosUsers') {
-//                                            $sql = $usuarioListar->litarUsuarios();
-//                                        } else {
-//                                            if ($_POST['select'] == 'membrosAtivos') {
-//                                                $sql = $usuarioListar->pesquisarUsuariosAtivos($pesquisa);
-//                                            } else {
-//                                                if ($_POST['select'] == 'membrosInativos') {
-//                                                    $sql = $usuarioListar->pesquisarUsuariosInativos($pesquisa);
-//                                                } else {
-//                                                    if ($_POST['select'] == 'membrosDiretoria') {
-//                                                        $sql = $usuarioListar->pesquisarUsuariosDaDiretoria($pesquisa);
-//                                                    } else {
-//                                                        if ($_POST['select'] == 'admin') {
-//                                                            $sql = $usuarioListar->pesquisarUsuariosAdministradores($pesquisa);
-//                                                        } else {
-//                                                            if ($_POST['select'] == 'nomeTodos') {
-//                                                                $sql = $usuarioListar->pesquisarUsuariosPorNome($pesquisa);
-//                                                            } else {
-//                                                                if ($_POST['select'] == 'apenaAlunos') {
-//                                                                    $sql = $usuarioListar->pesquisarUsuariosAluno($pesquisa);
-//                                                                } else {
-//                                                                    $sql = false;
-//                                                                }
-//                                                            }
-//                                                        }
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-                                //     }
-                            }
                         } else {
                             $sql = $usuarioListar->litarUsuarios();
                         }
@@ -167,14 +116,14 @@ if (isset($_SESSION['usuario'])) {
 //                        -----------------------------------------------------------
                                 if (($us->getAdministrador() == 'true')) {
                                     echo "<td>";
-                                    ?><a class="btn corpadrao" href="../Controle/usuarioPDO.php?function=tornarUsuarioInativo&id=
+                                    ?><a class="btn corpadrao" href="../../Controle/usuarioPDO.php?function=tornarUsuarioInativo&id=
                                        <?php echo $us->getId(); ?>">Ativo</a>
                                        <?php
                                        echo "</td>";
                                    } else {
                                        echo "<td>";
                                        ?>
-                                    <a class="btn red darken-2" href="../Controle/usuarioPDO.php?function=tornarUsuarioAtivo&id=
+                                    <a class="btn red darken-2" href="../../Controle/usuarioPDO.php?function=tornarUsuarioAtivo&id=
                                        <?php echo $us->getId(); ?>">Inativo</a><?php
                                        echo "</td>";
                                    }
@@ -197,7 +146,6 @@ if (isset($_SESSION['usuario'])) {
         </div>
         <script>
             $(document).ready(function () {
-                $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
                 $('select').formSelect();
                 $('#select').change(atualiza);
                 $('#pesquisa').keyup(atualiza);
@@ -207,6 +155,6 @@ if (isset($_SESSION['usuario'])) {
                 }
             });
         </script>
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

@@ -3,7 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (!isset($_SESSION['usuario'])) {
-    header('Location: ./login.php');
+    header('Location: ../Sistema/login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -11,12 +11,12 @@ if (!isset($_SESSION['usuario'])) {
     <head>
         <title>Alterar Dados</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
     </head>
     <body class="homeimg">
         <?php
-        include_once '../Base/nav.php';
+        include_once '../../Base/nav.php';
         ?>
         <main id="main">
             <div class="col s12">
@@ -28,7 +28,7 @@ if (!isset($_SESSION['usuario'])) {
                         <div class="row">
                             <div class="col s6 offset-s3 center">
                                 <div class="row">
-                                    <form action="../Controle/usuarioPDO.php?function=alteraFoto" method="post" enctype="multipart/form-data">
+                                    <form action="../../Controle/usuarioPDO.php?function=alteraFoto" method="post" enctype="multipart/form-data">
                                         <h5>Selecione sua nova foto de perfil!</h5>
                                         <div class="file-field input-field">
                                             <button class="btn corpadrao">
@@ -50,16 +50,6 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </div>
         </main>
-        <script>
-            $(document).ready(function () {
-                $("#esconde").click(function () {
-                    $("#mostra").removeAttr('hidden');
-                    $("#esconde").attr('hidden', 'true');
-                });
-                $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
-            });
-
-        </script>
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

@@ -10,12 +10,12 @@ if (!isset($_SESSION)) {
 <!DOCTYPE html>
 <html>
     <head>
-        <?php include_once '../Base/header.php'; ?>
+        <?php include_once '../../Base/header.php'; ?>
     </head> 
     <body class="homeimg">
 
         <?php
-        include_once '../Base/nav.php';
+        include_once '../../Base/nav.php';
         ?>
         <br>
         <div class = "row">
@@ -37,6 +37,6 @@ if (!isset($_SESSION)) {
             </div>
             <div class="col s3"></div>
         </div>
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

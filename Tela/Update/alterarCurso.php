@@ -3,7 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (!isset($_SESSION['usuario'])) {
-    header('Location: ./login.php');
+    header('Location: ../Sistema/login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -11,14 +11,14 @@ if (!isset($_SESSION['usuario'])) {
     <head>
         <title>Alterar Dados</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
     </head>
     <body class="homeimg">
 
         <?php
-        include_once '../Base/nav.php';
-        include_once '../Modelo/aluno.php';
+        include_once '../../Base/nav.php';
+        include_once '../../Modelo/aluno.php';
         $logado = new aluno();
         $logado = unserialize($_SESSION['aluno']);
         ?>
@@ -27,13 +27,13 @@ if (!isset($_SESSION['usuario'])) {
             <div class="row">
                 <div class="col s8 offset-s2 card center ">
                     <h5>Seus dados</h5>
-                    <form class="col s12 input-field" action="../Controle/usuarioPDO.php?function=update" method="POST">
+                    <form class="col s12 input-field" action="../../Controle/usuarioPDO.php?function=update" method="POST">
                         <div class="row">
                             <div class="input-field col s6">
                                 <select name = "id_curso" required="true">
                                     <option value="0">Selecione o curso</option>
                                     <?php
-                                    include_once '../Controle/cursoPDO.php';
+                                    include_once '../../Controle/cursoPDO.php';
                                     $cursoPDO = new cursoPDO();
                                     $resultado = $cursoPDO->selectTudo();
                                     if ($resultado) {
@@ -94,7 +94,7 @@ if (!isset($_SESSION['usuario'])) {
                         ?>
 
                         <div class="row">
-                            <a href="./home.php" class="btn corcancelar">Cancelar</a>
+                            <a href="../Sistema/home.php" class="btn corcancelar">Cancelar</a>
                             <button type="submit" class="btn corpadrao" name="btlogin">Alterar</button>
                         </div>
                         <?php
@@ -113,8 +113,8 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </div>
         </main>
-        <?php include_once '../Base/footer.php'; ?>
-        <script src="../js/mascaras.js"></script>
+        <?php include_once '../../Base/footer.php'; ?>
+        <script src="../../js/mascaras.js"></script>
         <script>
             $(document).ready(function () {
                 $('.date').mask("00/00/0000");

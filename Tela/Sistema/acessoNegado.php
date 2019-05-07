@@ -3,7 +3,7 @@
     <head>
         <title>Login</title>
         <?php
-        include_once '../Base/header.php';
+        include_once '../../Base/header.php';
         ?>
     </head>
     <body class="homeimg">
@@ -24,7 +24,7 @@
                             <p>Se acredita que esta vendo esta mensagem por engano, por comunique a equipe de desenvolvimento!</p>
 
                         </div>
-                            <img src="../Img/sintoMuito.png" class="col s3">
+                            <img src="../Img/Src/sintoMuito.png" class="col s3">
                         </div>
                         <div class="row">
                             <a class="btn corpadrao hoverable" href="./contato.php?msg=acessoNegado">Contato</a>
@@ -33,6 +33,6 @@
                 </div>
             </div>
         </main>
-        <?php include_once '../Base/footer.php'; ?>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

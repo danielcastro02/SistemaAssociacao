@@ -478,12 +478,12 @@ class usuarioPDO {
                 $sql->bindValue(':id', $dr->getId_usuario());
                 $sql->bindValue(':cargo', $dr->getCargo());
                 $sql->execute();
-                header("Location: ../Tela/cadastroDiretoria.php?msg=sucesso");
+                header("Location: ../Tela/Cadastro/cadastroDiretoria.php?msg=sucesso");
             } else {
-                header("Location: ../Tela/cadastroDiretoria.php?msg=erroInserirDiretoria");
+                header("Location: ../Tela/Cadastro/cadastroDiretoria.php?msg=erroInserirDiretoria");
             }
         } else {
-            header('location: ../Tela/cadastrodiretoria.php?msg=' . $resposta);
+            header('location: ../Tela/Cadastro/cadastrodiretoria.php?msg=' . $resposta);
         }
     }
 
@@ -552,12 +552,12 @@ class usuarioPDO {
             $sql->bindValue(':dataInicio', $al->getData_inicio());
             $sql->bindValue(':conclusao', $al->getPrevisao_conclusao());
             if ($sql->execute()) {
-                header("Location: ../Tela/orientacao.php?msg=" . $this->enviarOrientacaoCadAluno($us));
+                header("Location: ../Tela/Cadastro/orientacao.php?msg=" . $this->enviarOrientacaoCadAluno($us));
             } else {
-                header("Location: ../Tela/cadastroAluno.php?msg=erroInserirAluno");
+                header("Location: ../Tela/Cadastro/cadastroAluno.php?msg=erroInserirAluno");
             }
         } else {
-            header('location: ../Tela/cadastroAluno.php?msg=' . $resultado);
+            header('location: ../Tela/Cadastro/cadastroAluno.php?msg=' . $resultado);
         }
     }
 
@@ -593,15 +593,15 @@ class usuarioPDO {
                 $id = $_SESSION['temp'];
                 unset($_SESSION['temp']);
                 if ($stmt->execute()) {
-                    header('location: ../Tela/orientacao.php?msg=' . $this->enviarOrientacaoCadAluno($this->selectAlunoPorId($id)));
+                    header('location: ../Tela/Cadastro/orientacao.php?msg=' . $this->enviarOrientacaoCadAluno($this->selectAlunoPorId($id)));
                 } else {
-                    header('location: ../Tela/cadastroResponsavel.php?msg=erroInsert');
+                    header('location: ../Tela/Cadastro/cadastroResponsavel.php?msg=erroInsert');
                 }
             } else {
-                header('location: ../Tela/cadastroResponsavel.php?msg=sucesso');
+                header('location: ../Tela/Cadastro/cadastroResponsavel.php?msg=sucesso');
             }
         } else {
-            header('location: ../Tela/cadastroResponsavel.php?msg=' . $resposta);
+            header('location: ../Tela/Cadastro/cadastroResponsavel.php?msg=' . $resposta);
         }
     }
 
@@ -948,7 +948,7 @@ class usuarioPDO {
             $linha = $stmt->fetch(PDO::FETCH_ASSOC);
             $us = new usuario($linha);
             if ($us->getPode_logar() == 'false') {
-                header('Location: ../Tela/loginrecusado.php');
+                header('Location: ../Tela/Sistema/loginrecusado.php');
             } else {
                 $_SESSION['usuario'] = serialize($us);
                 $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
@@ -961,7 +961,7 @@ class usuarioPDO {
                         session_destroy();
                         session_start();
                         $_SESSION['temp'] = $this->buscarIDporRG($rgtemp);
-                        header('location: ../Tela/orientacao.php?msg=cadastrarResponsavel');
+                        header('location: ../Tela/Cadastro/orientacao.php?msg=cadastrarResponsavel');
                     } else {
                         $al = new aluno($l);
                         $_SESSION['aluno'] = serialize($al);
@@ -974,10 +974,10 @@ class usuarioPDO {
                         $_SESSION['diretoria'] = serialize(new diretoria($s));
                     }
                 }
-                header('Location: ../Tela/home.php');
+                header('Location: ../Tela/Sistema/home.php');
             }
         } else {
-            header("Location: ../Tela/login.php?msg=false");
+            header("Location: ../Tela/Sistema/login.php?msg=false");
         }
     }
 
@@ -1092,9 +1092,9 @@ class usuarioPDO {
             if ($usuario->getId() == $id) {
                 $_SESSION['usuario'] = serialize($this->selectUsuarioPorId($id));
             }
-            header("Location: ../Tela/verMais.php?id=" . $id);
+            header("Location: ../Tela/Listagem/verMais.php?id=" . $id);
         } else {
-            header("Location: ../Tela/listarUsuario.php?msg=erro");
+            header("Location: ../Tela/Listagem/listarUsuario.php?msg=erro");
         }
     }
 
@@ -1106,9 +1106,9 @@ class usuarioPDO {
         $sql->bindValue(':id', $id);
         if ($sql->execute()) {
             //return $sql;
-            header("Location: ../Tela/verMais.php?id=" . $id);
+            header("Location: ../Tela/Listagem/verMais.php?id=" . $id);
         } else {
-            header("Location: ../Tela/listarUsuario.php?msg=erro");
+            header("Location: ../Tela/Listagem/listarUsuario.php?msg=erro");
         }
     }
 

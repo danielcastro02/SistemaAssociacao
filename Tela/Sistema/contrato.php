@@ -6,11 +6,11 @@ if (!isset($_SESSION)) {
 <!DOCTYPE html>
 <html>
     <head>
-        <?php include_once '../Base/header.php'; ?>
+        <?php include_once '../../Base/header.php'; ?>
     </head> 
     <body class="homeimg">
         <?php
-        include_once '../Base/nav.php';
+        include_once '../../Base/nav.php';
         ?>
         <div id="div-principal" class="row">
             <br>
@@ -35,10 +35,12 @@ if (!isset($_SESSION)) {
 
                     The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
                 </div><br>
-                <a class="btn hoverable corpadrao" href="../index.php">Voltar</a>
-                <a class="btn hoverable corpadrao" href="../Tela/cadastroAluno.php">Aceitar</a>
+                <a class="btn hoverable corpadrao" href="../../index.php">Voltar</a>
+                <a class="btn hoverable corpadrao" href="../Cadastro/cadastroAluno.php">Aceitar</a>
             </div>
         </div>
-
+<?php
+        include_once '../../Base/footer.php';
+        ?>
     </body>
 </html>
