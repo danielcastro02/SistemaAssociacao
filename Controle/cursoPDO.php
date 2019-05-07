@@ -37,11 +37,20 @@ class cursoPDO {
         $stmt->bindValue(':turno', $curso->getTurno());
         $stmt->bindValue(':nivel', $curso->getNivel());
         if ($stmt->execute()) {
+//            $this->vaiPraOrientacao("true");
             header('location: ../Tela/Cadastro/inserirCurso.php?msg=sucesso');
         } else {
             header('location: ../Tela/Cadastro/inserirCurso.php?msg=erro');
         }
     }
+
+//    public function vaiPraOrientacao($msg) {
+//        if ($msg == 'true') {
+//            header("Location: ../Tela/Cadastro/orientacao.php?sucesso=true?msg=sucessoCadCurso");
+//        } else {
+//            header("Location: ../Tela/Cadastro/orientacao.php?sucesso=true?msg=erroCadCurso");
+//        }
+//    }
 
     public function selectTudo() {
         $con = new conexao();
@@ -54,9 +63,9 @@ class cursoPDO {
             return false;
         }
     }
-    
-    public function selectPorTurno($turno){
-        $turno = "%".$turno."%";
+
+    public function selectPorTurno($turno) {
+        $turno = "%" . $turno . "%";
         $con = new conexao();
         $pdo = $con->getConexao();
         $stmt = $pdo->prepare("select * from curso where turno like :turno;");
@@ -67,7 +76,6 @@ class cursoPDO {
         } else {
             return false;
         }
-        
     }
 
     public function selectCursoPorId($id) {

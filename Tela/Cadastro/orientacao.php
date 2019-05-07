@@ -16,7 +16,6 @@ if (!isset($_SESSION)) {
         include_once '../../Modelo/usuario.php';
         $presidente = new usuario();
         $presidente = $usuarioPDO->selectPresidente();
-        
         ?>
         <div id="div-principal" class="row">
             <br>
@@ -24,8 +23,22 @@ if (!isset($_SESSION)) {
             <br>
             <br>
             <br>
-            
+
             <?php
+            if (isset($_GET['sucesso'])) {
+                if ($_GET['sucesso'] == 'cadCurso') {
+                    ?>
+                    <div class="col s6 center offset-s3">
+                        <h5>Informações cadastradas com sucesso.</h5>
+                        <br>
+                        <a class="btn hoverable corpadrao" href="../../Tela/Sistema/home.php">Tela inicial</a>
+                        <a class="btn hoverable corpadrao" href="../Cadastro/inserirCurso.php">Cadastrar +</a>
+                    </div>
+                    <?php
+                }
+            }
+
+
             if (isset($_GET['msg'])) {
                 if ($_GET['msg'] == 'sucessoAluno') {
                     ?>
@@ -41,7 +54,6 @@ if (!isset($_SESSION)) {
                         include_once '../../Controle/usuarioPDO.php';
                         $usuarioPDO = new usuarioPDO();
                         $presidente = $usuarioPDO->selectPresidente();
-                        
                         ?>
                         <div class="col s6 center offset-s3">
                             <h5>Seu cadastro foi concluido com sucesso!<br>
