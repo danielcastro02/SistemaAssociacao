@@ -16,7 +16,6 @@ if (!isset($_SESSION)) {
         include_once '../../Modelo/usuario.php';
         $presidente = new usuario();
         $presidente = $usuarioPDO->selectPresidente();
-        
         ?>
         <div id="div-principal" class="row">
             <br>
@@ -24,7 +23,7 @@ if (!isset($_SESSION)) {
             <br>
             <br>
             <br>
-            
+
             <?php
             if (isset($_GET['msg'])) {
                 if ($_GET['msg'] == 'sucessoAluno') {
@@ -41,7 +40,6 @@ if (!isset($_SESSION)) {
                         include_once '../../Controle/usuarioPDO.php';
                         $usuarioPDO = new usuarioPDO();
                         $presidente = $usuarioPDO->selectPresidente();
-                        
                         ?>
                         <div class="col s6 center offset-s3">
                             <h5>Seu cadastro foi concluido com sucesso!<br>
@@ -62,21 +60,21 @@ if (!isset($_SESSION)) {
                             <br>
                             <a class="btn hoverable corpadrao" href="../../index.php">Continuar</a>
                         </div>
-                        <?php
-                    } else {
-                        if ($_GET['msg'] == 'cadastrarResponsavel') {
-                            ?>
+            <?php
+        } else {
+            if ($_GET['msg'] == 'cadastrarResponsavel') {
+                ?>
                             <div class="col s4 center offset-s4">
                                 <h5>Alunos(as) menores de idade preisam de um responsável.</h5>
                                 <br>
                                 <a class="btn hoverable corpadrao" href="../Cadastro/cadastroResponsavel.php">Cadastrar responsável</a>
                             </div>
-                            <?php
-                        }
-                    }
-                }
+                <?php
             }
-            ?>
+        }
+    }
+}
+?>
         </div>
 
     </body>

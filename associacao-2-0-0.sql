@@ -134,7 +134,7 @@ CREATE TABLE `usuario` (
   `telefone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `data_associacao` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `fotoPerfil` varchar(150) COLLATE utf8_unicode_ci DEFAULT '../Img/user_icon.png',
+  `fotoPerfil` varchar(150) COLLATE utf8_unicode_ci DEFAULT '../Img/Src/user_icon.png',
   `pode_logar` varchar(30) COLLATE utf8_unicode_ci DEFAULT 'false',
   `administrador` varchar(30) COLLATE utf8_unicode_ci DEFAULT 'false'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -144,7 +144,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `usuario`, `senha`, `cidade`, `bairro`, `rua`, `numero`, `cep`, `cpf`, `rg`, `data_nasc`, `telefone`, `email`, `data_associacao`, `fotoPerfil`, `pode_logar`, `administrador`) VALUES
-(1, 'Daniel Zanini de Castro', 'dcastro', 'f903d5d4141b05ae28192bc3d75e0491', 'Jaguari', 'Centro', 'Av. dr. severiano de almeida', '280', '97760-000', '039.855.650-40', '5123700463', '10/03/2000', '(55) 55995-9841', 'zanini.castro@hotmail.com', '01/01/2019', '../Img/c4ca4238a0b923820dcc509a6f75849b.png', 'true', 'true');
+(1, 'Daniel Zanini de Castro', 'dcastro', 'f903d5d4141b05ae28192bc3d75e0491', 'Jaguari', 'Centro', 'Av. dr. severiano de almeida', '280', '97760-000', '039.855.650-40', '5123700463', '10/03/2000', '(55) 55995-9841', 'zanini.castro@hotmail.com', '01/01/2019', '../Img/Perfil/c4ca4238a0b923820dcc509a6f75849b.png', 'true', 'true');
 
 --
 -- Indexes for dumped tables

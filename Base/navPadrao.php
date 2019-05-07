@@ -15,7 +15,7 @@ if (realpath("./index.php")) {
 
 <nav class="nav-extended corpadrao">
     <div class="nav-wrapper">
-        <a href="<?php echo $pontos; ?>./Tela/home.php" class="brand-logo">Sistema para Associação</a>
+        <a href="<?php echo $pontos; ?>./Tela/Sistema/home.php" class="brand-logo">Sistema para Associação</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <!-- Dropdown Trigger -->
             <li><a class='dropdown-trigger' data-target='dropdown1'>
@@ -30,12 +30,12 @@ if (realpath("./index.php")) {
                     echo $usuario->getNome();
                     ?>
                         </b></a></li>
-                <li><a href="<?php echo $pontos; ?>Tela/alterarDadosUsuario.php">Alterar Dados Pessoais</a></li>
-                <li><a href="<?php echo $pontos; ?>Tela/alterarEnderecoUsuario.php">Alterar Endereço</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Update/alterarDadosUsuario.php">Alterar Dados Pessoais</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Update/alterarEnderecoUsuario.php">Alterar Endereço</a></li>
                 <?php 
                     if(isset($_SESSION['aluno'])){
                         ?>
-                <li><a href="<?php echo $pontos; ?>Tela/alterarCurso.php">Alterar Curso</a></li>
+                <li><a href="<?php echo $pontos; ?>Tela/Update/alterarCurso.php">Alterar Curso</a></li>
                 <?php
                     }
                 ?>
