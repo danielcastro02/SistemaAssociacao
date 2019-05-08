@@ -10,7 +10,7 @@
 
         <nav class="nav-extended ">
             <div class="nav-wrapper corpadrao">
-                <a class="brand-logo center">Bem-vindo!</a>
+                <a class="brand-logo center">Oops!</a>
             </div>
         </nav>
 
@@ -24,7 +24,7 @@
                             <p>Se acredita que esta vendo esta mensagem por engano, por comunique a equipe de desenvolvimento!</p>
 
                         </div>
-                            <img src="../Img/Src/sintoMuito.png" class="col s3">
+                            <img src="../../Img/Src/sintoMuito.jpg" class="col s3 circle">
                         </div>
                         <div class="row">
                             <a class="btn corpadrao hoverable" href="./contato.php?msg=acessoNegado">Contato</a>

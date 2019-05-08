@@ -37,7 +37,7 @@ if(isset($_SESSION['usuario'])){
                             <label for="senha">Senha</label>
                         </div>
                         <div class="row">
-                            <a href="../index.php" class="btn hoverable corpadrao">Voltar</a>
+                            <a href="../../index.php" class="btn hoverable corpadrao">Voltar</a>
                             <button type="submit" class="btn hoverable corpadrao" name="btlogin">Entrar</button>
                         </div>
                         <?php

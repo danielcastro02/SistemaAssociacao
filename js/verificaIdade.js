@@ -1,7 +1,7 @@
 $("#dataNasc").blur(function () {
     var dados = $("form").serialize();
     $.ajax({
-        url: "../Controle/usuarioPDO.php?verificaMaioridadeJs",
+        url: "../../Controle/usuarioPDO.php?function=verificaMaioridadeJs",
         type: 'POST',
         data: dados,
         success: function (data) {

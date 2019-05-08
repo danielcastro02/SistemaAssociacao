@@ -50,7 +50,7 @@ if (!isset($_SESSION['usuario'])) {
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cep" value="<?php echo $logado->getCep(); ?>">
+                                <input type="text" class="input-field" name="cep" value="<?php echo $logado->getCep(); ?>" id="cep">
                                 <label for="cep">CEP</label>
                             </div>
                             <div class="input-field col s6">
@@ -99,7 +99,12 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </div>
         </main>
-
+        <script src="../../js/mascaras.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function () {
+                $('#cep').mask("00000-000");
+            });
+        </script>
         <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

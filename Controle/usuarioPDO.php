@@ -511,7 +511,7 @@ class usuarioPDO {
             $sql->bindValue(':telefone', $us->getTelefone());
             $sql->bindValue(':email', $us->getEmail());
             $sql->bindValue(':data_associacao', $us->getData_associacao());
-            $sql->bindValue(':fotoPerfil', '../Img/user_icon.png');
+            $sql->bindValue(':fotoPerfil', '../Img/Src/user_icon.png');
             $sql = $this->verificaPodeLogar($sql);
             if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
                 return true;
@@ -662,7 +662,7 @@ class usuarioPDO {
     }
 
     private function validaSenha(usuario $us) {
-        if (strlen($us->getSenha1()) <= 8) {
+        if (strlen($us->getSenha1()) < 8) {
             echo 'false';
             return false;
         } else {
@@ -728,7 +728,7 @@ class usuarioPDO {
         $mesAtual = date('m');
         $diaAtual = date('d');
         $nascimento = $data_nasc;
-        list($ano, $mes, $dia) = explode('/', $nascimento);
+        list($dia, $mes, $ano) = explode('/', $nascimento);
         $idade = $anoAtual - $ano;
         if ($mesAtual > $mes) {
             return $idade;
@@ -758,9 +758,9 @@ class usuarioPDO {
         $sql->bindValue(':id', $id);
         if ($sql->execute()) {
             //return $sql;
-            header("Location: ../Tela/listarUsuario.php");
+            header("Location: ../Tela/Listagem/listarUsuario.php");
         } else {
-            header("Location: ../Tela/listarUsuario.php");
+            header("Location: ../Tela/Listagem/listarUsuario.php");
         }
     }
 
@@ -772,9 +772,9 @@ class usuarioPDO {
         $sql->bindValue(':id', $id);
         if ($sql->execute()) {
             //return $sql;
-            header("Location: ../Tela/listarUsuario.php");
+            header("Location: ../Tela/Listagem/listarUsuario.php");
         } else {
-            header("Location: ../Tela/listarUsuario.php");
+            header("Location: ../Tela/Listagem/listarUsuario.php");
         }
     }
 
