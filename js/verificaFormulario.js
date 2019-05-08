@@ -1,5 +1,5 @@
 $("#formulario").submit(function () {
-
+    alert('aaa');
     var cpf = $('#cpf').val().replace('.', '').toString();
     cpf = cpf.replace('.', '');
     cpf = cpf.replace('-', '');
