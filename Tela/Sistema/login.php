@@ -16,7 +16,7 @@ if(isset($_SESSION['usuario'])){
     </head>
     <body class="homeimg">
 
-        <nav class="nav-extended ">
+        <nav class="nav-extended">
             <div class="nav-wrapper corpadrao">
                 <a class="brand-logo center">Bem-vindo!</a>
             </div>

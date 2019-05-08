@@ -53,7 +53,7 @@ if (!isset($_SESSION['usuario'])) {
                         <div class="col s12">
                             <div class="row">
                                 <div class="col s12">
-                                    <div  class="fotoPerfil" style='background-image: url(../"<?php echo $usuario->getFotoPerfil(); ?>");
+                                    <div  class="fotoPerfil" style='background-image: url("../<?php echo $usuario->getFotoPerfil(); ?>");
                                           background-size: cover;
                                           background-position: center;
                                           background-repeat: no-repeat;
