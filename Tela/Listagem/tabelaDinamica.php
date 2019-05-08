@@ -51,7 +51,7 @@
             echo "<td>" . $us->getTelefone() . "</td>";
 
 //                        -----------------------------------------------------------
-            if (($us->getAdministrador() == 'true')) {
+            if (($us->getPode_logar() == 'true')) {
                 echo "<td>";
                 ?><a class="btn corpadrao" href="../../Controle/usuarioPDO.php?function=tornarUsuarioInativo&id=
                    <?php echo $us->getId(); ?>">Ativo</a>

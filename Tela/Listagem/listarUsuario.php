@@ -114,17 +114,16 @@ if (isset($_SESSION['usuario'])) {
                                 echo "<td>" . $us->getTelefone() . "</td>";
 
 //                        -----------------------------------------------------------
-                                if (($us->getAdministrador() == 'true')) {
+                                if (($us->getPode_logar() == 'true')) {
                                     echo "<td>";
-                                    ?><a class="btn corpadrao" href="../../Controle/usuarioPDO.php?function=tornarUsuarioInativo&id=
-                                       <?php echo $us->getId(); ?>">Ativo</a>
+                                    ?>
+                            <a class="btn corpadrao" href="../../Controle/usuarioPDO.php?function=tornarUsuarioInativo&id=<?php echo $us->getId(); ?>">Ativo</a>
                                        <?php
                                        echo "</td>";
                                    } else {
                                        echo "<td>";
                                        ?>
-                                    <a class="btn red darken-2" href="../../Controle/usuarioPDO.php?function=tornarUsuarioAtivo&id=
-                                       <?php echo $us->getId(); ?>">Inativo</a><?php
+                                    <a class="btn red darken-2" href="../../Controle/usuarioPDO.php?function=tornarUsuarioAtivo&id=<?php echo $us->getId(); ?>">Inativo</a><?php
                                        echo "</td>";
                                    }
 //                        -----------------------------------------------------------
@@ -151,7 +150,7 @@ if (isset($_SESSION['usuario'])) {
                 $('#pesquisa').keyup(atualiza);
                 function atualiza() {
                     var dados = $('#formulario').serialize();
-                    $('#tabela').load("./ListagemUsuario/tabelaDinamica.php", dados);
+                    $('#tabela').load("./tabelaDinamica.php", dados);
                 }
             });
         </script>
