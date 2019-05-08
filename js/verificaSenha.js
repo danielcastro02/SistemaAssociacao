@@ -1,7 +1,7 @@
 $('#senha1').blur(function(){
     var dados = $('form').serialize();
     $.ajax({
-        url: '../Controle/usuarioPDO.php?function=validaSenhaJs',
+        url: '../../Controle/usuarioPDO.php?function=validaSenhaJs',
         data: dados,
         type: 'POST',
         success: function (data) {
@@ -23,7 +23,7 @@ $('#senha1').blur(function(){
 $('#senha2').blur(function(){
     var dados = $('form').serialize();
     $.ajax({
-        url: '../Controle/usuarioPDO.php?function=validaSenhaJs',
+        url: '../../Controle/usuarioPDO.php?function=validaSenhaJs',
         data: dados,
         type: 'POST',
         success: function (data) {

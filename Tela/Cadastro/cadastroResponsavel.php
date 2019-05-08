@@ -67,7 +67,7 @@ session_start();
                             <label for = "data_nasc">Data de associação</label>
                         </div>
                         <div class = "input-field col s6">
-                            <input required="true"  class = "input-field date" type = "text" name = "data_nasc" id="datanasc">
+                            <input required="true"  class = "input-field date" type = "text" name = "data_nasc" id="dataNasc">
                             <label for = "data_nasc" id="ldataNasc">Data de Nascimento</label>
                         </div>
                         <div class="input-field col s6">
@@ -87,7 +87,7 @@ session_start();
                             <label for = "senha2" id="lsenha2">Confirme a senha</label>
                         </div>
                         <?php
-                        include_once '../Base/msgSaida.php';
+                        include_once '../../Base/msgSaida.php';
                         //não esquecer de verificar a msg de menor de idade para responsável
                         ?>
                         <div class="row">

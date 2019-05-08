@@ -93,7 +93,7 @@ include_once '../../Controle/cursoPDO.php';
 
 
                                                                    echo "<td>";
-                                                                   ?><a class="btn corpadrao" href="../verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
+                                                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
                                                                 echo "</td>";
                                                                 echo "</tr>";
                                                             }
@@ -175,7 +175,7 @@ include_once '../../Controle/cursoPDO.php';
 
 
                                                                    echo "<td>";
-                                                                   ?><a class="btn corpadrao" href="../verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
+                                                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
                                                                 echo "</td>";
                                                                 echo "</tr>";
                                                             }
@@ -257,7 +257,7 @@ include_once '../../Controle/cursoPDO.php';
 
 
                                                                    echo "<td>";
-                                                                   ?><a class="btn corpadrao" href="../verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
+                                                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
                                                                 echo "</td>";
                                                                 echo "</tr>";
                                                             }
