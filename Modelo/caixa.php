@@ -1,6 +1,6 @@
 <?php
 
-class Caixa {
+class caixa {
 
     private $id_caixa;
     private $nome_caixa;

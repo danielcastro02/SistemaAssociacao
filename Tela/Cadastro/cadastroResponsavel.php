@@ -107,8 +107,9 @@ session_start();
             $(document).ready(function () {
                 $('.date').mask("00/00/0000");
                 $('#cpf').mask('000.000.000-00');
-                $('#celular').mask('(00) 00000-0000');
+                $('#telefone').mask('(00) 00000-0000');
                 $('#cep').mask('00000-000');
+                $('#rg').mask('0000000000');
             });
         </script>
         <script src="../../js/verificaFormulario.js" type="text/javascript"></script>

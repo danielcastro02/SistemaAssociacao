@@ -1,3 +1,29 @@
+$('.date').blur(function () {
+    var valor = $(this).val();
+    var vet = valor.split("/");
+    var dia = parseInt(vet[0]);
+    var mes = parseInt(vet[1]);
+    if (dia > 31) {
+        invalida($(this), $(this).next($('.ldata')));
+    } else {
+        if (mes > 12) {
+            invalida($(this), $(this).next($('.ldata')));
+        } else {
+            valido($(this), $(this).next($('.ldata')));
+        }
+    }
+});
+
+function invalida(data, label) {
+    data.attr('class', 'invalid');
+    label.text('Data inválida');
+}
+
+function valido(data, label){
+    data.attr('class', 'valid');
+    label.text('Data válida');
+}
+
 $("#formulario").submit(function () {
     alert('aaa');
     var cpf = $('#cpf').val().replace('.', '').toString();
@@ -28,7 +54,7 @@ $("#formulario").submit(function () {
                 $("#cpf").attr('class', 'invalid red-text');
                 $("#lcpf").text('CPF Invalido!');
                 $("#cpf").focus();
-                resposta = false;
+                resposta = 'false';
             } else {
                 $("#cpf").attr('class', 'valid green-text');
                 $("#lcpf").text('CPF');
@@ -37,13 +63,13 @@ $("#formulario").submit(function () {
             $("#cpf").attr('class', 'invalid red-text');
             $("#lcpf").text('CPF Invalido!');
             $("#cpf").focus();
-            resposta = false;
+            resposta = 'false';
         }
     } else {
         $("#cpf").attr('class', 'invalid red-text');
         $("#lcpf").text('CPF Invalido!');
         $("#cpf").focus();
-        resposta = false;
+        resposta = 'false';
     }
     post = $("#formulario").serialize();
     resposta = 'true';
@@ -137,7 +163,7 @@ $("#formulario").submit(function () {
 
         }
     });
-    
+
 
     if (resposta == 'true') {
         return true;

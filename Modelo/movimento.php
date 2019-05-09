@@ -4,8 +4,8 @@ class movimento {
 
     private $id_movimento;
     private $id_caixa_ref;
-    private $id_curso;
-    private $saldo;
+    private $id_tipo_ref;
+    private $id_usuario_ref;
     private $data_movimento;
     private $valor;
     private $saldo_movimento;
@@ -37,13 +37,6 @@ class movimento {
         return $this->id_caixa_ref;
     }
 
-    function getId_curso() {
-        return $this->id_curso;
-    }
-
-    function getSaldo() {
-        return $this->saldo;
-    }
 
     function getData_movimento() {
         return $this->data_movimento;
@@ -65,13 +58,6 @@ class movimento {
         $this->id_caixa_ref = $id_caixa_ref;
     }
 
-    function setId_curso($id_curso) {
-        $this->id_curso = $id_curso;
-    }
-
-    function setSaldo($saldo) {
-        $this->saldo = $saldo;
-    }
 
     function setData_movimento($data_movimento) {
         $this->data_movimento = $data_movimento;
@@ -83,6 +69,22 @@ class movimento {
 
     function setSaldo_movimento($saldo_movimento) {
         $this->saldo_movimento = $saldo_movimento;
+    }
+
+    function getId_tipo_ref() {
+        return $this->id_tipo_ref;
+    }
+
+    function getId_usuario_ref() {
+        return $this->id_usuario_ref;
+    }
+
+    function setId_tipo_ref($id_tipo_ref) {
+        $this->id_tipo_ref = $id_tipo_ref;
+    }
+
+    function setId_usuario_ref($id_usuario_ref) {
+        $this->id_usuario_ref = $id_usuario_ref;
     }
 
 
