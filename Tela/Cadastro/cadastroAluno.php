@@ -65,11 +65,13 @@ if (!isset($_SESSION)) {
                                 <option value="0">Selecione o curso</option>
                                 <?php
                                 include_once '../../Controle/cursoPDO.php';
+                                include_once '../../Modelo/curso.php';
                                 $cursoPDO = new cursoPDO();
                                 $resultado = $cursoPDO->selectTudo();
                                 if ($resultado) {
                                     while ($linha = $resultado->fetch()) {
-                                        echo "<option value='" . $linha['id'] . "'>" . $linha['nome'] ." (".$linha['turno'].")". "</option>";
+                                        $curso = new curso($linha);
+                                        echo "<option value='" . $curso->getId() . "'>" . $curso->getNome() ." (".$curso->getTurno().")". "</option>";
                                     }
                                 }else{
                                     echo "<option value='0'>Nenhum curso cadastrado!</option>";
