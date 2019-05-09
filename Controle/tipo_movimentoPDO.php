@@ -45,4 +45,16 @@ class tipo_movimentoPDO {
             header('location: ../Tela/Cadastro/cadastroTipoMovimento.php?msg=false');
         }
     }
+    
+    public function selectTudo(){
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("SELECT * FROM tipo_movimento;");
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return $stmt;
+        }else{
+            return false;
+        }
+    }
 }

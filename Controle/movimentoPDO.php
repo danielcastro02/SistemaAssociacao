@@ -33,17 +33,48 @@ if (isset($_GET["function"])) {
 }
 
 class movimentoPDO {
-    public function inserir(){
-        $tmovimento= new tipo_movimento($_POST);
+
+    public function inserir() {
+        $movimento = new movimento($_POST);
         $con = new conexao();
         $pdo = $con->getConexao();
-        $stmt = $pdo->prepare("insert into movimento values(default, :nome, :tipo);");
-        $stmt->bindValue(':nome', $tmovimento->getNome_movimento());
-        $stmt->bindValue(':tipo', $tmovimento->getTipo());
-        if($stmt->execute()){
-            header('location: ../Tela/Cadastro/cadastroTipoMovimento.php?msg=sucesso');
-        }else{
-            header('location: ../Tela/Cadastro/cadastroTipoMovimento.php?msg=false');
+        $anoAtual = date('Y');
+        $mesAtual = date('m');
+        $diaAtual = date('d');
+        $data = $diaAtual . '/' . $mesAtual . '/' . $anoAtual;
+        $stmt = $pdo->prepare('select * from tipo_movimento where id_tipo = :id');
+        $stmt->bindValue(':id', $movimento->getId_tipo_ref());
+        $stmt->execute();
+        $tmovimento = new tipo_movimento($stmt->fetch());
+        if ($tmovimento->getTipo() == 'true') {
+            $stmt = $pdo->prepare("insert into movimento values"
+                    . "(default, :caixa, :tipo, :usuario, :data , :valor, "
+                    . "((select saldo_atual from caixa where id_caixa = :id_caixa)+:val));");
+        } else {
+            $stmt = $pdo->prepare("insert into movimento values"
+                    . "(default, :caixa, :tipo, :usuario, :data , :valor, "
+                    . "((select saldo_atual from caixa where id_caixa = :id_caixa)-:val));");
+        }
+        $stmt->bindValue(':caixa', $movimento->getId_caixa_ref());
+        $stmt->bindValue(':id_caixa', $movimento->getId_caixa_ref());
+        $stmt->bindValue(':tipo', $movimento->getId_tipo_ref());
+        $stmt->bindValue(':usuario', $movimento->getId_usuario_ref());
+        $stmt->bindValue(':data', $data);
+        $stmt->bindValue(':valor', $movimento->getValor());
+        $stmt->bindValue(':val', $movimento->getValor());
+        $stmt->execute();
+        if ($tmovimento->getTipo() == 'true') {
+            $stmt = $pdo->prepare('update caixa set saldo_atual = saldo_atual+ :valor where id_caixa = :id');
+        } else {
+            $stmt = $pdo->prepare('update caixa set saldo_atual = saldo_atual- :valor where id_caixa = :id');
+        }
+        $stmt->bindValue(':valor', $movimento->getValor());
+        $stmt->bindValue(':id', $movimento->getId_caixa_ref());
+        if ($stmt->execute()) {
+            header('location: ../Tela/Caixa/registroMovimento.php?msg=sucesso');
+        } else {
+            header('location: ../Tela/Caixa/registroMovimento.php?msg=false');
         }
     }
+
 }
