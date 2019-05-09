@@ -58,7 +58,7 @@ if (!isset($_SESSION)) {
                         </div>
                         <div class = "input-field col s6">
                             <input class = "date" type = "text" name = "data_associacao" required="true">
-                            <label for = "data_nasc">Data de associação</label>
+                            <label for = "data_nasc" class="ldate">Data de associação</label>
                         </div>
                         <div class = "input-field col s6">
                             <select name = "id_curso" required="true">
@@ -82,11 +82,11 @@ if (!isset($_SESSION)) {
                         </div>
                         <div class = "input-field col s6">
                             <input class = "date" type = "text" name = "data_inicio" required="true">
-                            <label for = "data_nasc">Data de início do Curso</label>
+                            <label for = "data_nasc" class="ldate">Data de início do Curso</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "date" type = "text" name = "previsao_conclusao" required="true">
-                            <label for = "previsao_conclusao">Data de conclusão de curso</label>
+                            <label for = "previsao_conclusao" class="ldate">Data de conclusão de curso</label>
                         </div>
                         <div class = "input-field col s6">
                             <input class = "date" type = "text" name = "data_nasc" required="true">
