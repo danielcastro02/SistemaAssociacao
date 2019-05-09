@@ -1,3 +1,4 @@
+
 <?php
 
 if (!isset($_SESSION)) {
@@ -23,25 +24,25 @@ if (realpath("./index.php")) {
         }
     }
 }
-$classe = new caixaPDO();
+$classe = new tipo_movimentoPDO();
 
 if (isset($_GET["function"])) {
     $metodo = $_GET["function"];
     $classe->$metodo("");
 }
 
-class caixaPDO {
+class tipo_movimentoPDO {
     public function inserir(){
-        $caixa= new caixa($_POST);
+        $tmovimento= new tipo_movimento($_POST);
         $con = new conexao();
         $pdo = $con->getConexao();
-        $stmt = $pdo->prepare("update caixa set saldo_atual = :saldo where id_caixa = :id");
-        $stmt->bindValue(':saldo', $caixa->getSaldo_atual());
-        $stmt->bindValue(':id', $caixa->getId_caixa());
+        $stmt = $pdo->prepare("insert into tipo_movimento values(default, :nome, :tipo);");
+        $stmt->bindValue(':nome', $tmovimento->getNome_movimento());
+        $stmt->bindValue(':tipo', $tmovimento->getTipo());
         if($stmt->execute()){
-            header('location: ../Tela/Cadastro/cadastroCaixa.php?msg=sucesso');
+            header('location: ../Tela/Cadastro/cadastroTipoMovimento.php?msg=sucesso');
         }else{
-            header('location: ../Tela/Cadastro/cadastroCaixa.php?msg=false');
+            header('location: ../Tela/Cadastro/cadastroTipoMovimento.php?msg=false');
         }
     }
 }

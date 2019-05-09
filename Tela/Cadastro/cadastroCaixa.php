@@ -29,12 +29,12 @@ if (isset($_SESSION['usuario'])) {
             <div class="row">
                 <div class = "col s6 card offset-s3">
                     <center><h4>Cadastre o Caixa</h4></center>
-                    <form id="formulario" class = "center" method = "post" action = "../../Controle/cursoPDO.php?function=inserir">
+                    <form id="formulario" class = "center" method = "post" action = "../../Controle/caixaPDO.php?function=inserir">
                         <div class="row">
                             
                             <div class="input-field col s6">
-                                <select name="nome_caixa">
-                                    <option value="0">Selecione o Nome</option>
+                                <select name="id_caixa">
+                                    <option value="0">Selecione o Caixa</option>
                                     <option value="1">Dia</option>
                                     <option value="2">Noite</option>
                                     <option value="3">Associação</option>
