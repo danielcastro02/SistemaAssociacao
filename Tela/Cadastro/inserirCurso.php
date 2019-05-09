@@ -53,6 +53,15 @@ if (isset($_SESSION['usuario'])) {
                             </select>
                             <label for = 'nivel'>Nível</label>
                         </div>
+                        <?php
+                        if (isset($_GET['msg'])) {
+                            if ($_GET['msg'] == 'sucesso') {
+                                echo "<spam class='green-text'><h6>Informações cadastradas com sucesso.</h6><br></spam>";
+                            } elseif ($_GET['msg'] == 'erro') {
+                                echo "<spam class='red-text'><h6>Informações incorretas.</h6><br></spam>";
+                            }
+                        }
+                        ?>
                         <div class="row">
                             <a href="../Sistema/home.php" class="btn corcancelar">Cancelar</a>
                             <button type="submit" class="btn corpadrao" name="btlogin">Inserir</button>
