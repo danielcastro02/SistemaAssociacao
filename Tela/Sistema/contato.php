@@ -81,7 +81,7 @@
                                 <?php
                             }
                             ?>
-                            <a class="btn corcancelar" href="../../Tela/home.php">Cancelar</a>
+                                <a class="btn corcancelar" href="../../Tela/Sistema/home.php">Cancelar</a>
                             <button class="btn corpadrao">Confirmar</button>
                         </form>
                     </div>

@@ -3,10 +3,10 @@ $('.date').blur(function () {
     var vet = valor.split("/");
     var dia = parseInt(vet[0]);
     var mes = parseInt(vet[1]);
-    if (dia > 31) {
+    if (dia > 31 || dia == 0 || dia == null) {
         invalida($(this), $(this).next($('.ldata')));
     } else {
-        if (mes > 12) {
+        if (mes > 12 || mes == 0) {
             invalida($(this), $(this).next($('.ldata')));
         } else {
             valido($(this), $(this).next($('.ldata')));

@@ -77,7 +77,7 @@ include_once '../../Controle/cursoPDO.php';
                                                                 echo "<td>" . $us->getCpf() . "</td>";
                                                                 echo "<td>" . $us->getTelefone() . "</td>";
 
-                                                                if (($us->getAdministrador() == 'true')) {
+                                                                if (($us->getPode_logar() == 'true')) {
                                                                     echo "<td>";
                                                                     ?><a class="btn corpadrao" href="../../Controle/usuarioPDO.php?function=tornarUsuarioInativo&id=
                                                                        <?php echo $us->getId(); ?>">Ativo</a>
@@ -159,7 +159,7 @@ include_once '../../Controle/cursoPDO.php';
                                                                 echo "<td>" . $us->getCpf() . "</td>";
                                                                 echo "<td>" . $us->getTelefone() . "</td>";
 
-                                                                if (($us->getAdministrador() == 'true')) {
+                                                                if (($us->getPode_logar() == 'true')) {
                                                                     echo "<td>";
                                                                     ?><a class="btn corpadrao" href="../../Controle/usuarioPDO.php?function=tornarUsuarioInativo&id=
                                                                        <?php echo $us->getId(); ?>">Ativo</a>
@@ -241,7 +241,7 @@ include_once '../../Controle/cursoPDO.php';
                                                                 echo "<td>" . $us->getCpf() . "</td>";
                                                                 echo "<td>" . $us->getTelefone() . "</td>";
 
-                                                                if (($us->getAdministrador() == 'true')) {
+                                                                if (($us->getPode_logar() == 'true')) {
                                                                     echo "<td>";
                                                                     ?><a class="btn corpadrao" href="../../Controle/usuarioPDO.php?function=tornarUsuarioInativo&id=
                                                                        <?php echo $us->getId(); ?>">Ativo</a>
