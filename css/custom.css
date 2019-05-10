@@ -7,7 +7,7 @@ footer{
 
 }
 .fotoPerfil{
-    
+
     height: 150px;
     width: 150px;
     border-radius: 50%;
@@ -48,3 +48,14 @@ footer{
 .alerta_vermelho{
     color: red;
 }
+
+/*body {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}*/

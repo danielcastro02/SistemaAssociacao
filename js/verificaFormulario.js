@@ -23,6 +23,7 @@ function invalida(data, label) {
 }
 
 function valido(data, label) {
+    voltar(data, label);
     data.attr('class', 'valid');
 }
 
@@ -30,10 +31,10 @@ function bissexto(ano) {
     bi = ano % 4;
     if (bi == 0) {
         return true;
-    }else{
+    } else {
         if ((ano % 400) == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -46,6 +47,53 @@ function voltar(data, label) {
 
 $("#formulario").submit(function () {
     alert('aaa');
+    
+        $.ajax({
+        type: 'POST',
+        async: false,
+        url: "../../Controle/usuarioPDO.php?function=pesquisarPorRgExata&rg=" + $("#rg").val(),
+        data: post,
+        success: function (dado) {
+            if (dado != 'false') {
+                resposta = 'false';
+                $("#lrg").attr('class', "red-text");
+                $("#lrg").text("Este RG já existe no sistema!");
+                $("#rg").attr('class', 'input-field invalid');
+                $("#rg").focus();
+                M.updateTextFields();
+            } else {
+                $("#lrg").removeAttr('class');
+                $("#lrg").text("RG");
+                $("#rg").attr('class', 'input-field');
+                M.updateTextFields();
+            }
+
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: "../../Controle/usuarioPDO.php?function=pesquisarPorUsuarioExata&usuario=" + $("#usuario").val(),
+        data: post,
+        success: function (dado) {
+            if (dado != 'false') {
+                resposta = 'false';
+                $("#usuario").attr('class', "red-text");
+                $("#lusuario").text("Usuario indisponível escolha outro.");
+                $("#usuario").attr('class', 'input-field invalid');
+                $("#usuario").focus();
+                M.updateTextFields();
+            } else {
+                $("#lusuario").removeAttr('class');
+                $("#lusuario").text("Usuario");
+                $("#usuario").attr('class', 'input-field');
+                M.updateTextFields();
+            }
+
+
+        }
+    });
+    
     var cpf = $('#cpf').val().replace('.', '').toString();
     cpf = cpf.replace('.', '');
     cpf = cpf.replace('-', '');
@@ -93,51 +141,6 @@ $("#formulario").submit(function () {
     }
     post = $("#formulario").serialize();
     resposta = 'true';
-    $.ajax({
-        type: 'POST',
-        async: false,
-        url: "../../Controle/usuarioPDO.php?function=pesquisarPorRgExata&rg=" + $("#rg").val(),
-        data: post,
-        success: function (dado) {
-            if (dado != 'false') {
-                resposta = 'false';
-                $("#lrg").attr('class', "red-text");
-                $("#lrg").text("Este RG já existe no sistema!");
-                $("#rg").attr('class', 'input-field invalid');
-                $("#rg").focus();
-                M.updateTextFields();
-            } else {
-                $("#lrg").removeAttr('class');
-                $("#lrg").text("RG");
-                $("#rg").attr('class', 'input-field');
-                M.updateTextFields();
-            }
-
-        }
-    });
-    $.ajax({
-        type: 'POST',
-        async: false,
-        url: "../../Controle/usuarioPDO.php?function=pesquisarPorUsuarioExata&usuario=" + $("#usuario").val(),
-        data: post,
-        success: function (dado) {
-            if (dado != 'false') {
-                resposta = 'false';
-                $("#usuario").attr('class', "red-text");
-                $("#lusuario").text("Usuario indisponível escolha outro.");
-                $("#usuario").attr('class', 'input-field invalid');
-                $("#usuario").focus();
-                M.updateTextFields();
-            } else {
-                $("#lusuario").removeAttr('class');
-                $("#lusuario").text("Usuario");
-                $("#usuario").attr('class', 'input-field');
-                M.updateTextFields();
-            }
-
-
-        }
-    });
     $.ajax({
         type: 'POST',
         async: false,
