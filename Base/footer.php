@@ -15,7 +15,7 @@ if (realpath("./index.php")) {
 
 <footer class="center corpadrao">
         <div class="row footer-copyright white-text"><a href="http://nobadserver.com" class="center col l10 s12 offset-l1 white-text">
-                © 2019 Developed by - Daniel Castro - Konrado Souza - Lucas Lima - Victor Xavier</a>
+                © 2019 Developed by - Daniel Castro - Daniel Anesi - Lucas Lima - Victor Xavier</a>
         <a class="col s2 l1 offset-s5 grey-text text-lighten-4" href="<?php echo $pontos ?>Tela/Sistema/contato.php">Contato</a>
     </div>
 </footer>

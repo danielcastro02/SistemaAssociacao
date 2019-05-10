@@ -23,7 +23,7 @@ if (!isset($_SESSION['usuario'])) {
         $logado = unserialize($_SESSION['aluno']);
         ?>
 
-        <main id="main">
+        <main>
             <div class="row">
                 <div class="col s8 offset-s2 card center ">
                     <h5>Seus dados</h5>
@@ -60,8 +60,8 @@ if (!isset($_SESSION['usuario'])) {
                             </div>
                             <div class="input-field col s6">
                                 <select name="concluido">
-                                    <option value="true"<?php  echo $logado->getConcluido()=='true'?'selected':''; ?>>Sim</option>
-                                    <option value="false" <?php echo $logado->getConcluido()=='false'?'selected':''; ?> >Não</option>
+                                    <option value="true"<?php echo $logado->getConcluido() == 'true' ? 'selected' : ''; ?>>Sim</option>
+                                    <option value="false" <?php echo $logado->getConcluido() == 'false' ? 'selected' : ''; ?> >Não</option>
                                 </select>
                                 <label for="concluido">Concluido</label>
                             </div>

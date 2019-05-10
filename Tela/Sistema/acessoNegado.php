@@ -13,8 +13,7 @@
                 <a class="brand-logo center">Oops!</a>
             </div>
         </nav>
-
-        <main id="main">
+        <main>
             <div class="row">
                 <div style="height: 10vh;"></div>
                 <div class="col s6 offset-s3 card center" style="padding-top: 10px;">
@@ -24,12 +23,12 @@
                             <p>Se acredita que esta vendo esta mensagem por engano, por comunique a equipe de desenvolvimento!</p>
 
                         </div>
-                            <img src="../../Img/Src/sintoMuito.jpg" class="col s3 circle">
-                        </div>
-                        <div class="row">
-                            <a class="btn corpadrao hoverable" href="./contato.php?msg=acessoNegado">Contato</a>
-                        </div>
-                    
+                        <img src="../../Img/Src/sintoMuito.jpg" class="col s3 circle">
+                    </div>
+                    <div class="row">
+                        <a class="btn corpadrao hoverable" href="./contato.php?msg=acessoNegado">Contato</a>
+                    </div>
+
                 </div>
             </div>
         </main>

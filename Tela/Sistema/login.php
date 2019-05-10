@@ -1,8 +1,8 @@
 <?php
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
-if(isset($_SESSION['usuario'])){
+if (isset($_SESSION['usuario'])) {
     header('location ./home.php');
 }
 ?>
@@ -22,7 +22,7 @@ if(isset($_SESSION['usuario'])){
             </div>
         </nav>
 
-        <main id="main">
+        <main>
             <div class="row">
                 <div style="height: 15vh;"></div>
                 <div class="col s4 offset-s4 card center">
