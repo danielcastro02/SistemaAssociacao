@@ -12,7 +12,7 @@ if (!isset($_SESSION)) {
         <?php
         include_once '../../Base/nav.php';
         ?>
-        <!--<main>-->
+        <main>
             <div id="div-principal" class="row">
                 <br>
                 <br>
@@ -40,7 +40,7 @@ if (!isset($_SESSION)) {
                     <a class="btn hoverable corpadrao" href="../Cadastro/cadastroAluno.php">Aceitar</a>
                 </div>
             </div>
-        <!--</main>-->
+        </main>
         <?php
         include_once '../../Base/footer.php';
         ?>
