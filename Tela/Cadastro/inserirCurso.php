@@ -25,59 +25,62 @@ if (isset($_SESSION['usuario'])) {
         <?php
         include_once '../../Base/nav.php';
         ?>
-        <br>
-        <div class = "row">
-            <div class = "col s8 card offset-s2">
-                <center><h4>Cadastre o Curso</h4></center>
-                <form id="formulario" class = "center" method = "post" action = "../../Controle/cursoControle.php?function=inserir">
-                    <div class="row">
-                        <div class="input-field col s4">
-                            <input type="text" class="input-field" name="nome">
-                            <label for="nome">Nome</label>
-                        </div>
-                        <div class="input-field col s4">
-                            <select name="turno">
-                                <option value="0">Selecione o Turno</option>
-                                <option value="Manha">Manha</option>
-                                <option value="Tarde">Tarde</option>
-                                <option value="Noite">Noite</option>
-                            </select>
-                            <label for = 'turno'>Turno</label>
-                        </div>
-                        <div class="input-field col s4">
-                            <select name="nivel">
-                                <option value="0">Selecione o Nível</option>
-                                <option value="Médio">Médio</option>
-                                <option value="Subsequente">Subsequente</option>
-                                <option value="Superior">Superior</option>
-                            </select>
-                            <label for = 'nivel'>Nível</label>
-                        </div>
-                        <?php
-                        if (isset($_GET['msg'])) {
-                            if ($_GET['msg'] == 'sucesso') {
-                                echo "<spam class='green-text'><h6>Informações cadastradas com sucesso.</h6><br></spam>";
-                            } elseif ($_GET['msg'] == 'erro') {
-                                echo "<spam class='red-text'><h6>Informações incorretas.</h6><br></spam>";
-                            }
-                        }
-                        ?>
+        <main>
+            <br>
+            <div class = "row">
+                <div class = "col s8 card offset-s2">
+                    <center><h4>Cadastre o Curso</h4></center>
+                    <form id="formulario" class = "center" method = "post" action = "../../Controle/cursoControle.php?function=inserir">
+
                         <div class="row">
-                            <a href="../Sistema/home.php" class="btn corcancelar">Cancelar</a>
-                            <button type="submit" class="btn corpadrao" name="btlogin">Inserir</button>
+                            <div class="input-field col s4">
+                                <input type="text" class="input-field" name="nome">
+                                <label for="nome">Nome</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <select name="turno">
+                                    <option value="0">Selecione o Turno</option>
+                                    <option value="Manha">Manha</option>
+                                    <option value="Tarde">Tarde</option>
+                                    <option value="Noite">Noite</option>
+                                </select>
+                                <label for = 'turno'>Turno</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <select name="nivel">
+                                    <option value="0">Selecione o Nível</option>
+                                    <option value="Médio">Médio</option>
+                                    <option value="Subsequente">Subsequente</option>
+                                    <option value="Superior">Superior</option>
+                                </select>
+                                <label for = 'nivel'>Nível</label>
+                            </div>
+                            <?php
+                            if (isset($_GET['msg'])) {
+                                if ($_GET['msg'] == 'sucesso') {
+                                    echo "<spam class='green-text'><h6>Informações cadastradas com sucesso.</h6><br></spam>";
+                                } elseif ($_GET['msg'] == 'erro') {
+                                    echo "<spam class='red-text'><h6>Informações incorretas.</h6><br></spam>";
+                                }
+                            }
+                            ?>
+                            <div class="row">
+                                <a href="../Sistema/home.php" class="btn corcancelar">Cancelar</a>
+                                <button type="submit" class="btn corpadrao" name="btlogin">Inserir</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="col s3"></div>
             </div>
-            <div class="col s3"></div>
-        </div>
-        <script src="../../js/mascaras.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('.date').mask("00/00/0000");
-                $('select').formSelect();
-            });
-        </script>
+            <script src="../../js/mascaras.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.date').mask("00/00/0000");
+                    $('select').formSelect();
+                });
+            </script>
+        </main>
         <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>

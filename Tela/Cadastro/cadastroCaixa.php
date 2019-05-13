@@ -31,7 +31,7 @@ if (isset($_SESSION['usuario'])) {
                     <center><h4>Cadastre o Caixa</h4></center>
                     <form id="formulario" class = "center" method = "post" action = "../../Controle/caixaControle.php?function=inserir">
                         <div class="row">
-                            
+
                             <div class="input-field col s6">
                                 <select name="id_caixa">
                                     <option value="0">Selecione o Caixa</option>
@@ -45,20 +45,20 @@ if (isset($_SESSION['usuario'])) {
                                 <input type="text" class="input-field" name="saldo_atual" id="saldo">
                                 <label for="nome">Saldo inicial</label>
                             </div>
-                            </div>
-                            <div class="row">
-                                <a href="../Sistema/home.php" class="btn corcancelar">Cancelar</a>
-                                <button type="submit" class="btn corpadrao" name="btlogin">Inserir</button>
-                            </div>
-                        
+                        </div>
+                        <div class="row">
+                            <a href="../Sistema/home.php" class="btn corcancelar">Cancelar</a>
+                            <button type="submit" class="btn corpadrao" name="btlogin">Inserir</button>
+                        </div>
+
                     </form>
                 </div>
             </div>
             <script src="../../js/mascaras.js" type="text/javascript"></script>
             <script>
-            $(document).ready(function(){
-               $('select').formSelect();
-            });
+                $(document).ready(function () {
+                    $('select').formSelect();
+                });
             </script>
         </main>
         <?php include_once '../../Base/footer.php'; ?>

@@ -9,6 +9,7 @@ session_start();
     </head>
     <body class="homeimg">
         <?php include_once '../../Base/nav.php'; ?>
+      <main>
         <br> 
         <div class="row">
             <div class="col s8 card offset-s2">
@@ -86,21 +87,23 @@ session_start();
                             <input class = "input-field" id="senha2" type = "password" name = "senha2" required="true">
                             <label for = "senha2" id="lsenha2">Confirme a senha</label>
                         </div>
-                        <?php
-                        include_once '../../Base/msgSaida.php';
-                        //não esquecer de verificar a msg de menor de idade para responsável
-                        ?>
-                        <div class="row">
-                            <div class="col s12">
-                                <a href="../Sistema/home.php" class="btn hoverable corcancelar">Cancelar</a>
-                                <button type="submit" class="btn hoverable corpadrao">Enviar</button>
+
+                            <?php
+                            include_once '../../Base/msgSaida.php';
+                            //não esquecer de verificar a msg de menor de idade para responsável
+                            ?>
+                            <div class="row">
+                                <div class="col s12">
+                                    <a href="../Sistema/home.php" class="btn hoverable corcancelar">Cancelar</a>
+                                    <button type="submit" class="btn hoverable corpadrao">Enviar</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="col s3"></div>
             </div>
-            <div class="col s3"></div>
-        </div>
+        </main>
         <?php include_once '../../Base/footer.php'; ?>
         <script src="../../js/mascaras.js"></script>
         <script>

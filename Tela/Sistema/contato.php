@@ -11,8 +11,7 @@
         <?php
         include_once '../../Base/nav.php';
         ?>
-
-        <main id="main">
+        <main>
             <div class="row">
                 <div style="height: 10vh;"></div>
                 <div class="col s8 offset-s2 card center " style="padding-top: 10px;">
@@ -81,7 +80,7 @@
                                 <?php
                             }
                             ?>
-                                <a class="btn corcancelar" href="../../Tela/Sistema/home.php">Cancelar</a>
+                            <a class="btn corcancelar" href="../../Tela/Sistema/home.php">Cancelar</a>
                             <button class="btn corpadrao">Confirmar</button>
                         </form>
                     </div>

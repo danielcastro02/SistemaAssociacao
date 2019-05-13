@@ -21,7 +21,7 @@
             </div>
         </nav>
 
-        <main id="main">
+        <main>
             <div class="row">
 
                 <div style="height: 3vh;"></div>
