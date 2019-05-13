@@ -77,4 +77,28 @@ class movimentoPDO {
         }
     }
 
+    public function selectTodasDatas() {
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("select distinct data_movimento from movimento");
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            return $stmt;
+        } else {
+            return false;
+        }
+    }
+
+    public function selectPorData($data) {
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("select * from movimento where data_movimento = :data_movimento");
+        $stmt->bindValue(":data_movimento", $data);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            return $stmt;
+        } else {
+            return false;
+        }
+    }
 }
