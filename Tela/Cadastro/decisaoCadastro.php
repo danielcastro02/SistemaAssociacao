@@ -11,31 +11,33 @@ if (!isset($_SESSION)) {
     </head>
     <body class="homeimg">
         <?php include_once '../../Base/navBar.php'; ?>
-        <br>
-        <div class="row">
-            <div class="col s6 card offset-s3">
-                <div class="center">
-                    <br>
-                    <br>
-                    <?php
-                    if (isset($_GET['msg'])) {
-                        if ($_GET['msg'] == 'menorDeIdade') {
-                            ?>
-                            <h5>Este a luno é menor de idade, é necessário cadastrar um responsável
-                                maior de idade.<br><br></h5>
-                     <a href="#" class="btn">Cadastrar agora</a>
-                    <a href="#" class="btn">Cadastrar depois</a>
-                    <br>
-                    <br>
-                    <br>
-                            <?php
+        <main>
+            <br>
+            <div class="row">
+                <div class="col s6 card offset-s3">
+                    <div class="center">
+                        <br>
+                        <br>
+                        <?php
+                        if (isset($_GET['msg'])) {
+                            if ($_GET['msg'] == 'menorDeIdade') {
+                                ?>
+                                <h5>Este a luno é menor de idade, é necessário cadastrar um responsável
+                                    maior de idade.<br><br></h5>
+                                <a href="#" class="btn">Cadastrar agora</a>
+                                <a href="#" class="btn">Cadastrar depois</a>
+                                <br>
+                                <br>
+                                <br>
+                                <?php
+                            }
                         }
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
+                <div class="col s3"></div>
             </div>
-            <div class="col s3"></div>
-        </div>
-         <?php include_once '../../Base/footer.php'; ?>
+        </main>
+        <?php include_once '../../Base/footer.php'; ?>
     </body>
 </html>
