@@ -147,6 +147,7 @@ if (!isset($_SESSION)) {
                     $('#cep').mask("00000-000");
                 });
             </script>
+            <script src="../../js/verificaData.js" type="text/javascript"></script>
             <script src="../../js/verificaSenha.js" type="text/javascript"></script>
             <script src="../../js/verificaFormulario.js" type="text/javascript"></script>
         </main>
