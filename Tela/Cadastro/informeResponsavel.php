@@ -31,6 +31,7 @@ if (!isset($_SESSION)) {
                         if ($_GET['msg'] == naoEncontrado) {
                             //html usuário não encntrado
                         }
+                    }
 
                 ?>
                 <form class = "center" method = "post" action = "../Controle/usuarioControle.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
