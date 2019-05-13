@@ -8,18 +8,24 @@ if (realpath("./index.php")) {
     include_once './Modelo/usuario.php';
     include_once './Modelo/aluno.php';
     include_once './Modelo/diretoria.php';
+    //include_once './Controle/cursoPDO.php';
+    include_once './Modelo/curso.php';
 } else {
     if (realpath("../index.php")) {
         include_once "../Controle/conexao.php";
         include_once '../Modelo/usuario.php';
         include_once '../Modelo/aluno.php';
         include_once '../Modelo/diretoria.php';
+        //include_once '../Controle/cursoPDO.php';
+        include_once '../Modelo/curso.php';
     } else {
         if (realpath("../../index.php")) {
             include_once "../../Controle/conexao.php";
             include_once '../../Modelo/usuario.php';
             include_once '../../Modelo/aluno.php';
             include_once '../../Modelo/diretoria.php';
+            //include_once '../../Controle/cursoPDO.php';
+            include_once '../../Modelo/curso.php';
         }
     }
 }
@@ -542,13 +548,21 @@ class usuarioPDO {
         $us = new usuario($_POST);
         $al = new aluno($_POST);
         $resultado = $this->inserirUsuario($us);
+        $cursoPDO = new cursoPDO();
+        $curso = new curso();
+        $curso = $cursoPDO->selectCursoPorId($al->getId_curso());
         if ($resultado == 'true') {
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
             $us->setId($this->buscarIDporRG($us->getRg()));
-            $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0, :dataInicio ,:conclusao, 'false');");
+            $sql = $pdo->prepare("insert into aluno values(:id,null,:curso, :caixa ,0, :dataInicio ,:conclusao, 'false');");
             $sql->bindValue(':id', $us->getId());
             $sql->bindValue(':curso', $al->getId_curso());
+            if($curso->getTurno()=='Diurno'){
+                $sql->bindValue(':caixa', 1);
+            }else{
+                $sql->bindValue(':caixa', 2);
+            }
             $sql->bindValue(':dataInicio', $al->getData_inicio());
             $sql->bindValue(':conclusao', $al->getPrevisao_conclusao());
             if ($sql->execute()) {
@@ -593,7 +607,7 @@ class usuarioPDO {
                 $id = $_SESSION['temp'];
                 unset($_SESSION['temp']);
                 if ($stmt->execute()) {
-                    header('location: ../Tela/Cadastro/orientacao.php?msg=' . $this->enviarOrientacaoCadAluno($this->selectAlunoPorId($id)));
+                    header('location: ../Tela/Cadastro/orientacao.php?msg=' . $this->enviarOrientacaoCadAluno($this->selectUsuarioPorId($id)));
                 } else {
                     header('location: ../Tela/Cadastro/cadastroResponsavel.php?msg=erroInsert');
                 }
