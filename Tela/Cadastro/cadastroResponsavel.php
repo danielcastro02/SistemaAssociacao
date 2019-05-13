@@ -24,7 +24,7 @@ session_start();
                     }
                     ?>
                 </div>
-                <form class="center" id="formulario"  method="post" action="../../Controle/usuarioPDO.php?function=inserirResponsavel" name="formulario-cadastro-responsavel">
+                <form class="center" id="formulario"  method="post" action="../../Controle/usuarioControle.php?function=inserirResponsavel" name="formulario-cadastro-responsavel">
                     <div class="col s12">
                         <div class="input-field col s6">
                             <input required="true"  class="input-field" type="text" name="nome">

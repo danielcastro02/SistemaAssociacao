@@ -27,7 +27,7 @@ if (!isset($_SESSION['usuario'])) {
                     <div class="card col s10 offset-s1 center ">
                         <div class="row">
                                 <div class="row">
-                                    <form class="col s8 offset-s1" action="../../Controle/usuarioPDO.php?function=alteraFoto" method="post" enctype="multipart/form-data">
+                                    <form class="col s8 offset-s1" action="../../Controle/usuarioControle.php?function=alteraFoto" method="post" enctype="multipart/form-data">
                                         <h5>Selecione sua nova foto de perfil!</h5>
                                         <div class="file-field input-field">
                                             <button class="btn corpadrao">

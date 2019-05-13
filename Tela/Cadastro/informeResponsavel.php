@@ -31,7 +31,7 @@ if (!isset($_SESSION)) {
                             }
                         }
                 ?>
-                <form class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
+                <form class = "center" method = "post" action = "../Controle/usuarioControle.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
                     
                 </form>
             </div>

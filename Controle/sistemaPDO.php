@@ -18,12 +18,7 @@ if (realpath("./index.php")) {
         }
     }
 }
-$classe = new sistemaPDO();
 
-if (isset($_GET["function"])) {
-    $metodo = $_GET["function"];
-    $classe->$metodo();
-}
 
 class sistemaPDO {
 

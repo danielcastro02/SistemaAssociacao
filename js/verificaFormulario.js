@@ -76,7 +76,7 @@ $("#formulario").submit(function () {
     $.ajax({
         type: 'POST',
         async: false,
-        url: "../../Controle/usuarioPDO.php?function=pesquisarPorRgExata&rg=" + $("#rg").val(),
+        url: "../../Controle/usuarioControle.php?function=pesquisarPorRgExata&rg=" + $("#rg").val(),
         data: post,
         success: function (dado) {
             if (dado != 'false') {
@@ -98,7 +98,7 @@ $("#formulario").submit(function () {
     $.ajax({
         type: 'POST',
         async: false,
-        url: "../../Controle/usuarioPDO.php?function=pesquisarPorUsuarioExata&usuario=" + $("#usuario").val(),
+        url: "../../Controle/usuarioControle.php?function=pesquisarPorUsuarioExata&usuario=" + $("#usuario").val(),
         data: post,
         success: function (dado) {
             if (dado != 'false') {
@@ -121,7 +121,7 @@ $("#formulario").submit(function () {
     $.ajax({
         type: 'POST',
         async: false,
-        url: "../../Controle/usuarioPDO.php?function=pesquisarPorCpfExata&cpf=" + $("#cpf").val(),
+        url: "../../Controle/usuarioControle.php?function=pesquisarPorCpfExata&cpf=" + $("#cpf").val(),
         data: post,
         success: function (dado) {
             if (dado != 'false') {
@@ -144,7 +144,7 @@ $("#formulario").submit(function () {
     $.ajax({
         type: 'POST',
         async: false,
-        url: "../../Controle/usuarioPDO.php?function=pesquisarPorEmailExata&email=" + $("#email").val(),
+        url: "../../Controle/usuarioControle.php?function=pesquisarPorEmailExata&email=" + $("#email").val(),
         data: post,
         success: function (dado) {
             if (dado != 'false') {

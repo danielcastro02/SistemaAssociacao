@@ -23,12 +23,7 @@ if (realpath("./index.php")) {
         }
     }
 }
-$classe = new caixaPDO();
 
-if (isset($_GET["function"])) {
-    $metodo = $_GET["function"];
-    $classe->$metodo("");
-}
 
 class caixaPDO {
     public function inserir(){

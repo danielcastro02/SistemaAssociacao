@@ -27,7 +27,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class="row">
                 <div class="col s8 offset-s2 card center ">
                     <h5>Seus dados</h5>
-                    <form class="col s12 input-field" action="../../Controle/usuarioPDO.php?function=update" method="POST">
+                    <form class="col s12 input-field" action="../../Controle/usuarioControle.php?function=update" method="POST">
                         <div class="row">
                             <div class="input-field col s6">
                                 <select name = "id_curso" required="true">

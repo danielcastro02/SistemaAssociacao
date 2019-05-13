@@ -117,13 +117,13 @@ if (isset($_SESSION['usuario'])) {
                                 if (($us->getPode_logar() == 'true')) {
                                     echo "<td>";
                                     ?>
-                            <a class="btn corpadrao" href="../../Controle/usuarioPDO.php?function=tornarUsuarioInativo&id=<?php echo $us->getId(); ?>">Ativo</a>
+                            <a class="btn corpadrao" href="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=<?php echo $us->getId(); ?>">Ativo</a>
                                        <?php
                                        echo "</td>";
                                    } else {
                                        echo "<td>";
                                        ?>
-                                    <a class="btn red darken-2" href="../../Controle/usuarioPDO.php?function=tornarUsuarioAtivo&id=<?php echo $us->getId(); ?>">Inativo</a><?php
+                                    <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=<?php echo $us->getId(); ?>">Inativo</a><?php
                                        echo "</td>";
                                    }
 //                        -----------------------------------------------------------

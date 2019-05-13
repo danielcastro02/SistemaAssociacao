@@ -22,7 +22,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class = "col s8 card offset-s2">
                 <center><h4>Cadastre o membro da diretoria</h4></center>
                 <form class = "center" method = "post" 
-                      action = "../../Controle/usuarioPDO.php?function=inserirDiretoria" name = "formulario-cadastro-diretoria" id="formulario">
+                      action = "../../Controle/usuarioControle.php?function=inserirDiretoria" name = "formulario-cadastro-diretoria" id="formulario">
                     <div class = "col s12">
                         <div class = "input-field col s6">
                             <input class = "input-field" type = "text" name = "nome" required="true">

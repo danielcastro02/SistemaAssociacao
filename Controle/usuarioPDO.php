@@ -8,7 +8,7 @@ if (realpath("./index.php")) {
     include_once './Modelo/usuario.php';
     include_once './Modelo/aluno.php';
     include_once './Modelo/diretoria.php';
-    //include_once './Controle/cursoPDO.php';
+    include_once './Controle/cursoPDO.php';
     include_once './Modelo/curso.php';
 } else {
     if (realpath("../index.php")) {
@@ -16,7 +16,7 @@ if (realpath("./index.php")) {
         include_once '../Modelo/usuario.php';
         include_once '../Modelo/aluno.php';
         include_once '../Modelo/diretoria.php';
-        //include_once '../Controle/cursoPDO.php';
+        include_once '../Controle/cursoPDO.php';
         include_once '../Modelo/curso.php';
     } else {
         if (realpath("../../index.php")) {
@@ -24,16 +24,10 @@ if (realpath("./index.php")) {
             include_once '../../Modelo/usuario.php';
             include_once '../../Modelo/aluno.php';
             include_once '../../Modelo/diretoria.php';
-            //include_once '../../Controle/cursoPDO.php';
+            include_once '../../Controle/cursoPDO.php';
             include_once '../../Modelo/curso.php';
         }
     }
-}
-$classe = new usuarioPDO();
-
-if (isset($_GET["function"])) {
-    $metodo = $_GET["function"];
-    $classe->$metodo("");
 }
 
 class usuarioPDO {
