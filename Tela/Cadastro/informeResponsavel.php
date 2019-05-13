@@ -31,13 +31,13 @@ if (!isset($_SESSION)) {
                         if ($_GET['msg'] == naoEncontrado) {
                             //html usuário não encntrado
                         }
-                    }
-                    ?>
-                    <form class = "center" method = "post" action = "../Controle/usuarioPDO.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
 
-                    </form>
-                </div>
-                <div class="col s3"></div>
+                ?>
+                <form class = "center" method = "post" action = "../Controle/usuarioControle.php?function=inserirUsuario&user=aluno" name = "formulario-cadastro-aluno">
+                    
+                </form>
+                    
+
             </div>
         </main>
         <?php include_once '../../Base/footer.php'; ?>

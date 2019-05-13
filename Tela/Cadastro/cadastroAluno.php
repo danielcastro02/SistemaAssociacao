@@ -14,68 +14,66 @@ if (!isset($_SESSION)) {
         <?php
         include_once '../../Base/nav.php';
         ?>
-        <main>
-            <br>
-            <div class = "row">
-                <div class = "col s8 card offset-s2">
-                    <center><h4>Cadastre o aluno</h4></center>
-                    <form id="formulario" class = "center" method = "post" action = "../../Controle/usuarioPDO.php?function=inserirAluno" name = "formulario-cadastro-aluno">
-                        <div class = "col s12">
-                            <div class = "input-field col s6">
-                                <input class = "input-field" type = "text" name = "nome" required="true">
-                                <label for = "nome">Nome</label>
-                            </div>
-                            <div class = "input-field col s6">
-                                <input class = "input-field" type = "text" name = "usuario" required="true" id="usuario">
-                                <label for = "usuario" id="lusuario">Login</label>
-                            </div>
-                            <div class = "input-field col s6">
-                                <input class = "input-field" type = "text" name = "cidade" required="true">
-                                <label for = "cidade">Cidade</label>
-                            </div>
-                            <div class = "input-field col s6">
-                                <input class = "input-field" type = "text" name = "bairro" required="true">
-                                <label for = "bairro">Bairro</label>
-                            </div>
-                            <div class = "input-field col s6">
-                                <input class = "input-field" type = "text" name = "rua" required="true">
-                                <label for = "rua">Rua</label>
-                            </div>
-                            <div class = "input-field col s6">
-                                <input class = "input-field" type = "text" name = "numero" required="true">
-                                <label for = "numero">Número da casa</label>
-                            </div>
-                            <div class = "input-field col s6">
-                                <input class = "input-field" type = "text" name = "cep" required="true" id="cep">
-                                <label for = "cep">CEP</label>
-                            </div>
-                            <div class = "input-field col s6">
-                                <input class = "input-field" type = "text" name = "telefone" required="true" id="telefone"> 
-                                <label for = "telefone">Telefone</label>
-                            </div>
-                            <div class = "input-field col s6">
-                                <input class = "input-field validate" type = "email" name = "email" required="true" id="email">
-                                <label for = "email" id="lemail">E-mail</label>
-                            </div>
-                            <div class = "input-field col s6">
-                                <input class = "date" type = "text" name = "data_associacao" required="true">
-                                <label for = "data_nasc" class="ldate">Data de associação</label>
-                            </div>
-                            <div class = "input-field col s6">
-                                <select name = "id_curso" required="true">
-                                    <option value="0">Selecione o curso</option>
-                                    <?php
-                                    include_once '../../Controle/cursoPDO.php';
-                                    include_once '../../Modelo/curso.php';
-                                    $cursoPDO = new cursoPDO();
-                                    $resultado = $cursoPDO->selectTudo();
-                                    if ($resultado) {
-                                        while ($linha = $resultado->fetch()) {
-                                            $curso = new curso($linha);
-                                            echo "<option value='" . $curso->getId() . "'>" . $curso->getNome() . " (" . $curso->getTurno() . ")" . "</option>";
-                                        }
-                                    } else {
-                                        echo "<option value='0'>Nenhum curso cadastrado!</option>";
+   <main>
+        <br>
+        <div class = "row">
+            <div class = "col s8 card offset-s2">
+                <center><h4>Cadastre o aluno</h4></center>
+                <form id="formulario" class = "center" method = "post" action = "../../Controle/usuarioControle.php?function=inserirAluno" name = "formulario-cadastro-aluno">
+                    <div class = "col s12">
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "nome" required="true">
+                            <label for = "nome">Nome</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "usuario" required="true" id="usuario">
+                            <label for = "usuario" id="lusuario">Login</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "cidade" required="true">
+                            <label for = "cidade">Cidade</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "bairro" required="true">
+                            <label for = "bairro">Bairro</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "rua" required="true">
+                            <label for = "rua">Rua</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "numero" required="true">
+                            <label for = "numero">Número da casa</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "cep" required="true" id="cep">
+                            <label for = "cep">CEP</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "input-field" type = "text" name = "telefone" required="true" id="telefone"> 
+                            <label for = "telefone">Telefone</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "input-field validate" type = "email" name = "email" required="true" id="email">
+                            <label for = "email" id="lemail">E-mail</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <input class = "date" type = "text" name = "data_associacao" required="true">
+                            <label for = "data_nasc" class="ldate">Data de associação</label>
+                        </div>
+                        <div class = "input-field col s6">
+                            <select name = "id_curso" required="true">
+                                <option value="0">Selecione o curso</option>
+                                <?php
+                                include_once '../../Controle/cursoPDO.php';
+                                include_once '../../Modelo/curso.php';
+                                $cursoPDO = new cursoPDO();
+                                $resultado = $cursoPDO->selectTudo();
+                                if ($resultado) {
+                                    while ($linha = $resultado->fetch()) {
+                                        $curso = new curso($linha);
+                                        echo "<option value='" . $curso->getId() . "'>" . $curso->getNome() ." (".$curso->getTurno().")". "</option>";
+
                                     }
                                     ?>
                                 </select>

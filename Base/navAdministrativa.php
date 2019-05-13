@@ -59,7 +59,7 @@ if (realpath("./index.php")) {
                 <li><a href="#"></a></li>-->
             </ul>
             
-            <li><a href="<?php echo $pontos; ?>Controle/usuarioPDO.php?function=logout">Sair</a></li>
+            <li><a href="<?php echo $pontos; ?>Controle/usuarioControle.php?function=logout">Sair</a></li>
         </ul>
     </div>
 </nav>

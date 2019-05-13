@@ -18,14 +18,6 @@ if (realpath("./index.php")) {
         }
     }
 }
-
-$classe = new cursoPDO();
-
-if (isset($_GET["function"])) {
-    $metodo = $_GET["function"];
-    $classe->$metodo("");
-}
-
 class cursoPDO {
 
     public function inserir() {

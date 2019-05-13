@@ -29,7 +29,7 @@ if (isset($_SESSION['usuario'])) {
             <div class="row">
                 <div class = "col s6 card offset-s3">
                     <center><h4>Cadastre o Caixa</h4></center>
-                    <form id="formulario" class = "center" method = "post" action = "../../Controle/caixaPDO.php?function=inserir">
+                    <form id="formulario" class = "center" method = "post" action = "../../Controle/caixaControle.php?function=inserir">
                         <div class="row">
 
                             <div class="input-field col s6">

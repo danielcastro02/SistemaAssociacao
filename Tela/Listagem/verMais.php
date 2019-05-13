@@ -144,18 +144,26 @@ if (!isset($_SESSION['usuario'])) {
                                         ?>
                                     </div>
                                 </div>
+
                                 <div class="row center">
                                     <a href="./listarUsuario.php" class="btn hoverable corpadrao">Voltar</a>
+
                                     <?php
                                     if (($usuarioPDO->verificarAdministrador($_GET['id']) == 'true')) {
-                                        ?><a class="btn corpadrao" href="../../Controle/usuarioPDO.php?function=tornarUsuarioNormal&id=<?php echo $_GET['id']; ?>">Administrador</a>
+                                        ?><a class="btn corpadrao" href="../../Controle/usuarioControle.php?function=tornarUsuarioNormal&id=<?php echo $_GET['id']; ?>">Administrador</a>
                                         <?php
                                     } else {
                                         ?>
-                                        <a class="btn red darken-2" href="../../Controle/usuarioPDO.php?function=tornarUsuarioAdministrador&id=<?php echo $_GET['id']; ?>">Tornar Administrador</a><?php
+                                        <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAdministrador&id=<?php echo $_GET['id']; ?>">Tornar Administrador</a><?php
                                     }
                                     ?>
+
+                                    <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAdministrador&id=<?php echo $_GET['id']; ?>">Tornar Administrador</a><?php
+                                }
+                                ?>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>

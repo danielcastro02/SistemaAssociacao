@@ -27,7 +27,7 @@ if (!isset($_SESSION['usuario'])) {
             <div class="row">
                 <div class="col s8 offset-s2 card center ">
                     <h5>Seus dados</h5>
-                    <form class="col s12 input-field" action="../../Controle/usuarioPDO.php?function=update" method="POST" id="formulario">
+                    <form class="col s12 input-field" action="../../Controle/usuarioControle.php?function=update" method="POST" id="formulario">
                         <div class="row">
                             <div class="input-field col s6">
                                 <input type="text" class="input-field" name="nome" value="<?php echo $logado->getNome(); ?>">

@@ -29,7 +29,7 @@ if (isset($_SESSION['usuario'])) {
             <div class="row">
                 <div class = "col s8 card offset-s2">
                     <center><h4>Movimento de Caixa</h4></center>
-                    <form id="formulario" class = "center" method = "post" action = "../../Controle/movimentoPDO.php?function=inserir">
+                    <form id="formulario" class = "center" method = "post" action = "../../Controle/movimentoControle.php?function=inserir">
                         <div class="row">
                             <input type="text" value="<?php echo $logado->getId(); ?>" name="id_usuario" id="id_usuario" hidden="true">
                             <div class="input-field col s4">

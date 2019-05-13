@@ -27,7 +27,7 @@ if (isset($_SESSION['usuario'])) {
                 <div style="height: 15vh;"></div>
                 <div class="col s4 offset-s4 card center">
                     <h5>Identifique-se com seu cadastro</h5>
-                    <form class="col s12 input-field" action="../../Controle/usuarioPDO.php?function=login" method="POST">
+                    <form class="col s12 input-field" action="../../Controle/usuarioControle.php?function=login" method="POST">
                         <div class="input-field col s12">
                             <input type="text" class="input-field" name="usuario" required="true">
                             <label for="usuario">Usuário</label>

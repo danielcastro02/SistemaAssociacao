@@ -144,7 +144,54 @@ $("#formulario").submit(function () {
     $.ajax({
         type: 'POST',
         async: false,
-        url: "../../Controle/usuarioPDO.php?function=pesquisarPorCpfExata&cpf=" + $("#cpf").val(),
+
+        url: "../../Controle/usuarioControle.php?function=pesquisarPorRgExata&rg=" + $("#rg").val(),
+        data: post,
+        success: function (dado) {
+            if (dado != 'false') {
+                resposta = 'false';
+                $("#lrg").attr('class', "red-text");
+                $("#lrg").text("Este RG já existe no sistema!");
+                $("#rg").attr('class', 'input-field invalid');
+                $("#rg").focus();
+                M.updateTextFields();
+            } else {
+                $("#lrg").removeAttr('class');
+                $("#lrg").text("RG");
+                $("#rg").attr('class', 'input-field');
+                M.updateTextFields();
+            }
+
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: "../../Controle/usuarioControle.php?function=pesquisarPorUsuarioExata&usuario=" + $("#usuario").val(),
+        data: post,
+        success: function (dado) {
+            if (dado != 'false') {
+                resposta = 'false';
+                $("#usuario").attr('class', "red-text");
+                $("#lusuario").text("Usuario indisponível escolha outro.");
+                $("#usuario").attr('class', 'input-field invalid');
+                $("#usuario").focus();
+                M.updateTextFields();
+            } else {
+                $("#lusuario").removeAttr('class');
+                $("#lusuario").text("Usuario");
+                $("#usuario").attr('class', 'input-field');
+                M.updateTextFields();
+            }
+
+
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: "../../Controle/usuarioControle.php?function=pesquisarPorCpfExata&cpf=" + $("#cpf").val(),
+
         data: post,
         success: function (dado) {
             if (dado != 'false') {
@@ -167,7 +214,7 @@ $("#formulario").submit(function () {
     $.ajax({
         type: 'POST',
         async: false,
-        url: "../../Controle/usuarioPDO.php?function=pesquisarPorEmailExata&email=" + $("#email").val(),
+        url: "../../Controle/usuarioControle.php?function=pesquisarPorEmailExata&email=" + $("#email").val(),
         data: post,
         success: function (dado) {
             if (dado != 'false') {

@@ -26,24 +26,26 @@ if (!isset($_SESSION['usuario'])) {
 
                     <div class="card col s10 offset-s1 center ">
                         <div class="row">
-                            <div class="row">
-                                <form class="col s8 offset-s1" action="../../Controle/usuarioPDO.php?function=alteraFoto" method="post" enctype="multipart/form-data">
-                                    <h5>Selecione sua nova foto de perfil!</h5>
-                                    <div class="file-field input-field">
-                                        <button class="btn corpadrao">
-                                            <div>Selecionar Foto</div>
-                                        </button>
-                                        <input type="file" class="file-chos" name="imagem">
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text">
+
+                                <div class="row">
+                                    <form class="col s8 offset-s1" action="../../Controle/usuarioControle.php?function=alteraFoto" method="post" enctype="multipart/form-data">
+                                        <h5>Selecione sua nova foto de perfil!</h5>
+                                        <div class="file-field input-field">
+                                            <button class="btn corpadrao">
+                                                <div>Selecionar Foto</div>
+                                            </button>
+                                            <input type="file" class="file-chos" name="imagem">
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <button type="submit" class="btn corpadrao col s4 offset-s4" name="SendCadImg" value="true">Confirmar</button>
-                                    </div>
-                                </form>
-                                <div class="col s3" style="margin-top: 20px;">
-                                    <img  class="fotoPerfil prev-img">
+                                        <div class="row">
+                                            <button type="submit" class="btn corpadrao col s4 offset-s4" name="SendCadImg" value="true">Confirmar</button>
+                                        </div>
+                                    </form>
+                                    <div class="col s3" style="margin-top: 20px;">
+                                        <img  class="fotoPerfil prev-img">
+
                                 </div>
                             </div>
                         </div>
