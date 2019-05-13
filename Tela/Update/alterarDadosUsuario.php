@@ -23,7 +23,7 @@ if (!isset($_SESSION['usuario'])) {
         $logado = unserialize($_SESSION['usuario']);
         ?>
 
-        <main id="main">
+        <main>
             <div class="row">
                 <div class="col s8 offset-s2 card center ">
                     <h5>Seus dados</h5>
@@ -124,7 +124,7 @@ if (!isset($_SESSION['usuario'])) {
                     $(".msenha").attr('required', 'true');
                 });
             });
-            
+
         </script>
         <script src="../../js/mascaras.js"></script>
         <script>

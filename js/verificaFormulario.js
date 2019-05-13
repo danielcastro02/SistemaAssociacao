@@ -1,31 +1,99 @@
-$('.date').blur(function () {
-    var valor = $(this).val();
-    var vet = valor.split("/");
-    var dia = parseInt(vet[0]);
-    var mes = parseInt(vet[1]);
-    if (dia > 31 || dia == 0 || dia == null) {
-        invalida($(this), $(this).next($('.ldata')));
-    } else {
-        if (mes > 12 || mes == 0) {
-            invalida($(this), $(this).next($('.ldata')));
-        } else {
-            valido($(this), $(this).next($('.ldata')));
-        }
-    }
-});
-
-function invalida(data, label) {
-    data.attr('class', 'invalid');
-    label.text('Data inválida');
-}
-
-function valido(data, label){
-    data.attr('class', 'valid');
-    label.text('Data válida');
-}
+//$('.date').blur(function () {
+//    var valor = $(this).val();
+//    var vet = valor.split("/");
+//    var dia = parseInt(vet[0]);
+//    var mes = parseInt(vet[1]);
+//    var ano = parseInt(vet[2]);
+//
+//    if (isNaN(dia)) {
+//        voltar($(this), $(this).next($('.ldata')));
+//    } else {
+//        if ((isNaN(mes) || isNaN(ano)) || (dia > 31 || dia == 0) || (mes > 12 || mes == 0) || (mes == 2 && dia == 29 && bissexto(ano) == false)) {
+//            invalida($(this), $(this).next($('.ldata')));
+//        } else {
+//            valido($(this), $(this).next($('.ldata')));
+//        }
+//    }
+//});
+//
+//function invalida(data, label) {
+//    voltar(data, label);
+//    data.attr('class', 'invalid');
+//    label.text(label.text() + " inválida");
+//}
+//
+//function valido(data, label) {
+//    voltar(data, label);
+//    data.attr('class', 'valid');
+//}
+//
+//function bissexto(ano) {
+//    bi = ano % 4;
+//    if (bi == 0) {
+//        return true;
+//    } else {
+//        if ((ano % 400) == 0) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//}
+//
+//function voltar(data, label) {
+//    data.attr('class', 'input-field');
+//    label.text(label.text().toString().replace("inválida", ""));
+//}
 
 $("#formulario").submit(function () {
     alert('aaa');
+    
+        $.ajax({
+        type: 'POST',
+        async: false,
+        url: "../../Controle/usuarioPDO.php?function=pesquisarPorRgExata&rg=" + $("#rg").val(),
+        data: post,
+        success: function (dado) {
+            if (dado != 'false') {
+                resposta = 'false';
+                $("#lrg").attr('class', "red-text");
+                $("#lrg").text("Este RG já existe no sistema!");
+                $("#rg").attr('class', 'input-field invalid');
+                $("#rg").focus();
+                M.updateTextFields();
+            } else {
+                $("#lrg").removeAttr('class');
+                $("#lrg").text("RG");
+                $("#rg").attr('class', 'input-field');
+                M.updateTextFields();
+            }
+
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: "../../Controle/usuarioPDO.php?function=pesquisarPorUsuarioExata&usuario=" + $("#usuario").val(),
+        data: post,
+        success: function (dado) {
+            if (dado != 'false') {
+                resposta = 'false';
+                $("#usuario").attr('class', "red-text");
+                $("#lusuario").text("Usuario indisponível escolha outro.");
+                $("#usuario").attr('class', 'input-field invalid');
+                $("#usuario").focus();
+                M.updateTextFields();
+            } else {
+                $("#lusuario").removeAttr('class');
+                $("#lusuario").text("Usuario");
+                $("#usuario").attr('class', 'input-field');
+                M.updateTextFields();
+            }
+
+
+        }
+    });
+    
     var cpf = $('#cpf').val().replace('.', '').toString();
     cpf = cpf.replace('.', '');
     cpf = cpf.replace('-', '');
@@ -73,51 +141,6 @@ $("#formulario").submit(function () {
     }
     post = $("#formulario").serialize();
     resposta = 'true';
-    $.ajax({
-        type: 'POST',
-        async: false,
-        url: "../../Controle/usuarioPDO.php?function=pesquisarPorRgExata&rg=" + $("#rg").val(),
-        data: post,
-        success: function (dado) {
-            if (dado != 'false') {
-                resposta = 'false';
-                $("#lrg").attr('class', "red-text");
-                $("#lrg").text("Este RG já existe no sistema!");
-                $("#rg").attr('class', 'input-field invalid');
-                $("#rg").focus();
-                M.updateTextFields();
-            } else {
-                $("#lrg").removeAttr('class');
-                $("#lrg").text("RG");
-                $("#rg").attr('class', 'input-field');
-                M.updateTextFields();
-            }
-
-        }
-    });
-    $.ajax({
-        type: 'POST',
-        async: false,
-        url: "../../Controle/usuarioPDO.php?function=pesquisarPorUsuarioExata&usuario=" + $("#usuario").val(),
-        data: post,
-        success: function (dado) {
-            if (dado != 'false') {
-                resposta = 'false';
-                $("#usuario").attr('class', "red-text");
-                $("#lusuario").text("Usuario indisponível escolha outro.");
-                $("#usuario").attr('class', 'input-field invalid');
-                $("#usuario").focus();
-                M.updateTextFields();
-            } else {
-                $("#lusuario").removeAttr('class');
-                $("#lusuario").text("Usuario");
-                $("#usuario").attr('class', 'input-field');
-                M.updateTextFields();
-            }
-
-
-        }
-    });
     $.ajax({
         type: 'POST',
         async: false,
