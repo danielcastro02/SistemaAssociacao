@@ -159,8 +159,7 @@ if (!isset($_SESSION['usuario'])) {
                                     ?>
 
                                     <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAdministrador&id=<?php echo $_GET['id']; ?>">Tornar Administrador</a><?php
-                                }
-                                ?>
+                                    ?>
 
                                 </div>
 
