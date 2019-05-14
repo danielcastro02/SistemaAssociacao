@@ -112,11 +112,13 @@ class movimentoPDO {
         $soma = 0;
 
         while($movimentos = $stmt->fetch()) {
+            $movimento = new movimento($movimentos);
             $tipo_movimentoPDO = new tipo_movimentoPDO();
-            $tmo = $tipo_movimentoPDO->selectPorID($movimentos['id_tipo_ref']);
+            $tmo = $tipo_movimentoPDO->selectPorID($movimento->getId_tipo_ref());
             while ($tipo = $tmo->fetch()) {
-                if ($tipo['tipo']){
-                    $soma += $movimentos['valor'];
+                $tipo_movimento = new tipo_movimento($tipo);
+                if ($tipo_movimento->getTipo()){
+                    $soma += $movimento->getValor();
                 }
             }
         }
@@ -131,11 +133,13 @@ class movimentoPDO {
         $stmt->execute();
         $soma = 0;
         while($movimentos = $stmt->fetch()) {
+            $movimento = new movimento($movimentos);
             $tipo_movimentoPDO = new tipo_movimentoPDO();
-            $tmo = $tipo_movimentoPDO->selectPorID($movimentos['id_tipo_ref']);
+            $tmo = $tipo_movimentoPDO->selectPorID($movimento->getId_tipo_ref());
             while ($tipo = $tmo->fetch()) {
-                if (!$tipo['tipo']){
-                    $soma += $movimentos['valor'];
+                $tipo_movimento = new tipo_movimento($tipo);
+                if (!$tipo_movimento->getTipo()){
+                    $soma += $movimento->getValor();
                 }
             }
         }
