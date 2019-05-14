@@ -34,7 +34,6 @@ if (isset($_SESSION['usuario'])) {
                     <ul class="collapsible">
                         <?php foreach ($datas as $data) {?>
                         <li>
-<!--                            pegar cada data e consultar no banco por data-->
                             <div class="collapsible-header"><?= $data['data_movimento'] ?></div>
                             <div class="collapsible-body">
                                 <table>
