@@ -46,7 +46,6 @@
 //}
 
 $("#formulario").submit(function () {
-    alert('aaa');
     
         $.ajax({
         type: 'POST',
@@ -233,7 +232,18 @@ $("#formulario").submit(function () {
 
         }
     });
-
+    if ($('#senha1').val() != $('#senha2').val()) {
+        $('#senha2').attr('class', 'invalid red-text');
+        $('#lsenha2').attr('class', 'red-text');
+        $('#lsenha2').text('Invalido! Senhas não correspondem!');
+        M.updateTextFields();
+        resposta = 'false';
+    } else {
+        $('#senha2').attr('class', 'valid');
+        $('#lsenha2').attr('class', '');
+        $('#lsenha2').text('Senha');
+        M.updateTextFields();
+    }
 
     if (resposta == 'true') {
         return true;

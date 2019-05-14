@@ -39,10 +39,9 @@ if (isset($_SESSION['usuario'])) {
                             </div>
                             <div class="input-field col s4">
                                 <select name="turno">
-                                    <option value="0">Selecione o Turno</option>
-                                    <option value="Manha">Manha</option>
-                                    <option value="Tarde">Tarde</option>
-                                    <option value="Noite">Noite</option>
+                                    <option value="0" selected disabled="true">Selecione o Turno</option>
+                                    <option value="Diurno">Diurno</option>
+                                    <option value="Noturno">Noturno</option>
                                 </select>
                                 <label for = 'turno'>Turno</label>
                             </div>
