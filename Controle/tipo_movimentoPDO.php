@@ -57,4 +57,18 @@ class tipo_movimentoPDO {
             return false;
         }
     }
+
+    public function selectPorID($id_tipo_ref) {
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("SELECT * FROM tipo_movimento WHERE id_tipo = :id_tipo_ref");
+        $stmt->bindValue(":id_tipo_ref", $id_tipo_ref);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            return $stmt;
+        } else {
+            return false;
+        }
+    }
+
 }

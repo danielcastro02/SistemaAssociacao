@@ -26,20 +26,33 @@ if (isset($_SESSION['usuario'])) {
                 include_once '../../Controle/movimentoPDO.php';
                 $movimentoPDO = new movimentoPDO();
                 $datas = $movimentoPDO->selectTodasDatas();
-                if (isset($datas)) {
+                if ($datas) {
             ?>
             <div class="row">
                 <div class = "col s10 card offset-s1">
                     <center><h4>Movimentações</h4></center>
                     <ul class="collapsible">
-                        <?php foreach ($datas as $data) {?>
+                        <?php while ($data = $datas->fetch()) {
+                            $movimento = new movimento($data);
+                            $entrada = $movimentoPDO->somaEntradasNoDia($movimento->getData_movimento());
+                            $saida = $movimentoPDO->somaSaidasNoDia($movimento->getData_movimento());
+                            $saldo = $entrada - $saida;
+                        ?>
                         <li>
-                            <div class="collapsible-header"><?= $data['data_movimento'] ?></div>
+                            <div class="collapsible-header">
+                                <table>
+                                    <tr>
+                                        <td>Data: <?= $movimento->getData_movimento() ?></td>
+                                        <td>Entrada: <?= $entrada ?> R$</td>
+                                        <td>Saida: <?= $saida ?> R$</td>
+                                        <td>Saldo: <?= $saldo ?> R$</td>
+                                    </tr>
+                                </table>
+                            </div>
                             <div class="collapsible-body">
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Caixa</th>
                                             <th>Tipo</th>
                                             <th>Usuario</th>
                                             <th>Valor</th>
@@ -48,14 +61,28 @@ if (isset($_SESSION['usuario'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $movimentos = $movimentoPDO->selectPorData($data['data_movimento']);
-                                            foreach ($movimentos as $movimento) { ?>
+                                            $dados = $movimentoPDO->selectPorData($movimento->getData_movimento());
+                                            while ($dado = $dados->fetch()) {
+                                                $movimento = new movimento($dado);
+                                            ?>
                                         <tr>
-                                            <td><?= $movimento['id_caixa_ref'] ?></td>
-                                            <td><?= $movimento['id_tipo_ref'] ?></td>
-                                            <td><?= $movimento['id_usuario_ref'] ?></td>
-                                            <td><?= $movimento['valor'] ?></td>
-                                            <td><?= $movimento['saldo_movimento'] ?></td>
+                                            <td><?php
+                                                    include_once '../../Controle/tipo_movimentoPDO.php';
+                                                    $tipo_movimentoPDO = new tipo_movimentoPDO();
+                                                    $tipo_movimento = $tipo_movimentoPDO->selectPorID($movimento->getId_tipo_ref());
+                                                    while ($item =  $tipo_movimento->fetch()) {
+                                                        $tmo = new tipo_movimento($item);
+                                                        echo $tmo->getNome_movimento();
+                                                    }
+                                                ?></td>
+                                            <td><?php
+                                                    include_once '../../Controle/usuarioPDO.php';
+                                                    $usuarioPDO = new usuarioPDO();
+                                                    $usuarios = $usuarioPDO->selectUsuarioPorId($movimento->getId_usuario_ref());
+                                                    echo $usuarios->getNome();
+                                                ?></td>
+                                            <td><?= $movimento->getValor() ?></td>
+                                            <td><?= $movimento->getSaldo_movimento() ?></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>

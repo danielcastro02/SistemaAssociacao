@@ -5,18 +5,21 @@ if (!isset($_SESSION)) {
 }
 if (realpath("./index.php")) {
     include_once "./Controle/conexao.php";
+    include_once './Controle/tipo_movimentoPDO.php';
     include_once './Modelo/caixa.php';
     include_once './Modelo/tipo_movimento.php';
     include_once './Modelo/movimento.php';
 } else {
     if (realpath("../index.php")) {
         include_once "../Controle/conexao.php";
+        include_once '../Controle/tipo_movimentoPDO.php';
         include_once '../Modelo/caixa.php';
         include_once '../Modelo/tipo_movimento.php';
         include_once '../Modelo/movimento.php';
     } else {
         if (realpath("../../index.php")) {
             include_once "../../Controle/conexao.php";
+            include_once '../../Controle/tipo_movimentoPDO.php';
             include_once '../../Modelo/caixa.php';
             include_once '../../Modelo/tipo_movimento.php';
             include_once '../../Modelo/movimento.php';
@@ -78,7 +81,7 @@ class movimentoPDO {
     public function selectTodasDatas() {
         $con = new conexao();
         $pdo = $con->getConexao();
-        $stmt = $pdo->prepare("select distinct data_movimento from movimento");
+        $stmt = $pdo->prepare("select distinct data_movimento from movimento order by id_movimento");
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             return $stmt;
@@ -98,5 +101,48 @@ class movimentoPDO {
         } else {
             return false;
         }
+    }
+
+    public function somaEntradasNoDia($data) {
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("select * from movimento where data_movimento = :data_movimento");
+        $stmt->bindValue(":data_movimento", $data);
+        $stmt->execute();
+        $soma = 0;
+
+        while($movimentos = $stmt->fetch()) {
+            $tipo_movimentoPDO = new tipo_movimentoPDO();
+            $tmo = $tipo_movimentoPDO->selectPorID($movimentos['id_tipo_ref']);
+            while ($tipo = $tmo->fetch()) {
+                if ($tipo['tipo']){
+                    $soma += $movimentos['valor'];
+                }
+            }
+        }
+        return $soma;
+    }
+
+    public function somaSaidasNoDia($data) {
+        $con = new conexao();
+        $pdo = $con->getConexao();
+        $stmt = $pdo->prepare("select * from movimento where data_movimento = :data_movimento");
+        $stmt->bindValue(":data_movimento", $data);
+        $stmt->execute();
+        $soma = 0;
+        while($movimentos = $stmt->fetch()) {
+            $tipo_movimentoPDO = new tipo_movimentoPDO();
+            $tmo = $tipo_movimentoPDO->selectPorID($movimentos['id_tipo_ref']);
+            while ($tipo = $tmo->fetch()) {
+                if (!$tipo['tipo']){
+                    $soma += $movimentos['valor'];
+                }
+            }
+        }
+        return $soma;
+    }
+
+    public function somaSado() {
+
     }
 }
