@@ -85,7 +85,7 @@ if (!isset($_SESSION['usuario'])) {
                                             <span>Curso: <?php
                                                 $cursopdo = new cursoPDO();
                                                 $curso = new curso();
-                                                $curso = $cursopdo->selectCursoPorId($_GET['id']);
+                                                $curso = $cursopdo->selectCursoPorId($aluno->getId_curso());
                                                 echo $curso->getNome();
                                                 ?></span><br>
                                             <span>Turno: <?php echo $curso->getTurno(); ?></span><br>
@@ -156,9 +156,6 @@ if (!isset($_SESSION['usuario'])) {
                                         ?>
                                         <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAdministrador&id=<?php echo $_GET['id']; ?>">Tornar Administrador</a><?php
                                     }
-                                    ?>
-
-                                    <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAdministrador&id=<?php echo $_GET['id']; ?>">Tornar Administrador</a><?php
                                     ?>
 
                                 </div>
