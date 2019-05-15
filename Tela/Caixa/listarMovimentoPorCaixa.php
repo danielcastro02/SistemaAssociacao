@@ -53,7 +53,7 @@ if (isset($_SESSION['usuario'])) {
                                 <table>
                                     <tr>
                                         <td style="width: 18%"> <?= $movimento->getData_movimento() ?></td>
-                                        <td style="width: 27%"> Teste </td>
+                                        <td style="width: 27%"> Total diário </td>
                                         <td style="width: 22%"> <?= $entrada ?> R$</td>
                                         <td style="width: 17%"> <?= $saida ?> R$</td>
                                         <td> <?= $saldo ?> R$</td>
@@ -64,6 +64,7 @@ if (isset($_SESSION['usuario'])) {
                                 <table>
                                     <thead>
                                         <tr>
+                                            <th>Data</th>
                                             <th>Tipo</th>
                                             <th>Usuario</th>
                                             <th>Valor</th>
@@ -77,6 +78,7 @@ if (isset($_SESSION['usuario'])) {
                                                 $movimento = new movimento($dado);
                                             ?>
                                         <tr>
+                                            <td><?= $movimento->getData_movimento() ?></td>
                                             <td><?php
                                                     include_once '../../Controle/tipo_movimentoPDO.php';
                                                     $tipo_movimentoPDO = new tipo_movimentoPDO();
