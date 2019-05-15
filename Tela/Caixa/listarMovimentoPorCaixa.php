@@ -31,6 +31,16 @@ if (isset($_SESSION['usuario'])) {
             <div class="row">
                 <div class = "col s10 card offset-s1">
                     <center><h4>Movimentações</h4></center>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Data</th>
+                            <th>Descrição</th>
+                            <th>Entrada</th>
+                            <th>Saida</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </table>
                     <ul class="collapsible">
                         <?php while ($data = $datas->fetch()) {
                             $movimento = new movimento($data);
@@ -42,10 +52,11 @@ if (isset($_SESSION['usuario'])) {
                             <div class="collapsible-header">
                                 <table>
                                     <tr>
-                                        <td>Data: <?= $movimento->getData_movimento() ?></td>
-                                        <td>Entrada: <?= $entrada ?> R$</td>
-                                        <td>Saida: <?= $saida ?> R$</td>
-                                        <td>Saldo: <?= $saldo ?> R$</td>
+                                        <td style="width: 18%"> <?= $movimento->getData_movimento() ?></td>
+                                        <td style="width: 27%"> Teste </td>
+                                        <td style="width: 22%"> <?= $entrada ?> R$</td>
+                                        <td style="width: 17%"> <?= $saida ?> R$</td>
+                                        <td> <?= $saldo ?> R$</td>
                                     </tr>
                                 </table>
                             </div>
