@@ -10,6 +10,7 @@ if (realpath("./index.php")) {
     include_once './Modelo/aluno.php';
     include_once './Modelo/diretoria.php';
     include_once './Controle/cursoPDO.php';
+    include_once './Controle/pessoaPDO.php';
     include_once './Modelo/curso.php';
 } else {
     if (realpath("../index.php")) {
@@ -19,6 +20,7 @@ if (realpath("./index.php")) {
         include_once '../Modelo/aluno.php';
         include_once '../Modelo/diretoria.php';
         include_once '../Controle/cursoPDO.php';
+        include_once '../Controle/pessoaPDO.php';
         include_once '../Modelo/curso.php';
     } else {
         if (realpath("../../index.php")) {
@@ -28,6 +30,7 @@ if (realpath("./index.php")) {
             include_once '../../Modelo/aluno.php';
             include_once '../../Modelo/diretoria.php';
             include_once '../../Controle/cursoPDO.php';
+            include_once '../../Controle/pessoaPDO.php';
             include_once '../../Modelo/curso.php';
         }
     }
@@ -41,7 +44,7 @@ class usuarioPDO {
         $PDO = $conexao->getConexao();
         if ($pesquisa != null) {
 
-            $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where nome like :pesquisa;");
+            $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where p.nome like :pesquisa;");
             $sql->bindValue(':pesquisa', $pesquisa);
         } else {
             $sql = $PDO->prepare("SELECT * FROM usuario;");
@@ -64,7 +67,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where cpf like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where p.cpf_cnpj like :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->execute()) {
@@ -87,7 +90,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where rg like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where u.rg like :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -104,7 +107,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where cpf = :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where p.cpf_cnpj = :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -121,7 +124,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where rg = :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where u.rg = :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -136,7 +139,7 @@ class usuarioPDO {
         $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where pode_logar = 'false' and nome like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where u.pode_logar = 'false' and p.nome like :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -150,7 +153,7 @@ class usuarioPDO {
         $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where administrador = 'true' and nome like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where u.administrador = 'true' and p.nome like :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -164,7 +167,7 @@ class usuarioPDO {
         $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where pode_logar = 'true' and nome like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where u.pode_logar = 'true' and p.nome like :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -223,7 +226,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where usuario like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where u.usuario like :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -241,7 +244,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where email like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where p.email like :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -258,7 +261,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where usuario = :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where u.usuario = :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -275,7 +278,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where email = :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where p.email = :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -290,9 +293,9 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where nome like :nome or "
-                . "usuario like :usuario or "
-                . "cpf like :cpf or rg like :rg or email like :email;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where p.nome like :nome or "
+                . "u.usuario like :usuario or "
+                . "cpf_cnpj like :cpf or u.rg like :rg or p.email like :email;");
         $sql->bindValue(":nome", $pesquisa);
         $sql->bindValue(":usuario", $pesquisa);
         $sql->bindValue(":cpf", $pesquisa);
@@ -311,9 +314,9 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (nome like :nome or "
-                . "usuario like :usuario or "
-                . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'true';");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (p.nome like :nome or "
+                . "u.usuario like :usuario or "
+                . "p.cpf_conpj like :cpf or u.rg like :rg or p.email like :email) and u.pode_logar = 'true';");
         $sql->bindValue(":nome", $pesquisa);
         $sql->bindValue(":usuario", $pesquisa);
         $sql->bindValue(":cpf", $pesquisa);
@@ -333,9 +336,9 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (nome like :nome or "
-                . "usuario like :usuario or "
-                . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'false';");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (p.nome like :nome or "
+                . "u.usuario like :usuario or "
+                . "p.cpf_conpj like :cpf or u.rg like :rg or p.email like :email) and u.pode_logar = 'false';");
         $sql->bindValue(":nome", $pesquisa);
         $sql->bindValue(":usuario", $pesquisa);
         $sql->bindValue(":cpf", $pesquisa);
@@ -354,10 +357,10 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (nome like :nome or "
-                . "usuario like :usuario or "
-                . "cpf like :cpf or rg like :rg or email like :email) and "
-                . "id in (select id_usuario from diretoria);");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (p.nome like :nome or "
+                . "u.usuario like :usuario or "
+                . "p.cpf_conpj like :cpf or u.rg like :rg or p.email like :email) and "
+                . "p.id_pessoa in (select id_pessoa from diretoria);");
         $sql->bindValue(":nome", $pesquisa);
         $sql->bindValue(":usuario", $pesquisa);
         $sql->bindValue(":cpf", $pesquisa);
@@ -376,9 +379,9 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (nome like :nome or "
-                . "usuario like :usuario or "
-                . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'true';");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (p.nome like :nome or "
+                . "u.usuario like :usuario or "
+                . "p.cpf_conpj like :cpf or u.rg like :rg or p.email like :email) and u.administrador = 'true';");
         $sql->bindValue(":nome", $pesquisa);
         $sql->bindValue(":usuario", $pesquisa);
         $sql->bindValue(":cpf", $pesquisa);
@@ -396,7 +399,7 @@ class usuarioPDO {
     public function selectPorCurso($id) {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where id in (select id_usuario from aluno where id_curso = :pesquisa);");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where p.id_pessoa in (select id_pessoa from aluno where id_curso = :pesquisa);");
         $sql->bindValue(':pesquisa', $id);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -464,60 +467,26 @@ class usuarioPDO {
         return false;
     }
 
-    public function inserirDiretoria() {
-        $us = new usuario($_POST);
-        $dr = new diretoria($_POST);
-        $resposta = $this->inserirUsuario($us);
-        if ($resposta == 'true') {
-            $conexao = new conexao();
-            $pdo = $conexao->getConexao();
-            $sql = $pdo->prepare("select id from usuario where rg = :rg;");
-            $sql->bindValue(':rg', $us->getRg());
-            $sql->execute();
-            if ($sql->rowCount() > 0) {
-                $linha = $sql->fetch(PDO::FETCH_ASSOC);
-                $dr->setId_usuario($linha['id']);
-                $sql = $pdo->prepare("insert into diretoria values(:id,:cargo);");
-                $sql->bindValue(':id', $dr->getId_usuario());
-                $sql->bindValue(':cargo', $dr->getCargo());
-                $sql->execute();
-                header("Location: ../Tela/Cadastro/cadastroDiretoria.php?msg=sucesso");
-            } else {
-                header("Location: ../Tela/Cadastro/cadastroDiretoria.php?msg=erroInserirDiretoria");
-            }
-        } else {
-            header('location: ../Tela/Cadastro/cadastrodiretoria.php?msg=' . $resposta);
-        }
-    }
-
     public function inserirUsuario(usuario $us) {
+        $pessoaPDO = new pessoaPDO();
+        $us->atualizar($pessoaPDO->inserirPessoa(new pessoa($us)));
         $validacao = $this->validarFormlario($us);
         if ($validacao == 'true') { //validar estáincompleto
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
             $senhaMD5 = md5($us->getSenha1());
-            $sql = $pdo->prepare("INSERT INTO usuario values ( default , :nome , :usuario , :senha , "
-                    . ":cidade , :bairro , :rua , :numero , :cep , :cpf , :rg , :nascimento, :telefone , :email , :data_associacao , :fotoPerfil , "
+            $sql = $pdo->prepare("INSERT INTO usuario values ( :id_pessoa , :usuario , :senha , "
+                    . " :rg , :nascimento, :data_associacao , :fotoPerfil , "
                     . ":podeLogar , 'false' );");
-            $sql->bindValue(':nome', $us->getNome());
-            $sql->bindValue(':usuario', $us->getUsuario());
+            $sql->bindValue(':id_pessoa', $us->getIdPessoa());
             $sql->bindValue(':senha', $senhaMD5);
-            $sql->bindValue(':cidade', $us->getCidade());
-            $sql->bindValue(':bairro', $us->getBairro());
-            $sql->bindValue(':rua', $us->getRua());
-            $sql->bindValue(':numero', $us->getNumero());
-            $sql->bindValue(':cep', $us->getCep());
-            $sql->bindValue(':cpf', $us->getCpfCnpj());
             $sql->bindValue(':rg', $us->getRg());
             $sql->bindValue(':nascimento', $us->getData_nasc());
-            //$sql = $this->veririfcarTempResponsavel($sql, $us); A principio não é mais necessário
-            $sql->bindValue(':telefone', $us->getTelefone());
-            $sql->bindValue(':email', $us->getEmail());
             $sql->bindValue(':data_associacao', $us->getData_associacao());
             $sql->bindValue(':fotoPerfil', '../Img/Src/user_icon.png');
             $sql = $this->verificaPodeLogar($sql);
             if ($sql->execute()) { //Sucesso ao cadastrar USUÁRIO
-                return true;
+                return $us;
             } else {
                 return 'erroInsertUsuario';
             }
@@ -539,55 +508,6 @@ class usuarioPDO {
             $sql->bindValue(':podeLogar', 'false'); //Aluno se cadastrando ou cadastrando Responsável
         }
         return $sql;
-    }
-
-    public function inserirAluno() {
-        $us = new usuario($_POST);
-        $al = new aluno($_POST);
-        $resultado = $this->inserirUsuario($us);
-        $cursoPDO = new cursoPDO();
-        $curso = new curso();
-        $curso = $cursoPDO->selectCursoPorId($al->getId_cursoRef());
-        if ($resultado == 'true') {
-            $conexao = new conexao();
-            $pdo = $conexao->getConexao();
-            $us->setIdPessoa($this->buscarIDporRG($us->getRg()));
-            $sql = $pdo->prepare("insert into aluno values(:id,null,:curso, :caixa ,0, :dataInicio ,:conclusao, 'false');");
-            $sql->bindValue(':id', $us->getIdPessoa());
-            $sql->bindValue(':curso', $al->getId_cursoRef());
-            if($curso->getTurno()=='Diurno'){
-                $sql->bindValue(':caixa', 1);
-            }else{
-                $sql->bindValue(':caixa', 2);
-            }
-            $sql->bindValue(':dataInicio', $al->getData_inicio());
-            $sql->bindValue(':conclusao', $al->getPrevisao_conclusao());
-            if ($sql->execute()) {
-                header("Location: ../Tela/Cadastro/orientacao.php?msg=" . $this->enviarOrientacaoCadAluno($us));
-            } else {
-                header("Location: ../Tela/Cadastro/cadastroAluno.php?msg=erroInserirAluno");
-            }
-        } else {
-            header('location: ../Tela/Cadastro/cadastroAluno.php?msg=' . $resultado);
-        }
-    }
-
-    private function enviarOrientacaoCadAluno(usuario $us) { //mÃ©todo de controle
-        if ($us->getIdade() >= 18) { //Sucesso ao cadastrar ALUNO
-            if (isset($_SESSION['usuario'])) {
-                $logado = new usuario($this->getLogado());
-                if ($logado->getAdministrador() == 'true') {
-                    return "sucessoAluno"; //admin - para maior de idade
-                } else {
-                    return "sucessoAlunoRequerimento";
-                }
-            } else {
-                return "sucessoAlunoRequerimento"; // requerimento - aluno sem login
-            }
-        } else {
-            $_SESSION['temp'] = $us->getIdPessoa();
-            return "cadastrarResponsavel";
-        }
     }
 
     public function inserirResponsavel() {
@@ -626,20 +546,6 @@ class usuarioPDO {
             return $stmt;
         } else {
             return false;
-        }
-    }
-
-    private function veririfcarTempResponsavel($sql, usuario $us) {
-        if (isset($_SESSION['temp'])) {
-            if ($us->getIdade() >= 18) {
-                $sql->bindValue(':nascimento', $us->getData_nasc());
-                return $sql;
-            } else {
-                header("Location: ../Tela/cadastroResponsavel.php?msg=responsavelMenorDeIdade");
-            }
-        } else {
-            $sql->bindValue(':nascimento', $us->getData_nasc());
-            return $sql;
         }
     }
 
@@ -698,7 +604,7 @@ class usuarioPDO {
     public function buscarIDporRG($rg) {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
-        $sql = $pdo->prepare("select id from usuario where rg = :rg;");
+        $sql = $pdo->prepare("select id_pessoa from usuario where rg = :rg;");
         $sql->bindValue(':rg', $rg);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -713,12 +619,12 @@ class usuarioPDO {
     public function buscarIDporCPF(usuario $us) {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
-        $sql = $pdo->prepare("select id from usuario where cpf = :cpf;");
+        $sql = $pdo->prepare("select id_pessoa from usuario where cpf = :cpf;");
         $sql->bindValue(':cpf', $us->getCpfCnpj());
         $sql->execute();
         if ($sql->rowCount() > 0) {
             $linha = $sql->fetch(PDO::FETCH_ASSOC);
-            $id = $linha['id'];
+            $id = $linha['id_pessoa'];
             return $id;
         } else {
             header("Location: ../index.php?msg=erroBuscarPorCPF");
@@ -733,7 +639,7 @@ class usuarioPDO {
         }
     }
 
-    public function defineIdade($data_nasc) {
+    private function defineIdade($data_nasc) {
         date_default_timezone_set('America/Sao_Paulo');
         $anoAtual = date('Y');
         $mesAtual = date('m');
@@ -756,7 +662,7 @@ class usuarioPDO {
     public function litarUsuarios() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
-        $sql = $pdo->prepare("SELECT * FROM usuario;");
+        $sql = $pdo->prepare("SELECT * FROM usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa;");
         $sql->execute();
         return $sql;
     }
@@ -765,7 +671,7 @@ class usuarioPDO {
         $id = $_GET['id'];
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
-        $sql = $pdo->prepare("UPDATE usuario SET pode_logar = 'false' where id = :id ;");
+        $sql = $pdo->prepare("UPDATE usuario SET pode_logar = 'false' where id_pessoa = :id ;");
         $sql->bindValue(':id', $id);
         if ($sql->execute()) {
             //return $sql;
@@ -779,7 +685,7 @@ class usuarioPDO {
         $id = $_GET['id'];
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
-        $sql = $pdo->prepare("UPDATE usuario SET pode_logar = 'true' where id = :id ;");
+        $sql = $pdo->prepare("UPDATE usuario SET pode_logar = 'true' where id_pessoa = :id ;");
         $sql->bindValue(':id', $id);
         if ($sql->execute()) {
             //return $sql;
@@ -792,10 +698,10 @@ class usuarioPDO {
     public function selectPresidente() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
-        $stmt = $pdo->prepare("SELECT id_usuario FROM diretoria WHERE cargo LIKE 'Presidente';");
+        $stmt = $pdo->prepare("SELECT id_pessoa FROM diretoria WHERE cargo LIKE 'Presidente';");
         $stmt->execute();
         $linha = $stmt->fetch();
-        $stmt = $pdo->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where id = " . $linha['id_usuario']);
+        $stmt = $pdo->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where p.id_pessoa = " . $linha['id_pessoa']);
         $stmt->execute();
         $linha = $stmt->fetch();
         $presidente = new usuario($linha);
@@ -811,7 +717,7 @@ class usuarioPDO {
         }
     }
 
-    public function update() {
+    public function updateDadosUsuario() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $logado = new usuario();
@@ -826,116 +732,51 @@ class usuarioPDO {
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($linha['senha'] == $senhaantiga) {
-            $us = new usuario($_POST);
-            $us->setIdPessoa($logado->getIdPessoa());
+            $pessoaPDO = new pessoaPDO();
+            $us = $logado;
+            $us->atualizar($_POST);
+            $pessoaPDO->updatePessoa(new pessoa($us));
+            $stmt = $pdo->prepare('UPDATE usuario SET  usuario = :usuario, rg = :rg, data_associacao = :dataAssociacao, senha = :senha WHERE id = :id;');
+            $stmt->bindValue(':usuario', $us->getUsuario());
+            $stmt->bindValue(':rg', $us->getRg());
+            $stmt->bindValue(':dataAssociacao', $us->getData_associacao());
+            $stmt->bindValue(':id', $us->getIdPessoa());
             if (($us->getSenha2() == "") && ($us->getSenha1() == "")) {
-                $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email , data_associacao = :dataAssociacao WHERE id = :id;');
-                $stmt->bindValue(':nome', $us->getNome());
-                $stmt->bindValue(':usuario', $us->getUsuario());
-                $stmt->bindValue(':cpf', $us->getCpfCnpj());
-                $stmt->bindValue(':rg', $us->getRg());
-                $stmt->bindValue(':telefone', $us->getTelefone());
-                $stmt->bindValue(':email', $us->getEmail());
-                $stmt->bindValue(':dataAssociacao', $us->getData_associacao());
-                $stmt->bindValue(':id', $us->getIdPessoa());
-
-                if ($stmt->execute()) {
-                    $logado->atualizar($_POST);
-                    $_SESSION['usuario'] = serialize($logado);
-                    header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=sucessoss');
-                } else {
-                    header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=bderross');
-                }
+                $stmt->bindValue(':senha', $senhaantiga);
             } else {
-                if ($us->getSenha2() == $us->getSenha1()) {
-                    $senhamd5 = md5($us->getSenha2());
-                    $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email, senha = :senha WHERE id = :id;');
-                    $stmt->bindValue(':nome', $us->getNome());
-                    $stmt->bindValue(':usuario', $us->getUsuario());
-                    $stmt->bindValue(':cpf', $us->getCpfCnpj());
-                    $stmt->bindValue(':rg', $us->getRg());
-                    $stmt->bindValue(':telefone', $us->getTelefone());
-                    $stmt->bindValue(':email', $us->getEmail());
-                    $stmt->bindValue(':senha', $senhamd5);
-                    $stmt->bindValue(':id', $us->getIdPessoa());
-                    if ($stmt->execute()) {
-                        $logado->atualizar($_POST);
-                        $_SESSION['usuario'] = serialize($logado);
-                        header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=sucessocs');
-                    } else {
-                        header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=bderrocs');
-                    }
-                } else {
-                    header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=senhaerrada');
+                if($this->validaSenha($us)){
+                    $stmt->bindValue(':senha', md5($us->getSenha1()));
+                }else{
+                    header('location: ../Tela/Update/alterarDadosUsuario.php');
                 }
             }
+            if ($stmt->execute()) {
+                $logado->atualizar($_POST);
+                $_SESSION['usuario'] = serialize($logado);
+                header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=sucessoss');
+            } else {
+                header('Location: ../Tela/Update/alterarDadosUsuario.php?msg=bderross');
+            }   
         }
     }
 
-    public function updateAluno() {
+
+    public function updateEnderecoUsuario() {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
-        $logado = new usuario();
-        $aluno = new aluno();
-        $aluno = unserialize($_SESSION['aluno']);
         $logado = $this->getLogado();
-        $al = new aluno($_POST);
-        $al->setId_pessoa($logado->getIdPessoa());
-        $senhaantiga = md5($al->getSenha1());
-        $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
-        $stmt->bindValue(':id', $logado->getIdPessoa());
-        $stmt->execute();
-        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($al->getSenha1() == "") {
-            header('Location: ../Tela/Update/alterarAluno.php?msg=senhavazia');
-        } else {
-            if ($linha['senha'] == $senhaantiga) {
-                $stmt = $pdo->prepare('UPDATE aluno SET id_curso = :curso, data_inicio = :dataInicio , previsao_conclusap = :previsao_conclusao, concluido = :concluido WHERE id_usuario = :id;');
-                $stmt->bindValue(':curso', $aluno->getId_curso());
-                $stmt->bindValue(':previsao_conclusao', $aluno->getPrevisao_conclusao());
-                $stmt->bindValue(':dataInicio', $aluno->getData_inicio());
-                $stmt->bindValue(':concluido', $aluno->getConcluido());
-                $stmt->bindValue(':id', $al->getId_pessoa());
-                if ($stmt->execute()) {
-                    $logado->atualizar($_POST);
-                    $_SESSION['usuario'] = serialize($logado);
-                    header('Location: ../Tela/Update/alterarAluno.php?msg=sucesso');
-                } else {
-                    header('Location: ./Tela/Update/alterarAluno.php?msg=bderro');
-                }
-            } else {
-                header('Location: ../Tela/Update/alterarAluno.php?msg=senhaerrada');
-            }
-        }
-    }
-
-    public function updateEndereco() {
-        $conexao = new conexao();
-        $pdo = $conexao->getConexao();
-        $logado = new usuario();
-        $logado = $this->getLogado();
-        $us = new usuario($_POST);
-        $us->setIdPessoa($logado->getIdPessoa());
+        $logado->atualizar($_POST);
         $senhaantiga = md5($us->getSenha1());
         $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
         $stmt->bindValue(':id', $logado->getIdPessoa());
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
-
         if ($us->getSenha1() == "") {
             header('Location: ../Tela/Update/alterarEnderecoUsuario.php?msg=senhavazia');
         } else {
             if ($linha['senha'] == $senhaantiga) {
-                $stmt = $pdo->prepare('UPDATE usuario SET cidade = :cidade, bairro = :bairro, rua = :rua, numero = :numero, cep = :cep WHERE id = :id;');
-                $stmt->bindValue(':cidade', $us->getCidade());
-                $stmt->bindValue(':bairro', $us->getBairro());
-                $stmt->bindValue(':rua', $us->getRua());
-                $stmt->bindValue(':numero', $us->getNumero());
-                $stmt->bindValue(':cep', $us->getCep());
-                $stmt->bindValue(':id', $us->getIdPessoa());
-                if ($stmt->execute()) {
-                    $logado->atualizar($_POST);
+                $pessoaPDO = new pessoaPDO();
+                if($pessoaPDO->updatePessoa(new pessoa($logado))){
                     $_SESSION['usuario'] = serialize($logado);
                     header('Location: ../Tela/Update/alterarEnderecoUsuario.php?msg=sucesso');
                 } else {
@@ -951,17 +792,13 @@ class usuarioPDO {
         $conexao = new conexao();
         $senha = md5($_POST['senha']);
         $pdo = $conexao->getConexao();
-        $stmt = $pdo->prepare('SELECT * FROM usuario as u inner join pessoa as p on p.id_pessoa = u.id_pessoa WHERE usuario LIKE :usuario AND senha LIKE :senha;');
+        $stmt = $pdo->prepare('SELECT * FROM usuario as u inner join pessoa as p on p.id_pessoa = u.id_pessoa WHERE u.usuario LIKE :usuario AND u.senha LIKE :senha;');
         $stmt->bindValue(':usuario', $_POST['usuario']);
         $stmt->bindValue(':senha', $senha);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             $linha = $stmt->fetch(PDO::FETCH_ASSOC);
             $us = new usuario($linha);
-//            $stmt = $pdo->prepare('select * from pessoa where id_pessoa = :id;');
-//            $stmt->bindValue(':id', $us->getIdPessoa());
-//            $stmt->execute();
-//            $us->atualizar($stmt->fetch());
             if ($us->getPode_logar() == 'false') {
                 header('Location: ../Tela/Sistema/loginrecusado.php');
             } else {
@@ -999,7 +836,7 @@ class usuarioPDO {
     public function selectUsuarioPorId($id) {
         $con = new conexao();
         $pdo = $con->getConexao();
-        $stmt = $pdo->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where id = :id;");
+        $stmt = $pdo->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where p.id_pessoa = :id;");
         $stmt->bindValue(':id', $id);
         if ($stmt->execute()) {
             if ($stmt->rowCount() > 0) {
@@ -1054,13 +891,13 @@ class usuarioPDO {
         if ($SendCadImg) {
             //Receber os dados do formulÃ¡rio
             $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
-            $nome_imagem = md5($us->getId());
+            $nome_imagem = md5($us->getIdPessoa());
             //Inserir no BD
             $ext = explode('.', $_FILES['imagem']['name']);
             $extensao = "." . $ext[1];
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
-            $stmt = $pdo->prepare("update usuario set fotoPerfil = :imagem where id = :id");
+            $stmt = $pdo->prepare("update usuario set fotoPerfil = :imagem where id_pessoa = :id");
             $stmt->bindValue(':id', $us->getId());
             $stmt->bindValue(':imagem', '../Img/Perfil/' . $nome_imagem . $extensao);
 
