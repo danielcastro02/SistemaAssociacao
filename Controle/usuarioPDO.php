@@ -7,31 +7,31 @@ if (realpath("./index.php")) {
     include_once './Modelo/pessoa.php';
     include_once "./Controle/conexao.php";
     include_once './Modelo/usuario.php';
-    include_once './Modelo/aluno.php';
-    include_once './Modelo/diretoria.php';
-    include_once './Controle/cursoPDO.php';
+//    include_once './Modelo/aluno.php';
+//    include_once './Modelo/diretoria.php';
+//    include_once './Controle/cursoPDO.php';
     include_once './Controle/pessoaPDO.php';
-    include_once './Modelo/curso.php';
+//    include_once './Modelo/curso.php';
 } else {
     if (realpath("../index.php")) {
         include_once '../Modelo/pessoa.php';
         include_once "../Controle/conexao.php";
         include_once '../Modelo/usuario.php';
-        include_once '../Modelo/aluno.php';
-        include_once '../Modelo/diretoria.php';
-        include_once '../Controle/cursoPDO.php';
+//        include_once '../Modelo/aluno.php';
+//        include_once '../Modelo/diretoria.php';
+//        include_once '../Controle/cursoPDO.php';
         include_once '../Controle/pessoaPDO.php';
-        include_once '../Modelo/curso.php';
+//        include_once '../Modelo/curso.php';
     } else {
         if (realpath("../../index.php")) {
             include_once '../../Modelo/pessoa.php';
             include_once "../../Controle/conexao.php";
             include_once '../../Modelo/usuario.php';
-            include_once '../../Modelo/aluno.php';
-            include_once '../../Modelo/diretoria.php';
-            include_once '../../Controle/cursoPDO.php';
+//            include_once '../../Modelo/aluno.php';
+//            include_once '../../Modelo/diretoria.php';
+//            include_once '../../Controle/cursoPDO.php';
             include_once '../../Controle/pessoaPDO.php';
-            include_once '../../Modelo/curso.php';
+//            include_once '../../Modelo/curso.php';
         }
     }
 }
