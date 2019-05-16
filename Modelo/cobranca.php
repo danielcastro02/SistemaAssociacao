@@ -5,6 +5,7 @@ class cobranca {
     private $id_cobranca;
     private $id_usuario_ref;
     private $id_caixa_ref;
+    private $id_tipo_movimento_ref;
     private $valor;
     private $data_vencimento;
     private $pago;
@@ -27,6 +28,15 @@ class cobranca {
             }
         }
     }
+
+    function getId_tipo_movimento_ref() {
+        return $this->id_tipo_movimento_ref;
+    }
+
+    function setId_tipo_movimento_ref($id_tipo_movimento_ref) {
+        $this->id_tipo_movimento_ref = $id_tipo_movimento_ref;
+    }
+
     function getId_cobranca() {
         return $this->id_cobranca;
     }
@@ -74,6 +84,5 @@ class cobranca {
     function setPago($pago) {
         $this->pago = $pago;
     }
-
 
 }

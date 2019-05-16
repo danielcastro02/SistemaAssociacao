@@ -33,13 +33,13 @@ include_once '../../Controle/cursoPDO.php';
                     <ul class="collapsible card grey lighten-2">
                         <li>
                             <div class="collapsible-header">
-                                Manha
+                                Diurno
                             </div>
                             <div class="collapsible-body">
                                 <?php
                                 $cursoPDO = new cursoPDO();
 
-                                $resultadoManha = $cursoPDO->selectPorTurno('Manha');
+                                $resultadoManha = $cursoPDO->selectPorTurno('Diurno');
                                 if ($resultadoManha) {
                                     ?>
                                     <ul class="collapsible">
@@ -59,6 +59,7 @@ include_once '../../Controle/cursoPDO.php';
 
                                                     if ($alunoManha) {
                                                         ?>
+                                                    <div class="loader">
                                                         <table class="striped">
                                                             <tr>
                                                                 <td>Nome</td>
@@ -69,7 +70,7 @@ include_once '../../Controle/cursoPDO.php';
                                                                 <td></td>
                                                             </tr>
                                                             <?php
-                                                            while ($linhaAlunoManha = $aluno->fetch()) {
+                                                            while ($linhaAlunoManha = $alunoManha->fetch()) {
                                                                 $us = new usuario($linhaAlunoManha);
                                                                 echo "<tr>";
                                                                 echo "<td>" . $us->getNome() . "</td>";
@@ -79,15 +80,15 @@ include_once '../../Controle/cursoPDO.php';
 
                                                                 if (($us->getPode_logar() == 'true')) {
                                                                     echo "<td>";
-                                                                    ?><a class="btn corpadrao" href="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=
-                                                                       <?php echo $us->getId(); ?>">Ativo</a>
+                                                                    ?><input type="button" class="btn corpadrao ativoInativo" caminho="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=
+                                                                       <?php echo $us->getId(); ?>" value="Ativo" pesquisa="select=selectPorCurso&pesquisa=<?php$curso->getId();?>">
                                                                        <?php
                                                                        echo "</td>";
                                                                    } else {
                                                                        echo "<td>";
                                                                        ?>
-                                                                    <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=
-                                                                       <?php echo $us->getId(); ?>">Inativo</a><?php
+                                                                    <input type="button" class="btn red darken-2 ativoInativo" caminho="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=
+                                                                       <?php echo $us->getId(); ?>" value="Inativo"><?php
                                                                        echo "</td>";
                                                                    }
 
@@ -100,6 +101,7 @@ include_once '../../Controle/cursoPDO.php';
                                                         }
                                                         ?>
                                                     </table>
+                                                    </div>
 
                                                 </div>
                                             </li><?php
@@ -113,97 +115,16 @@ include_once '../../Controle/cursoPDO.php';
                                 ?>
                             </div>
                         </li>
+                        
                         <li>
                             <div class="collapsible-header">
-                                Tarde
+                                Noturno
                             </div>
                             <div class="collapsible-body">
                                 <?php
                                 $cursoPDO = new cursoPDO();
 
-                                $resultadoTarde = $cursoPDO->selectPorTurno('Tarde');
-                                if ($resultadoTarde) {
-                                    ?>
-                                    <ul class="collapsible card">
-                                        <?php
-                                        while ($linha = $resultadoTarde->fetch()) {
-                                            $curso = new curso($linha);
-                                            ?>
-                                            <li>
-                                                <div class="collapsible-header">
-                                                    <?php echo $curso->getNome() . " - " . $curso->getNivel(); ?>
-                                                </div>
-                                                <div class="collapsible-body">
-                                                    <?php
-                                                    include_once '../../Controle/usuarioPDO.php';
-                                                    $usuarioPDO = new usuarioPDO();
-                                                    $alunoTarde = $usuarioPDO->selectPorCurso($curso->getId());
-
-                                                    if ($alunoTarde) {
-                                                        ?>
-                                                        <table class="striped">
-                                                            <tr>
-                                                                <td>Nome</td>
-                                                                <td>Usuário</td>
-                                                                <td>CPF</td>
-                                                                <td>Telefone</td>
-                                                                <td>Status</td>
-                                                                <td></td>
-                                                            </tr>
-                                                            <?php
-                                                            while ($linhaAlunoTarde = $alunoTarde->fetch()) {
-                                                                $us = new usuario($linhaAlunoTarde);
-                                                                echo "<tr>";
-                                                                echo "<td>" . $us->getNome() . "</td>";
-                                                                echo "<td>" . $us->getUsuario() . "</td>";
-                                                                echo "<td>" . $us->getCpf() . "</td>";
-                                                                echo "<td>" . $us->getTelefone() . "</td>";
-
-                                                                if (($us->getPode_logar() == 'true')) {
-                                                                    echo "<td>";
-                                                                    ?><a class="btn corpadrao" href="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=
-                                                                       <?php echo $us->getId(); ?>">Ativo</a>
-                                                                       <?php
-                                                                       echo "</td>";
-                                                                   } else {
-                                                                       echo "<td>";
-                                                                       ?>
-                                                                    <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=
-                                                                       <?php echo $us->getId(); ?>">Inativo</a><?php
-                                                                       echo "</td>";
-                                                                   }
-
-
-                                                                   echo "<td>";
-                                                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
-                                                                echo "</td>";
-                                                                echo "</tr>";
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </table>
-
-                                                </div>
-                                            </li><?php
-                                        }
-                                        ?>
-                                    </ul>
-                                    <?php
-                                } else {
-                                    echo 'Nenhum curso encontrado.';
-                                }
-                                ?>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">
-                                Noite
-                            </div>
-                            <div class="collapsible-body">
-                                <?php
-                                $cursoPDO = new cursoPDO();
-
-                                $resultadoNoite = $cursoPDO->selectPorTurno('Noite');
+                                $resultadoNoite = $cursoPDO->selectPorTurno('Noturno');
                                 if ($resultadoNoite) {
                                     ?>
                                     <ul class="collapsible card white">
@@ -243,15 +164,15 @@ include_once '../../Controle/cursoPDO.php';
 
                                                                 if (($us->getPode_logar() == 'true')) {
                                                                     echo "<td>";
-                                                                    ?><a class="btn corpadrao" href="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=
-                                                                       <?php echo $us->getId(); ?>">Ativo</a>
+                                                                    ?><input type="button" class="btn corpadrao ativoInativo" caminho="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=
+                                                                       <?php echo $us->getId(); ?>" value="Ativo" pesquisa="select=selectPorCurso&pesquisa=<?php$curso->getId();?>">
                                                                        <?php
                                                                        echo "</td>";
                                                                    } else {
                                                                        echo "<td>";
                                                                        ?>
-                                                                    <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=
-                                                                       <?php echo $us->getId(); ?>">Inativo</a><?php
+                                                                    <input type="button" class="btn red darken-2 ativoInativo" caminho="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=
+                                                                       <?php echo $us->getId(); ?>" value="Inativo" pesquisa="select=selectPorCurso&pesquisa=<?php$curso->getId();?>"><?php
                                                                        echo "</td>";
                                                                    }
 
@@ -287,4 +208,5 @@ include_once '../../Controle/cursoPDO.php';
             $(".collapsible").collapsible();
         });
     </script>
+    <script src="../../js/ativoInativo.js" type="text/javascript"></script>
 </html>

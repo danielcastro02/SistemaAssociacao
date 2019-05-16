@@ -552,9 +552,9 @@ class usuarioPDO {
             $sql = $pdo->prepare("insert into aluno values(:id,null,:curso, :caixa ,0, :dataInicio ,:conclusao, 'false');");
             $sql->bindValue(':id', $us->getId());
             $sql->bindValue(':curso', $al->getId_curso());
-            if($curso->getTurno()=='Diurno'){
+            if ($curso->getTurno() == 'Diurno') {
                 $sql->bindValue(':caixa', 1);
-            }else{
+            } else {
                 $sql->bindValue(':caixa', 2);
             }
             $sql->bindValue(':dataInicio', $al->getData_inicio());
@@ -666,30 +666,30 @@ class usuarioPDO {
 
     public function validaSenhaJs() {
         $us = new usuario($_POST);
-        $this->validaSenha($us);
+        if ($this->validaSenha($us)) {
+            echo 'true';
+        } else {
+            echo 'false';
+        }
     }
 
     private function validaSenha(usuario $us) {
-        if (strlen($us->getSenha1()) < 8) {
-            echo 'false';
-            return false;
-        } else {
-            $arrNome = str_split($us->getNome(), 4);
-            for ($i = 0; $i < count($arrNome); $i++) {
-                if (strpos($us->getSenha1(), "" . $arrNome[$i])) {
-                    echo 'false';
-                    return false;
+            if (strlen($us->getSenha1()) < 8) {
+                return false;
+            } else {
+                $arrNome = explode(' ', strtolower($us->getUsuario()));
+                for ($i = 0; $i < count($arrNome); $i++) {
+                    if (strpos($us->getSenha1(), "" . $arrNome[$i])!== false) {
+                        return false;
+                    }
                 }
-            }
-            for ($i = 0; $i < 10; $i++) {
-                if (strpos($us->getSenha1(), '' . $i)) {
-                    echo 'true';
-                    return true;
+                for ($i = 0; $i < 10; $i++) {
+                    if (strpos($us->getSenha1(), '' . $i)!==false) {
+                        return true;
+                    }
                 }
+                return false;
             }
-            echo 'false';
-            return false;
-        }
     }
 
     public function buscarIDporRG($rg) {

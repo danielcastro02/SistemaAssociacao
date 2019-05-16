@@ -17,6 +17,8 @@
         $metodo = $_POST['select'];
         $sql = $usuarioListar->$metodo($pesquisa);
     } else {
+        $metodo = '';
+        $pesquisa = '';
         $sql = $usuarioListar->litarUsuarios();
     }
     if (isset($_POST['pesquisar'])) {
@@ -53,22 +55,22 @@
 //                        -----------------------------------------------------------
             if (($us->getPode_logar() == 'true')) {
                 echo "<td>";
-                ?><a class="btn corpadrao" href="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=
-                   <?php echo $us->getId(); ?>">Ativo</a>
-                   <?php
-                   echo "</td>";
-               } else {
-                   echo "<td>";
-                   ?>
-                <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=
-                   <?php echo $us->getId(); ?>">Inativo</a><?php
-                   echo "</td>";
-               }
+                ?><input type="button" class="btn corpadrao ativoInativo" caminho="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=
+                       <?php echo $us->getId(); ?>" value="Ativo" <?php if($metodo=='selectPorCurso'){echo "pesquisa = 'select=selectPorCurso&pesquisa=".$pesquisa."'";} ?>>
+                       <?php
+                       echo "</td>";
+                   } else {
+                       echo "<td>";
+                       ?>
+                <input type="button" class="btn red darken-2 ativoInativo" caminho="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=
+                       <?php echo $us->getId(); ?>" value="Inativo"<?php if($metodo=='selectPorCurso'){echo "pesquisa = 'select=selectPorCurso&pesquisa=".$pesquisa."'";} ?>><?php
+                       echo "</td>";
+                   }
 //                        -----------------------------------------------------------
 
 
-               echo "<td>";
-               ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
+                   echo "<td>";
+                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
             echo "</td>";
             echo "</tr>";
         }
@@ -77,3 +79,4 @@
     }
     ?>
 </table>
+<script src="../../js/ativoInativo.js" type="text/javascript"></script>

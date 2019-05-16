@@ -6,6 +6,9 @@
 -- Generation Time: 14-Maio-2019 às 01:24
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.3
+drop database if exists associacao;
+create database if not exists associacao;
+use associacao;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
