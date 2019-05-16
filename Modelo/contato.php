@@ -33,7 +33,7 @@ class contato{
         return $this->nome;
     }
 
-    function getCpf() {
+    function getCpfCnpj() {
         return $this->cpf;
     }
 

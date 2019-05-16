@@ -31,7 +31,7 @@ if (isset($_SESSION['usuario'])) {
                     <center><h4>Movimento de Caixa</h4></center>
                     <form id="formulario" class = "center" method = "post" action = "../../Controle/movimentoControle.php?function=inserir">
                         <div class="row">
-                            <input type="text" value="<?php echo $logado->getId(); ?>" name="id_usuario" id="id_usuario" hidden="true">
+                            <input type="text" value="<?php echo $logado->getIdPessoa(); ?>" name="id_usuario" id="id_usuario" hidden="true">
                             <div class="input-field col s4">
                                 <select name="id_caixa_ref">
                                     <option value="0">Selecione o Caixa</option>

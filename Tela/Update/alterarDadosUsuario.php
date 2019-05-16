@@ -40,7 +40,7 @@ if (!isset($_SESSION['usuario'])) {
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" class="input-field" name="cpf" value="<?php echo $logado->getCpf(); ?>" id="cpf">
+                                <input type="text" class="input-field" name="cpf" value="<?php echo $logado->getCpfCnpj(); ?>" id="cpf">
                                 <label for="cpf" id="lcpf">CPF</label>
                             </div>
                             <div class="input-field col s6">

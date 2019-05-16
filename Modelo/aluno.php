@@ -1,10 +1,10 @@
 <?php
 
-class aluno {
+class aluno extends usuario {
 
-    private $id_usuario;
     private $id_responsavel;
-    private $id_curso;
+    private $id_curso_ref;
+    private $id_caixa_ref;
     private $saldo;
     private $data_inicio;
     private $previsao_conclusao;
@@ -45,10 +45,6 @@ class aluno {
         $this->concluido = $concluido;
     }
     
-    function getId_usuario() {
-        return $this->id_usuario;
-    }
-
     function getId_responsavel() {
         return $this->id_responsavel;
     }
@@ -61,12 +57,8 @@ class aluno {
         return $this->previsao_conclusao;
     }
 
-    function setId_usuario($id_usuario) {
-        $this->id_usuario = $id_usuario;
-    }
-
     function setId_responsavel($id_responsavel) {
-        $this->id_responsavel = $id_resposnavel;
+        $this->id_responsavel = $id_responsavel;
     }
     
     function setSaldo($saldo) {
@@ -77,12 +69,22 @@ class aluno {
         $this->previsao_conclusao = $previsao_conclusao;
     }
     
-    function getId_curso() {
-        return $this->id_curso;
+    function getId_cursoRef() {
+        return $this->id_curso_ref;
     }
 
-    function setId_curso($id_curso) {
-        $this->id_curso = $id_curso;
+    function setId_cursoRef($id_curso_ref) {
+        $this->id_curso_ref = $id_curso_ref;
+    }
+
+    public function getIdCaixaRef()
+    {
+        return $this->id_caixa_ref;
+    }
+
+    public function setIdCaixaRef($id_caixa_ref)
+    {
+        $this->id_caixa_ref = $id_caixa_ref;
     }
 
     

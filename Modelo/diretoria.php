@@ -1,8 +1,7 @@
 <?php
 
-class diretoria{
+class diretoria extends usuario {
 
-    private $id_usuario;
     private $cargo;
     
     public function __construct() {
@@ -23,16 +22,9 @@ class diretoria{
         }
     }
     
-    function getId_usuario() {
-        return $this->id_usuario;
-    }
 
     function getCargo() {
         return $this->cargo;
-    }
-
-    function setId_usuario($id_usuario) {
-        $this->id_usuario = $id_usuario;
     }
 
     function setCargo($cargo) {

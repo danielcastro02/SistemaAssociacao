@@ -74,26 +74,26 @@ include_once '../../Controle/cursoPDO.php';
                                                                 echo "<tr>";
                                                                 echo "<td>" . $us->getNome() . "</td>";
                                                                 echo "<td>" . $us->getUsuario() . "</td>";
-                                                                echo "<td>" . $us->getCpf() . "</td>";
+                                                                echo "<td>" . $us->getCpfCnpj() . "</td>";
                                                                 echo "<td>" . $us->getTelefone() . "</td>";
 
                                                                 if (($us->getPode_logar() == 'true')) {
                                                                     echo "<td>";
                                                                     ?><a class="btn corpadrao" href="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=
-                                                                       <?php echo $us->getId(); ?>">Ativo</a>
+                                                                       <?php echo $us->getIdPessoa(); ?>">Ativo</a>
                                                                        <?php
                                                                        echo "</td>";
                                                                    } else {
                                                                        echo "<td>";
                                                                        ?>
                                                                     <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=
-                                                                       <?php echo $us->getId(); ?>">Inativo</a><?php
+                                                                       <?php echo $us->getIdPessoa(); ?>">Inativo</a><?php
                                                                        echo "</td>";
                                                                    }
 
 
                                                                    echo "<td>";
-                                                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
+                                                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getIdPessoa(); ?>">Ver mais</a><?php
                                                                 echo "</td>";
                                                                 echo "</tr>";
                                                             }
@@ -156,26 +156,26 @@ include_once '../../Controle/cursoPDO.php';
                                                                 echo "<tr>";
                                                                 echo "<td>" . $us->getNome() . "</td>";
                                                                 echo "<td>" . $us->getUsuario() . "</td>";
-                                                                echo "<td>" . $us->getCpf() . "</td>";
+                                                                echo "<td>" . $us->getCpfCnpj() . "</td>";
                                                                 echo "<td>" . $us->getTelefone() . "</td>";
 
                                                                 if (($us->getPode_logar() == 'true')) {
                                                                     echo "<td>";
                                                                     ?><a class="btn corpadrao" href="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=
-                                                                       <?php echo $us->getId(); ?>">Ativo</a>
+                                                                       <?php echo $us->getIdPessoa(); ?>">Ativo</a>
                                                                        <?php
                                                                        echo "</td>";
                                                                    } else {
                                                                        echo "<td>";
                                                                        ?>
                                                                     <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=
-                                                                       <?php echo $us->getId(); ?>">Inativo</a><?php
+                                                                       <?php echo $us->getIdPessoa(); ?>">Inativo</a><?php
                                                                        echo "</td>";
                                                                    }
 
 
                                                                    echo "<td>";
-                                                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
+                                                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getIdPessoa(); ?>">Ver mais</a><?php
                                                                 echo "</td>";
                                                                 echo "</tr>";
                                                             }
@@ -238,26 +238,26 @@ include_once '../../Controle/cursoPDO.php';
                                                                 echo "<tr>";
                                                                 echo "<td>" . $us->getNome() . "</td>";
                                                                 echo "<td>" . $us->getUsuario() . "</td>";
-                                                                echo "<td>" . $us->getCpf() . "</td>";
+                                                                echo "<td>" . $us->getCpfCnpj() . "</td>";
                                                                 echo "<td>" . $us->getTelefone() . "</td>";
 
                                                                 if (($us->getPode_logar() == 'true')) {
                                                                     echo "<td>";
                                                                     ?><a class="btn corpadrao" href="../../Controle/usuarioControle.php?function=tornarUsuarioInativo&id=
-                                                                       <?php echo $us->getId(); ?>">Ativo</a>
+                                                                       <?php echo $us->getIdPessoa(); ?>">Ativo</a>
                                                                        <?php
                                                                        echo "</td>";
                                                                    } else {
                                                                        echo "<td>";
                                                                        ?>
                                                                     <a class="btn red darken-2" href="../../Controle/usuarioControle.php?function=tornarUsuarioAtivo&id=
-                                                                       <?php echo $us->getId(); ?>">Inativo</a><?php
+                                                                       <?php echo $us->getIdPessoa(); ?>">Inativo</a><?php
                                                                        echo "</td>";
                                                                    }
 
 
                                                                    echo "<td>";
-                                                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getId(); ?>">Ver mais</a><?php
+                                                                   ?><a class="btn corpadrao" href="./verMais.php?id=<?php echo $us->getIdPessoa(); ?>">Ver mais</a><?php
                                                                 echo "</td>";
                                                                 echo "</tr>";
                                                             }

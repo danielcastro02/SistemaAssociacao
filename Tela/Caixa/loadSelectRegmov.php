@@ -6,6 +6,6 @@ $resultado = $usuarioPDO->selectTodosUsers($_GET['pesquisa']);
 if($resultado){
     while ($linha = $resultado->fetch()){
         $usuario= new usuario($linha);
-        echo "<option value='".$usuario->getId()."'>".$usuario->getNome()."</option>";
+        echo "<option value='".$usuario->getIdPessoa()."'>".$usuario->getNome()."</option>";
     }
 }

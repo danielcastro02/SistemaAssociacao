@@ -28,7 +28,7 @@ class sistemaPDO {
         $pdo = $con->getConexao();
         $stmt = $pdo->prepare("insert into acesso_negado values(default, :nome , :cpf , :email , :descricao);");
         $stmt->bindValue(':nome', $contato->getNome());
-        $stmt->bindValue(':cpf', $contato->getCpf());
+        $stmt->bindValue(':cpf', $contato->getCpfCnpj());
         $stmt->bindValue(':email', $contato->getEmail());
         $stmt->bindValue(':descricao', $contato->getDescricao());
         if ($stmt->execute()) {
@@ -44,7 +44,7 @@ class sistemaPDO {
         $pdo = $con->getConexao();
         $stmt = $pdo->prepare("insert into contato values (default, :nome , :cpf , :email ,:motivo , :descricao);");
         $stmt->bindValue(':nome', $contato->getNome());
-        $stmt->bindValue(':cpf', $contato->getCpf());
+        $stmt->bindValue(':cpf', $contato->getCpfCnpj());
         $stmt->bindValue(':email', $contato->getEmail());
         $stmt->bindValue(':motivo', $contato->getMotivo());
         $stmt->bindValue(':descricao', $contato->getDescricao());

@@ -4,6 +4,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 if (realpath("./index.php")) {
+    include_once './Modelo/pessoa.php';
     include_once "./Controle/conexao.php";
     include_once './Modelo/usuario.php';
     include_once './Modelo/aluno.php';
@@ -12,6 +13,7 @@ if (realpath("./index.php")) {
     include_once './Modelo/curso.php';
 } else {
     if (realpath("../index.php")) {
+        include_once '../Modelo/pessoa.php';
         include_once "../Controle/conexao.php";
         include_once '../Modelo/usuario.php';
         include_once '../Modelo/aluno.php';
@@ -20,6 +22,7 @@ if (realpath("./index.php")) {
         include_once '../Modelo/curso.php';
     } else {
         if (realpath("../../index.php")) {
+            include_once '../../Modelo/pessoa.php';
             include_once "../../Controle/conexao.php";
             include_once '../../Modelo/usuario.php';
             include_once '../../Modelo/aluno.php';
@@ -449,7 +452,7 @@ class usuarioPDO {
         if ($this->pesquisarPorRGExata($us->getRg())) {
             return true;
         }
-        if ($this->pesquisarPorCPFExata($us->getCpf())) {
+        if ($this->pesquisarPorCPFExata($us->getCpfCnpj())) {
             return true;
         }
         if ($this->pesquisarPorEmailExata($us->getEmail())) {
@@ -504,7 +507,7 @@ class usuarioPDO {
             $sql->bindValue(':rua', $us->getRua());
             $sql->bindValue(':numero', $us->getNumero());
             $sql->bindValue(':cep', $us->getCep());
-            $sql->bindValue(':cpf', $us->getCpf());
+            $sql->bindValue(':cpf', $us->getCpfCnpj());
             $sql->bindValue(':rg', $us->getRg());
             $sql->bindValue(':nascimento', $us->getData_nasc());
             //$sql = $this->veririfcarTempResponsavel($sql, $us); A principio não é mais necessário
@@ -544,14 +547,14 @@ class usuarioPDO {
         $resultado = $this->inserirUsuario($us);
         $cursoPDO = new cursoPDO();
         $curso = new curso();
-        $curso = $cursoPDO->selectCursoPorId($al->getId_curso());
+        $curso = $cursoPDO->selectCursoPorId($al->getId_cursoRef());
         if ($resultado == 'true') {
             $conexao = new conexao();
             $pdo = $conexao->getConexao();
-            $us->setId($this->buscarIDporRG($us->getRg()));
+            $us->setIdPessoa($this->buscarIDporRG($us->getRg()));
             $sql = $pdo->prepare("insert into aluno values(:id,null,:curso, :caixa ,0, :dataInicio ,:conclusao, 'false');");
-            $sql->bindValue(':id', $us->getId());
-            $sql->bindValue(':curso', $al->getId_curso());
+            $sql->bindValue(':id', $us->getIdPessoa());
+            $sql->bindValue(':curso', $al->getId_cursoRef());
             if($curso->getTurno()=='Diurno'){
                 $sql->bindValue(':caixa', 1);
             }else{
@@ -582,7 +585,7 @@ class usuarioPDO {
                 return "sucessoAlunoRequerimento"; // requerimento - aluno sem login
             }
         } else {
-            $_SESSION['temp'] = $us->getId();
+            $_SESSION['temp'] = $us->getIdPessoa();
             return "cadastrarResponsavel";
         }
     }
@@ -594,9 +597,9 @@ class usuarioPDO {
             if (isset($_SESSION['temp'])) {
                 $con = new conexao();
                 $pdo = $con->getConexao();
-                $us->setId($this->buscarIDporRG($us->getRg()));
+                $us->setIdPessoa($this->buscarIDporRG($us->getRg()));
                 $stmt = $pdo->prepare("update aluno set id_responsavel = :idresponsavel where id_usuario = :iduser ; ");
-                $stmt->bindValue(':idresponsavel', $us->getId());
+                $stmt->bindValue(':idresponsavel', $us->getIdPessoa());
                 $stmt->bindValue(':iduser', $_SESSION['temp']);
                 $id = $_SESSION['temp'];
                 unset($_SESSION['temp']);
@@ -644,7 +647,7 @@ class usuarioPDO {
         if ($us->getSenha1() != null and $us->getSenha2() != null) { //completar
             if ($us->getSenha1() == $us->getSenha2()) {
                 if ($this->validaSenha($us)) {
-                    if ($this->validaCpf($us->getCpf())) {
+                    if ($this->validaCpf($us->getCpfCnpj())) {
                         if (!$this->verificarExistencia($us)) {
                             return true;
                         } else {
@@ -711,7 +714,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $pdo = $conexao->getConexao();
         $sql = $pdo->prepare("select id from usuario where cpf = :cpf;");
-        $sql->bindValue(':cpf', $us->getCpf());
+        $sql->bindValue(':cpf', $us->getCpfCnpj());
         $sql->execute();
         if ($sql->rowCount() > 0) {
             $linha = $sql->fetch(PDO::FETCH_ASSOC);
@@ -818,23 +821,23 @@ class usuarioPDO {
         }
         $senhaantiga = md5($_POST['oldsenha']);
         $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
-        $stmt->bindValue(':id', $logado->getId());
+        $stmt->bindValue(':id', $logado->getIdPessoa());
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($linha['senha'] == $senhaantiga) {
             $us = new usuario($_POST);
-            $us->setId($logado->getId());
+            $us->setIdPessoa($logado->getIdPessoa());
             if (($us->getSenha2() == "") && ($us->getSenha1() == "")) {
                 $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email , data_associacao = :dataAssociacao WHERE id = :id;');
                 $stmt->bindValue(':nome', $us->getNome());
                 $stmt->bindValue(':usuario', $us->getUsuario());
-                $stmt->bindValue(':cpf', $us->getCpf());
+                $stmt->bindValue(':cpf', $us->getCpfCnpj());
                 $stmt->bindValue(':rg', $us->getRg());
                 $stmt->bindValue(':telefone', $us->getTelefone());
                 $stmt->bindValue(':email', $us->getEmail());
                 $stmt->bindValue(':dataAssociacao', $us->getData_associacao());
-                $stmt->bindValue(':id', $us->getId());
+                $stmt->bindValue(':id', $us->getIdPessoa());
 
                 if ($stmt->execute()) {
                     $logado->atualizar($_POST);
@@ -849,12 +852,12 @@ class usuarioPDO {
                     $stmt = $pdo->prepare('UPDATE usuario SET nome = :nome, usuario = :usuario, cpf = :cpf, rg = :rg, telefone = :telefone, email = :email, senha = :senha WHERE id = :id;');
                     $stmt->bindValue(':nome', $us->getNome());
                     $stmt->bindValue(':usuario', $us->getUsuario());
-                    $stmt->bindValue(':cpf', $us->getCpf());
+                    $stmt->bindValue(':cpf', $us->getCpfCnpj());
                     $stmt->bindValue(':rg', $us->getRg());
                     $stmt->bindValue(':telefone', $us->getTelefone());
                     $stmt->bindValue(':email', $us->getEmail());
                     $stmt->bindValue(':senha', $senhamd5);
-                    $stmt->bindValue(':id', $us->getId());
+                    $stmt->bindValue(':id', $us->getIdPessoa());
                     if ($stmt->execute()) {
                         $logado->atualizar($_POST);
                         $_SESSION['usuario'] = serialize($logado);
@@ -877,10 +880,10 @@ class usuarioPDO {
         $aluno = unserialize($_SESSION['aluno']);
         $logado = $this->getLogado();
         $al = new aluno($_POST);
-        $al->setId_usuario($logado->getId());
+        $al->setId_pessoa($logado->getIdPessoa());
         $senhaantiga = md5($al->getSenha1());
         $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
-        $stmt->bindValue(':id', $logado->getId());
+        $stmt->bindValue(':id', $logado->getIdPessoa());
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -893,7 +896,7 @@ class usuarioPDO {
                 $stmt->bindValue(':previsao_conclusao', $aluno->getPrevisao_conclusao());
                 $stmt->bindValue(':dataInicio', $aluno->getData_inicio());
                 $stmt->bindValue(':concluido', $aluno->getConcluido());
-                $stmt->bindValue(':id', $al->getId_usuario());
+                $stmt->bindValue(':id', $al->getId_pessoa());
                 if ($stmt->execute()) {
                     $logado->atualizar($_POST);
                     $_SESSION['usuario'] = serialize($logado);
@@ -913,10 +916,10 @@ class usuarioPDO {
         $logado = new usuario();
         $logado = $this->getLogado();
         $us = new usuario($_POST);
-        $us->setId($logado->getId());
+        $us->setIdPessoa($logado->getIdPessoa());
         $senhaantiga = md5($us->getSenha1());
         $stmt = $pdo->prepare('SELECT senha FROM usuario WHERE id = :id');
-        $stmt->bindValue(':id', $logado->getId());
+        $stmt->bindValue(':id', $logado->getIdPessoa());
         $stmt->execute();
         $linha = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -930,7 +933,7 @@ class usuarioPDO {
                 $stmt->bindValue(':rua', $us->getRua());
                 $stmt->bindValue(':numero', $us->getNumero());
                 $stmt->bindValue(':cep', $us->getCep());
-                $stmt->bindValue(':id', $us->getId());
+                $stmt->bindValue(':id', $us->getIdPessoa());
                 if ($stmt->execute()) {
                     $logado->atualizar($_POST);
                     $_SESSION['usuario'] = serialize($logado);
@@ -960,7 +963,7 @@ class usuarioPDO {
             } else {
                 $_SESSION['usuario'] = serialize($us);
                 $stmt = $pdo->prepare('SELECT * FROM aluno WHERE id_usuario = :id;');
-                $stmt->bindValue(':id', $us->getId());
+                $stmt->bindValue(':id', $us->getIdPessoa());
                 $stmt->execute();
                 if ($stmt->rowCount() > 0) {
                     $l = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -975,7 +978,7 @@ class usuarioPDO {
                         $_SESSION['aluno'] = serialize($al);
                     }
                     $stmt = $pdo->prepare('SELECT cargo FROM diretoria WHERE id_usuario = :id;');
-                    $stmt->bindValue(':id', $us->getId());
+                    $stmt->bindValue(':id', $us->getIdPessoa());
                     $stmt->execute();
                     if ($stmt->rowCount() > 0) {
                         $s = $stmt->fetch(PDO::FETCH_ASSOC);

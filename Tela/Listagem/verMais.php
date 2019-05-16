@@ -70,7 +70,7 @@ if (!isset($_SESSION['usuario'])) {
                                         <span><b>Dados Gerais</b></span><br>
 
                                         <span>RG: <?php echo $usuario->getRg(); ?></span><br>
-                                        <span>CPF: <?php echo $usuario->getCpf(); ?></span><br>
+                                        <span>CPF: <?php echo $usuario->getCpfCnpj(); ?></span><br>
                                         <span>CEP: <?php echo $usuario->getCep(); ?></span><br>
                                         <span>Cidade: <?php echo $usuario->getCidade(); ?></span><br>
                                         <span>Bairro: <?php echo $usuario->getBairro(); ?></span><br>
@@ -85,7 +85,7 @@ if (!isset($_SESSION['usuario'])) {
                                             <span>Curso: <?php
                                                 $cursopdo = new cursoPDO();
                                                 $curso = new curso();
-                                                $curso = $cursopdo->selectCursoPorId($aluno->getId_curso());
+                                                $curso = $cursopdo->selectCursoPorId($aluno->getId_cursoRef());
                                                 echo $curso->getNome();
                                                 ?></span><br>
                                             <span>Turno: <?php echo $curso->getTurno(); ?></span><br>
@@ -99,11 +99,11 @@ if (!isset($_SESSION['usuario'])) {
                                                 ?>
                                                 <span><b>Dados do responsável:</b></span><br>
                                                 <span>Nome: <?php echo $responsavel->getNome(); ?></span><br>
-                                                <span>CPF: <?php echo $responsavel->getCpf(); ?></span>
+                                                <span>CPF: <?php echo $responsavel->getCpfCnpj(); ?></span>
                                                 <?php
                                             } else {
                                                 if ($usuario->getIdade() < 18) {
-                                                    $_SESSION['temp'] = $usuario->getId();
+                                                    $_SESSION['temp'] = $usuario->getIdPessoa();
                                                     ?>
                                                     <a href="../Cadastro/cadastroResponsavel.php" class="btn corpadrao">Registrar Responsável</a>
                                                     <?php
@@ -127,7 +127,7 @@ if (!isset($_SESSION['usuario'])) {
                                         ?>
                                         <br>
                                         <?php
-                                        $idFilhos = $usuarioPDO->buscarFilhos($usuario->getId());
+                                        $idFilhos = $usuarioPDO->buscarFilhos($usuario->getIdPessoa());
                                         if ($idFilhos) {
                                             ?>
                                             <span><b>Responsável por:</b></span><br>
@@ -137,7 +137,7 @@ if (!isset($_SESSION['usuario'])) {
                                                 $us = $usuarioPDO->selectUsuarioPorId($linha['id_usuario']);
                                                 ?>
                                                 <span><?php echo $us->getNome(); ?></span><br>
-                                                <span>CPF: <?php echo $us->getCpf(); ?></span><br>
+                                                <span>CPF: <?php echo $us->getCpfCnpj(); ?></span><br>
                                                 <?php
                                             }
                                         }

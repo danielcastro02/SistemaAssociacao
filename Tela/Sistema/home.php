@@ -47,7 +47,7 @@ if (!isset($_SESSION['usuario'])) {
                                     <div class="row"></div>
                                     <h5><?php echo $logado->getNome(); ?></h5>
                                     <span>RG: <?php echo $logado->getRg(); ?></span><br>
-                                    <span>CPF: <?php echo $logado->getCpf(); ?></span><br>
+                                    <span>CPF: <?php echo $logado->getCpfCnpj(); ?></span><br>
                                     <span>CEP: <?php echo $logado->getCep(); ?></span><br>
                                     <span>Cidade: <?php echo $logado->getCidade(); ?></span><br>
                                     <span>Bairro: <?php echo $logado->getBairro(); ?></span><br>

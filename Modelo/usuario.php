@@ -1,27 +1,29 @@
 <?php
 
-class usuario {
+if (realpath("./index.php")) {
+    include_once './Modelo/pessoa.php';
+} else {
+    if (realpath("../index.php")) {
+        include_once '../Modelo/pessoa.php';
+    } else {
+        if (realpath("../../index.php")) {
+            include_once '../../Modelo/pessoa.php';
+        }
+    }
+}
 
-    private $id;
-    private $nome;
-    private $usuario;
-    private $cidade;
-    private $bairro;
-    private $rua;
-    private $numero;
-    private $cep;
-    private $cpf;
-    private $rg;
-    private $data_nasc;
-    private $telefone;
-    private $email;
-    private $data_associacao;
-    private $fotoPerfil;
-    private $pode_logar;
-    private $administrador;
-    private $senha1;
-    private $senha2;
-    private $idade;
+class usuario extends pessoa {
+
+    protected $id_pessoa;
+    protected $usuario;
+    protected $rg;
+    protected $data_nasc;
+    protected $data_associacao;
+    protected $fotoPerfil;
+    protected $pode_logar;
+    protected $administrador;
+    protected $senha1;
+    protected $senha2;
     
 
     public function __construct() {
@@ -73,40 +75,12 @@ class usuario {
         $this->data_associacao = $data_associacao;
     }
 
-    function getId() {
-        return $this->id;
-    }
-
-    function getNome() {
-        return $this->nome;
+    function getIdPessoa() {
+        return $this->id_pessoa;
     }
 
     function getUsuario() {
         return $this->usuario;
-    }
-
-    function getCidade() {
-        return $this->cidade;
-    }
-
-    function getBairro() {
-        return $this->bairro;
-    }
-
-    function getRua() {
-        return $this->rua;
-    }
-
-    function getNumero() {
-        return $this->numero;
-    }
-
-    function getCep() {
-        return $this->cep;
-    }
-
-    function getCpf() {
-        return $this->cpf;
     }
 
     function getRg() {
@@ -115,14 +89,6 @@ class usuario {
 
     function getData_nasc() {
         return $this->data_nasc;
-    }
-
-    function getTelefone() {
-        return $this->telefone;
-    }
-
-    function getEmail() {
-        return $this->email;
     }
     
     function getFotoPerfil() {
@@ -149,44 +115,12 @@ class usuario {
         return $this->senha2;
     }
 
-    function getIdade() {
-        return $this->idade;
-    }
-
-    function setId($id) {
-        $this->id = $id;
-    }
-
-    function setNome($nome) {
-        $this->nome = $nome;
+    function setIdPessoa($id_pessoa) {
+        $this->id_pessoa = $id_pessoa;
     }
 
     function setUsuario($usuario) {
         $this->usuario = $usuario;
-    }
-
-    function setCidade($cidade) {
-        $this->cidade = $cidade;
-    }
-
-    function setBairro($bairro) {
-        $this->bairro = $bairro;
-    }
-
-    function setRua($rua) {
-        $this->rua = $rua;
-    }
-
-    function setNumero($numero) {
-        $this->numero = $numero;
-    }
-
-    function setCep($cep) {
-        $this->cep = $cep;
-    }
-
-    function setCpf($cpf) {
-        $this->cpf = $cpf;
     }
 
     function setRg($rg) {
@@ -195,14 +129,6 @@ class usuario {
 
     function setData_nasc($data_nasc) {
         $this->data_nasc = $data_nasc;
-    }
-
-    function setTelefone($telefone) {
-        $this->telefone = $telefone;
-    }
-
-    function setEmail($email) {
-        $this->email = $email;
     }
 
     function setPode_logar($pode_logar) {
