@@ -152,23 +152,23 @@ class usuario extends pessoa {
         $this->senha2 = $senha2;
     }
 
-    function setIdade() {
+    function getIdade() {
         if (isset($this->data_nasc)) {
             date_default_timezone_set('America/Sao_Paulo');
             $anoAtual = date('Y');
             $mesAtual = date('m');
             $diaAtual = date('d');
             $nascimento = $data_nasc;
-            list($dia, $mes, $ano) = explode('/', $this->data_nasc);
+            list($ano, $mes, $dia) = explode('-', $this->data_nasc);
             $idade = $anoAtual - $ano;
             if ($mesAtual > $mes) {
-                $this->idade = $idade;
+                return $idade;
             } else {
                 if ($mesAtual == $mes and $diaAtual >= $dia) {
-                    $this->idade = $idade;
+                    return $idade;
                 } else {
                     $idade--;
-                    $this->idade = $idade;
+                    return $idade;
                 }
             }
         }
