@@ -13,7 +13,7 @@ if (isset($_GET['msg'])) {
     <?php } elseif ($_GET['msg'] == 'senhaPequena') {
         ?>  
         <div class="row">
-            <span class="red-text">A senha precisa ter pelo menos 6 caracteres</span>
+            <span class="red-text">A senha precisa ter pelo menos 8 caracteres</span>
         </div>
         <?php
     }

@@ -674,13 +674,10 @@ class usuarioPDO {
     }
 
     private function validaSenha(usuario $us) {
-        if ($us->getSenha1() != $us->getSenha2()) {
-            return false;
-        } else {
             if (strlen($us->getSenha1()) < 8) {
                 return false;
             } else {
-                $arrNome = explode(' ', strtolower($us->getNome()));
+                $arrNome = explode(' ', strtolower($us->getUsuario()));
                 for ($i = 0; $i < count($arrNome); $i++) {
                     if (strpos($us->getSenha1(), "" . $arrNome[$i])!== false) {
                         return false;
@@ -693,7 +690,6 @@ class usuarioPDO {
                 }
                 return false;
             }
-        }
     }
 
     public function buscarIDporRG($rg) {
