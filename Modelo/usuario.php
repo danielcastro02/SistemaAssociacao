@@ -42,7 +42,7 @@ class usuario extends pessoa {
             $diaAtual = date('d');
             $nascimento = $this->data_nasc;
 
-            list($dia, $mes, $ano) = explode('/', $nascimento);
+            list($ano, $mes, $dia) = explode('-', $nascimento);
 
             $idade = $anoAtual - $ano;
             if ($mesAtual > $mes) {
@@ -89,6 +89,11 @@ class usuario extends pessoa {
 
     function getData_nasc() {
         return $this->data_nasc;
+    }
+    
+    function getData_nascFormatada() {
+        $vet = explode($this->data_nasc , "-");
+        return $vet[3].'/'.$vet[2].'/'.$vet[1];
     }
     
     function getFotoPerfil() {

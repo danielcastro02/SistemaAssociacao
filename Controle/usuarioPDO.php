@@ -41,7 +41,7 @@ class usuarioPDO {
         $PDO = $conexao->getConexao();
         if ($pesquisa != null) {
 
-            $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like :pesquisa;");
+            $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where nome like :pesquisa;");
             $sql->bindValue(':pesquisa', $pesquisa);
         } else {
             $sql = $PDO->prepare("SELECT * FROM usuario;");
@@ -64,7 +64,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE cpf like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where cpf like :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->execute()) {
@@ -87,7 +87,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE rg like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where rg like :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -104,7 +104,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE cpf = :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where cpf = :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -121,7 +121,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE rg = :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where rg = :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -136,7 +136,7 @@ class usuarioPDO {
         $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE pode_logar = 'false' and nome like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where pode_logar = 'false' and nome like :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -150,7 +150,7 @@ class usuarioPDO {
         $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE administrador = 'true' and nome like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where administrador = 'true' and nome like :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -164,7 +164,7 @@ class usuarioPDO {
         $pesquisa = '%' . $pesquisa . '%';
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE pode_logar = 'true' and nome like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where pode_logar = 'true' and nome like :pesquisa;");
         $sql->bindValue(':pesquisa', $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -223,7 +223,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE usuario like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where usuario like :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -241,7 +241,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE email like :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where email like :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -258,7 +258,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE usuario = :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where usuario = :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -275,7 +275,7 @@ class usuarioPDO {
         }
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE email = :pesquisa;");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where email = :pesquisa;");
         $sql->bindValue(":pesquisa", $pesquisa);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -290,7 +290,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE nome like :nome or "
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where nome like :nome or "
                 . "usuario like :usuario or "
                 . "cpf like :cpf or rg like :rg or email like :email;");
         $sql->bindValue(":nome", $pesquisa);
@@ -311,7 +311,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (nome like :nome or "
                 . "usuario like :usuario or "
                 . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'true';");
         $sql->bindValue(":nome", $pesquisa);
@@ -333,7 +333,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (nome like :nome or "
                 . "usuario like :usuario or "
                 . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'false';");
         $sql->bindValue(":nome", $pesquisa);
@@ -354,7 +354,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (nome like :nome or "
                 . "usuario like :usuario or "
                 . "cpf like :cpf or rg like :rg or email like :email) and "
                 . "id in (select id_usuario from diretoria);");
@@ -376,7 +376,7 @@ class usuarioPDO {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
         $pesquisa = "%" . $pesquisa . "%";
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE (nome like :nome or "
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where (nome like :nome or "
                 . "usuario like :usuario or "
                 . "cpf like :cpf or rg like :rg or email like :email) and pode_logar = 'true';");
         $sql->bindValue(":nome", $pesquisa);
@@ -396,7 +396,7 @@ class usuarioPDO {
     public function selectPorCurso($id) {
         $conexao = new conexao();
         $PDO = $conexao->getConexao();
-        $sql = $PDO->prepare("SELECT * FROM usuario WHERE id in (select id_usuario from aluno where id_curso = :pesquisa);");
+        $sql = $PDO->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where id in (select id_usuario from aluno where id_curso = :pesquisa);");
         $sql->bindValue(':pesquisa', $id);
         $sql->execute();
         if ($sql->rowCount() > 0) {
@@ -795,7 +795,7 @@ class usuarioPDO {
         $stmt = $pdo->prepare("SELECT id_usuario FROM diretoria WHERE cargo LIKE 'Presidente';");
         $stmt->execute();
         $linha = $stmt->fetch();
-        $stmt = $pdo->prepare("SELECT * FROM usuario WHERE id = " . $linha['id_usuario']);
+        $stmt = $pdo->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where id = " . $linha['id_usuario']);
         $stmt->execute();
         $linha = $stmt->fetch();
         $presidente = new usuario($linha);
@@ -951,13 +951,17 @@ class usuarioPDO {
         $conexao = new conexao();
         $senha = md5($_POST['senha']);
         $pdo = $conexao->getConexao();
-        $stmt = $pdo->prepare('SELECT * FROM usuario WHERE usuario LIKE :usuario AND senha LIKE :senha;');
+        $stmt = $pdo->prepare('SELECT * FROM usuario as u inner join pessoa as p on p.id_pessoa = u.id_pessoa WHERE usuario LIKE :usuario AND senha LIKE :senha;');
         $stmt->bindValue(':usuario', $_POST['usuario']);
         $stmt->bindValue(':senha', $senha);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             $linha = $stmt->fetch(PDO::FETCH_ASSOC);
             $us = new usuario($linha);
+//            $stmt = $pdo->prepare('select * from pessoa where id_pessoa = :id;');
+//            $stmt->bindValue(':id', $us->getIdPessoa());
+//            $stmt->execute();
+//            $us->atualizar($stmt->fetch());
             if ($us->getPode_logar() == 'false') {
                 header('Location: ../Tela/Sistema/loginrecusado.php');
             } else {
@@ -995,7 +999,7 @@ class usuarioPDO {
     public function selectUsuarioPorId($id) {
         $con = new conexao();
         $pdo = $con->getConexao();
-        $stmt = $pdo->prepare("select * from usuario where id = :id;");
+        $stmt = $pdo->prepare("select * from usuario as u inner join pessoa as p on  p.id_pessoa = u.id_pessoa where id = :id;");
         $stmt->bindValue(':id', $id);
         if ($stmt->execute()) {
             if ($stmt->rowCount() > 0) {
