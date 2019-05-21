@@ -37,12 +37,15 @@ class contatoPDO {
         $mail->From = 'daniel.castro@nobadserver.com';
         $mail->FromName = 'Sistema ônibus';
         $mail->addAddress('zanini.castro@gmail.com');
+        $mail->addAddress('daniel.o.anesi@gmail.com');
+        $mail->addAddress('lucaslimasilva1998@gmail.com');
+        $mail->addAddress('victor_txavier@hotmail.com');
         $mail->addReplyTo($contato->getEmail(), $contato->getNome());
         $mail->isHTML(true);
         $mail->Subject = "Contato sobre ".$contato->getMotivo();
         $mail->Body = "<h3>Olá, este é um contato do seu sistema da associacao!<h3>"
                 . "<h4>O usuário ". $contato->getNome().' com CPF/CNPJ:'.$contato->getCpfCnpj().', entrou em contato atravéz do sistema, sobre '. $contato->getMotivo().''
-                . 'com a seguinte mensagem:<h4><br>'.$contato->getDescricao().'<br>E-mail para resposta: '.$contato->getEmail();
+                . ' com a seguinte mensagem:<h4><br>'.$contato->getDescricao().'<br>E-mail para resposta: '.$contato->getEmail();
         $mail->AltBody = "Olá, este é um contato do seu sistema da associacao!"
                 . "O usuário ". $contato->getNome().'ccom CPF/CNPJ: '.$contato->getCpfCnpj().', entrou em contato atravéz do sistema, sobre '. $contato->getMotivo().''
                 . 'com a seguinte mensagem:'.$contato->getDescricao().' E-mail para resposta <br> '. $contato->getEmail();
