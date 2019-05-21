@@ -38,33 +38,7 @@ class sistemaPDO {
         }
     }
 
-    function contato() {
-        $contato = new contato($_POST);
-        $con = new conexao();
-        $pdo = $con->getConexao();
-        $stmt = $pdo->prepare("insert into contato values (default, :nome , :cpf , :email ,:motivo , :descricao);");
-        $stmt->bindValue(':nome', $contato->getNome());
-        $stmt->bindValue(':cpf', $contato->getCpfCnpj());
-        $stmt->bindValue(':email', $contato->getEmail());
-        $stmt->bindValue(':motivo', $contato->getMotivo());
-        $stmt->bindValue(':descricao', $contato->getDescricao());
-        if ($stmt->execute()) {
-            if ($contato->getMotivo() == 'bug') {
-                header('location: ../Tela/Sistema/reclamacao.php?msg=sucessoContatoBug');
-            }
-            if ($contato->getMotivo() == 'critica') {
-                header('location: ../Tela/Sistema/reclamacao.php?msg=sucessoContatoCritica');
-            }
-            if ($contato->getMotivo() == 'sugestao') {
-                header('location: ../Tela/Sistema/reclamacao.php?msg=sucessoContatoSugestao');
-            }
-            if ($contato->getMotivo() == 'problema') {
-                header('location: ../Tela/Sistema/reclamacao.php?msg=sucessoContatoProblema');
-            }
-        } else {
-            header('location: ../Tela/Sistema/reclamacao.php?msg=erroContato');
-        }
-    }
+    
 
     function selectContatos() {
         $con = new conexao();

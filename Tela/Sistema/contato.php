@@ -16,7 +16,7 @@
                 <div style="height: 10vh;"></div>
                 <div class="col s8 offset-s2 card center " style="padding-top: 10px;">
                     <div class="row">
-                        <form class="col s10 offset-s1" action="../../Controle/sistemaControle.php?function=<?php echo isset($_GET['msg']) ? $_GET['msg'] == 'acessoNegado' ? 'acessoNegado' : 'contato' : 'contato'; ?>" method="post">
+                        <form class="col s10 offset-s1" action="../../Controle/contatoControle.php?function=<?php echo isset($_GET['msg']) ? $_GET['msg'] == 'acessoNegado' ? 'acessoNegado' : 'contato' : 'contato'; ?>" method="post">
                             <?php
                             if (isset($_GET['msg'])) {
                                 if ($_GET["msg"] == 'acessoNegado') {
