@@ -29,30 +29,43 @@ if (realpath("./index.php")) {
 
 class alunoPDO {
 
+    public function dataBanco($data){
+        list($dia, $mes, $ano) = explode("/", $data);
+        return $ano."-".$mes."-".$dia;
+    }
+    
+    public function dataObjeto($data){
+        list($ano, $mes, $dia) = explode("-", $data);
+        return $dia."/".$mes."/".$ano;
+    }
+    
     public function inserirAluno() {
         $al = new aluno($_POST);
         $usuarioPDO = new usuarioPDO();
         $resultado = $usuarioPDO->inserirUsuario(new usuario($_POST));
-        try{
-            $al->atualizar($resultado);
-            $conexao = new conexao();
-            $pdo = $conexao->getConexao();
-            $us->setIdPessoa($this->buscarIDporRG($us->getRg()));
-            $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0, :dataInicio ,:conclusao, 'false');");
-            $sql->bindValue(':id', $us->getIdPessoa());
-            $sql->bindValue(':curso', $al->getId_cursoRef());
-            $sql->bindValue(':dataInicio', $al->getData_inicio());
-            $sql->bindValue(':conclusao', $al->getPrevisao_conclusao());
-            if ($sql->execute()) {
-                header("Location: ../Tela/Cadastro/orientacao.php?msg=" . $this->enviarOrientacaoCadAluno($resultado));
-            } else {
-                header("Location: ../Tela/Cadastro/cadastroAluno.php?msg=erroInserirAluno");
+        if (!is_string($resultado)) {
+            try {
+                $al->atualizar($resultado);
+                $conexao = new conexao();
+                $pdo = $conexao->getConexao();
+                $al->setIdPessoa($usuarioPDO->buscarIDporRG($al->getRg()));
+                $sql = $pdo->prepare("insert into aluno values(:id,null,:curso,0, :dataInicio ,:conclusao, 'false');");
+                $sql->bindValue(':id', $al->getIdPessoa());
+                $sql->bindValue(':curso', $this->dataBanco($al->getId_cursoRef()));
+                $sql->bindValue(':dataInicio', $this->dataBanco($al->getData_inicio()));
+                $sql->bindValue(':conclusao', $this->dataBanco($al->getPrevisao_conclusao()));
+                if ($sql->execute()) {
+                    //header("Location: ../Tela/Cadastro/orientacao.php?msg=" . $this->enviarOrientacaoCadAluno($resultado));
+                } else {
+                    //header("Location: ../Tela/Cadastro/cadastroAluno.php?msg=erroInserirAluno");
+                }
+            } catch (Exception $e) {
+                //header('location: ../Tela/Cadastro/cadastroAluno.php?msg=' . $resultado);
             }
-        } catch (Exception $e) {
-            header('location: ../Tela/Cadastro/cadastroAluno.php?msg=' . $resultado);
         }
+        
     }
-    
+
     private function enviarOrientacaoCadAluno(usuario $us) { //mÃ©todo de controle
         if ($us->getIdade() >= 18) { //Sucesso ao cadastrar ALUNO
             if (isset($_SESSION['usuario'])) {
@@ -70,7 +83,7 @@ class alunoPDO {
             return "cadastrarResponsavel";
         }
     }
-    
+
     public function updateAluno() {
         $usuarioPDO = new usuarioPDO();
         $conexao = new conexao();

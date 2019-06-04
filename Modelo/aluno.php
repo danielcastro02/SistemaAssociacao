@@ -1,5 +1,15 @@
 <?php
-
+if (realpath("./index.php")) {
+    include_once './Modelo/usuario.php';
+} else {
+    if (realpath("../index.php")) {
+        include_once '../Modelo/usuario.php';
+    } else {
+        if (realpath("../../index.php")) {
+            include_once '../../Modelo/usuario.php';
+        }
+    }
+}
 class aluno extends usuario {
 
     private $id_responsavel;

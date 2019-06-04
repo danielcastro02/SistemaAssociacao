@@ -479,6 +479,7 @@ class usuarioPDO {
                     . " :rg , :nascimento, :data_associacao , :fotoPerfil , "
                     . ":podeLogar , 'false' );");
             $sql->bindValue(':id_pessoa', $us->getIdPessoa());
+            $sql->bindValue(":usuario", $us->getUsuario());
             $sql->bindValue(':senha', $senhaMD5);
             $sql->bindValue(':rg', $us->getRg());
             $sql->bindValue(':nascimento', $us->getData_nasc());

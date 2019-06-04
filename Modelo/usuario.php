@@ -24,7 +24,6 @@ class usuario extends pessoa {
     protected $administrador;
     protected $senha1;
     protected $senha2;
-    
 
     public function __construct() {
         if (func_num_args() == 1) {
@@ -35,14 +34,18 @@ class usuario extends pessoa {
                 }
             }
         }
-        if (!is_null($this->data_nasc) && $this->data_nasc!= '') {
+        if (!is_null($this->data_nasc) && $this->data_nasc != '') {
             date_default_timezone_set('America/Sao_Paulo');
             $anoAtual = date('Y');
             $mesAtual = date('m');
             $diaAtual = date('d');
             $nascimento = $this->data_nasc;
-
-            list($ano, $mes, $dia) = explode('-', $nascimento);
+            $teste = explode("/", $nascimento);
+            if (count($teste) > 2) {
+                list($dia, $mes, $ano) = explode('/', $nascimento);
+            } else {
+                list($ano, $mes, $dia) = explode('-', $nascimento);
+            }
 
             $idade = $anoAtual - $ano;
             if ($mesAtual > $mes) {
@@ -64,9 +67,7 @@ class usuario extends pessoa {
                 $this->$atributo = $valor;
             }
         }
-        $this->setIdade();
     }
-    
     function getData_associacao() {
         return $this->data_associacao;
     }
@@ -90,12 +91,12 @@ class usuario extends pessoa {
     function getData_nasc() {
         return $this->data_nasc;
     }
-    
+
     function getData_nascFormatada() {
-        $vet = explode($this->data_nasc , "-");
-        return $vet[3].'/'.$vet[2].'/'.$vet[1];
+        $vet = explode($this->data_nasc, "-");
+        return $vet[3] . '/' . $vet[2] . '/' . $vet[1];
     }
-    
+
     function getFotoPerfil() {
         return $this->fotoPerfil;
     }
@@ -103,7 +104,7 @@ class usuario extends pessoa {
     function setFotoPerfil($fotoPerfil) {
         $this->fotoPerfil = $fotoPerfil;
     }
-    
+
     function getPode_logar() {
         return $this->pode_logar;
     }
@@ -159,7 +160,11 @@ class usuario extends pessoa {
             $mesAtual = date('m');
             $diaAtual = date('d');
             $nascimento = $data_nasc;
-            list($ano, $mes, $dia) = explode('-', $this->data_nasc);
+            if (count($teste) > 2) {
+                list($dia, $mes, $ano) = explode('/', $nascimento);
+            } else {
+                list($ano, $mes, $dia) = explode('-', $nascimento);
+            }
             $idade = $anoAtual - $ano;
             if ($mesAtual > $mes) {
                 return $idade;

@@ -25,16 +25,16 @@ class pessoaPDO{
         $pdo = $con->getConexao();
         $stmt = $pdo->prepare("insert into pessoa values (default , :nome, :cpf_cnpj , :cep , :cidade , :bairro , :rua , :numero , :telefone , :email);");
         $stmt->bindValue(':nome', $pessoa->getNome());
-        $stmt->bindValue('cpf_cnpj', $pessoa->getCpfCnpj());
+        $stmt->bindValue(':cpf_cnpj', $pessoa->getCpfCnpj());
         $stmt->bindValue(':cep', $pessoa->getCep());
         $stmt->bindValue(':cidade', $pessoa->getCidade());
-        $stmt->bindValue('bairro', $pessoa->getBairro());
+        $stmt->bindValue(':bairro', $pessoa->getBairro());
         $stmt->bindValue(':rua', $pessoa->getRua());
         $stmt->bindValue(':numero', $pessoa->getNumero());
         $stmt->bindValue(':email', $pessoa->getEmail());
         $stmt->bindValue(':telefone', $pessoa->getTelefone());
         if($stmt->execute()){
-            $stmt = $pdo->prepare('select * from pessoaa where cpf_cnpj = :cpf;');
+            $stmt = $pdo->prepare('select * from pessoa where cpf_cnpj = :cpf;');
             $stmt->bindValue(':cpf', $pessoa->getCpfCnpj());
             $stmt->execute();
             return new pessoa($stmt->fetch());
